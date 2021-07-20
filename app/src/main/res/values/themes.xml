@@ -12,10 +12,22 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="NoActionBar"  parent="Theme.OOLMOBILE">
+    <style name="NoActionBar" parent="Theme.OOLMOBILE">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="Theme.OOLMOBILE.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="Theme.OOLMOBILE.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.OOLMOBILE.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

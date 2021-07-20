@@ -1,7 +1,23 @@
 <resources>
     <string name="app_name">OOL-MOBILE</string>
+    <string name="title_activity_content">ContentActivity</string>
+
     <string name="label_email"> Email </string>
-    <string name="label_senha"> Senha </string>
-    <string name="label_entrar"> Entrar </string>
+    <string name="label_password"> Senha </string>
+    <string name="label_enter"> Entrar </string>
     <string name="out_of_lens_logo">Out of lens logo</string>
+
+    <string name="nav_header_title">Algum usuário</string>
+    <string name="nav_header_subtitle">Alguma profissão</string>
+    <string name="nav_header_desc">Current user logo</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Página Inicial</string>
+    <string name="menu_calendar">Calendário</string>
+    <string name="menu_packages">Pacotes</string>
+    <string name="menu_reports">Relatórios</string>
+
+    <string name="menu_equipments">Equipamentos</string>
+    <string name="menu_photoshoots">Ensaios</string>
 </resources>

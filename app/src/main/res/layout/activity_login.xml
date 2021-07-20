@@ -50,7 +50,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/label_senha" />
+            android:hint="@string/label_password" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:fontFamily="@font/rambla"
-        android:text="@string/label_entrar"
+        android:text="@string/label_enter"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
