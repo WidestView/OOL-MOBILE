@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SDCard">
+        <item name="cornerFamilyBottomLeft">cut</item>
+        <item name="cornerSizeBottomLeft">8dp</item>
+    </style>
+
+
+    <style name="LoginEditTextCorner">
+        <item name="cornerSize">4dp</item>
+    </style>
+
+</resources>

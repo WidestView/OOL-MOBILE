@@ -8,6 +8,7 @@
     tools:context=".LoginActivity">
 
     <ImageView
+        android:contentDescription="@string/out_of_lens_logo"
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="93dp"
@@ -21,22 +22,18 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayoutEmail"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        app:boxStrokeColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:shapeAppearanceOverlay="@style/LoginEditTextCorner">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:fontFamily="sans-serif-light"
             android:hint="@string/label_email" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,12 +44,12 @@
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="@+id/inputLayoutEmail"
         app:layout_constraintStart_toStartOf="@+id/inputLayoutEmail"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayoutEmail">
+        app:layout_constraintTop_toBottomOf="@+id/inputLayoutEmail"
+        app:shapeAppearanceOverlay="@style/LoginEditTextCorner">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
             android:hint="@string/label_senha" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,6 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputLayoutSenha"
-        app:strokeColor="@color/primaryLightColor" />
+        android:textColor="@color/white"
+        app:strokeColor="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
