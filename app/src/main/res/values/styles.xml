@@ -18,4 +18,13 @@
 
     </style>
 
+
+    <style name="CustomFontTextView" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/rambla</item>
+    </style>
+
+    <style name="Title" parent="CustomFontTextView">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>
