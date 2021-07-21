@@ -18,6 +18,11 @@
 
     </style>
 
+    <style name="NoRightCorner">
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+    </style>
+
 
     <style name="CustomFontTextView" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/rambla</item>

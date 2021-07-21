@@ -40,7 +40,7 @@ public class ContentActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                // todo: fill this with other ids root navigation
+                // todo: fill this with other root navigation ids
                 R.id.nav_home
         ).setOpenableLayout(drawer).build();
     }

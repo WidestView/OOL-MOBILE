@@ -35,4 +35,10 @@
     <string name="sample_image_description">Sample Image</string>
     <string name="sample_day_of_week">SEG</string>
     <string name="sample_day_of_month">24</string>
+    <string name="sample_photoshoot_name_0">Aniversário de Andy</string>
+    <string name="sample_photoshoot_name_1">Casamento Hippie</string>
+    <string name="view">Visualizar</string>
+    <string name="finish">Finalizar</string>
+    <string name="sample_photoshoot_date_0">segunda, 24 de julho</string>
+    <string name="sample_photoshoot_date_1">sexta, 20 de julho</string>
 </resources>

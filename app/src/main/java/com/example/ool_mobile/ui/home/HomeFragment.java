@@ -5,11 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -36,5 +40,41 @@ public class HomeFragment extends Fragment {
 
         binding.homeFragmentMonthTextView.setText(homeViewModel.getDayOfMonth());
         binding.homeFragmentWeekTextView.setText(homeViewModel.getDayOfWeek());
+
+
+        binding.homeFragmentPendingSessionsRecyclerview.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+            @NonNull
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+                @LayoutRes
+                int resource = Math.random() < 0.8
+                        ? R.layout.pending_photoshoot_row 
+                        : R.layout.pending_photoshoot_row_due;
+
+                View view = LayoutInflater
+                        .from(parent.getContext())
+                        .inflate(resource, parent, false);
+
+                return new RecyclerView.ViewHolder(view) {
+                };
+            }
+
+            @Override
+            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) { }
+
+            @Override
+            public int getItemCount() {
+                return 3;
+            }
+
+        });
+
+        binding.homeFragmentPendingSessionsRecyclerview.setHasFixedSize(true);
+
+        binding.homeFragmentPendingSessionsRecyclerview.setLayoutManager(
+                new LinearLayoutManager(requireContext())
+        );
+
     }
 }
