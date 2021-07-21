@@ -4,18 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.ool_mobile.R;
+import com.example.ool_mobile.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
-    private TextView textView;
+    private FragmentHomeBinding binding;
 
     @NonNull
     public View onCreateView(
@@ -24,11 +23,9 @@ public class HomeFragment extends Fragment {
             @Nullable Bundle savedInstanceState
     ) {
 
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        textView = root.findViewById(R.id.text_home);
-
-        return root;
+        return binding.getRoot();
     }
 
     @Override
@@ -37,6 +34,7 @@ public class HomeFragment extends Fragment {
 
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        binding.homeFragmentMonthTextView.setText(homeViewModel.getDayOfMonth());
+        binding.homeFragmentWeekTextView.setText(homeViewModel.getDayOfWeek());
     }
 }

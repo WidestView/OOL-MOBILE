@@ -1,9 +1,12 @@
 package com.example.ool_mobile.ui.home;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class HomeViewModel extends ViewModel {
 
@@ -15,7 +18,22 @@ public class HomeViewModel extends ViewModel {
     }
 
     @NonNull
-    public LiveData<String> getText() {
-        return mText;
+    public String getDayOfWeek() {
+
+        SimpleDateFormat weekFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
+
+        String result = weekFormat.format(new Date());
+
+        return result.substring(0, Math.min(3, result.length()));
+    }
+
+    @NonNull
+    public String getDayOfMonth() {
+
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.getDefault());
+
+        String result =  dayFormat.format(new Date());
+
+        return result.substring(0, Math.min(3, result.length()));
     }
 }

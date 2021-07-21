@@ -10,4 +10,12 @@
         <item name="cornerSize">4dp</item>
     </style>
 
+    <style name="HomeCircleView">
+
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:background">@drawable/ellipse_1</item>
+
+    </style>
+
 </resources>

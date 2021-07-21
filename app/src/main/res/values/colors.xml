@@ -6,4 +6,6 @@
     <color name="primaryLightColor">#0790E6</color>
     <color name="primaryDarkColor">#012840</color>
     <color name="primaryTextColor">#ffffff</color>
+
+    <color name="secondaryText">#858585</color>
 </resources>
