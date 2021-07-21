@@ -1,7 +1,44 @@
 <resources>
     <string name="app_name">OOL-MOBILE</string>
+    <string name="title_activity_content">ContentActivity</string>
+
     <string name="label_email"> Email </string>
-    <string name="label_senha"> Senha </string>
-    <string name="label_entrar"> Entrar </string>
+    <string name="label_password"> Senha </string>
+    <string name="label_enter"> Entrar </string>
     <string name="out_of_lens_logo">Out of lens logo</string>
+
+    <string name="nav_header_title">Algum usuário</string>
+    <string name="nav_header_subtitle">Alguma profissão</string>
+    <string name="nav_header_desc">Current user logo</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Página Inicial</string>
+    <string name="menu_calendar">Calendário</string>
+    <string name="menu_packages">Pacotes</string>
+    <string name="menu_reports">Relatórios</string>
+
+    <string name="menu_equipments">Equipamentos</string>
+    <string name="menu_photoshoots">Ensaios</string>
+    <string name="welcome_format">Boas Vindas, %s</string>
+    <string name="see_whats_up">Veja o que você tem de novo</string>
+    <string name="equipment_icon_description">Ícone de equipamentos</string>
+    <string name="report_description">Ícone de relatório</string>
+    <string name="package_icon_description">Ícone de pacote</string>
+    <string name="calendar_icon_description">Ícone de calendário</string>
+
+    <string name="equipments">Equipamentos</string>
+    <string name="reports">Relatórios</string>
+    <string name="packages">Pacotes</string>
+    <string name="calendar">Calendário</string>
+    <string name="today_todo">Pendencias Diárias</string>
+    <string name="sample_image_description">Sample Image</string>
+    <string name="sample_day_of_week">SEG</string>
+    <string name="sample_day_of_month">24</string>
+    <string name="sample_photoshoot_name_0">Aniversário de Andy</string>
+    <string name="sample_photoshoot_name_1">Casamento Hippie</string>
+    <string name="view">Visualizar</string>
+    <string name="finish">Finalizar</string>
+    <string name="sample_photoshoot_date_0">segunda, 24 de julho</string>
+    <string name="sample_photoshoot_date_1">sexta, 20 de julho</string>
 </resources>
