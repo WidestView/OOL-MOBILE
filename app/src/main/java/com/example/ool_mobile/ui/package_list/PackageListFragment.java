@@ -1,6 +1,7 @@
 package com.example.ool_mobile.ui.package_list;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.ui.util.Collapse;
@@ -38,6 +41,16 @@ public class PackageListFragment extends Fragment {
         collapsedView = view.findViewById(R.id.packageRow_collapseLayout);
         arrowImageView = view.findViewById(R.id.packageRow_expandImageView);
         filterButtonView = view.findViewById(R.id.packageList_filterView);
+
+        setHasOptionsMenu(true);
+
+        view.findViewById(R.id.packageList_addFab).setOnClickListener(v -> {
+
+            NavController controller = Navigation.findNavController(getView());
+
+            controller.navigate(R.id.action_nav_package_to_addPhotoShootActivity);
+
+        });
 
         return view;
     }

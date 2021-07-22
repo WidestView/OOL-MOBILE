@@ -14,7 +14,16 @@
         android:id="@+id/nav_package"
         android:name="com.example.ool_mobile.ui.package_list.PackageListFragment"
         android:label="@string/search"
-        tools:layout="@layout/fragment_package_list" />
+        tools:layout="@layout/fragment_package_list" >
+        <action
+            android:id="@+id/action_nav_package_to_addPhotoShootActivity"
+            app:destination="@id/addPhotoShootActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/addPhotoShootActivity"
+        android:name="com.example.ool_mobile.ui.add_photo_shoot.AddPhotoShootActivity"
+        android:label="activity_add_photo_shoot"
+        tools:layout="@layout/activity_add_photo_shoot" />
 
 
 </navigation>

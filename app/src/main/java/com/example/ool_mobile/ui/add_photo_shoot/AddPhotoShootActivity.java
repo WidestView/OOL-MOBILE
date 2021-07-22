@@ -41,6 +41,10 @@ public class AddPhotoShootActivity extends AppCompatActivity {
         endTimeEditText = findViewById(R.id.addPhotoShoot_endTimeEditText);
         dateEditText = findViewById(R.id.addPhotoShoot_dateEditText);
 
+        findViewById(R.id.addPhotoShoot_backImageView).setOnClickListener(v ->
+                onBackPressed()
+        );
+
 
         findViewById(R.id.addPhotoShoot_saveButton).setOnClickListener(v ->
                 onSaveButtonClick()
@@ -83,11 +87,7 @@ public class AddPhotoShootActivity extends AppCompatActivity {
                 .setTitleText(R.string.select_end_time)
                 .build();
 
-        picker.addOnDismissListener(dialog -> {
-
-            dateEditText.setText(picker.getHeaderText());
-
-        });
+        picker.addOnDismissListener(dialog -> dateEditText.setText(picker.getHeaderText()));
 
 
         dateEditText.setOnClickListener(v ->
