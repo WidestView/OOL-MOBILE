@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
 import com.example.ool_mobile.R;
@@ -18,10 +19,11 @@ import com.example.ool_mobile.ui.util.Collapse;
 
 public class PackageListFragment extends Fragment {
 
-    ViewGroup expandedView;
+    ViewGroup filterButtonView;
+
     ImageView arrowImageView;
 
-    private boolean expanded = true;
+    ViewGroup collapsedView;
 
 
     @Nullable
@@ -31,10 +33,11 @@ public class PackageListFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState
     ) {
-        View view = inflater.inflate(R.layout.package_list_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_package_list, container, false);
 
-        expandedView = view.findViewById(R.id.packageList_expandedLayout);
-        arrowImageView = view.findViewById(R.id.package_expandImageView);
+        collapsedView = view.findViewById(R.id.packageRow_collapseLayout);
+        arrowImageView = view.findViewById(R.id.packageRow_expandImageView);
+        filterButtonView = view.findViewById(R.id.packageList_filterView);
 
         return view;
     }
@@ -50,9 +53,23 @@ public class PackageListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Collapse.on(expandedView)
+        Collapse.on(collapsedView)
                 .startCollapsed()
                 .withToggle(arrowImageView);
+
+        filterButtonView.setOnClickListener(this::showMenu);
+    }
+
+    private void showMenu(View view) {
+
+        PopupMenu popup = new PopupMenu(requireContext(), view);
+
+        Menu menu = popup.getMenu();
+        menu.add(R.string.type);
+        menu.add(R.string.price);
+        menu.add(R.string.quantity);
+
+        popup.show();
     }
 
     @Override

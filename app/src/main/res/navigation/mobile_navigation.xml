@@ -14,7 +14,7 @@
         android:id="@+id/nav_package"
         android:name="com.example.ool_mobile.ui.package_list.PackageListFragment"
         android:label="@string/search"
-        tools:layout="@layout/package_list_fragment" />
+        tools:layout="@layout/fragment_package_list" />
 
 
 </navigation>
