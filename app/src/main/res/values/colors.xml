@@ -2,15 +2,12 @@
 <resources>
     <color name="black"> #333333 </color>
     <color name="white">#FFFFFFFF</color>
-    <color name="mainRed">#B73F3F</color>
-
     <color name="primaryColor">#023859</color>
     <color name="primaryLightColor">#0790E6</color>
     <color name="primaryDarkColor">#012840</color>
-
-
-    <color name="primaryTextColor">#ffffff</color>
+    <color name="gray_light"> #AAAAAA </color>
     <color name="secondaryText">#858585</color>
 
     <color name="dimStroke">#C2C2C2</color>
+    <color name="mainRed">#B73F3F</color>
 </resources>
