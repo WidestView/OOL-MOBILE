@@ -10,4 +10,26 @@
         <item name="cornerSize">4dp</item>
     </style>
 
+    <style name="HomeCircleView">
+
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:background">@drawable/ellipse_1</item>
+
+    </style>
+
+    <style name="NoRightCorner">
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+    </style>
+
+
+    <style name="CustomFontTextView" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/rambla</item>
+    </style>
+
+    <style name="Title" parent="CustomFontTextView">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

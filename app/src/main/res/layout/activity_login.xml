@@ -9,13 +9,13 @@
     tools:context=".LoginActivity">
 
     <ImageView
+        android:contentDescription="@string/out_of_lens_logo"
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="93dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="180dp"
         android:layout_marginEnd="60dp"
-        android:contentDescription="@string/out_of_lens_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -76,8 +76,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="80dp"
         android:fontFamily="@font/rambla"
-        android:onClick="logIn"
-        android:text="@string/label_entrar"
+        android:text="@string/label_enter"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
