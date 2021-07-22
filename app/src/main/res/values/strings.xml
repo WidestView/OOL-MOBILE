@@ -59,4 +59,16 @@
     <string name="price">Preço</string>
     <string name="type">Tipo</string>
     <string name="sample_package_type">Cerimônia de Confraternização</string>
+    <string name="select_start_time">Selecione o horário de início </string>
+    <string name="select_end_time">Selecione o horário de fim </string>
+    <string name="hour_format">%d:%d</string>
+    <string name="error_insert_valid_time_range">Insira um intervalo de tempo válido</string>
+    <string name="add_photo_shoot">Adicionar Ensaio</string>
+    <string name="request">Pedido</string>
+    <string name="address">Endereço</string>
+    <string name="date">Data</string>
+    <string name="start_time">Horário Inicial</string>
+    <string name="end_time">Horário Final</string>
+    <string name="save">Salvar</string>
+    <string name="go_back_icon_description">Ícone de voltar</string>
 </resources>
