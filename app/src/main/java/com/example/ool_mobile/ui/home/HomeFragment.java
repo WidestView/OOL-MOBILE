@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -14,11 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ool_mobile.R;
-import com.example.ool_mobile.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+
+    private RecyclerView recyclerView;
+    private TextView weekTextView;
+    private TextView monthTextView;
 
     @NonNull
     public View onCreateView(
@@ -27,9 +30,13 @@ public class HomeFragment extends Fragment {
             @Nullable Bundle savedInstanceState
     ) {
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        return binding.getRoot();
+        recyclerView = view.findViewById(R.id.homeFragment_pendingSessionsRecyclerview);
+        weekTextView = view.findViewById(R.id.homeFragment_weekTextView);
+        monthTextView = view.findViewById(R.id.homeFragment_monthTextView);
+
+        return view;
     }
 
     @Override
@@ -38,11 +45,11 @@ public class HomeFragment extends Fragment {
 
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        binding.homeFragmentMonthTextView.setText(homeViewModel.getDayOfMonth());
-        binding.homeFragmentWeekTextView.setText(homeViewModel.getDayOfWeek());
+        monthTextView.setText(homeViewModel.getDayOfMonth());
+        weekTextView.setText(homeViewModel.getDayOfWeek());
 
 
-        binding.homeFragmentPendingSessionsRecyclerview.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        recyclerView.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             @NonNull
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -70,9 +77,9 @@ public class HomeFragment extends Fragment {
 
         });
 
-        binding.homeFragmentPendingSessionsRecyclerview.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);
 
-        binding.homeFragmentPendingSessionsRecyclerview.setLayoutManager(
+        recyclerView.setLayoutManager(
                 new LinearLayoutManager(requireContext())
         );
 

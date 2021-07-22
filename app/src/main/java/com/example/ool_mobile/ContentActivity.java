@@ -2,16 +2,16 @@ package com.example.ool_mobile;
 
 import android.os.Bundle;
 
-import com.google.android.material.navigation.NavigationView;
-
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.navigation.NavigationView;
 
 public class ContentActivity extends AppCompatActivity {
 
@@ -41,7 +41,12 @@ public class ContentActivity extends AppCompatActivity {
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 // todo: fill this with other root navigation ids
-                R.id.nav_home
+                R.id.nav_home,
+                R.id.nav_calendar,
+                R.id.nav_package,
+                R.id.nav_report,
+                R.id.nav_equipment,
+                R.id.nav_photoshoots
         ).setOpenableLayout(drawer).build();
     }
 

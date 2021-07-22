@@ -41,4 +41,22 @@
     <string name="finish">Finalizar</string>
     <string name="sample_photoshoot_date_0">segunda, 24 de julho</string>
     <string name="sample_photoshoot_date_1">sexta, 20 de julho</string>
+    <string name="search">Procurar</string>
+    <string name="filter_icon_description">Ícone de descrição</string>
+    <string name="add_fab_description">Add Package Button</string>
+    <string name="all">Todos</string>
+    <string name="filter_label">Filtrar Por</string>
+    <string name="sample_package_name">Casamento</string>
+    <string name="available">disponível</string>
+    <string name="delete_icon_description">Ícone de apagar</string>
+    <string name="expand_icon_description">Ícone de expandir</string>
+    <string name="edit_icon_description">Ícone de editar</string>
+    <string name="id">ID</string>
+    <string name="question_mark">\?</string>
+    <string name="sample_package_quantity">100</string>
+    <string name="quantity">Quantidade</string>
+    <string name="sample_package_price">120, 00 R$</string>
+    <string name="price">Preço</string>
+    <string name="type">Tipo</string>
+    <string name="sample_package_type">Cerimônia de Confraternização</string>
 </resources>
