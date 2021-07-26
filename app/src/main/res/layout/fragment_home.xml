@@ -182,19 +182,19 @@
         android:contentDescription="@string/sample_image_description" />
 
     <TextView
-        android:id="@+id/homeFragmentWeekTextView"
+        android:id="@+id/homeFragment_weekTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sample_day_of_week"
         android:textAllCaps="true"
-        app:layout_constraintBottom_toTopOf="@+id/homeFragmentMonthTextView"
-        app:layout_constraintEnd_toEndOf="@+id/homeFragmentMonthTextView"
-        app:layout_constraintStart_toStartOf="@+id/homeFragmentMonthTextView"
+        app:layout_constraintBottom_toTopOf="@+id/homeFragment_monthTextView"
+        app:layout_constraintEnd_toEndOf="@+id/homeFragment_monthTextView"
+        app:layout_constraintStart_toStartOf="@+id/homeFragment_monthTextView"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
-        android:id="@+id/homeFragmentMonthTextView"
+        android:id="@+id/homeFragment_monthTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -205,7 +205,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeFragmentWeekTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/homeFragment_weekTextView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeFragment_pendingSessionsRecyclerview"
@@ -216,7 +216,7 @@
         android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/homeFragmentMonthTextView"
+        app:layout_constraintStart_toEndOf="@+id/homeFragment_monthTextView"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
