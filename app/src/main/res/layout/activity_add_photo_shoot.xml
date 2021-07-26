@@ -26,7 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/add_photo_shoot"
-        android:textSize="18sp"
+        android:textColor="@color/gray_dark"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/addPhotoShoot_backImageView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -131,12 +132,14 @@
         android:id="@+id/addPhotoShoot_saveButton"
 
         style="?attr/materialButtonOutlinedStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
         android:text="@string/save"
-        app:layout_constraintTop_toBottomOf="@id/addPhotoShoot_endTimeInputLayout"
-        android:layout_marginTop="16dp"
+        android:textColor="@color/primaryLightColor"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="403dp" />
+        app:layout_constraintTop_toBottomOf="@id/addPhotoShoot_endTimeInputLayout"
+        app:strokeColor="@color/primaryLightColor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

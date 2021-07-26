@@ -7,31 +7,37 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
+            android:iconTint="@color/gray_dark"
             android:title="@string/menu_home" />
 
         <item
             android:id="@+id/nav_calendar"
             android:icon="@drawable/ic_calendar"
+            android:iconTint="@color/gray_dark"
             android:title="@string/menu_calendar" />
 
         <item
             android:id="@+id/nav_package"
             android:icon="@drawable/ic_package"
+            android:iconTint="@color/gray_dark"
             android:title="@string/menu_packages" />
 
         <item
             android:id="@+id/nav_report"
             android:icon="@drawable/ic_file"
+            android:iconTint="@color/gray_dark"
             android:title="@string/menu_reports" />
 
         <item
             android:id="@+id/nav_equipment"
             android:icon="@drawable/ic_camera_roll"
+            android:iconTint="@color/gray_dark"
             android:title="@string/menu_equipments" />
 
         <item
             android:id="@+id/nav_photoshoots"
             android:icon="@drawable/ic_camera"
+            android:iconTint="@color/gray_dark"
             android:title="@string/menu_photoshoots" />
 
 

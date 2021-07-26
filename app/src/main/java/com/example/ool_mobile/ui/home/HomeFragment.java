@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
                 @LayoutRes
-                int resource = Math.random() > 0.8
+                int resource = Math.random() > 0.5
                         ? R.layout.pending_photoshoot_row 
                         : R.layout.pending_photoshoot_row_due;
 
@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public int getItemCount() {
-                return 3;
+                return 10;
             }
 
         });

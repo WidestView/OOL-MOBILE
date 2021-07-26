@@ -10,6 +10,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/all"
+        android:textAllCaps="true"
+        android:textColor="@color/partial_gray_dark"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,6 +30,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/filter_label"
+            android:textColor="@color/partial_gray_dark"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +43,7 @@
             app:layout_constraintBottom_toBottomOf="@id/textView11"
             app:layout_constraintEnd_toStartOf="@id/textView11"
             app:layout_constraintTop_toTopOf="@id/textView11"
-            app:tint="@color/black" />
+            app:tint="@color/partial_gray_dark" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -60,6 +65,7 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/add_fab_description"
         android:src="@drawable/ic_add"
+        app:backgroundTint="@color/primaryDarkColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white" />
