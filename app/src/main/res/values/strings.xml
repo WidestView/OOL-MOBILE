@@ -47,15 +47,14 @@
     <string name="all">Todos</string>
     <string name="filter_label">Filtrar Por</string>
     <string name="sample_package_name">Casamento</string>
-    <string name="available">disponível</string>
+    <string name="available">Disponível</string>
     <string name="delete_icon_description">Ícone de apagar</string>
     <string name="expand_icon_description">Ícone de expandir</string>
     <string name="edit_icon_description">Ícone de editar</string>
     <string name="id">ID</string>
-    <string name="question_mark">\?</string>
+    <string name="question_mark"> \?</string>
     <string name="sample_package_quantity">100</string>
     <string name="quantity">Quantidade</string>
-    <string name="sample_package_price">120, 00 R$</string>
     <string name="price">Preço</string>
     <string name="type">Tipo</string>
     <string name="sample_package_type">Cerimônia de Confraternização</string>
@@ -71,4 +70,17 @@
     <string name="end_time">Horário Final</string>
     <string name="save">Salvar</string>
     <string name="go_back_icon_description">Ícone de voltar</string>
+    <string name="sample_package_description">Alguma Descrição</string>
+    <string name="price_per_photo">Preço por Foto</string>
+    <string name="sample_price">R$ 50</string>
+    <string name="base_value">Valor Base</string>
+    <string name="image_quantity">Quantidade de Imagens</string>
+    <string name="quantity_multiplier">Multiplicador de Quantidade</string>
+    <string name="sample_quantity">3</string>
+    <string name="package_type">Tipo de Pacote</string>
+    <string name="max_iterations">Iterações Máximas</string>
+    <string name="sample_max_iterations">5</string>
+    <string name="yes">Sim</string>
+    <string name="name">Nome</string>
+    <string name="description">Descrição</string>
 </resources>
