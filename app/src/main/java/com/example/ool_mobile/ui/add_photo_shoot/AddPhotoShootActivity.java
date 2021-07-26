@@ -13,6 +13,8 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class AddPhotoShootActivity extends AppCompatActivity {
 
     TextView startTimeEditText;
@@ -21,6 +23,10 @@ public class AddPhotoShootActivity extends AppCompatActivity {
 
     MaterialTimePicker startTimePicker;
     MaterialTimePicker endTimePicker;
+
+    private final AtomicBoolean startPickerActivated = new AtomicBoolean(false);
+    private final AtomicBoolean endPickerActivated = new AtomicBoolean(false);
+
     MaterialDatePicker<Pair<Long, Long>> datePicker;
 
     @Override
@@ -30,8 +36,17 @@ public class AddPhotoShootActivity extends AppCompatActivity {
 
         setupViews();
 
-        startTimePicker = setupTimePicker(R.string.select_start_time, startTimeEditText);
-        endTimePicker = setupTimePicker(R.string.select_end_time, endTimeEditText);
+        startTimePicker = setupTimePicker(
+                R.string.select_start_time,
+                startTimeEditText,
+                startPickerActivated
+        );
+
+        endTimePicker = setupTimePicker(
+                R.string.select_end_time,
+                endTimeEditText,
+                endPickerActivated
+        );
 
         datePicker = setupDatePicker();
     }
@@ -51,7 +66,11 @@ public class AddPhotoShootActivity extends AppCompatActivity {
         );
     }
 
-    private MaterialTimePicker setupTimePicker(@StringRes int title, TextView textView) {
+    private MaterialTimePicker setupTimePicker(
+            @StringRes int title,
+            TextView textView,
+            AtomicBoolean activated
+    ) {
 
         MaterialTimePicker picker = new MaterialTimePicker.Builder()
                 .setTimeFormat(TimeFormat.CLOCK_24H)
@@ -67,9 +86,10 @@ public class AddPhotoShootActivity extends AppCompatActivity {
                 )
         ));
 
-        textView.setOnClickListener(v ->
-                picker.show(getSupportFragmentManager(), "start")
-        );
+        textView.setOnClickListener(v -> {
+            picker.show(getSupportFragmentManager(), "start");
+            activated.set(true);
+        });
 
         return picker;
     }
@@ -98,12 +118,16 @@ public class AddPhotoShootActivity extends AppCompatActivity {
     }
 
     private void onSaveButtonClick() {
-        int startTimeMinutes = startTimePicker.getHour() * 60 + startTimePicker.getMinute();
-        int endTimeMinutes = endTimePicker.getHour() * 60 + endTimePicker.getMinute();
 
-        if (endTimeMinutes < startTimeMinutes) {
-            startTimeEditText.setError(getString(R.string.error_insert_valid_time_range));
-            endTimeEditText.setError(getString(R.string.error_insert_valid_time_range));
+        if (startPickerActivated.get() && endPickerActivated.get()) {
+
+            int startTimeMinutes = startTimePicker.getHour() * 60 + startTimePicker.getMinute();
+            int endTimeMinutes = endTimePicker.getHour() * 60 + endTimePicker.getMinute();
+
+            if (endTimeMinutes < startTimeMinutes) {
+                startTimeEditText.setError(getString(R.string.error_insert_valid_time_range));
+                endTimeEditText.setError(getString(R.string.error_insert_valid_time_range));
+            }
         }
     }
 
