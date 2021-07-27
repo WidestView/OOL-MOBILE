@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ContentRow">
+        <attr name="titleText" format="string"/>
+        <attr name="statusText" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ContentRowField">
+        <attr name="label" format="string"/>
+        <attr name="value" format="string"/>
+    </declare-styleable>
+</resources>

@@ -83,4 +83,13 @@
     <string name="yes">Sim</string>
     <string name="name">Nome</string>
     <string name="description">Descrição</string>
+    <string name="boop">boop</string>
+    <string name="beep">beep</string>
+    <string name="sample_description">beep boop beep boop</string>
+    <string name="sample_date">25/07/2021</string>
+    <string name="sample_id">10</string>
+    <string name="sample_employee_data">20 - Carlos Pereira</string>
+    <string name="employee">Funcionário</string>
+    <string name="photoshoot_id">ID Ensaio</string>
+    <string name="sample_report_title">Acontecimento</string>
 </resources>

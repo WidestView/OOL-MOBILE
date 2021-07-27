@@ -1,7 +1,6 @@
 package com.example.ool_mobile.ui.package_list;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,7 +39,7 @@ public class PackageListFragment extends Fragment {
 
         collapsedView = view.findViewById(R.id.packageRow_collapseLayout);
         arrowImageView = view.findViewById(R.id.packageRow_expandImageView);
-        filterButtonView = view.findViewById(R.id.packageList_filterView);
+        filterButtonView = view.findViewById(R.id.filterTop_filterButtonView);
 
         setHasOptionsMenu(true);
 
