@@ -32,20 +32,25 @@
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/rambla_bold"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:text="@string/nav_header_title"
-            app:layout_constraintTop_toBottomOf="@id/imageView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/gray_dark"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            app:layout_constraintTop_toBottomOf="@id/imageView" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/textView1"
-            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/rambla"
             android:text="@string/nav_header_subtitle"
-            />
+            android:textColor="#CC333333"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView1" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
