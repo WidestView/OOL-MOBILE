@@ -19,25 +19,29 @@
         app:layout_constraintEnd_toStartOf="parent"
         >
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
             android:contentDescription="@string/nav_header_desc"
-            app:srcCompat="@mipmap/ic_launcher_round"
+            android:elevation="10dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:shapeAppearance="@style/CornerofImageView"
+            app:srcCompat="@mipmap/ic_launcher_round" />
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/rambla_bold"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:text="@string/nav_header_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/gray_dark"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageView" />
 
@@ -45,10 +49,12 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:fontFamily="@font/rambla"
             android:text="@string/nav_header_subtitle"
             android:textColor="#CC333333"
-            android:textSize="12sp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView1" />
 
@@ -58,9 +64,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/primaryLightColor"
         android:layout_marginTop="16dp"
+        android:background="@color/gray_light"
         app:layout_constraintTop_toBottomOf="@id/layout0"
-        app:layout_goneMarginTop="@dimen/nav_header_vertical_spacing"
-        />
+        app:layout_goneMarginTop="@dimen/nav_header_vertical_spacing" />
 </androidx.constraintlayout.widget.ConstraintLayout>
