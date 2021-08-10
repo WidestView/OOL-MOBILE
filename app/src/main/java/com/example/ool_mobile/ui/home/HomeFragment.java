@@ -56,8 +56,8 @@ public class HomeFragment extends Fragment {
 
                 @LayoutRes
                 int resource = Math.random() > 0.5
-                        ? R.layout.pending_photoshoot_row 
-                        : R.layout.pending_photoshoot_row_due;
+                        ? R.layout.row_pending_photoshoot
+                        : R.layout.row_due_pending_photoshoot;
 
                 View view = LayoutInflater
                         .from(parent.getContext())

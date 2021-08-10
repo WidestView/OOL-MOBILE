@@ -25,7 +25,7 @@ public class ContentRowField extends LinearLayout {
     public ContentRowField(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        inflate(context, R.layout.content_row_field, this);
+        inflate(context, R.layout.component_row_field, this);
 
         labelTextView = requireNonNull(findViewById(R.id.contentRowField_labelTextView));
         valueTextView = requireNonNull(findViewById(R.id.contentRowField_valueTextView));

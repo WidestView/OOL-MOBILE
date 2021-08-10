@@ -28,7 +28,7 @@
         android:id="@id/nav_report"
         android:name="com.example.ool_mobile.ui.report_list.ReportListFragment"
         android:label="fragment_reportlist"
-        tools:layout="@layout/fragment_reportlist" />
+        tools:layout="@layout/fragment_report_list" />
 
 
 </navigation>

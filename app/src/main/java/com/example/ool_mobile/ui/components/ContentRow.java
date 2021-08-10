@@ -51,7 +51,7 @@ public class ContentRow extends ConstraintLayout {
         super(context, attrs, defStyleAttr);
 
 
-        inflate(context, R.layout.content_row, this);
+        inflate(context, R.layout.component_row, this);
 
         collapseLayout = requireNonNull(findViewById(R.id.contentRow_collapseLayout));
         titleTextView = requireNonNull(findViewById(R.id.contentRow_titleTextView));
