@@ -7,8 +7,8 @@
     <string name="label_enter"> Entrar </string>
     <string name="out_of_lens_logo">Out of lens logo</string>
 
-    <string name="nav_header_title">Algum usuário</string>
-    <string name="nav_header_subtitle">Alguma profissão</string>
+    <string name="nav_header_title">Pedro Fernandes Tamas </string>
+    <string name="nav_header_subtitle">Analista de Front-End </string>
     <string name="nav_header_desc">Current user logo</string>
 
     <string name="action_settings">Settings</string>
