@@ -1,6 +1,8 @@
 package com.example.ool_mobile;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -13,13 +15,18 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.ool_mobile.ui.meta.WithDrawer;
 import com.google.android.material.navigation.NavigationView;
 
-public class ContentActivity extends AppCompatActivity {
+import static java.util.Objects.requireNonNull;
+
+public class ContentActivity extends AppCompatActivity implements WithDrawer {
 
     private AppBarConfiguration mAppBarConfiguration;
 
     private Toolbar toolbar;
+
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,13 +42,13 @@ public class ContentActivity extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = requireNonNull(findViewById(R.id.toolbar));
 
         setSupportActionBar(toolbar);
     }
 
     private void setupAppbarConfiguration() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 // todo: fill this with other root navigation ids
@@ -82,5 +89,11 @@ public class ContentActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @SuppressLint("RtlHardcoded")
+    @Override
+    public void openDrawer() {
+        drawer.openDrawer(Gravity.LEFT);
     }
 }
