@@ -94,4 +94,6 @@
     <string name="sample_report_title">Acontecimento</string>
     <string name="menu_calendar_listLabel">Eventos</string>
     <string name="menu_calendar_viewLabel">Calendário</string>
+    <string name="label_reports">Relatórios</string>
+    <string name="label_calendar">Calendário</string>
 </resources>

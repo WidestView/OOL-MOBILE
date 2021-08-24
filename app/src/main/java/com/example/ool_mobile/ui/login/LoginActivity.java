@@ -1,24 +1,22 @@
-package com.example.ool_mobile;
+package com.example.ool_mobile.ui.login;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.example.ool_mobile.R;
 
 public class LoginActivity extends AppCompatActivity {
 
     ConstraintLayout layout;
 
     @Override
-    protected void onCreate(@NonNull Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 

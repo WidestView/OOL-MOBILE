@@ -1,4 +1,4 @@
-package com.example.ool_mobile;
+package com.example.ool_mobile.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ public class TempActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         startActivity(new Intent(this, ContentActivity.class));
-
 
         // todo: fix mysterious crashes with homefragment.
     }

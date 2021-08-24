@@ -27,12 +27,12 @@
     <fragment
         android:id="@id/nav_report"
         android:name="com.example.ool_mobile.ui.report_list.ReportListFragment"
-        android:label="fragment_reportlist"
+        android:label="@string/label_reports"
         tools:layout="@layout/fragment_report_list" />
     <fragment
         android:id="@+id/nav_calendar"
         android:name="com.example.ool_mobile.ui.calendar.CalendarFragment"
-        android:label="fragment_calendar"
+        android:label="@string/label_calendar"
         tools:layout="@layout/fragment_calendar" />
 
 

@@ -1,10 +1,11 @@
-package com.example.ool_mobile;
+package com.example.ool_mobile.ui;
+
+import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.text.Layout;
+import com.example.ool_mobile.R;
 
 public class MainActivity extends AppCompatActivity {
 

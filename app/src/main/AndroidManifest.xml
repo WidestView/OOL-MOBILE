@@ -10,7 +10,7 @@
         android:roundIcon="@drawable/ic_ool_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.OOLMOBILE">
-        <activity android:name=".TempActivity">
+        <activity android:name=".ui.TempActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,14 +21,14 @@
             android:name=".ui.add_photo_shoot.AddPhotoShootActivity"
             android:theme="@style/Theme.OOLMOBILE.NoActionBar"></activity>
         <activity
-            android:name=".ContentActivity"
+            android:name=".ui.ContentActivity"
             android:label="@string/title_activity_content"
             android:theme="@style/Theme.OOLMOBILE.NoActionBar">
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:theme="@style/Theme.OOLMOBILE.NoActionBar"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ui.MainActivity"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

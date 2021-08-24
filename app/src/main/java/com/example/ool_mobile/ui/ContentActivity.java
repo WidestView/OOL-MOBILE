@@ -1,4 +1,4 @@
-package com.example.ool_mobile;
+package com.example.ool_mobile.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.ool_mobile.R;
 import com.example.ool_mobile.ui.meta.WithDrawer;
 import com.google.android.material.navigation.NavigationView;
 
