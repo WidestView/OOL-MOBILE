@@ -1,19 +1,19 @@
 package com.example.ool_mobile;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.ool_mobile.ui.add_photo_shoot.AddPhotoShootActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class TempActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startActivity(new Intent(this, ContentActivity.class));
 
-        Intent intent = new Intent(this, AddPhotoShootActivity.class);
-        startActivity(intent);
+
+        // todo: fix mysterious crashes with homefragment.
     }
 }

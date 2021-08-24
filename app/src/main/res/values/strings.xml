@@ -92,4 +92,6 @@
     <string name="employee">Funcionário</string>
     <string name="photoshoot_id">ID Ensaio</string>
     <string name="sample_report_title">Acontecimento</string>
+    <string name="menu_calendar_listLabel">Eventos</string>
+    <string name="menu_calendar_viewLabel">Calendário</string>
 </resources>
