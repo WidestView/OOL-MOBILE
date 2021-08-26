@@ -96,4 +96,5 @@
     <string name="menu_calendar_viewLabel">Calendário</string>
     <string name="label_reports">Relatórios</string>
     <string name="label_calendar">Calendário</string>
+    <string name="error_invalidLogin">Login Inválido</string>
 </resources>

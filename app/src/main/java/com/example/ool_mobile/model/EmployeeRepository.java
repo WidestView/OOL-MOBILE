@@ -29,7 +29,7 @@ public class EmployeeRepository {
         return currentEmployee;
     }
 
-    @Nullable
+    @NonNull
     public Single<Boolean> login(@NonNull String username, @NonNull String password) {
 
         UserApi.LoginData loginData = new UserApi.LoginData();

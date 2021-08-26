@@ -37,7 +37,7 @@
         app:shapeAppearanceOverlay="@style/LoginEditTextCorner">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtemail"
+            android:id="@+id/login_emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/rambla"
@@ -61,7 +61,7 @@
         app:shapeAppearanceOverlay="@style/LoginEditTextCorner">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtsenha"
+            android:id="@+id/login_passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/rambla"
@@ -70,7 +70,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/login_button"
+        android:id="@+id/login_startButton"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="150dp"
         android:layout_height="60dp"
