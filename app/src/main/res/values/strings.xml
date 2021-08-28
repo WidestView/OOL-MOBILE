@@ -97,4 +97,7 @@
     <string name="label_reports">Relatórios</string>
     <string name="label_calendar">Calendário</string>
     <string name="error_invalidLogin">Login Inválido</string>
+    <string name="content">Conteúdo</string>
+    <string name="sample_content">Algum Relatório</string>
+    <string name="menu_employees">Funcionários</string>
 </resources>

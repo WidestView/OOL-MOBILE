@@ -25,7 +25,7 @@ public class ProjectApplication extends Application {
     public EmployeeRepository getEmployeeRepository() {
 
         if (repository == null) {
-            repository = new EmployeeRepository(new FakeUserApi());
+            repository = new EmployeeRepository(new FakeUserApi(), null, null);
         }
 
         return repository;

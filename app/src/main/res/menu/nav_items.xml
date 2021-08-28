@@ -35,6 +35,11 @@
             android:title="@string/menu_equipments" />
 
         <item
+            android:id="@+id/nav_employee"
+            android:iconTint="@color/gray_dark"
+            android:title="@string/menu_employees" />
+
+        <item
             android:id="@+id/nav_photoshoots"
             android:icon="@drawable/ic_camera"
             android:iconTint="@color/gray_dark"
