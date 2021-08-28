@@ -100,4 +100,6 @@
     <string name="content">Conteúdo</string>
     <string name="sample_content">Algum Relatório</string>
     <string name="menu_employees">Funcionários</string>
+    <string name="menu_customers">Clientes</string>
+    <string name="menu_orders">Pedidos</string>
 </resources>

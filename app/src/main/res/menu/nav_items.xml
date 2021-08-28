@@ -40,6 +40,16 @@
             android:title="@string/menu_employees" />
 
         <item
+            android:id="@+id/nav_customer"
+            android:iconTint="@color/gray_dark"
+            android:title="@string/menu_customers" />
+
+        <item
+            android:id="@+id/nav_order"
+            android:iconTint="@color/gray_dark"
+            android:title="@string/menu_orders" />
+
+        <item
             android:id="@+id/nav_photoshoots"
             android:icon="@drawable/ic_camera"
             android:iconTint="@color/gray_dark"

@@ -42,5 +42,15 @@
         android:label="@string/menu_employees"
         tools:layout="@layout/fragment_employee_list" />
 
+    <fragment
+        android:id="@+id/nav_customer"
+        android:name="com.example.ool_mobile.ui.customer_list.CustomerListFragment"
+        android:label="@string/menu_customers" />
+
+    <fragment
+        android:id="@+id/nav_order"
+        android:name="com.example.ool_mobile.ui.order_list.OrderListFragment"
+        android:label="@string/menu_orders" />
+
 
 </navigation>
