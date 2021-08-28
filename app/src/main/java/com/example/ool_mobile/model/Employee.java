@@ -1,6 +1,7 @@
 package com.example.ool_mobile.model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.Date;
 
@@ -12,7 +13,7 @@ public class Employee {
     @NonNull
     private final String name;
 
-    @NonNull
+    @Nullable
     private final String socialName;
 
     @NonNull
@@ -29,7 +30,7 @@ public class Employee {
     public Employee(
             @NonNull String cpf,
             @NonNull String name,
-            @NonNull String socialName,
+            @Nullable String socialName,
             @NonNull Date birthDate,
             @NonNull String phone,
             @NonNull String email,
@@ -53,7 +54,7 @@ public class Employee {
         return name;
     }
 
-    @NonNull
+    @Nullable
     public String getSocialName() {
         return socialName;
     }
