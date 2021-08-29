@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OOLMOBILE"
         tools:ignore="AllowBackup">
+        <activity android:name=".ui.form.add_equipment.AddEquipmentActivity"></activity>
         <activity android:name=".ui.form.add_employee.AddEmployeeActivity" />
         <activity android:name=".ui.TempActivity">
             <intent-filter>
