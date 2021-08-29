@@ -76,7 +76,11 @@
         android:id="@+id/navigation_equipmentDetails"
         android:name="com.example.ool_mobile.ui.list.equipment.EquipmentDetailsListFragment"
         android:label="@string/menu_equipment_details"
-        tools:layout="@layout/fragment_list_equipment_details" />
+        tools:layout="@layout/fragment_list_equipment_details">
+        <action
+            android:id="@+id/action_navigation_equipmentDetails_to_addEquipmentDetails"
+            app:destination="@id/addEquipmentDetails" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_photoshoots"
@@ -91,6 +95,10 @@
         android:id="@+id/addEquipmentActivity"
         android:name="com.example.ool_mobile.ui.form.add_equipment.AddEquipmentActivity"
         android:label="AddEquipmentActivity" />
+    <activity
+        android:id="@+id/addEquipmentDetails"
+        android:name="com.example.ool_mobile.ui.form.add_equipment_details.AddEquipmentDetailsActivity"
+        android:label="AddEquipmentDetails" />
 
 
 </navigation>
