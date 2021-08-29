@@ -40,7 +40,11 @@
         android:id="@+id/navigation_employees"
         android:name="com.example.ool_mobile.ui.list.employee_list.EmployeeListFragment"
         android:label="@string/menu_employees"
-        tools:layout="@layout/fragment_list_employee" />
+        tools:layout="@layout/fragment_list_employee">
+        <action
+            android:id="@+id/action_navigation_employees_to_addEmployeeActivity"
+            app:destination="@id/addEmployeeActivity" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_customers"
@@ -75,6 +79,10 @@
         android:name="com.example.ool_mobile.ui.list.photoshoot_list.PhotoshootListFragment"
         android:label="fragment_photoshoot_list"
         tools:layout="@layout/fragment_list_photoshoot" />
+    <activity
+        android:id="@+id/addEmployeeActivity"
+        android:name="com.example.ool_mobile.ui.form.add_employee.AddEmployeeActivity"
+        android:label="AddEmployeeActivity" />
 
 
 </navigation>
