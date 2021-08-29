@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.example.ool_mobile.ui.component.ContentRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:statusText="27/05/2022"
+        app:titleText="Ensaio 31">
+
+        <com.example.ool_mobile.ui.component.ContentRowField
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:label="ID"
+            app:value="31" />
+
+        <com.example.ool_mobile.ui.component.ContentRowField
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:label="ID do pedido"
+            app:value="30" />
+
+        <com.example.ool_mobile.ui.component.ContentRowField
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:label="Endereço"
+            app:value="Alguma Rua" />
+
+        <com.example.ool_mobile.ui.component.ContentRowField
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:label="Início"
+            app:value="30/3/2021 13:00" />
+
+        <com.example.ool_mobile.ui.component.ContentRowField
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:label="Fim"
+            app:value="30/3/2021 15:00" />
+
+    </com.example.ool_mobile.ui.component.ContentRow>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
