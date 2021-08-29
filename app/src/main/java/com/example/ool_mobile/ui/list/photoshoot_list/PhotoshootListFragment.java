@@ -7,6 +7,6 @@ import com.example.ool_mobile.R;
 public class PhotoshootListFragment extends Fragment {
 
     public PhotoshootListFragment() {
-        super(R.layout.fragment_photoshoot_list);
+        super(R.layout.fragment_list_photoshoot);
     }
 }

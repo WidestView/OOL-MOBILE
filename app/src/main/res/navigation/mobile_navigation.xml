@@ -14,7 +14,7 @@
         android:id="@+id/navigation_packages"
         android:name="com.example.ool_mobile.ui.list.package_list.PackageListFragment"
         android:label="@string/search"
-        tools:layout="@layout/fragment_package_list">
+        tools:layout="@layout/fragment_list_package">
         <action
             android:id="@+id/action_nav_package_to_addPhotoShootActivity"
             app:destination="@id/addPhotoShootActivity" />
@@ -28,7 +28,7 @@
         android:id="@id/navigation_reports"
         android:name="com.example.ool_mobile.ui.list.report_list.ReportListFragment"
         android:label="@string/label_reports"
-        tools:layout="@layout/fragment_report_list" />
+        tools:layout="@layout/fragment_list_report" />
 
     <fragment
         android:id="@+id/navigation_calendar"
@@ -40,7 +40,7 @@
         android:id="@+id/navigation_employees"
         android:name="com.example.ool_mobile.ui.list.employee_list.EmployeeListFragment"
         android:label="@string/menu_employees"
-        tools:layout="@layout/fragment_employee_list" />
+        tools:layout="@layout/fragment_list_employee" />
 
     <fragment
         android:id="@+id/navigation_customers"
@@ -56,25 +56,25 @@
         android:id="@+id/navigation_equipmentBorrowings"
         android:name="com.example.ool_mobile.ui.list.equipment.EquipmentBorrowingListFragment"
         android:label="@string/menu_equipment_borrowings"
-        tools:layout="@layout/fragment_equipment_borrowing_list" />
+        tools:layout="@layout/fragment_list_equipment_borrowing" />
 
     <fragment
         android:id="@+id/navigation_equipments"
         android:name="com.example.ool_mobile.ui.list.equipment.EquipmentListFragment"
         android:label="@string/menu_equipments"
-        tools:layout="@layout/fragment_equipment_list" />
+        tools:layout="@layout/fragment_list_equipment" />
 
     <fragment
         android:id="@+id/navigation_equipmentDetails"
         android:name="com.example.ool_mobile.ui.list.equipment.EquipmentDetailsListFragment"
         android:label="@string/menu_equipment_details"
-        tools:layout="@layout/fragment_equipment_details_list" />
+        tools:layout="@layout/fragment_list_equipment_details" />
 
     <fragment
         android:id="@+id/navigation_photoshoots"
         android:name="com.example.ool_mobile.ui.list.photoshoot_list.PhotoshootListFragment"
         android:label="fragment_photoshoot_list"
-        tools:layout="@layout/fragment_photoshoot_list" />
+        tools:layout="@layout/fragment_list_photoshoot" />
 
 
 </navigation>

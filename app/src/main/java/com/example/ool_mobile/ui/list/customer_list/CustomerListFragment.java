@@ -19,6 +19,6 @@ public class CustomerListFragment extends Fragment {
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_customer_list, container, false);
+        return inflater.inflate(R.layout.fragment_list_customer, container, false);
     }
 }

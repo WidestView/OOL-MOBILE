@@ -7,7 +7,7 @@ import com.example.ool_mobile.R;
 public class EquipmentDetailsListFragment extends Fragment {
 
     public EquipmentDetailsListFragment() {
-        super(R.layout.fragment_equipment_details_list);
+        super(R.layout.fragment_list_equipment_details);
     }
 
 }

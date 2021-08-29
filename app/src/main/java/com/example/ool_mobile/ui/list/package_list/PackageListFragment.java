@@ -35,7 +35,7 @@ public class PackageListFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState
     ) {
-        View view = inflater.inflate(R.layout.fragment_package_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_package, container, false);
 
         collapsedView = view.findViewById(R.id.packageRow_collapseLayout);
         arrowImageView = view.findViewById(R.id.packageRow_expandImageView);

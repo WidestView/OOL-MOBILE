@@ -20,6 +20,6 @@ public class EmployeeListFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState
     ) {
-        return inflater.inflate(R.layout.fragment_employee_list, container, false);
+        return inflater.inflate(R.layout.fragment_list_employee, container, false);
     }
 }
