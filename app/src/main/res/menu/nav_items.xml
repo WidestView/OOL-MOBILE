@@ -35,6 +35,22 @@
             android:title="@string/menu_equipments" />
 
         <item
+            android:id="@+id/nav_equipment_details"
+            android:iconTint="@color/gray_dark"
+            android:title="@string/menu_equipment_details" />
+
+        <item
+            android:id="@+id/nav_equipment_borrowing"
+            android:iconTint="@color/gray_dark"
+            android:title="@string/menu_equipment_borrowings" />
+
+        <item
+            android:id="@+id/nav_photoshoots"
+            android:icon="@drawable/ic_camera"
+            android:iconTint="@color/gray_dark"
+            android:title="@string/menu_photoshoots" />
+
+        <item
             android:id="@+id/nav_employee"
             android:iconTint="@color/gray_dark"
             android:title="@string/menu_employees" />
@@ -49,11 +65,6 @@
             android:iconTint="@color/gray_dark"
             android:title="@string/menu_orders" />
 
-        <item
-            android:id="@+id/nav_photoshoots"
-            android:icon="@drawable/ic_camera"
-            android:iconTint="@color/gray_dark"
-            android:title="@string/menu_photoshoots" />
 
 
     </group>

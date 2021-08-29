@@ -52,5 +52,23 @@
         android:name="com.example.ool_mobile.ui.order_list.OrderListFragment"
         android:label="@string/menu_orders" />
 
+    <fragment
+        android:id="@+id/nav_equipment_borrowing"
+        android:name="com.example.ool_mobile.ui.equipment.EquipmentBorrowingListFragment"
+        android:label="@string/menu_equipment_borrowings"
+        tools:layout="@layout/fragment_equipment_borrowing_list" />
+
+    <fragment
+        android:id="@+id/nav_equipment"
+        android:name="com.example.ool_mobile.ui.equipment.EquipmentListFragment"
+        android:label="@string/menu_equipments"
+        tools:layout="@layout/fragment_equipment_list" />
+
+    <fragment
+        android:id="@+id/nav_equipment_details"
+        android:name="com.example.ool_mobile.ui.equipment.EquipmentDetailsListFragment"
+        android:label="@string/menu_equipment_details"
+        tools:layout="@layout/fragment_equipment_details_list" />
+
 
 </navigation>

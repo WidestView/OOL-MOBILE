@@ -57,8 +57,13 @@ public class ContentActivity extends AppCompatActivity implements WithDrawer {
                 R.id.nav_calendar,
                 R.id.nav_package,
                 R.id.nav_report,
+                R.id.nav_photoshoots,
                 R.id.nav_equipment,
-                R.id.nav_photoshoots
+                R.id.nav_equipment_details,
+                R.id.nav_equipment_borrowing,
+                R.id.nav_employee,
+                R.id.nav_customer,
+                R.id.nav_order
         ).setOpenableLayout(drawer).build();
     }
 

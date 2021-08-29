@@ -102,4 +102,6 @@
     <string name="menu_employees">Funcionários</string>
     <string name="menu_customers">Clientes</string>
     <string name="menu_orders">Pedidos</string>
+    <string name="menu_equipment_borrowings">Retetiradas Eq.</string>
+    <string name="menu_equipment_details">Detalhes Eq.</string>
 </resources>
