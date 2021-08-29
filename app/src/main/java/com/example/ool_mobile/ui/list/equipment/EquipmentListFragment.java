@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.equipment;
+package com.example.ool_mobile.ui.list.equipment;
 
 import androidx.fragment.app.Fragment;
 

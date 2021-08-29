@@ -3,70 +3,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/navigation_home">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/navigation_home"
         android:name="com.example.ool_mobile.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/nav_package"
-        android:name="com.example.ool_mobile.ui.package_list.PackageListFragment"
+        android:id="@+id/navigation_packages"
+        android:name="com.example.ool_mobile.ui.list.package_list.PackageListFragment"
         android:label="@string/search"
-        tools:layout="@layout/fragment_package_list" >
+        tools:layout="@layout/fragment_package_list">
         <action
             android:id="@+id/action_nav_package_to_addPhotoShootActivity"
             app:destination="@id/addPhotoShootActivity" />
     </fragment>
     <activity
         android:id="@+id/addPhotoShootActivity"
-        android:name="com.example.ool_mobile.ui.add_photo_shoot.AddPhotoShootActivity"
+        android:name="com.example.ool_mobile.ui.form.add_photo_shoot.AddPhotoShootActivity"
         android:label="activity_add_photo_shoot"
         tools:layout="@layout/activity_add_photo_shoot" />
     <fragment
-        android:id="@id/nav_report"
-        android:name="com.example.ool_mobile.ui.report_list.ReportListFragment"
+        android:id="@id/navigation_reports"
+        android:name="com.example.ool_mobile.ui.list.report_list.ReportListFragment"
         android:label="@string/label_reports"
         tools:layout="@layout/fragment_report_list" />
 
     <fragment
-        android:id="@+id/nav_calendar"
+        android:id="@+id/navigation_calendar"
         android:name="com.example.ool_mobile.ui.calendar.CalendarFragment"
         android:label="@string/label_calendar"
         tools:layout="@layout/fragment_calendar" />
 
     <fragment
-        android:id="@+id/nav_employee"
-        android:name="com.example.ool_mobile.ui.employee_list.EmployeeListFragment"
+        android:id="@+id/navigation_employees"
+        android:name="com.example.ool_mobile.ui.list.employee_list.EmployeeListFragment"
         android:label="@string/menu_employees"
         tools:layout="@layout/fragment_employee_list" />
 
     <fragment
-        android:id="@+id/nav_customer"
-        android:name="com.example.ool_mobile.ui.customer_list.CustomerListFragment"
+        android:id="@+id/navigation_customers"
+        android:name="com.example.ool_mobile.ui.list.customer_list.CustomerListFragment"
         android:label="@string/menu_customers" />
 
     <fragment
-        android:id="@+id/nav_order"
-        android:name="com.example.ool_mobile.ui.order_list.OrderListFragment"
+        android:id="@+id/navigation_orders"
+        android:name="com.example.ool_mobile.ui.list.order_list.OrderListFragment"
         android:label="@string/menu_orders" />
 
     <fragment
-        android:id="@+id/nav_equipment_borrowing"
-        android:name="com.example.ool_mobile.ui.equipment.EquipmentBorrowingListFragment"
+        android:id="@+id/navigation_equipmentBorrowings"
+        android:name="com.example.ool_mobile.ui.list.equipment.EquipmentBorrowingListFragment"
         android:label="@string/menu_equipment_borrowings"
         tools:layout="@layout/fragment_equipment_borrowing_list" />
 
     <fragment
-        android:id="@+id/nav_equipment"
-        android:name="com.example.ool_mobile.ui.equipment.EquipmentListFragment"
+        android:id="@+id/navigation_equipments"
+        android:name="com.example.ool_mobile.ui.list.equipment.EquipmentListFragment"
         android:label="@string/menu_equipments"
         tools:layout="@layout/fragment_equipment_list" />
 
     <fragment
-        android:id="@+id/nav_equipment_details"
-        android:name="com.example.ool_mobile.ui.equipment.EquipmentDetailsListFragment"
+        android:id="@+id/navigation_equipmentDetails"
+        android:name="com.example.ool_mobile.ui.list.equipment.EquipmentDetailsListFragment"
         android:label="@string/menu_equipment_details"
         tools:layout="@layout/fragment_equipment_details_list" />
 

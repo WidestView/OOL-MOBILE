@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.employee_list.EmployeeListFragment">
+    tools:context=".ui.list.employee_list.EmployeeListFragment">
 
     <include layout="@layout/part_filter_top" />
 

@@ -53,17 +53,17 @@ public class ContentActivity extends AppCompatActivity implements WithDrawer {
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 // todo: fill this with other root navigation ids
-                R.id.nav_home,
-                R.id.nav_calendar,
-                R.id.nav_package,
-                R.id.nav_report,
-                R.id.nav_photoshoots,
-                R.id.nav_equipment,
-                R.id.nav_equipment_details,
-                R.id.nav_equipment_borrowing,
-                R.id.nav_employee,
-                R.id.nav_customer,
-                R.id.nav_order
+                R.id.navigation_home,
+                R.id.navigation_calendar,
+                R.id.navigation_packages,
+                R.id.navigation_reports,
+                R.id.navigation_photoshoots,
+                R.id.navigation_equipments,
+                R.id.navigation_equipmentDetails,
+                R.id.navigation_equipmentBorrowings,
+                R.id.navigation_employees,
+                R.id.navigation_customers,
+                R.id.navigation_orders
         ).setOpenableLayout(drawer).build();
     }
 
@@ -82,10 +82,9 @@ public class ContentActivity extends AppCompatActivity implements WithDrawer {
     }
 
     private void onDestinationChanged(NavDestination destination) {
-        if (destination.getId() == R.id.nav_home) {
+        if (destination.getId() == R.id.navigation_home) {
             toolbar.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             toolbar.setVisibility(View.VISIBLE);
         }
     }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.example.ool_mobile.ui.components.ContentRow
+    <com.example.ool_mobile.ui.component.ContentRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -13,36 +13,36 @@
 
         <include layout="@layout/part_user_fields" />
 
-        <com.example.ool_mobile.ui.components.ContentRowField
+        <com.example.ool_mobile.ui.component.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Nivel de Acesso"
             app:value="1" />
 
-        <com.example.ool_mobile.ui.components.ContentRowField
+        <com.example.ool_mobile.ui.component.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="RFID"
             app:value="idk" />
 
-        <com.example.ool_mobile.ui.components.ContentRowField
+        <com.example.ool_mobile.ui.component.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Ocupação"
             app:value="#3 - Funcionário" />
 
-        <com.example.ool_mobile.ui.components.ContentRowField
+        <com.example.ool_mobile.ui.component.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Gênero"
             app:value="Helicóptero de Ataque" />
 
-        <com.example.ool_mobile.ui.components.ContentRowField
+        <com.example.ool_mobile.ui.component.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="RG"
             app:value="12356" />
 
-    </com.example.ool_mobile.ui.components.ContentRow>
+    </com.example.ool_mobile.ui.component.ContentRow>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

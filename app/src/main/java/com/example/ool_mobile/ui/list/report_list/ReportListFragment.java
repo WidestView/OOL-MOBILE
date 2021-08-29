@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.report_list;
+package com.example.ool_mobile.ui.list.report_list;
 
 import androidx.fragment.app.Fragment;
 

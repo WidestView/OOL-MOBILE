@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.order_list;
+package com.example.ool_mobile.ui.list.employee_list;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,14 +11,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.ool_mobile.R;
 
-public class OrderListFragment extends Fragment {
+public class EmployeeListFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_order_list, container, false);
+            @Nullable Bundle savedInstanceState
+    ) {
+        return inflater.inflate(R.layout.fragment_employee_list, container, false);
     }
 }

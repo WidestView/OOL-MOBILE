@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.order_list.OrderListFragment">
+    tools:context=".ui.list.order_list.OrderListFragment">
 
     <include layout="@layout/part_filter_top" />
 

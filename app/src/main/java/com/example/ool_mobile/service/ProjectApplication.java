@@ -1,4 +1,4 @@
-package com.example.ool_mobile.model;
+package com.example.ool_mobile.service;
 
 import android.app.Activity;
 import android.app.Application;
@@ -6,7 +6,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.ool_mobile.model.api.fake.FakeUserApi;
+import com.example.ool_mobile.service.api.fake.FakeUserApi;
 
 public class ProjectApplication extends Application {
     private EmployeeRepository repository;

@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.add_photo_shoot;
+package com.example.ool_mobile.ui.form.add_photo_shoot;
 
 import android.os.Bundle;
 import android.widget.TextView;

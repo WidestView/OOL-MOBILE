@@ -1,4 +1,4 @@
-package com.example.ool_mobile.model.api;
+package com.example.ool_mobile.service.api;
 
 public class HttpStatusException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.customer_list;
+package com.example.ool_mobile.ui.list.customer_list;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

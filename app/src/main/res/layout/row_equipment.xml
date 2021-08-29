@@ -4,20 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.example.ool_mobile.ui.components.ContentRow
+    <com.example.ool_mobile.ui.component.ContentRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:statusText="#27"
         app:titleText="Câmera Kodak">
 
-        <com.example.ool_mobile.ui.components.ContentRowField
+        <com.example.ool_mobile.ui.component.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="ID"
             app:value="32" />
 
-        <com.example.ool_mobile.ui.components.ContentRowField
+        <com.example.ool_mobile.ui.component.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="QR"
@@ -39,6 +39,6 @@
         <include layout="@layout/part_equipment_details_fields" />
 
 
-    </com.example.ool_mobile.ui.components.ContentRow>
+    </com.example.ool_mobile.ui.component.ContentRow>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

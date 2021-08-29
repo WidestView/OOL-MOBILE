@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.package_list;
+package com.example.ool_mobile.ui.list.package_list;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

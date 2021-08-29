@@ -1,10 +1,11 @@
-package com.example.ool_mobile.model;
+package com.example.ool_mobile.service;
 
 import androidx.annotation.NonNull;
 
-import com.example.ool_mobile.model.api.EmployeeApi;
-import com.example.ool_mobile.model.api.TokenStorage;
-import com.example.ool_mobile.model.api.UserApi;
+import com.example.ool_mobile.model.Employee;
+import com.example.ool_mobile.service.api.EmployeeApi;
+import com.example.ool_mobile.service.api.TokenStorage;
+import com.example.ool_mobile.service.api.UserApi;
 
 import org.jetbrains.annotations.NotNull;
 

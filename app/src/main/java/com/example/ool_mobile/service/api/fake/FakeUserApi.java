@@ -1,8 +1,8 @@
-package com.example.ool_mobile.model.api.fake;
+package com.example.ool_mobile.service.api.fake;
 
 import androidx.annotation.NonNull;
 
-import com.example.ool_mobile.model.api.UserApi;
+import com.example.ool_mobile.service.api.UserApi;
 
 import java.util.Objects;
 

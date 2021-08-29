@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.ool_mobile.model.EmployeeRepository;
+import com.example.ool_mobile.service.EmployeeRepository;
 import com.example.ool_mobile.ui.util.ViewModelFactory;
 
 import io.reactivex.rxjava3.core.Observable;

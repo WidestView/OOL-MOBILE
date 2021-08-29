@@ -13,7 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.R;
-import com.example.ool_mobile.model.ProjectApplication;
+import com.example.ool_mobile.service.ProjectApplication;
 import com.example.ool_mobile.ui.ContentActivity;
 import com.google.android.material.snackbar.Snackbar;
 
