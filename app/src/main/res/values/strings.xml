@@ -92,4 +92,16 @@
     <string name="employee">Funcionário</string>
     <string name="photoshoot_id">ID Ensaio</string>
     <string name="sample_report_title">Acontecimento</string>
+    <string name="menu_calendar_listLabel">Eventos</string>
+    <string name="menu_calendar_viewLabel">Calendário</string>
+    <string name="label_reports">Relatórios</string>
+    <string name="label_calendar">Calendário</string>
+    <string name="error_invalidLogin">Login Inválido</string>
+    <string name="content">Conteúdo</string>
+    <string name="sample_content">Algum Relatório</string>
+    <string name="menu_employees">Funcionários</string>
+    <string name="menu_customers">Clientes</string>
+    <string name="menu_orders">Pedidos</string>
+    <string name="menu_equipment_borrowings">Retetiradas Eq.</string>
+    <string name="menu_equipment_details">Detalhes Eq.</string>
 </resources>

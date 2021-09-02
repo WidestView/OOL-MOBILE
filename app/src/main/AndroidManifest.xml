@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.ool_mobile">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:name=".model.ProjectApplication"
+        android:name=".service.ProjectApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_ool_icon"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_ool_icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.OOLMOBILE">
-
-        <activity android:name=".ui.add_photo_shoot.AddPhotoShootActivity"
-            android:theme="@style/Theme.OOLMOBILE.NoActionBar">
-        </activity>
-
-        <activity
-            android:name=".ContentActivity"
-            android:label="@string/title_activity_content"
-            android:theme="@style/Theme.OOLMOBILE.NoActionBar">
-
+        android:theme="@style/Theme.OOLMOBILE"
+        tools:ignore="AllowBackup">
+        <activity android:name=".ui.form.add_equipment_details.AddEquipmentDetailsActivity"></activity>
+        <activity android:name=".ui.form.add_equipment.AddEquipmentActivity" />
+        <activity android:name=".ui.form.add_employee.AddEmployeeActivity" />
+        <activity android:name=".ui.TempActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".LoginActivity"
-            android:theme="@style/Theme.OOLMOBILE.NoActionBar">
-        </activity>
-
-        <activity android:name=".MainActivity">
-        </activity>
+            android:name=".ui.form.add_photo_shoot.AddPhotoShootActivity"
+            android:theme="@style/Theme.OOLMOBILE.NoActionBar" />
+        <activity
+            android:name=".ui.ContentActivity"
+            android:label="@string/title_activity_content"
+            android:theme="@style/Theme.OOLMOBILE.NoActionBar" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:theme="@style/Theme.OOLMOBILE.NoActionBar" />
+        <activity android:name=".ui.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

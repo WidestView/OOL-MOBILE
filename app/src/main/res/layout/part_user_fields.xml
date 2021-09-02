@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:elevation="-1dp"
+    android:orientation="vertical"
+    android:padding="4dp">
+
+    <com.example.ool_mobile.ui.component.ContentRowField
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:label="CPF"
+        app:value="11111111111" />
+
+    <com.example.ool_mobile.ui.component.ContentRowField
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:label="Nome Social"
+        app:value="Nenhum" />
+
+    <com.example.ool_mobile.ui.component.ContentRowField
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:label="Nome Oficial"
+        app:value="Carlos Pereira" />
+
+    <com.example.ool_mobile.ui.component.ContentRowField
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:label="Data de Nascimento"
+        app:value="21/03/1999" />
+
+    <com.example.ool_mobile.ui.component.ContentRowField
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:label="Telefone"
+        app:value="11912341234" />
+
+    <com.example.ool_mobile.ui.component.ContentRowField
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:label="Email"
+        app:value="carlos@carlos.com" />
+
+    <com.example.ool_mobile.ui.component.ContentRowField
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:label="Ativo"
+        app:value="Sim" />
+
+
+</LinearLayout>

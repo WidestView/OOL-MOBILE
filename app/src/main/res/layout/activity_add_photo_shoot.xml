@@ -7,7 +7,7 @@
     android:paddingStart="24dp"
     android:paddingTop="32dp"
     android:paddingEnd="24dp"
-    tools:context=".ui.add_photo_shoot.AddPhotoShootActivity">
+    tools:context=".ui.form.add_photo_shoot.AddPhotoShootActivity">
 
     <ImageView
         android:id="@+id/addPhotoShoot_backImageView"

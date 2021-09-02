@@ -1,5 +1,6 @@
 package com.example.ool_mobile.ui.home;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ool_mobile.R;
+import com.example.ool_mobile.ui.meta.WithDrawer;
 
 public class HomeFragment extends Fragment {
 
@@ -22,6 +24,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private TextView weekTextView;
     private TextView monthTextView;
+    private TextView welcomeTextView;
 
     @NonNull
     public View onCreateView(
@@ -35,6 +38,7 @@ public class HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.homeFragment_pendingSessionsRecyclerview);
         weekTextView = view.findViewById(R.id.homeFragment_weekTextView);
         monthTextView = view.findViewById(R.id.homeFragment_monthTextView);
+        welcomeTextView = view.findViewById(R.id.homeFragment_welcomeTextView);
 
         return view;
     }
@@ -43,11 +47,17 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        setupDates();
 
-        monthTextView.setText(homeViewModel.getDayOfMonth());
-        weekTextView.setText(homeViewModel.getDayOfWeek());
+        setupWelcomeMessage();
 
+        setupSampleRecyclerView();
+
+    }
+
+    private void setupSampleRecyclerView() {
+
+        final double chanceOfPending = 0.5;
 
         recyclerView.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             @NonNull
@@ -55,9 +65,9 @@ public class HomeFragment extends Fragment {
             public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
                 @LayoutRes
-                int resource = Math.random() > 0.5
-                        ? R.layout.pending_photoshoot_row 
-                        : R.layout.pending_photoshoot_row_due;
+                int resource = Math.random() > chanceOfPending
+                        ? R.layout.row_pending_photoshoot
+                        : R.layout.row_due_pending_photoshoot;
 
                 View view = LayoutInflater
                         .from(parent.getContext())
@@ -82,6 +92,22 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(requireContext())
         );
+    }
 
+    private void setupWelcomeMessage() {
+        welcomeTextView.setOnClickListener(v -> {
+            Activity activity = getActivity();
+
+            if (activity instanceof WithDrawer) {
+                ((WithDrawer) activity).openDrawer();
+            }
+        });
+    }
+
+    private void setupDates() {
+        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
+        monthTextView.setText(homeViewModel.getDayOfMonth());
+        weekTextView.setText(homeViewModel.getDayOfWeek());
     }
 }
