@@ -43,4 +43,9 @@
     <style name="NavegationItems" parent="android:Widget.TextView">
         <item name="android:textStyle"> bold </item>
     </style>
+
+    <style name="CalendarStyle" parent="android:Widget.Material.DatePicker">
+        
+
+    </style>
 </resources>

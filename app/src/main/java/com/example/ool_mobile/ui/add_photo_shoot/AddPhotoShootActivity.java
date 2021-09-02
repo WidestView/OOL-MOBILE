@@ -49,12 +49,14 @@ public class AddPhotoShootActivity extends AppCompatActivity {
         );
 
         datePicker = setupDatePicker();
+
     }
 
     private void setupViews() {
         startTimeEditText = findViewById(R.id.addPhotoShoot_startTimeEditText);
         endTimeEditText = findViewById(R.id.addPhotoShoot_endTimeEditText);
         dateEditText = findViewById(R.id.addPhotoShoot_dateEditText);
+
 
         findViewById(R.id.addPhotoShoot_backImageView).setOnClickListener(v ->
                 onBackPressed()
@@ -104,8 +106,10 @@ public class AddPhotoShootActivity extends AppCompatActivity {
                                 MaterialDatePicker.todayInUtcMilliseconds()
                         )
                 )
+                .setTheme(R.style.CalendarStyle)
                 .setTitleText(R.string.select_end_time)
                 .build();
+
 
         picker.addOnDismissListener(dialog -> dateEditText.setText(picker.getHeaderText()));
 
