@@ -107,4 +107,5 @@
     <string name="menu_firings">Demissões</string>
     <string name="menu_payments">Pagamentos</string>
     <string name="menu_payment_types">Tipos de Pagamento</string>
+    <string name="menu_hirings">Contratos</string>
 </resources>

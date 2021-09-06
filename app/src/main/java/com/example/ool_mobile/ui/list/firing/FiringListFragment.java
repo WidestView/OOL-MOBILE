@@ -12,9 +12,9 @@ import androidx.navigation.Navigation;
 import com.example.ool_mobile.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class ListFiringFragment extends Fragment {
+public class FiringListFragment extends Fragment {
 
-    public ListFiringFragment() {
+    public FiringListFragment() {
         super(R.layout.fragment_list_firing);
     }
 

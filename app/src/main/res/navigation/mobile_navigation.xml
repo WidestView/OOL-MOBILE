@@ -102,7 +102,7 @@
 
     <fragment
         android:id="@+id/navigation_firings"
-        android:name="com.example.ool_mobile.ui.list.firing.ListFiringFragment"
+        android:name="com.example.ool_mobile.ui.list.firing.FiringListFragment"
         android:label="@string/menu_firings"
 
         tools:layout="@layout/fragment_list_firing">
@@ -134,6 +134,11 @@
         android:id="@+id/addPackageTypeActivity"
         android:name="com.example.ool_mobile.ui.form.add_package.AddPackageTypeActivity"
         android:label="AddPackageTypeActivity" />
+    <fragment
+        android:id="@+id/navigation_hirings"
+        android:name="com.example.ool_mobile.ui.list.hiring.HiringListFragment"
+        android:label="@string/menu_hirings"
+        tools:layout="@layout/fragment_list_hiring" />
 
 
 </navigation>
