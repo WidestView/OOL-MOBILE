@@ -65,6 +65,10 @@
             android:iconTint="@color/gray_dark"
             android:title="@string/menu_orders" />
 
+        <item
+            android:id="@+id/navigation_firings"
+            android:iconTint="@color/gray_dark"
+            android:title="@string/menu_firings" />
 
 
     </group>

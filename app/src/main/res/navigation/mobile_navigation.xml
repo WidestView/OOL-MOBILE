@@ -100,5 +100,21 @@
         android:name="com.example.ool_mobile.ui.form.add_equipment_details.AddEquipmentDetailsActivity"
         android:label="AddEquipmentDetails" />
 
+    <fragment
+        android:id="@+id/navigation_firings"
+        android:name="com.example.ool_mobile.ui.list.firing.ListFiringFragment"
+        android:label="@string/menu_firings"
+
+        tools:layout="@layout/fragment_list_firing">
+        <action
+            android:id="@+id/action_navigation_firings_to_addFiringActivity"
+            app:destination="@id/addFiringActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/addFiringActivity"
+        android:name="com.example.ool_mobile.ui.form.add_firing.AddFiringActivity"
+        android:label="activity_add_firing"
+        tools:layout="@layout/activity_add_firing" />
+
 
 </navigation>
