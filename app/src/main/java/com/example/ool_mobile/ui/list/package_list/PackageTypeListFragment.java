@@ -1,9 +1,7 @@
-package com.example.ool_mobile.ui.list.employee_list;
+package com.example.ool_mobile.ui.list.package_list;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,30 +12,22 @@ import androidx.navigation.Navigation;
 import com.example.ool_mobile.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class EmployeeListFragment extends Fragment {
-
-
-    @Nullable
-    @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState
-    ) {
-        return inflater.inflate(R.layout.fragment_list_employee, container, false);
+public class PackageTypeListFragment extends Fragment {
+    public PackageTypeListFragment() {
+        super(R.layout.fragment_list_package_type);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FloatingActionButton button = view.findViewById(R.id.listEmployee_addButton);
+        FloatingActionButton button = view.findViewById(R.id.listPackage_floatingActionButton);
 
         button.setOnClickListener(v -> {
 
             NavController controller = Navigation.findNavController(view);
 
-            controller.navigate(R.id.action_navigation_employees_to_addEmployeeActivity);
+            controller.navigate(R.id.action_navigation_package_types_to_addPackageTypeActivity);
         });
     }
 }

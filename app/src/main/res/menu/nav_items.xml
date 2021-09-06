@@ -75,5 +75,9 @@
             android:iconTint="@color/gray_dark"
             android:title="@string/menu_payments" />
 
+        <item
+            android:id="@+id/navigation_package_types"
+            android:iconTint="@color/gray_dark"
+            android:title="@string/menu_payment_types" />
     </group>
 </menu>

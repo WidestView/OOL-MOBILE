@@ -26,7 +26,7 @@ public class ListFiringFragment extends Fragment {
 
         button.setOnClickListener(v -> {
 
-            NavController controller = Navigation.findNavController(getView());
+            NavController controller = Navigation.findNavController(view);
 
             controller.navigate(R.id.action_navigation_firings_to_addFiringActivity);
         });

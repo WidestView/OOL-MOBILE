@@ -121,6 +121,19 @@
         android:name="com.example.ool_mobile.ui.list.payment.PaymentListFragment"
         android:label="@string/menu_payments"
         tools:layout="@layout/fragment_list_payment" />
+    <fragment
+        android:id="@+id/navigation_package_types"
+        android:name="com.example.ool_mobile.ui.list.package_list.PackageTypeListFragment"
+        android:label="fragment_list_package_type"
+        tools:layout="@layout/fragment_list_package_type">
+        <action
+            android:id="@+id/action_navigation_package_types_to_addPackageTypeActivity"
+            app:destination="@id/addPackageTypeActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/addPackageTypeActivity"
+        android:name="com.example.ool_mobile.ui.form.add_package.AddPackageTypeActivity"
+        android:label="AddPackageTypeActivity" />
 
 
 </navigation>

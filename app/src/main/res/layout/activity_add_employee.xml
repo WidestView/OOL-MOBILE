@@ -15,7 +15,7 @@
         android:paddingEnd="24dp">
 
         <ImageView
-            android:id="@+id/addEmployee_backButton"
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/go_back_icon_description"
@@ -34,7 +34,7 @@
             android:textColor="@color/gray_dark"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/addEmployee_backButton"
+            app:layout_constraintStart_toEndOf="@+id/backButton"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
