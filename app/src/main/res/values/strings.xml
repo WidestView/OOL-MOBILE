@@ -105,4 +105,5 @@
     <string name="menu_equipment_borrowings">Retetiradas Eq.</string>
     <string name="menu_equipment_details">Detalhes Eq.</string>
     <string name="menu_firings">Demissões</string>
+    <string name="menu_payments">Pagamentos</string>
 </resources>

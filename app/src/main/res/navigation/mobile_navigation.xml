@@ -116,5 +116,11 @@
         android:label="activity_add_firing"
         tools:layout="@layout/activity_add_firing" />
 
+    <fragment
+        android:id="@+id/navigation_payments"
+        android:name="com.example.ool_mobile.ui.list.payment.PaymentListFragment"
+        android:label="@string/menu_payments"
+        tools:layout="@layout/fragment_list_payment" />
+
 
 </navigation>

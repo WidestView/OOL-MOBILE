@@ -70,6 +70,10 @@
             android:iconTint="@color/gray_dark"
             android:title="@string/menu_firings" />
 
+        <item
+            android:id="@+id/navigation_payments"
+            android:iconTint="@color/gray_dark"
+            android:title="@string/menu_payments" />
 
     </group>
 </menu>
