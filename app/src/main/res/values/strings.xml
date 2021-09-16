@@ -105,4 +105,9 @@
     <string name="menu_equipment_borrowings">Retetiradas Eq.</string>
     <string name="menu_equipment_details">Detalhes Eq.</string>
     <string name="menu_firings">Demissões</string>
+    <string name="equipment_type_label"> Tipo de Equipamento </string>
+    <string name="equipment_type_title"> Câmera </string>
+    <string name="equipment_type_description"> Descrição </string>
+    <string name="turno_label">Turno</string>
+    <string name="occupation_label">Ocupação</string>
 </resources>

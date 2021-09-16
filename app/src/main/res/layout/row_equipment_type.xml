@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <com.example.ool_mobile.ui.component.ContentRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleText="@string/equipment_type_title">
+
+        <com.example.ool_mobile.ui.component.ContentRowField
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:label="ID"
+            app:value="@string/sample_id" />
+
+        <com.example.ool_mobile.ui.component.ContentRowField
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:label="Nome"
+            app:value="@string/equipment_type_title" />
+
+        <com.example.ool_mobile.ui.component.ContentRowField
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:label="@string/equipment_type_description"
+            app:value="Take and print your photos anywhere, anytime" />
+
+
+
+
+
+
+    </com.example.ool_mobile.ui.component.ContentRow>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

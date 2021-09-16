@@ -115,6 +115,21 @@
         android:name="com.example.ool_mobile.ui.form.add_firing.AddFiringActivity"
         android:label="activity_add_firing"
         tools:layout="@layout/activity_add_firing" />
+    <fragment
+        android:id="@+id/navigation_equipment_type"
+        android:name="com.example.ool_mobile.ui.list.equipment.EquipmentTypeListFragment"
+        android:label="Tipo de Equipamento"
+        tools:layout="@layout/fragment_list_equipment_type" />
+    <fragment
+        android:id="@+id/navigation_shift"
+        android:name="com.example.ool_mobile.ui.list.shift_list.ShiftListFragment"
+        android:label="Turno"
+        tools:layout="@layout/fragment_list_shift" />
+    <fragment
+        android:id="@+id/navigation_occupation"
+        android:name="com.example.ool_mobile.ui.list.occupation_list.OccupationListFragment"
+        android:label="Ocupação"
+        tools:layout="@layout/fragment_list_occupation" />
 
 
 </navigation>
