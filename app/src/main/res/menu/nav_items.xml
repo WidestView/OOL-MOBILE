@@ -85,5 +85,18 @@
             android:title="@string/occupation_label" />
 
 
+        <item
+            android:id="@+id/navigation_package_types"
+            android:iconTint="@color/gray_dark"
+            android:title="@string/menu_payment_types" />
+
+        <item
+            android:id="@+id/navigation_hirings"
+            android:iconTint="@color/gray_dark"
+            android:title="@string/menu_hirings" />
+        <item
+            android:id="@+id/navigation_payments"
+            android:iconTint="@color/gray_dark"
+            android:title="@string/menu_payments" />
     </group>
 </menu>

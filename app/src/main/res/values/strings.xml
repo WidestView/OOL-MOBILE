@@ -110,4 +110,8 @@
     <string name="equipment_type_description"> Descrição </string>
     <string name="turno_label">Turno</string>
     <string name="occupation_label">Ocupação</string>
+    <string name="menu_payments">Pagamentos</string>
+    <string name="menu_payment_types">Tipos de Pagamento</string>
+    <string name="menu_hirings">Contratos</string>
+
 </resources>

@@ -102,7 +102,7 @@
 
     <fragment
         android:id="@+id/navigation_firings"
-        android:name="com.example.ool_mobile.ui.list.firing.ListFiringFragment"
+        android:name="com.example.ool_mobile.ui.list.firing.FiringListFragment"
         android:label="@string/menu_firings"
 
         tools:layout="@layout/fragment_list_firing">
@@ -130,6 +130,30 @@
         android:name="com.example.ool_mobile.ui.list.occupation_list.OccupationListFragment"
         android:label="Ocupação"
         tools:layout="@layout/fragment_list_occupation" />
+
+    <fragment
+        android:id="@+id/navigation_payments"
+        android:name="com.example.ool_mobile.ui.list.payment.PaymentListFragment"
+        android:label="@string/menu_payments"
+        tools:layout="@layout/fragment_list_payment" />
+    <fragment
+        android:id="@+id/navigation_package_types"
+        android:name="com.example.ool_mobile.ui.list.package_list.PackageTypeListFragment"
+        android:label="fragment_list_package_type"
+        tools:layout="@layout/fragment_list_package_type">
+        <action
+            android:id="@+id/action_navigation_package_types_to_addPackageTypeActivity"
+            app:destination="@id/addPackageTypeActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/addPackageTypeActivity"
+        android:name="com.example.ool_mobile.ui.form.add_package.AddPackageTypeActivity"
+        android:label="AddPackageTypeActivity" />
+    <fragment
+        android:id="@+id/navigation_hirings"
+        android:name="com.example.ool_mobile.ui.list.hiring.HiringListFragment"
+        android:label="@string/menu_hirings"
+        tools:layout="@layout/fragment_list_hiring" />
 
 
 </navigation>

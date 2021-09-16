@@ -12,9 +12,9 @@ import androidx.navigation.Navigation;
 import com.example.ool_mobile.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class ListFiringFragment extends Fragment {
+public class FiringListFragment extends Fragment {
 
-    public ListFiringFragment() {
+    public FiringListFragment() {
         super(R.layout.fragment_list_firing);
     }
 
@@ -26,7 +26,7 @@ public class ListFiringFragment extends Fragment {
 
         button.setOnClickListener(v -> {
 
-            NavController controller = Navigation.findNavController(getView());
+            NavController controller = Navigation.findNavController(view);
 
             controller.navigate(R.id.action_navigation_firings_to_addFiringActivity);
         });
