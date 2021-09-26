@@ -3,15 +3,20 @@ package com.example.ool_mobile.service;
 import androidx.annotation.NonNull;
 
 import com.example.ool_mobile.model.Employee;
+import com.example.ool_mobile.model.ImmutableEmployee;
+import com.example.ool_mobile.model.ImmutableOccupation;
+import com.example.ool_mobile.model.Occupation;
 import com.example.ool_mobile.service.api.EmployeeApi;
-import com.example.ool_mobile.service.api.TokenStorage;
 import com.example.ool_mobile.service.api.UserApi;
+import com.example.ool_mobile.service.api.setup.ApiDate;
+import com.example.ool_mobile.service.api.setup.ResponseException;
+import com.example.ool_mobile.service.api.setup.TokenStorage;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Date;
 import java.util.Objects;
 
+import io.reactivex.rxjava3.annotations.CheckReturnValue;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.Response;
@@ -39,10 +44,12 @@ public class EmployeeRepository {
     }
 
     @NonNull
+    @CheckReturnValue
     public Single<Boolean> login(@NonNull String username, @NonNull String password) {
 
+
         UserApi.LoginData loginData = new UserApi.LoginData();
-        loginData.username = username;
+        loginData.login = username;
         loginData.password = password;
 
 
@@ -57,59 +64,78 @@ public class EmployeeRepository {
                 this.tokenStorage.setToken(data.token);
 
                 return true;
-            } else {
+            } else if (response.code() == 401 || response.code() == 403) {
 
                 this.tokenStorage.setToken(null);
 
                 return false;
+            } else {
+                throw new ResponseException(response);
             }
         });
     }
 
     @NonNull
+    @CheckReturnValue
     public Maybe<Employee> getCurrentEmployee() {
 
-        String token = tokenStorage.getToken();
+        return Maybe.defer(() -> {
 
-        if (token == null) {
-            return null;
-        }
+            String token = tokenStorage.getToken();
 
-        return fetchEmployee();
+            if (token == null) {
+                return Maybe.empty();
+            }
+
+            return fetchEmployee();
+        });
     }
 
+    @CheckReturnValue
     private Maybe<Employee> fetchEmployee() {
 
         Single<Response<EmployeeApi.EmployeeData>> call = employeeApi.getCurrentEmployeeInfo();
 
         return call.flatMapMaybe(response -> {
             if (response.isSuccessful()) {
+                return Maybe.just(convertEmployee(response.body()));
+            } else if (response.code() == 401 || response.code() == 403) {
 
-                return convertEmployee(response.body());
-            } else {
                 return Maybe.empty();
+
+            } else {
+                throw new ResponseException(response);
             }
         });
     }
 
-    @NotNull
-    private Maybe<Employee> convertEmployee(EmployeeApi.EmployeeData output) {
-
-        // todo: get data from response body
+    @NonNull
+    private Employee convertEmployee(EmployeeApi.EmployeeData output) {
 
         Objects.requireNonNull(output);
 
-        return Maybe.just(
-                new Employee(
-                        "11111111111",
-                        "bob",
-                        null,
-                        new Date(),
-                        "11912341234",
-                        "bob@bob.com",
-                        true
-                )
-        );
+        return ImmutableEmployee.builder()
+                .cpf(output.cpf)
+                .name(output.name)
+                .socialName(output.socialName)
+                .birthDate(ApiDate.parse(output.birthDate))
+                .phone(output.phone)
+                .email(output.email)
+                .accessLevel(output.accessLevel)
+                .occupationId(output.occupationId)
+                .occupation(null)
+                .gender(output.gender)
+                .rg(output.rg)
+                .build();
+    }
+
+    @NotNull
+    private Occupation convertOccupation(EmployeeApi.OccupationData occupationData) {
+        return ImmutableOccupation.builder()
+                .id(occupationData.id)
+                .description(occupationData.description)
+                .name(occupationData.name)
+                .build();
     }
 
 

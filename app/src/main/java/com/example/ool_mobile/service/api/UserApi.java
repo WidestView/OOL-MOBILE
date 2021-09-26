@@ -21,7 +21,7 @@ public interface UserApi {
 
     class LoginData {
         @Nullable
-        public String username;
+        public String login;
 
         @Nullable
         public String password;

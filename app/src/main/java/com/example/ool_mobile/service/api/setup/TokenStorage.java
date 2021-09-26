@@ -1,4 +1,4 @@
-package com.example.ool_mobile.service.api;
+package com.example.ool_mobile.service.api.setup;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -35,15 +35,15 @@ public class TokenStorage {
 
     public void setToken(@Nullable String token) {
 
-        tokenCache = token;
-
-        hasTokenCache = true;
-
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putString(TOKEN_KEY, token);
 
         editor.apply();
+
+        tokenCache = token;
+
+        hasTokenCache = true;
     }
 
 }
