@@ -22,7 +22,6 @@ import static org.junit.Assume.assumeThat;
 
 public class EmployeeRepositoryTest {
 
-
     EmployeeRepository repository;
 
     @Before

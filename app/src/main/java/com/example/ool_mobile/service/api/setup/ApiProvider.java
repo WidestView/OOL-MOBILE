@@ -3,7 +3,9 @@ package com.example.ool_mobile.service.api.setup;
 import androidx.annotation.NonNull;
 
 import com.example.ool_mobile.service.api.EmployeeApi;
+import com.example.ool_mobile.service.api.PhotoshootApi;
 import com.example.ool_mobile.service.api.UserApi;
+import com.squareup.moshi.Moshi;
 
 import org.immutables.value.Value;
 
@@ -30,11 +32,15 @@ public abstract class ApiProvider {
                 .addInterceptor(interceptor())
                 .build();
 
+        Moshi moshi = new Moshi.Builder()
+                .add(new JsonDataAdapter())
+                .build();
+
         Retrofit.Builder builder = new Retrofit.Builder();
 
-        builder.baseUrl("http://192.168.0.10:5000/api/");
+        builder.baseUrl(ApiInfo.API_BASE_URL);
         builder.addCallAdapterFactory(RxJava3CallAdapterFactory.create());
-        builder.addConverterFactory(MoshiConverterFactory.create());
+        builder.addConverterFactory(MoshiConverterFactory.create(moshi));
         builder.client(httpClient);
 
         return builder.build();
@@ -50,5 +56,11 @@ public abstract class ApiProvider {
     @NonNull
     public UserApi getUserApi() {
         return getRetrofit().create(UserApi.class);
+    }
+
+    @Value.Lazy
+    @NonNull
+    public PhotoshootApi getPhotoshootApi() {
+        return getRetrofit().create(PhotoshootApi.class);
     }
 }
