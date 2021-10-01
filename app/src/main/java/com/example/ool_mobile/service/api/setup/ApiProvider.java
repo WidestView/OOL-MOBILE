@@ -1,5 +1,7 @@
 package com.example.ool_mobile.service.api.setup;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import com.example.ool_mobile.service.api.EmployeeApi;
@@ -16,6 +18,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 
 // todo: stop using the Immutable library for dependency injection and
 //  lazy loading in this class (despite it working quite well)
+//  and start using dagger.
 
 @Value.Immutable
 @Value.Style(visibility = Value.Style.ImplementationVisibility.PRIVATE)
@@ -24,13 +27,26 @@ public abstract class ApiProvider {
     @NonNull
     protected abstract JwtInterceptor interceptor();
 
+    @NonNull
+    protected abstract TokenStorage tokenStorage();
+
+    @NonNull
+    protected abstract Context context();
+
+    @Value.Lazy
+    @NonNull
+    public OkHttpClient getOkHttpClient() {
+
+        return new OkHttpClient.Builder()
+                .addInterceptor(interceptor())
+                .build();
+    }
+
     @Value.Lazy
     @NonNull
     protected Retrofit getRetrofit() {
 
-        OkHttpClient httpClient = new OkHttpClient.Builder()
-                .addInterceptor(interceptor())
-                .build();
+        OkHttpClient httpClient = getOkHttpClient();
 
         Moshi moshi = new Moshi.Builder()
                 .add(new JsonDataAdapter())

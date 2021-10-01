@@ -9,14 +9,21 @@ import com.example.ool_mobile.ui.util.ViewModelFactory;
 
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.observers.DisposableSingleObserver;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 
 public class LoginViewModel extends ViewModel {
 
-    private final PublishSubject<Boolean> events = PublishSubject.create();
+    public static final int START_CONTENT_WITHOUT_ANIMATION = 1;
+    public static final int START_CONTENT_WITH_ANIMATION = 2;
+    public static final int REPORT_FAILED_LOGIN = 3;
+
+    private final PublishSubject<Integer> events = PublishSubject.create();
 
     private final EmployeeRepository repository;
+
+    private final CompositeDisposable subscriptions = new CompositeDisposable();
 
     public LoginViewModel(@NonNull EmployeeRepository repository) {
         this.repository = repository;
@@ -31,25 +38,40 @@ public class LoginViewModel extends ViewModel {
     }
 
     @NonNull
-    public Observable<Boolean> getEvents() {
+    public Observable<Integer> getEvents() {
         return events;
+    }
+
+    public void checkAlreadyLogged() {
+
+        Disposable subscription = repository.getCurrentEmployee()
+                .map(employee -> true)
+                .switchIfEmpty(Single.just(false))
+                .subscribe(isLogged -> {
+                    if (isLogged) {
+                        events.onNext(START_CONTENT_WITHOUT_ANIMATION);
+                    }
+                });
+
+        subscriptions.add(subscription);
     }
 
     public void login(@NonNull String username, @NonNull String password) {
 
         Single<Boolean> result = repository.login(username, password);
 
-        result.subscribe(new DisposableSingleObserver<Boolean>() {
-            @Override
-            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull Boolean success) {
-                events.onNext(success);
+        subscriptions.add(result.subscribe(success -> {
+            if (success) {
+                events.onNext(START_CONTENT_WITH_ANIMATION);
+            } else {
+                events.onNext(REPORT_FAILED_LOGIN);
             }
-
-            @Override
-            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable ex) {
-                events.onError(ex);
-            }
-        });
+        }));
     }
 
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        subscriptions.clear();
+    }
 }

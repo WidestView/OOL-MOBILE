@@ -34,7 +34,8 @@ dependencies {
 
     implementation 'com.github.alamkanak:android-week-view:1.2.6'
     implementation 'com.github.f0ris.sweetalert:library:1.6.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation 'com.squareup.picasso:picasso:2.8'
 
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'

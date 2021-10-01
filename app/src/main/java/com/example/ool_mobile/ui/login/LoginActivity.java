@@ -13,7 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.R;
-import com.example.ool_mobile.service.ProjectApplication;
+import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.ContentActivity;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -39,12 +39,14 @@ public class LoginActivity extends AppCompatActivity {
         setupViews();
 
         setupViewModel();
+
+        viewModel.checkAlreadyLogged();
     }
 
     private void setupViewModel() {
         viewModel = new ViewModelProvider(this,
                 LoginViewModel.create(
-                        ProjectApplication.from(this).getEmployeeRepository()
+                        Dependencies.from(this).getEmployeeRepository()
                 )
         ).get(LoginViewModel.class);
 
@@ -80,24 +82,27 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setupViewModelEvents() {
-        disposable.add(viewModel.getEvents().subscribe(success -> {
-            if (success) {
-                startContent();
-            } else {
-                showLoginFailedMessage();
+        disposable.add(viewModel.getEvents().subscribe(event -> {
+            switch (event) {
+                case LoginViewModel.START_CONTENT_WITH_ANIMATION:
+                    startActivity(new Intent(this, ContentActivity.class));
+                    break;
+                case LoginViewModel.START_CONTENT_WITHOUT_ANIMATION:
+                    finish();
+                    startActivity(new Intent(this, ContentActivity.class));
+                    break;
+                case LoginViewModel.REPORT_FAILED_LOGIN:
+
+                    View content = findViewById(android.R.id.content);
+
+                    Snackbar.make(
+                            content,
+                            R.string.error_invalidLogin,
+                            Snackbar.LENGTH_LONG
+                    ).show();
+                    break;
             }
         }));
     }
 
-    private void startContent() {
-        startActivity(new Intent(this, ContentActivity.class));
-    }
-
-    private void showLoginFailedMessage() {
-
-        View content = findViewById(android.R.id.content);
-
-        Snackbar.make(content, R.string.error_invalidLogin, Snackbar.LENGTH_LONG)
-                .show();
-    }
 }
