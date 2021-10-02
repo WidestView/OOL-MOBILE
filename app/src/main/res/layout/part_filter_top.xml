@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/filterTop_mainLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:visibility="gone">
+
+    <!-- TODO: consider implementing or getting rid of this
+          then make things visible
+    -->
 
     <TextView
         android:layout_width="wrap_content"
@@ -47,7 +52,6 @@
             app:tint="@color/partial_gray_dark" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
