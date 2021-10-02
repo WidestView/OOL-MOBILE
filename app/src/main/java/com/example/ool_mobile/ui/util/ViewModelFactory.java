@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.util.function.Supplier;
 
-public class ViewModelFactory {
+public final class ViewModelFactory {
 
     private ViewModelFactory() {
 

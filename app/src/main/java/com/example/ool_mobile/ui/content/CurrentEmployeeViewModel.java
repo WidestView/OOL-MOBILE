@@ -55,6 +55,12 @@ public class CurrentEmployeeViewModel extends ViewModel {
         return currentEmployee;
     }
 
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        compositeDisposable.clear();
+    }
+
     @NonNull
     public URL getEmployeeImageURL() {
         return employeeRepository.getCurrentEmployeePictureURL();

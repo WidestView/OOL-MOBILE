@@ -111,6 +111,8 @@ public class EmployeeRepository {
         });
     }
 
+    // todo: add to JsonDataConverter
+
     @NonNull
     private Employee convertEmployee(EmployeeApi.EmployeeData output) {
 

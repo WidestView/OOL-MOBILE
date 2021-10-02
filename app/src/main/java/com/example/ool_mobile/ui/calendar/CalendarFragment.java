@@ -6,18 +6,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ool_mobile.R;
+import com.example.ool_mobile.model.Photoshoot;
+import com.example.ool_mobile.service.Dependencies;
+import com.example.ool_mobile.ui.home.PhotoshootAdapter;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.android.material.snackbar.Snackbar;
 
-import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 public class CalendarFragment extends Fragment {
 
@@ -25,71 +30,78 @@ public class CalendarFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
+    private CalendarViewModel viewModel;
+
     @NonNull
     public View onCreateView(
             @NonNull
-            LayoutInflater inflater,
+                    LayoutInflater inflater,
             @Nullable
-            ViewGroup container,
+                    ViewGroup container,
             @Nullable Bundle savedInstanceState
     ) {
-        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
-
-        calendarView = view.findViewById(R.id.calendarFragment_calendarView);
-        recyclerView = view.findViewById(R.id.calendarFragment_recyclerView);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_calendar, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Event event = new Event(Color.GREEN, new Date().getTime(), "Some extra data");
+        setupViews(view);
 
-        calendarView.addEvent(event);
+        setupViewModel();
+    }
+
+
+    private void setupViews(@NonNull View view) {
+        calendarView = view.findViewById(R.id.calendarFragment_calendarView);
+
+        calendarView.setEventIndicatorStyle(CompactCalendarView.FILL_LARGE_INDICATOR);
+        recyclerView = view.findViewById(R.id.calendarFragment_recyclerView);
 
         recyclerView.setFocusable(false);
 
-        setupSampleRecyclerView();
-    }
-
-    private void setupSampleRecyclerView() {
-
-        final double chanceOfPending = 0.5;
-
-        recyclerView.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-                @LayoutRes
-                int resource = Math.random() > chanceOfPending
-                        ? R.layout.row_pending_photoshoot
-                        : R.layout.row_due_pending_photoshoot;
-
-                View view = LayoutInflater
-                        .from(parent.getContext())
-                        .inflate(resource, parent, false);
-
-                return new RecyclerView.ViewHolder(view) {
-                };
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) { }
-
-            @Override
-            public int getItemCount() {
-                return 10;
-            }
-
-        });
-
-//        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
 
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(requireContext())
         );
+    }
+
+    private void setupViewModel() {
+
+        viewModel = new ViewModelProvider(
+                this,
+                CalendarViewModel.create(
+                        Dependencies.from(this).getPhotoshootApi()
+                )
+        ).get(CalendarViewModel.class);
+
+        viewModel.getPhotoshootList()
+                .observe(getViewLifecycleOwner(), this::displayPhotoshoots);
+    }
+
+    private void displayPhotoshoots(List<Photoshoot> photoshoots) {
+
+        // todo: select good color lmao
+        int color = Color.parseColor("#056162");
+
+        photoshoots.stream()
+                .map(photoshoot -> new Event(color, photoshoot.startTime().getTime(), photoshoot))
+                .forEach(event -> calendarView.addEvent(event));
+
+        recyclerView.setAdapter(new PhotoshootAdapter(photoshoots, this::startPhotoshootActivity));
+
+    }
+
+    private void startPhotoshootActivity(@NonNull Photoshoot photoshoot) {
+        Objects.requireNonNull(photoshoot, "photoshoot is null");
+        // todo: start photoshoot activity with given photoshoot
+
+        Snackbar.make(
+                Objects.requireNonNull(requireView()),
+                "Not implemented",
+                Snackbar.LENGTH_LONG
+        ).show();
     }
 }
