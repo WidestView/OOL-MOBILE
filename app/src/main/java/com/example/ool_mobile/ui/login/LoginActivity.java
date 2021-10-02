@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.service.Dependencies;
-import com.example.ool_mobile.ui.ContentActivity;
+import com.example.ool_mobile.ui.content.ContentActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;

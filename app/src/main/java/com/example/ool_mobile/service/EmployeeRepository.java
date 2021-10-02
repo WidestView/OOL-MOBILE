@@ -1,6 +1,7 @@
 package com.example.ool_mobile.service;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.ool_mobile.model.Employee;
 import com.example.ool_mobile.model.ImmutableEmployee;
@@ -9,11 +10,12 @@ import com.example.ool_mobile.model.Occupation;
 import com.example.ool_mobile.service.api.EmployeeApi;
 import com.example.ool_mobile.service.api.UserApi;
 import com.example.ool_mobile.service.api.setup.ApiDate;
+import com.example.ool_mobile.service.api.setup.ApiInfo;
 import com.example.ool_mobile.service.api.setup.ResponseException;
 import com.example.ool_mobile.service.api.setup.TokenStorage;
 
-import org.jetbrains.annotations.NotNull;
-
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Objects;
 
 import io.reactivex.rxjava3.annotations.CheckReturnValue;
@@ -123,19 +125,36 @@ public class EmployeeRepository {
                 .email(output.email)
                 .accessLevel(output.accessLevel)
                 .occupationId(output.occupationId)
-                .occupation(null)
+                .occupation(convertOccupation(output.occupation))
                 .gender(output.gender)
                 .rg(output.rg)
                 .build();
     }
 
-    @NotNull
-    private Occupation convertOccupation(EmployeeApi.OccupationData occupationData) {
+    @Nullable
+    private Occupation convertOccupation(@Nullable EmployeeApi.OccupationData occupationData) {
+
+        if (occupationData == null) {
+            return null;
+        }
+
         return ImmutableOccupation.builder()
                 .id(occupationData.id)
                 .description(occupationData.description)
                 .name(occupationData.name)
                 .build();
+    }
+
+    @NonNull
+    public URL getCurrentEmployeePictureURL() {
+
+        String link = ApiInfo.API_BASE_URL + "user/picture";
+
+        try {
+            return new URL(link);
+        } catch (MalformedURLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
 

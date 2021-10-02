@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import org.immutables.value.Value;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Model
 @Value.Immutable
@@ -35,6 +36,11 @@ public abstract class Employee {
 
     @Nullable
     public abstract Occupation occupation();
+
+    @NonNull
+    public Occupation requireOccupation() {
+        return Objects.requireNonNull(occupation(), "current occupation is null");
+    }
 
     @NonNull
     public abstract String gender();

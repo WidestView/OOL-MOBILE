@@ -10,7 +10,7 @@
 
     <ImageView
         android:contentDescription="@string/out_of_lens_logo"
-        android:id="@+id/imageView"
+        android:id="@+id/navHeader_employeeImageView"
         android:layout_width="0dp"
         android:layout_height="93dp"
         android:layout_marginStart="60dp"
@@ -31,9 +31,9 @@
         app:boxBackgroundColor="@color/white"
         app:boxBackgroundMode="filled"
         app:hintTextColor="@color/primaryDarkColor"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/navHeader_employeeImageView"
+        app:layout_constraintStart_toStartOf="@+id/navHeader_employeeImageView"
+        app:layout_constraintTop_toBottomOf="@+id/navHeader_employeeImageView"
         app:shapeAppearanceOverlay="@style/LoginEditTextCorner">
 
         <com.google.android.material.textfield.TextInputEditText

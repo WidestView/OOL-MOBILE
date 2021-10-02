@@ -123,10 +123,10 @@ public class HomeFragment extends Fragment {
         // todo: start photoshoot activity with given photoshoot
 
         Snackbar.make(
-                requireView().findViewById(android.R.id.content),
+                Objects.requireNonNull(requireView()),
                 "Not implemented",
                 Snackbar.LENGTH_LONG
-        );
+        ).show();
     }
 
 
