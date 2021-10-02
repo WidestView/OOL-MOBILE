@@ -3,7 +3,6 @@ package com.example.ool_mobile.ui.login;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -84,6 +83,8 @@ public class LoginActivity extends AppCompatActivity {
     private void setupViewModelEvents() {
         disposable.add(viewModel.getEvents().subscribe(event -> {
             switch (event) {
+
+
                 case LoginViewModel.START_CONTENT_WITH_ANIMATION:
                     startActivity(new Intent(this, ContentActivity.class));
                     break;
@@ -91,13 +92,26 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                     startActivity(new Intent(this, ContentActivity.class));
                     break;
+
+
                 case LoginViewModel.REPORT_FAILED_LOGIN:
 
-                    View content = findViewById(android.R.id.content);
+                    Snackbar.make(
+                            findViewById(android.R.id.content),
+                            R.string.error_invalidLogin,
+                            Snackbar.LENGTH_LONG
+                    ).show();
+                    break;
+
+
+                case LoginViewModel.REPORT_API_UNAVAILABLE:
+                    emailEditText.setEnabled(false);
+                    passwordEditText.setEnabled(false);
+                    startButton.setEnabled(false);
 
                     Snackbar.make(
-                            content,
-                            R.string.error_invalidLogin,
+                            findViewById(android.R.id.content),
+                            R.string.error_api_unavailable,
                             Snackbar.LENGTH_LONG
                     ).show();
                     break;

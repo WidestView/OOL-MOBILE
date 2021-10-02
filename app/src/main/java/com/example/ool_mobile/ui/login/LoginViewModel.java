@@ -18,6 +18,7 @@ public class LoginViewModel extends ViewModel {
     public static final int START_CONTENT_WITHOUT_ANIMATION = 1;
     public static final int START_CONTENT_WITH_ANIMATION = 2;
     public static final int REPORT_FAILED_LOGIN = 3;
+    public static final int REPORT_API_UNAVAILABLE = 4;
 
     private final PublishSubject<Integer> events = PublishSubject.create();
 
@@ -51,6 +52,10 @@ public class LoginViewModel extends ViewModel {
                     if (isLogged) {
                         events.onNext(START_CONTENT_WITHOUT_ANIMATION);
                     }
+                }, error -> {
+                    events.onNext(REPORT_API_UNAVAILABLE);
+
+                    error.printStackTrace();
                 });
 
         subscriptions.add(subscription);

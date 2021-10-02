@@ -114,5 +114,6 @@
     <string name="menu_payments">Pagamentos</string>
     <string name="menu_payment_types">Tipos de Pagamento</string>
     <string name="menu_hirings">Contratos</string>
+    <string name="error_api_unavailable">Api indisponível</string>
 
 </resources>
