@@ -18,7 +18,7 @@ import com.example.ool_mobile.R;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.meta.WithDrawer;
-import com.example.ool_mobile.ui.util.adapter.PhotoshootAdapter;
+import com.example.ool_mobile.ui.util.adapter.PendingPhotoshootAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -105,7 +105,7 @@ public class HomeFragment extends Fragment {
 
         Consumer<Photoshoot> onClick = this::startPhotoshootActivity;
 
-        recyclerView.setAdapter(new PhotoshootAdapter(photoshoots, onClick));
+        recyclerView.setAdapter(new PendingPhotoshootAdapter(photoshoots, onClick));
 
     }
 

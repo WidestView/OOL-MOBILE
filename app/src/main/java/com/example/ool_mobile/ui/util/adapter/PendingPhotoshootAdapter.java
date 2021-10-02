@@ -1,6 +1,5 @@
 package com.example.ool_mobile.ui.util.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.model.Photoshoot;
+import com.example.ool_mobile.ui.util.UiDate;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class PhotoshootAdapter extends RecyclerView.Adapter<PhotoshootAdapter.ViewHolder> {
+public class PendingPhotoshootAdapter extends RecyclerView.Adapter<PendingPhotoshootAdapter.ViewHolder> {
 
     public static final int DUE_PHOTOSHOOT = 1;
     public static final int AHEAD_PHOTOSHOOT = 0;
@@ -29,7 +27,7 @@ public class PhotoshootAdapter extends RecyclerView.Adapter<PhotoshootAdapter.Vi
     @NonNull
     private final Consumer<Photoshoot> clickListener;
 
-    public PhotoshootAdapter(
+    public PendingPhotoshootAdapter(
             @NonNull List<Photoshoot> photoshootList,
             @NonNull Consumer<Photoshoot> clickListener
     ) {
@@ -102,26 +100,7 @@ public class PhotoshootAdapter extends RecyclerView.Adapter<PhotoshootAdapter.Vi
         }
 
         private void bindPhotoshootDate(Date date) {
-            Context viewContext = Objects.requireNonNull(
-                    itemView.getContext(),
-                    "itemView context cannot be null"
-            );
-
-            Locale locale = Locale.getDefault();
-
-
-            String week = new SimpleDateFormat("EEEE", locale).format(date);
-            String day = new SimpleDateFormat("dd", locale).format(date);
-            String month = new SimpleDateFormat("MM", locale).format(date);
-
-            dateTextView.setText(
-                    String.format(
-                            viewContext.getString(R.string.format_short_date),
-                            week,
-                            day,
-                            month
-                    )
-            );
+            dateTextView.setText(new UiDate(itemView.getContext()).formatShortDate(date));
         }
     }
 }

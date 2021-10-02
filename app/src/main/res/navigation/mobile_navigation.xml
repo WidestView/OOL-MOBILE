@@ -85,7 +85,7 @@
     <fragment
         android:id="@+id/navigation_photoshoots"
         android:name="com.example.ool_mobile.ui.list.photoshoot.PhotoshootListFragment"
-        android:label="fragment_photoshoot_list"
+        android:label="@string/menu_photoshoots"
         tools:layout="@layout/fragment_list_photoshoot" />
     <activity
         android:id="@+id/addEmployeeActivity"
@@ -118,7 +118,7 @@
     <fragment
         android:id="@+id/navigation_equipment_type"
         android:name="com.example.ool_mobile.ui.list.equipment.EquipmentTypeListFragment"
-        android:label="Tipo de Equipamento"
+        android:label="@string/label_equipmentType"
         tools:layout="@layout/fragment_list_equipment_type" />
     <fragment
         android:id="@+id/navigation_shift"

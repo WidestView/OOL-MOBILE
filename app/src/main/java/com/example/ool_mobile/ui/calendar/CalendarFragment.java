@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
-import com.example.ool_mobile.ui.util.adapter.PhotoshootAdapter;
+import com.example.ool_mobile.ui.util.adapter.PendingPhotoshootAdapter;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.google.android.material.snackbar.Snackbar;
@@ -90,7 +90,7 @@ public class CalendarFragment extends Fragment {
                 .map(photoshoot -> new Event(color, photoshoot.startTime().getTime(), photoshoot))
                 .forEach(event -> calendarView.addEvent(event));
 
-        recyclerView.setAdapter(new PhotoshootAdapter(photoshoots, this::startPhotoshootActivity));
+        recyclerView.setAdapter(new PendingPhotoshootAdapter(photoshoots, this::startPhotoshootActivity));
 
     }
 

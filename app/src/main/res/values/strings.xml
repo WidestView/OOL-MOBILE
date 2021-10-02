@@ -2,8 +2,10 @@
     <string name="action_settings">Settings</string>
     <string name="app_logo">Out of lens logo</string>
     <string name="app_name">OOL-MOBILE</string>
+
     <string name="beep">beep</string>
     <string name="boop">boop</string>
+
     <string name="description_add_item">Add Item Button</string>
     <string name="description_calendar_icon">Ícone de calendário</string>
     <string name="description_currentEmployeeImage">Current user logo</string>
@@ -16,12 +18,18 @@
     <string name="description_go_back">Ícone de voltar</string>
     <string name="description_packageIcon">Ícone de pacote</string>
     <string name="description_report">Ícone de relatório</string>
+
     <string name="error_api_unavailable">Api indisponível</string>
     <string name="error_insert_valid_time_range">Insira um intervalo de tempo válido</string>
     <string name="error_invalidLogin">Login Inválido</string>
+
     <string name="format_hour">%d:%d</string>
     <string name="format_short_date">%s, %s de %s</string>
     <string name="format_welcome">Boas Vindas, %s</string>
+    <string name="format_duration_minutes">%d minutos</string>
+    <string name="format_id_name">%d - %s</string>
+    <string name="format_uuid_name">%s - %s</string>
+
     <string name="label_add_photo_shoot">Adicionar Ensaio</string>
     <string name="label_address">Endereço</string>
     <string name="label_all">Todos</string>
@@ -64,6 +72,7 @@
     <string name="label_type">Tipo</string>
     <string name="label_view">Visualizar</string>
     <string name="label_whats_up">Veja o que você tem de novo</string>
+
     <string name="menu_calendar">Calendário</string>
     <string name="menu_calendar_listLabel">Eventos</string>
     <string name="menu_calendar_viewLabel">Calendário</string>
@@ -81,6 +90,7 @@
     <string name="menu_payment_types">Tipos de Pagamento</string>
     <string name="menu_photoshoots">Ensaios</string>
     <string name="menu_reports">Relatórios</string>
+
     <string name="sample_date">25/07/2021</string>
     <string name="sample_day_of_month">24</string>
     <string name="sample_day_of_week">SEG</string>
