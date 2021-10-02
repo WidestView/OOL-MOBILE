@@ -1,15 +1,10 @@
 package com.example.ool_mobile.service;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.example.ool_mobile.model.Employee;
-import com.example.ool_mobile.model.ImmutableEmployee;
-import com.example.ool_mobile.model.ImmutableOccupation;
-import com.example.ool_mobile.model.Occupation;
 import com.example.ool_mobile.service.api.EmployeeApi;
 import com.example.ool_mobile.service.api.UserApi;
-import com.example.ool_mobile.service.api.setup.ApiDate;
 import com.example.ool_mobile.service.api.setup.ApiInfo;
 import com.example.ool_mobile.service.api.setup.ResponseException;
 import com.example.ool_mobile.service.api.setup.TokenStorage;
@@ -96,11 +91,11 @@ public class EmployeeRepository {
     @CheckReturnValue
     private Maybe<Employee> fetchEmployee() {
 
-        Single<Response<EmployeeApi.EmployeeData>> call = employeeApi.getCurrentEmployeeInfo();
+        Single<Response<Employee>> call = employeeApi.getCurrentEmployeeInfo();
 
         return call.flatMapMaybe(response -> {
             if (response.isSuccessful()) {
-                return Maybe.just(convertEmployee(response.body()));
+                return Maybe.just(response.body());
             } else if (response.code() == 401 || response.code() == 403) {
 
                 return Maybe.empty();
@@ -109,42 +104,6 @@ public class EmployeeRepository {
                 throw new ResponseException(response);
             }
         });
-    }
-
-    // todo: add to JsonDataConverter
-
-    @NonNull
-    private Employee convertEmployee(EmployeeApi.EmployeeData output) {
-
-        Objects.requireNonNull(output);
-
-        return ImmutableEmployee.builder()
-                .cpf(output.cpf)
-                .name(output.name)
-                .socialName(output.socialName)
-                .birthDate(ApiDate.parse(output.birthDate))
-                .phone(output.phone)
-                .email(output.email)
-                .accessLevel(output.accessLevel)
-                .occupationId(output.occupationId)
-                .occupation(convertOccupation(output.occupation))
-                .gender(output.gender)
-                .rg(output.rg)
-                .build();
-    }
-
-    @Nullable
-    private Occupation convertOccupation(@Nullable EmployeeApi.OccupationData occupationData) {
-
-        if (occupationData == null) {
-            return null;
-        }
-
-        return ImmutableOccupation.builder()
-                .id(occupationData.id)
-                .description(occupationData.description)
-                .name(occupationData.name)
-                .build();
     }
 
     @NonNull

@@ -50,7 +50,7 @@ public abstract class ApiProvider {
         OkHttpClient httpClient = getOkHttpClient();
 
         Moshi moshi = new Moshi.Builder()
-                .add(new JsonDataAdapter())
+                .add(new ModelJsonAdapter())
                 .build();
 
         Retrofit.Builder builder = new Retrofit.Builder();

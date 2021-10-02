@@ -33,6 +33,8 @@ public class EmployeeRepositoryTest {
 
         ApiProvider client = new ApiProviderBuilder()
                 .interceptor(new JwtInterceptor(storage))
+                .tokenStorage(storage)
+                .context(context)
                 .build();
 
         repository = new EmployeeRepository(

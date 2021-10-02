@@ -38,6 +38,8 @@ public class PhotoshootApiTest {
 
         ApiProvider client = new ApiProviderBuilder()
                 .interceptor(new JwtInterceptor(storage))
+                .context(context)
+                .tokenStorage(storage)
                 .build();
 
         api = client.getPhotoshootApi();
