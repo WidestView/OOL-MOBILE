@@ -21,6 +21,7 @@
     <string name="menu_equipments">Equipamentos</string>
     <string name="menu_photoshoots">Ensaios</string>
     <string name="welcome_format">Boas Vindas, %s</string>
+    <string name="date_format">%s, %s de %s</string>
     <string name="see_whats_up">Veja o que você tem de novo</string>
     <string name="equipment_icon_description">Ícone de equipamentos</string>
     <string name="report_description">Ícone de relatório</string>

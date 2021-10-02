@@ -11,6 +11,7 @@ import com.squareup.moshi.Moshi;
 
 import org.immutables.value.Value;
 
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
@@ -55,7 +56,7 @@ public abstract class ApiProvider {
         Retrofit.Builder builder = new Retrofit.Builder();
 
         builder.baseUrl(ApiInfo.API_BASE_URL);
-        builder.addCallAdapterFactory(RxJava3CallAdapterFactory.create());
+        builder.addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()));
         builder.addConverterFactory(MoshiConverterFactory.create(moshi));
         builder.client(httpClient);
 

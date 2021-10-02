@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -16,10 +15,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ool_mobile.R;
+import com.example.ool_mobile.model.Photoshoot;
+import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.meta.WithDrawer;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
 
 public class HomeFragment extends Fragment {
-
 
     private RecyclerView recyclerView;
     private TextView weekTextView;
@@ -47,54 +52,14 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setupDates();
+        setupRecyclerView();
 
-        setupWelcomeMessage();
+        setupNavigationWelcomeMessage();
 
-        setupSampleRecyclerView();
-
+        setupViewModel();
     }
 
-    private void setupSampleRecyclerView() {
-
-        final double chanceOfPending = 0.5;
-
-        recyclerView.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-                @LayoutRes
-                int resource = Math.random() > chanceOfPending
-                        ? R.layout.row_pending_photoshoot
-                        : R.layout.row_due_pending_photoshoot;
-
-                View view = LayoutInflater
-                        .from(parent.getContext())
-                        .inflate(resource, parent, false);
-
-                return new RecyclerView.ViewHolder(view) {
-                };
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) { }
-
-            @Override
-            public int getItemCount() {
-                return 10;
-            }
-
-        });
-
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(requireContext())
-        );
-    }
-
-    private void setupWelcomeMessage() {
+    private void setupNavigationWelcomeMessage() {
         welcomeTextView.setOnClickListener(v -> {
             Activity activity = getActivity();
 
@@ -104,10 +69,65 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void setupDates() {
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+    private void setupViewModel() {
 
-        monthTextView.setText(homeViewModel.getDayOfMonth());
-        weekTextView.setText(homeViewModel.getDayOfWeek());
+        HomeViewModel homeViewModel = new ViewModelProvider(
+                this,
+                HomeViewModel.create(
+                        Dependencies.from(this).getEmployeeRepository(),
+                        Dependencies.from(this).getPhotoshootApi()
+                )
+        ).get(HomeViewModel.class);
+
+        homeViewModel.getPendingPhotoshoots().observe(
+                getViewLifecycleOwner(),
+                this::displayPhotoshootList
+        );
+
+        homeViewModel.getEmployeeName().observe(getViewLifecycleOwner(), employeeName ->
+                welcomeTextView.setText(
+                        String.format(getString(R.string.welcome_format),
+                                employeeName
+                        )));
+
+        homeViewModel.getDayOfMonth().observe(getViewLifecycleOwner(), dayOfMonth ->
+                monthTextView.setText(dayOfMonth)
+        );
+
+        homeViewModel.getDayOfWeek().observe(getViewLifecycleOwner(), dayOfWeek ->
+                weekTextView.setText(dayOfWeek)
+        );
+
     }
+
+    private void displayPhotoshootList(List<Photoshoot> photoshoots) {
+
+        Consumer<Photoshoot> onClick = this::startPhotoshootActivity;
+
+        recyclerView.setAdapter(new PhotoshootAdapter(photoshoots, onClick));
+
+    }
+
+    private void setupRecyclerView() {
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(requireContext())
+        );
+
+    }
+
+
+    private void startPhotoshootActivity(@NonNull Photoshoot photoshoot) {
+        Objects.requireNonNull(photoshoot, "photoshoot is null");
+        // todo: start photoshoot activity with given photoshoot
+
+        Snackbar.make(
+                requireView().findViewById(android.R.id.content),
+                "Not implemented",
+                Snackbar.LENGTH_LONG
+        );
+    }
+
+
 }

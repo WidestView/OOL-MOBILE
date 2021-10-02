@@ -6,6 +6,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.ool_mobile.service.api.PhotoshootApi;
 import com.example.ool_mobile.service.api.setup.ApiProvider;
 import com.example.ool_mobile.service.api.setup.ApiProviderBuilder;
 import com.example.ool_mobile.service.api.setup.JwtInterceptor;
@@ -69,5 +70,11 @@ public abstract class Dependencies {
                 getApiProvider().getEmployeeApi(),
                 getTokenStorage()
         );
+    }
+
+    @NonNull
+    @Value.Lazy
+    public PhotoshootApi getPhotoshootApi() {
+        return getApiProvider().getPhotoshootApi();
     }
 }
