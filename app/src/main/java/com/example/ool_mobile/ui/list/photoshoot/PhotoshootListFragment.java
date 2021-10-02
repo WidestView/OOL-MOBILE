@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.list.photoshoot_list;
+package com.example.ool_mobile.ui.list.photoshoot;
 
 import androidx.fragment.app.Fragment;
 

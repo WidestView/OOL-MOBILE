@@ -18,6 +18,7 @@ import com.example.ool_mobile.R;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.meta.WithDrawer;
+import com.example.ool_mobile.ui.util.adapter.PhotoshootAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -86,7 +87,7 @@ public class HomeFragment extends Fragment {
 
         homeViewModel.getEmployeeName().observe(getViewLifecycleOwner(), employeeName ->
                 welcomeTextView.setText(
-                        String.format(getString(R.string.welcome_format),
+                        String.format(getString(R.string.format_welcome),
                                 employeeName
                         )));
 

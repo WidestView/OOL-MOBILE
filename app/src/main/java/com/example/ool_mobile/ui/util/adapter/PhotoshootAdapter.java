@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.home;
+package com.example.ool_mobile.ui.util.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -116,7 +116,7 @@ public class PhotoshootAdapter extends RecyclerView.Adapter<PhotoshootAdapter.Vi
 
             dateTextView.setText(
                     String.format(
-                            viewContext.getString(R.string.date_format),
+                            viewContext.getString(R.string.format_short_date),
                             week,
                             day,
                             month

@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleText="@string/equipment_type_title">
+        app:titleText="@string/label_idk">
 
         <com.example.ool_mobile.ui.component.ContentRowField
             android:layout_width="wrap_content"
@@ -20,12 +20,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Nome"
-            app:value="@string/equipment_type_title" />
+            app:value="@string/label_idk" />
 
         <com.example.ool_mobile.ui.component.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:label="@string/equipment_type_description"
+            app:label="@string/description_equipmentType"
             app:value="Take and print your photos anywhere, anytime" />
 
 

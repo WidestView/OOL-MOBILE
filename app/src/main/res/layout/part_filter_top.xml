@@ -11,7 +11,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/rambla_bold"
-        android:text="@string/all"
+        android:text="@string/label_all"
         android:textAllCaps="true"
         android:textColor="@color/partial_gray_dark"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/rambla_bold"
-            android:text="@string/filter_label"
+            android:text="@string/label_filter"
             android:textColor="@color/partial_gray_dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +39,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/filter_icon_description"
+            android:contentDescription="@string/description_filter_icon"
             android:src="@drawable/ic_subject"
             app:layout_constraintBottom_toBottomOf="@id/textView11"
             app:layout_constraintEnd_toStartOf="@id/textView11"

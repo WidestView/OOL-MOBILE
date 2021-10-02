@@ -9,7 +9,7 @@
     tools:context=".ui.login.LoginActivity">
 
     <ImageView
-        android:contentDescription="@string/out_of_lens_logo"
+        android:contentDescription="@string/app_logo"
         android:id="@+id/navHeader_employeeImageView"
         android:layout_width="0dp"
         android:layout_height="93dp"

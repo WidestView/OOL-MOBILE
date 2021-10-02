@@ -37,13 +37,13 @@ public class AddPhotoShootActivity extends AppCompatActivity {
         setupViews();
 
         startTimePicker = setupTimePicker(
-                R.string.select_start_time,
+                R.string.label_select_start_time,
                 startTimeEditText,
                 startPickerActivated
         );
 
         endTimePicker = setupTimePicker(
-                R.string.select_end_time,
+                R.string.label_select_end_time,
                 endTimeEditText,
                 endPickerActivated
         );
@@ -83,7 +83,7 @@ public class AddPhotoShootActivity extends AppCompatActivity {
 
         picker.addOnDismissListener(dialog -> textView.setText(
                 String.format(
-                        getString(R.string.hour_format),
+                        getString(R.string.format_hour),
                         picker.getHour(), picker.getMinute()
                 )
         ));
@@ -107,7 +107,7 @@ public class AddPhotoShootActivity extends AppCompatActivity {
                         )
                 )
                 .setTheme(R.style.CalendarStyle)
-                .setTitleText(R.string.select_end_time)
+                .setTitleText(R.string.label_select_end_time)
                 .build();
 
 

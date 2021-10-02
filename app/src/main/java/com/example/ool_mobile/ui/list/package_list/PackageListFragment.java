@@ -77,9 +77,9 @@ public class PackageListFragment extends Fragment {
         PopupMenu popup = new PopupMenu(requireContext(), view);
 
         Menu menu = popup.getMenu();
-        menu.add(R.string.type);
-        menu.add(R.string.price);
-        menu.add(R.string.quantity);
+        menu.add(R.string.label_type);
+        menu.add(R.string.label_price);
+        menu.add(R.string.label_quantity);
 
         popup.show();
     }

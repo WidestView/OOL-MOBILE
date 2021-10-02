@@ -54,7 +54,7 @@
                 android:layout_marginEnd="3dp"
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/rambla_bold"
-                android:text="@string/view"
+                android:text="@string/label_view"
                 android:textAllCaps="false"
                 android:textColor="@color/primaryLightColor"
                 android:textSize="13sp"

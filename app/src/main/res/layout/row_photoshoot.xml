@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
     <com.example.ool_mobile.ui.component.ContentRow
+        android:id="@+id/photoshootRow_contentRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -12,34 +13,39 @@
         app:titleText="Ensaio 31">
 
         <com.example.ool_mobile.ui.component.ContentRowField
+            android:id="@+id/photoshootRow_idField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="ID"
             app:value="31" />
 
         <com.example.ool_mobile.ui.component.ContentRowField
+            android:id="@+id/photoshootRow_orderIdField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="ID do pedido"
             app:value="30" />
 
         <com.example.ool_mobile.ui.component.ContentRowField
+            android:id="@+id/photoshootRow_addressField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Endereço"
             app:value="Alguma Rua" />
 
         <com.example.ool_mobile.ui.component.ContentRowField
+            android:id="@+id/photoshootRow_startTimeField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Início"
             app:value="30/3/2021 13:00" />
 
         <com.example.ool_mobile.ui.component.ContentRowField
+            android:id="@+id/photoshootRow_durationField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:label="Fim"
-            app:value="30/3/2021 15:00" />
+            app:label="Duração"
+            app:value="10 minutos" />
 
     </com.example.ool_mobile.ui.component.ContentRow>
 

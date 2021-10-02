@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
-import com.example.ool_mobile.ui.home.PhotoshootAdapter;
+import com.example.ool_mobile.ui.util.adapter.PhotoshootAdapter;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.google.android.material.snackbar.Snackbar;
@@ -30,7 +30,7 @@ public class CalendarFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
-    private CalendarViewModel viewModel;
+    private PhotoshootListViewModel viewModel;
 
     @NonNull
     public View onCreateView(
@@ -72,10 +72,10 @@ public class CalendarFragment extends Fragment {
 
         viewModel = new ViewModelProvider(
                 this,
-                CalendarViewModel.create(
+                PhotoshootListViewModel.create(
                         Dependencies.from(this).getPhotoshootApi()
                 )
-        ).get(CalendarViewModel.class);
+        ).get(PhotoshootListViewModel.class);
 
         viewModel.getPhotoshootList()
                 .observe(getViewLifecycleOwner(), this::displayPhotoshoots);

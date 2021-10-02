@@ -13,7 +13,7 @@
     <fragment
         android:id="@+id/navigation_packages"
         android:name="com.example.ool_mobile.ui.list.package_list.PackageListFragment"
-        android:label="@string/search"
+        android:label="@string/label_search"
         tools:layout="@layout/fragment_list_package">
         <action
             android:id="@+id/action_nav_package_to_addPhotoShootActivity"
@@ -84,7 +84,7 @@
 
     <fragment
         android:id="@+id/navigation_photoshoots"
-        android:name="com.example.ool_mobile.ui.list.photoshoot_list.PhotoshootListFragment"
+        android:name="com.example.ool_mobile.ui.list.photoshoot.PhotoshootListFragment"
         android:label="fragment_photoshoot_list"
         tools:layout="@layout/fragment_list_photoshoot" />
     <activity

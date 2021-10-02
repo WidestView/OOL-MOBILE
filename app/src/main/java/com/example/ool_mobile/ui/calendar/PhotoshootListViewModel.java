@@ -15,22 +15,22 @@ import java.util.List;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
-public class CalendarViewModel extends ViewModel {
+public class PhotoshootListViewModel extends ViewModel {
 
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     @NonNull
     private final PhotoshootApi photoshootApi;
     private MutableLiveData<List<Photoshoot>> photoshootList;
 
-    private CalendarViewModel(@NonNull PhotoshootApi photoshootApi) {
+    private PhotoshootListViewModel(@NonNull PhotoshootApi photoshootApi) {
         this.photoshootApi = photoshootApi;
     }
 
     @NonNull
     public static ViewModelProvider.Factory create(@NonNull PhotoshootApi photoshootApi) {
         return ViewModelFactory.create(
-                CalendarViewModel.class,
-                () -> new CalendarViewModel(photoshootApi)
+                PhotoshootListViewModel.class,
+                () -> new PhotoshootListViewModel(photoshootApi)
         );
     }
 
