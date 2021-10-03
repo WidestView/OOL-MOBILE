@@ -30,7 +30,7 @@ public class CalendarFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
-    private PhotoshootListViewModel viewModel;
+    private CalendarViewModel viewModel;
 
     @NonNull
     public View onCreateView(
@@ -72,10 +72,10 @@ public class CalendarFragment extends Fragment {
 
         viewModel = new ViewModelProvider(
                 this,
-                PhotoshootListViewModel.create(
+                CalendarViewModel.create(
                         Dependencies.from(this).getPhotoshootApi()
                 )
-        ).get(PhotoshootListViewModel.class);
+        ).get(CalendarViewModel.class);
 
         viewModel.getPhotoshootList()
                 .observe(getViewLifecycleOwner(), this::displayPhotoshoots);

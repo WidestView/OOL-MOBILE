@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.util.adapter;
+package com.example.ool_mobile.ui.list.photoshoot;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,17 +13,19 @@ import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.ui.component.ContentRow;
 import com.example.ool_mobile.ui.component.ContentRowField;
 import com.example.ool_mobile.ui.util.UiDate;
+import com.example.ool_mobile.ui.util.adapter.AdapterParameters;
 
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 public class PhotoshootRowAdapter extends RecyclerView.Adapter<PhotoshootRowAdapter.ViewHolder> {
 
     @NonNull
-    private final List<Photoshoot> photoshootList;
+    private final AdapterParameters<Photoshoot> parameters;
 
-    public PhotoshootRowAdapter(@NonNull List<Photoshoot> photoshootList) {
-        this.photoshootList = photoshootList;
+    public PhotoshootRowAdapter(@NonNull AdapterParameters<Photoshoot> parameters) {
+        this.parameters = parameters;
     }
 
     @NonNull
@@ -38,15 +40,15 @@ public class PhotoshootRowAdapter extends RecyclerView.Adapter<PhotoshootRowAdap
 
     @Override
     public void onBindViewHolder(@NonNull PhotoshootRowAdapter.ViewHolder holder, int position) {
-        holder.bind(photoshootList.get(position));
+        holder.bind(parameters.items().get(position));
     }
 
     @Override
     public int getItemCount() {
-        return photoshootList.size();
+        return parameters.items().size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         private final ContentRow contentRow;
 
@@ -68,18 +70,18 @@ public class PhotoshootRowAdapter extends RecyclerView.Adapter<PhotoshootRowAdap
             durationField = itemView.findViewById(R.id.photoshootRow_durationField);
         }
 
+        // todo: use order package name instead of address or "unknown"
+
         public void bind(@NonNull Photoshoot photoshoot) {
 
-            Context context = Objects.requireNonNull(
-                    itemView.getContext(),
-                    "itemViewContext must not be null"
-            );
+            parameters.bindRowEvents(contentRow, photoshoot);
 
-            // todo: use order name instead of address
 
             contentRow.getTitleTextView().setText(
                     photoshoot.address()
             );
+
+            Context context = requireContext();
 
             contentRow.getStatusTextView().setText(
                     new UiDate(context).formatShortDate(photoshoot.startTime())
@@ -90,7 +92,7 @@ public class PhotoshootRowAdapter extends RecyclerView.Adapter<PhotoshootRowAdap
             orderIdField.getValueTextView().setText(
                     String.format(
                             context.getString(R.string.format_id_name), photoshoot.orderId(),
-                            "beep"
+                            "unknown"
                     )
             );
 
@@ -100,11 +102,18 @@ public class PhotoshootRowAdapter extends RecyclerView.Adapter<PhotoshootRowAdap
                     new UiDate(context).formatDateTime(photoshoot.startTime())
             );
 
-            // todo: replace "unknown" with proper photoshoot order id
             durationField.getValueTextView().setText(
                     String.format(context.getString(R.string.format_duration_minutes),
                             photoshoot.durationMinutes()
                     )
+            );
+        }
+
+        @NotNull
+        private Context requireContext() {
+            return Objects.requireNonNull(
+                    itemView.getContext(),
+                    "itemViewContext must not be null"
             );
         }
 

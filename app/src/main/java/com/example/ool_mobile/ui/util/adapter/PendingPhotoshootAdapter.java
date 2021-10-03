@@ -73,7 +73,7 @@ public class PendingPhotoshootAdapter extends RecyclerView.Adapter<PendingPhotos
         return photoshootList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    protected class ViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView titleTextView;
 

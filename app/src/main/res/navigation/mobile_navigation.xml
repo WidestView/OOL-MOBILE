@@ -14,11 +14,7 @@
         android:id="@+id/navigation_packages"
         android:name="com.example.ool_mobile.ui.list.package_list.PackageListFragment"
         android:label="@string/label_search"
-        tools:layout="@layout/fragment_list_package">
-        <action
-            android:id="@+id/action_nav_package_to_addPhotoShootActivity"
-            app:destination="@id/addPhotoShootActivity" />
-    </fragment>
+        tools:layout="@layout/fragment_list_package" />
     <activity
         android:id="@+id/addPhotoShootActivity"
         android:name="com.example.ool_mobile.ui.form.add_photo_shoot.AddPhotoShootActivity"
@@ -86,7 +82,11 @@
         android:id="@+id/navigation_photoshoots"
         android:name="com.example.ool_mobile.ui.list.photoshoot.PhotoshootListFragment"
         android:label="@string/menu_photoshoots"
-        tools:layout="@layout/fragment_list_photoshoot" />
+        tools:layout="@layout/fragment_list_photoshoot">
+        <action
+            android:id="@+id/action_navigation_photoshoots_to_addPhotoShootActivity"
+            app:destination="@id/addPhotoShootActivity" />
+    </fragment>
     <activity
         android:id="@+id/addEmployeeActivity"
         android:name="com.example.ool_mobile.ui.form.add_employee.AddEmployeeActivity"

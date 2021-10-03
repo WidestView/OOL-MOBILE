@@ -9,17 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ool_mobile.R;
+import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
-import com.example.ool_mobile.ui.calendar.PhotoshootListViewModel;
-import com.example.ool_mobile.ui.util.adapter.PhotoshootRowAdapter;
+import com.example.ool_mobile.ui.util.adapter.AdapterParameters;
 
 public class PhotoshootListFragment extends Fragment {
 
     private RecyclerView recyclerView;
+
+    private PhotoshootRowAdapter adapter;
 
     @Nullable
     @Override
@@ -42,7 +45,7 @@ public class PhotoshootListFragment extends Fragment {
 
     private void setupViews() {
 
-        recyclerView = getView().findViewById(R.id.fragmentList_recyclerView);
+        recyclerView = requireView().findViewById(R.id.fragmentList_recyclerView);
 
         recyclerView.setHasFixedSize(true);
 
@@ -58,9 +61,25 @@ public class PhotoshootListFragment extends Fragment {
                 )
         ).get(PhotoshootListViewModel.class);
 
-        viewModel.getPhotoshootList().observe(getViewLifecycleOwner(), photoshoots ->
-                recyclerView.setAdapter(new PhotoshootRowAdapter(photoshoots))
+        viewModel.getPhotoshootList().observe(getViewLifecycleOwner(), photoshoots -> {
+
+                    adapter = new PhotoshootRowAdapter(
+                            new AdapterParameters.Builder<Photoshoot>()
+                                    .onEdit(this::onEdit)
+                                    .items(photoshoots)
+                                    .build()
+                    );
+
+                    recyclerView.setAdapter(adapter);
+                }
         );
+
+    }
+
+    private void onEdit(@NonNull Photoshoot photoshoot) {
+
+        Navigation.findNavController(requireView())
+                .navigate(R.id.action_navigation_photoshoots_to_addPhotoShootActivity);
 
     }
 }

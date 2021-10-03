@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.calendar;
+package com.example.ool_mobile.ui.list.photoshoot;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -11,23 +11,28 @@ import com.example.ool_mobile.service.api.PhotoshootApi;
 import com.example.ool_mobile.ui.util.ViewModelFactory;
 
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class PhotoshootListViewModel extends ViewModel {
 
-    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     @NonNull
     private final PhotoshootApi photoshootApi;
+    @NonNull
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private MutableLiveData<List<Photoshoot>> photoshootList;
 
-    private PhotoshootListViewModel(@NonNull PhotoshootApi photoshootApi) {
+    public PhotoshootListViewModel(@NonNull PhotoshootApi photoshootApi) {
         this.photoshootApi = photoshootApi;
     }
 
     @NonNull
     public static ViewModelProvider.Factory create(@NonNull PhotoshootApi photoshootApi) {
+
+        Objects.requireNonNull(photoshootApi, "photoshootApi is null");
+
         return ViewModelFactory.create(
                 PhotoshootListViewModel.class,
                 () -> new PhotoshootListViewModel(photoshootApi)
@@ -41,9 +46,9 @@ public class PhotoshootListViewModel extends ViewModel {
             photoshootList = new MutableLiveData<>();
 
             compositeDisposable.add(
-                    photoshootApi.listFromCurrentEmployee()
+                    photoshootApi.listAll()
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(photoshoots -> photoshootList.setValue(photoshoots))
+                            .subscribe(items -> photoshootList.setValue(items))
             );
         }
 

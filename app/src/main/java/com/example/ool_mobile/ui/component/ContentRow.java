@@ -26,7 +26,6 @@ public class ContentRow extends ConstraintLayout {
     @NonNull
     private final TextView statusTextView;
 
-    @NonNull
     private final LinearLayout collapseLayout;
 
     @NonNull
@@ -94,7 +93,7 @@ public class ContentRow extends ConstraintLayout {
     }
 
     @Override
-    public void addView(@NonNull View child, int index, @Nullable ViewGroup.LayoutParams params) {
+    public void addView(@Nullable View child, int index, @Nullable ViewGroup.LayoutParams params) {
 
         if (collapseLayout != null) {
             collapseLayout.addView(child, index, params);
@@ -131,5 +130,13 @@ public class ContentRow extends ConstraintLayout {
     @NonNull
     public View getArrowView() {
         return arrowView;
+    }
+
+    public void disableEditButtonView() {
+        editView.setVisibility(GONE);
+    }
+
+    public void disableDeleteButtonView() {
+        deleteView.setVisibility(GONE);
     }
 }
