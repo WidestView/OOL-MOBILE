@@ -23,6 +23,10 @@
         <argument
             android:name="form-mode"
             app:argType="integer" />
+        <argument
+            android:name="resource-id"
+            app:argType="string"
+            app:nullable="true" />
     </activity>
     <fragment
         android:id="@id/navigation_reports"

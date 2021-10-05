@@ -14,7 +14,6 @@ import com.example.ool_mobile.ui.util.form.FormCheck;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.form.FormTime;
 
-import org.immutables.value.Value;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -23,53 +22,54 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.Subject;
 
-@Value.Immutable(copy = false)
-interface PhotoshootInput {
-
-    @NonNull
-    String orderId();
-
-    @NonNull
-    String address();
-
-    @Nullable
-    FormTime startTime();
-
-    @Nullable
-    FormTime endTime();
-
-    @Nullable
-    Long date();
-}
-
-public class PhotoshootFormViewModel extends SubscriptionViewModel {
+public abstract class PhotoshootFormViewModel extends SubscriptionViewModel {
 
     @NonNull
     private final Subject<Event> events = PublishSubject.create();
-    private final FormMode formMode;
-    @NonNull
-    private final PhotoshootApi photoshootApi;
-
-    private PhotoshootFormViewModel(@NonNull FormMode formMode, @NonNull PhotoshootApi photoshootApi) {
-        this.formMode = formMode;
-        this.photoshootApi = photoshootApi;
-    }
 
     @NonNull
-    public static ViewModelProvider.Factory create(@NonNull FormMode formMode, @NonNull PhotoshootApi api) {
+    public static ViewModelProvider.Factory create(
+            @NonNull FormMode formMode,
+            @NonNull PhotoshootApi photoshootApi
+    ) {
+
         return ViewModelFactory.create(
                 PhotoshootFormViewModel.class,
-                () -> new PhotoshootFormViewModel(formMode, api)
+                () -> {
+
+                    AtomicReference<PhotoshootFormViewModel> result = new AtomicReference<>();
+
+                    formMode.accept(new FormMode.Visitor() {
+                        @Override
+                        public void visitAdd() {
+                            result.set(new AddPhotoshootViewModel(photoshootApi));
+                        }
+
+                        @Override
+                        public void visitUpdate() {
+                            result.set(new UpdatePhotoshootViewModel(photoshootApi));
+                        }
+                    });
+
+                    return result.get();
+                }
         );
     }
 
     @NonNull
     public Observable<Event> getEvents() {
+        return events;
+    }
+
+    @NonNull
+    protected Observer<Event> eventObserver() {
         return events;
     }
 
@@ -83,73 +83,10 @@ public class PhotoshootFormViewModel extends SubscriptionViewModel {
             return;
         }
 
-        formMode.accept(new FormMode.Visitor() {
-            @Override
-            public void visitAdd() {
-                addPhotoshoot(photoshoot);
-            }
-
-            public void visitUpdate() {
-                updatePhotoshoot(photoshoot);
-            }
-        });
-
+        savePhotoshoot(photoshoot);
     }
 
-    private void addPhotoshoot(@NonNull Photoshoot photoshoot) {
-
-        subscriptions.add(
-                photoshootApi.addPhotoshoot(photoshoot)
-                        .subscribe(
-                                success -> events.onNext(Event.Success),
-                                error -> {
-                                    error.printStackTrace();
-                                    events.onNext(Event.Error);
-                                }
-                        )
-        );
-    }
-
-    private void updatePhotoshoot(@NonNull Photoshoot photoshoot) {
-
-        // todo: implement update in the api
-    }
-
-    @Nullable
-    private Photoshoot normalize(@NonNull final PhotoshootInput input) {
-
-        final PhotoshootInput data = ImmutablePhotoshootInput.builder()
-                .orderId(input.orderId().trim())
-                .address(input.address().trim())
-                .startTime(input.startTime())
-                .endTime(input.endTime())
-                .date(input.date())
-                .build();
-
-        List<FormCheck<Event>> checks = getChecks(data);
-
-        boolean error = false;
-
-        for (FormCheck<Event> check : checks) {
-
-            if (check.performCheck() == CheckResult.Failure) {
-                events.onNext(check.getError());
-                error = true;
-            }
-        }
-
-        if (error) {
-            return null;
-        }
-
-        return ImmutablePhotoshoot.builder()
-                .resourceId(UUID.randomUUID())
-                .address(data.address())
-                .orderId(Integer.parseInt(data.orderId()))
-                .startTime(getDate(data))
-                .durationMinutes(getDuration(data))
-                .build();
-    }
+    protected abstract void savePhotoshoot(@NonNull Photoshoot photoshoot);
 
     private int getDuration(PhotoshootInput data) {
         return (int) (totalMinutes(data.endTime()) - totalMinutes(data.startTime()));
@@ -168,53 +105,40 @@ public class PhotoshootFormViewModel extends SubscriptionViewModel {
         return calendar.getTime();
     }
 
-    @NotNull
-    private List<FormCheck<Event>> getChecks(PhotoshootInput data) {
-        return Arrays.asList(
-                FormCheck.failIf(
-                        () -> data.address().isEmpty(),
-                        Event.EmptyAddress
-                ),
-                FormCheck.succeedIf(
-                        () -> {
-                            try {
-                                Integer.parseInt(data.orderId());
-                                return true;
-                            } catch (NumberFormatException ex) {
-                                return false;
-                            }
-                        },
-                        Event.InvalidOrder
-                ),
-                FormCheck.failIf(
-                        () -> data.orderId().isEmpty(),
-                        Event.EmptyOrder
-                ),
-                FormCheck.failIf(
-                        () -> data.startTime() == null,
-                        Event.EmptyStartTime
-                ),
-                FormCheck.failIf(
-                        () -> data.endTime() == null,
-                        Event.EmptyEndTime
-                ),
-                FormCheck.failIf(
-                        () -> data.date() == null,
-                        Event.EmptyDate
-                ),
-                FormCheck.failIf(
-                        () -> {
-                            FormTime end = data.endTime();
-                            FormTime start = data.startTime();
+    @Nullable
+    private Photoshoot normalize(@NonNull final PhotoshootInput input) {
 
-                            return end != null &&
-                                    start != null &&
-                                    totalMinutes(end) < totalMinutes(start);
-                        },
-                        Event.InvalidTimeRange
-                )
+        final PhotoshootInput data = ImmutablePhotoshootInput.builder()
+                .orderId(input.orderId().trim())
+                .address(input.address().trim())
+                .startTime(input.startTime())
+                .endTime(input.endTime())
+                .date(input.date())
+                .build();
 
-        );
+        List<FormCheck<PhotoshootFormViewModel.Event>> checks = getChecks(data);
+
+        boolean error = false;
+
+        for (FormCheck<PhotoshootFormViewModel.Event> check : checks) {
+
+            if (check.performCheck() == CheckResult.Failure) {
+                events.onNext(check.getError());
+                error = true;
+            }
+        }
+
+        if (error) {
+            return null;
+        }
+
+        return ImmutablePhotoshoot.builder()
+                .resourceId(UUID.randomUUID())
+                .address(data.address())
+                .orderId(Integer.parseInt(data.orderId()))
+                .startTime(getDate(data))
+                .durationMinutes(getDuration(data))
+                .build();
     }
 
     long totalMinutes(@NonNull FormTime formTime) {
@@ -254,5 +178,54 @@ public class PhotoshootFormViewModel extends SubscriptionViewModel {
 
             void visitEmptyDate();
         }
+    }
+
+    @NotNull
+    private List<FormCheck<PhotoshootFormViewModel.Event>> getChecks(PhotoshootInput data) {
+        return Arrays.asList(
+                FormCheck.failIf(
+                        () -> data.address().isEmpty(),
+                        PhotoshootFormViewModel.Event.EmptyAddress
+                ),
+                FormCheck.succeedIf(
+                        () -> {
+                            try {
+                                Integer.parseInt(data.orderId());
+                                return true;
+                            } catch (NumberFormatException ex) {
+                                return false;
+                            }
+                        },
+                        PhotoshootFormViewModel.Event.InvalidOrder
+                ),
+                FormCheck.failIf(
+                        () -> data.orderId().isEmpty(),
+                        PhotoshootFormViewModel.Event.EmptyOrder
+                ),
+                FormCheck.failIf(
+                        () -> data.startTime() == null,
+                        PhotoshootFormViewModel.Event.EmptyStartTime
+                ),
+                FormCheck.failIf(
+                        () -> data.endTime() == null,
+                        PhotoshootFormViewModel.Event.EmptyEndTime
+                ),
+                FormCheck.failIf(
+                        () -> data.date() == null,
+                        PhotoshootFormViewModel.Event.EmptyDate
+                ),
+                FormCheck.failIf(
+                        () -> {
+                            FormTime end = data.endTime();
+                            FormTime start = data.startTime();
+
+                            return end != null &&
+                                    start != null &&
+                                    totalMinutes(end) < totalMinutes(start);
+                        },
+                        PhotoshootFormViewModel.Event.InvalidTimeRange
+                )
+
+        );
     }
 }
