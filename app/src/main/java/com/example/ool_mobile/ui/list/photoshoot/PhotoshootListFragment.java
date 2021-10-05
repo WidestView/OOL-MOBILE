@@ -17,12 +17,15 @@ import com.example.ool_mobile.R;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.util.adapter.AdapterParameters;
+import com.example.ool_mobile.ui.util.form.FormMode;
 
 public class PhotoshootListFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
     private PhotoshootRowAdapter adapter;
+
+    private PhotoshootListViewModel viewModel;
 
     @Nullable
     @Override
@@ -50,18 +53,22 @@ public class PhotoshootListFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        requireView()
+                .findViewById(R.id.listFragment_addButton)
+                .setOnClickListener(v -> startFormActivity(FormMode.Add));
     }
 
     private void setupViewModel() {
 
-        PhotoshootListViewModel viewModel = new ViewModelProvider(
+        viewModel = new ViewModelProvider(
                 this,
                 PhotoshootListViewModel.create(
                         Dependencies.from(this).getPhotoshootApi()
                 )
         ).get(PhotoshootListViewModel.class);
 
-        viewModel.getPhotoshootList().observe(getViewLifecycleOwner(), photoshoots -> {
+        viewModel.getCurrentPhotoshootList().observe(getViewLifecycleOwner(), photoshoots -> {
 
                     adapter = new PhotoshootRowAdapter(
                             new AdapterParameters.Builder<Photoshoot>()
@@ -77,9 +84,38 @@ public class PhotoshootListFragment extends Fragment {
     }
 
     private void onEdit(@NonNull Photoshoot photoshoot) {
+        startFormActivity(FormMode.Update);
+    }
+
+    private void startFormActivity(FormMode mode) {
+        Bundle parameters = new Bundle();
+
+        parameters.putInt(FormMode.BUNDLE_KEY,
+                mode.asInteger()
+        );
 
         Navigation.findNavController(requireView())
-                .navigate(R.id.action_navigation_photoshoots_to_addPhotoShootActivity);
+                .navigate(
+                        R.id.action_navigation_photoshoots_to_photoshootFormActivity,
+                        parameters
+                );
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        viewModel.getCurrentPhotoshootList().observe(getViewLifecycleOwner(), photoshoots -> {
+
+                    adapter = new PhotoshootRowAdapter(
+                            new AdapterParameters.Builder<Photoshoot>()
+                                    .onEdit(this::onEdit)
+                                    .items(photoshoots)
+                                    .build()
+                    );
+
+                    recyclerView.setAdapter(adapter);
+                }
+        );
     }
 }

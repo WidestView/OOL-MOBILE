@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.form.add_photo_shoot.AddPhotoShootActivity"
+            android:name=".ui.form.add_photo_shoot.PhotoshootFormActivity"
             android:theme="@style/Theme.OOLMOBILE.NoActionBar" />
         <activity
             android:name=".ui.content.ContentActivity"

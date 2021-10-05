@@ -20,7 +20,8 @@
     <string name="description_report">Ícone de relatório</string>
 
     <string name="error_api_unavailable">Api indisponível</string>
-    <string name="error_insert_valid_time_range">Insira um intervalo de tempo válido</string>
+    <string name="error_operationFailed">Erro na operação</string>
+    <string name="error_invalidTimeRange">Insira um intervalo de tempo válido</string>
     <string name="error_invalidLogin">Login Inválido</string>
 
     <string name="format_hour">%d:%d</string>
@@ -31,6 +32,8 @@
     <string name="format_uuid_name">%s - %s</string>
 
     <string name="label_add_photo_shoot">Adicionar Ensaio</string>
+    <string name="label_update_photoshoot">Atualizar Ensaio</string>
+
     <string name="label_address">Endereço</string>
     <string name="label_all">Todos</string>
     <string name="label_base_value">Valor Base</string>
@@ -117,4 +120,10 @@
     <string name="label_contentActivity">ContentActivity</string>
     <string name="value_available">Disponível</string>
     <string name="yes">Sim</string>
+    <string name="error_empty_address">O endereço é obrigatório</string>
+    <string name="error_emptyOrderId">O id do pedido é obrigatório</string>
+    <string name="error_emptyStartTime">O horário de início é obrigatório</string>
+    <string name="error_emptyEndTime">O horário de fim é obrigatório</string>
+    <string name="error_invalidOrder">Invalid order</string>
+    <string name="error_empty_date">A data é obrigatória</string>
 </resources>

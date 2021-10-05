@@ -7,7 +7,7 @@
     android:paddingStart="24dp"
     android:paddingTop="32dp"
     android:paddingEnd="24dp"
-    tools:context=".ui.form.add_photo_shoot.AddPhotoShootActivity">
+    tools:context=".ui.form.add_photo_shoot.PhotoshootFormActivity">
 
     <ImageView
         android:id="@+id/addPhotoShoot_backImageView"
@@ -20,7 +20,7 @@
         android:contentDescription="@string/description_go_back" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/addPhotoshootActivity_titleTextView"
         style="@style/Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,11 +40,13 @@
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView21">
+        app:layout_constraintTop_toBottomOf="@+id/addPhotoshootActivity_titleTextView">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addPhotoshootActivity_orderEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/gray_light"
             android:hint="@string/label_order" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -60,8 +62,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addPhotoshootActivity_addressEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/gray_light"
             android:hint="@string/label_address" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,6 +87,7 @@
             android:layout_height="wrap_content"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:textColor="@color/gray_light"
             android:hint="@string/label_date" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,6 +109,7 @@
             android:layout_height="wrap_content"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:textColor="@color/gray_light"
             android:hint="@string/label_start_time" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,6 +131,7 @@
             android:layout_height="wrap_content"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:textColor="@color/gray_light"
             android:hint="@string/label_end_time" />
     </com.google.android.material.textfield.TextInputLayout>
 

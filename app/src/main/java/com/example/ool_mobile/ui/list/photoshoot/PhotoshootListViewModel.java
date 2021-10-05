@@ -22,7 +22,8 @@ public class PhotoshootListViewModel extends ViewModel {
     private final PhotoshootApi photoshootApi;
     @NonNull
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private MutableLiveData<List<Photoshoot>> photoshootList;
+
+    private final MutableLiveData<List<Photoshoot>> photoshootList = new MutableLiveData<>();
 
     public PhotoshootListViewModel(@NonNull PhotoshootApi photoshootApi) {
         this.photoshootApi = photoshootApi;
@@ -40,17 +41,13 @@ public class PhotoshootListViewModel extends ViewModel {
     }
 
     @NonNull
-    public LiveData<List<Photoshoot>> getPhotoshootList() {
+    public LiveData<List<Photoshoot>> getCurrentPhotoshootList() {
 
-        if (photoshootList == null) {
-            photoshootList = new MutableLiveData<>();
-
-            compositeDisposable.add(
-                    photoshootApi.listAll()
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(items -> photoshootList.setValue(items))
-            );
-        }
+        compositeDisposable.add(
+                photoshootApi.listAll()
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(photoshootList::setValue)
+        );
 
         return photoshootList;
     }

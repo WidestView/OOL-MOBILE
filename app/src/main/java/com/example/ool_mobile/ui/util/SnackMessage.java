@@ -1,17 +1,23 @@
 package com.example.ool_mobile.ui.util;
 
-import android.view.View;
+import android.app.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
-import java.util.Objects;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 public class SnackMessage {
 
-    @NonNull
-    public static View rootView(@NonNull View anyView) {
-        Objects.requireNonNull(anyView, "anyView is null");
+    public static void snack(@NonNull Activity activity, @StringRes int message) {
+        snack(activity, message, Snackbar.LENGTH_LONG);
+    }
 
-        return anyView;
+    public static void snack(
+            @NonNull Activity activity,
+            @StringRes int message,
+            @BaseTransientBottomBar.Duration int length) {
+        Snackbar.make(activity.findViewById(android.R.id.content), message, length).show();
     }
 }

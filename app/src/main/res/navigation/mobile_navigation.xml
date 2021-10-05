@@ -16,10 +16,14 @@
         android:label="@string/label_search"
         tools:layout="@layout/fragment_list_package" />
     <activity
-        android:id="@+id/addPhotoShootActivity"
-        android:name="com.example.ool_mobile.ui.form.add_photo_shoot.AddPhotoShootActivity"
+        android:id="@+id/photoshootFormActivity"
+        android:name="com.example.ool_mobile.ui.form.add_photo_shoot.PhotoshootFormActivity"
         android:label="activity_add_photo_shoot"
-        tools:layout="@layout/activity_add_photo_shoot" />
+        tools:layout="@layout/activity_add_photo_shoot">
+        <argument
+            android:name="form-mode"
+            app:argType="integer" />
+    </activity>
     <fragment
         android:id="@id/navigation_reports"
         android:name="com.example.ool_mobile.ui.list.report_list.ReportListFragment"
@@ -84,8 +88,8 @@
         android:label="@string/menu_photoshoots"
         tools:layout="@layout/fragment_list_photoshoot">
         <action
-            android:id="@+id/action_navigation_photoshoots_to_addPhotoShootActivity"
-            app:destination="@id/addPhotoShootActivity" />
+            android:id="@+id/action_navigation_photoshoots_to_photoshootFormActivity"
+            app:destination="@id/photoshootFormActivity" />
     </fragment>
     <activity
         android:id="@+id/addEmployeeActivity"
