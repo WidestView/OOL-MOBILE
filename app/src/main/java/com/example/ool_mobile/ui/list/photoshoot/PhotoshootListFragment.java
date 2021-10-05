@@ -19,6 +19,8 @@ import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.util.adapter.AdapterParameters;
 import com.example.ool_mobile.ui.util.form.FormMode;
 
+import java.util.UUID;
+
 public class PhotoshootListFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -84,15 +86,23 @@ public class PhotoshootListFragment extends Fragment {
     }
 
     private void onEdit(@NonNull Photoshoot photoshoot) {
-        startFormActivity(FormMode.Update);
+        startFormActivity(FormMode.Update, photoshoot.resourceId());
     }
 
     private void startFormActivity(FormMode mode) {
+        startFormActivity(mode, null);
+    }
+
+    private void startFormActivity(FormMode mode, @Nullable UUID id) {
         Bundle parameters = new Bundle();
 
         parameters.putInt(FormMode.BUNDLE_KEY,
                 mode.asInteger()
         );
+
+        if (id != null) {
+            parameters.putString("resource-id", id.toString());
+        }
 
         Navigation.findNavController(requireView())
                 .navigate(

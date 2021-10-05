@@ -2,6 +2,8 @@ package com.example.ool_mobile.ui.form.add_photo_shoot;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.model.ImmutablePhotoshoot;
@@ -34,10 +36,18 @@ public abstract class PhotoshootFormViewModel extends SubscriptionViewModel {
     @NonNull
     private final Subject<Event> events = PublishSubject.create();
 
+    private final MutableLiveData<FormMode> formMode = new MutableLiveData<>();
+
+    @NonNull
+    public LiveData<FormMode> getFormMode() {
+        return formMode;
+    }
+
     @NonNull
     public static ViewModelProvider.Factory create(
+            @NonNull PhotoshootApi photoshootApi,
             @NonNull FormMode formMode,
-            @NonNull PhotoshootApi photoshootApi
+            @Nullable UUID resourceId
     ) {
 
         return ViewModelFactory.create(
@@ -54,14 +64,21 @@ public abstract class PhotoshootFormViewModel extends SubscriptionViewModel {
 
                         @Override
                         public void visitUpdate() {
-                            result.set(new UpdatePhotoshootViewModel(photoshootApi));
+                            result.set(new UpdatePhotoshootViewModel(photoshootApi, resourceId));
                         }
                     });
+
+                    if (result.get() == null) {
+                        throw new UnsupportedOperationException();
+                    }
+
+                    result.get().formMode.setValue(formMode);
 
                     return result.get();
                 }
         );
     }
+
 
     @NonNull
     public Observable<Event> getEvents() {

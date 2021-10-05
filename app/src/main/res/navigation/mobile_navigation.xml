@@ -19,7 +19,7 @@
         android:id="@+id/photoshootFormActivity"
         android:name="com.example.ool_mobile.ui.form.add_photo_shoot.PhotoshootFormActivity"
         android:label="activity_add_photo_shoot"
-        tools:layout="@layout/activity_add_photo_shoot">
+        tools:layout="@layout/activity_form_photoshoot">
         <argument
             android:name="form-mode"
             app:argType="integer" />

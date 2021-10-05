@@ -126,4 +126,5 @@
     <string name="error_emptyEndTime">O horário de fim é obrigatório</string>
     <string name="error_invalidOrder">Invalid order</string>
     <string name="error_empty_date">A data é obrigatória</string>
+    <string name="label_photoshoot_info">Informações do ensaio</string>
 </resources>

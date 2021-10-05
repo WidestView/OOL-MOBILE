@@ -1,5 +1,6 @@
 package com.example.ool_mobile.ui.form.add_photo_shoot;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -10,57 +11,109 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.service.Dependencies;
-import com.example.ool_mobile.ui.util.form.FormDates;
+import com.example.ool_mobile.ui.util.form.DialogDateField;
+import com.example.ool_mobile.ui.util.form.DialogTimeField;
 import com.example.ool_mobile.ui.util.form.FormMode;
+import com.example.ool_mobile.ui.util.form.FormTime;
+
+import java.util.UUID;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 import static com.example.ool_mobile.ui.util.SnackMessage.snack;
 
 public class PhotoshootFormActivity extends AppCompatActivity implements
-        PhotoshootFormViewModel.Event.Visitor {
+        PhotoshootFormViewModel.Event.Visitor,
+        FormMode.Visitor {
 
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private TextView titleTextView;
-    private EditText startTimeEditText;
-    private EditText endTimeEditText;
-    private EditText dateEditText;
     private EditText addressEditText;
     private EditText orderEditText;
     private PhotoshootFormViewModel viewModel;
-    private FormDates dates;
+
+    private DialogTimeField startTimeField;
+    private DialogTimeField endTimeField;
+    private DialogDateField dateField;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_photo_shoot);
+        setContentView(R.layout.activity_form_photoshoot);
 
         setupViews();
 
-        setupDateViews();
+        setupViewModel();
+    }
 
+    private void setupViews() {
+
+        startTimeField = new DialogTimeField(
+                findViewById(R.id.addPhotoShoot_startTimeEditText),
+                R.string.label_select_start_time,
+                getSupportFragmentManager()
+        );
+
+        endTimeField = new DialogTimeField(
+                findViewById(R.id.addPhotoShoot_endTimeEditText),
+                R.string.label_select_end_time,
+                getSupportFragmentManager()
+        );
+
+        dateField = new DialogDateField(
+                findViewById(R.id.addPhotoShoot_dateEditText),
+                R.string.label_select_end_time,
+                getSupportFragmentManager()
+        );
+
+        titleTextView = findViewById(R.id.addPhotoshootActivity_titleTextView);
+        addressEditText = findViewById(R.id.addPhotoshootActivity_addressEditText);
+        orderEditText = findViewById(R.id.addPhotoshootActivity_orderEditText);
+
+        findViewById(R.id.addPhotoShoot_backImageView).setOnClickListener(v ->
+                onBackPressed()
+        );
+
+
+        findViewById(R.id.addPhotoShoot_saveButton).setOnClickListener(v ->
+                onSaveButtonClick()
+        );
+    }
+
+    private void setupViewModel() {
         viewModel = new ViewModelProvider(
                 this,
                 PhotoshootFormViewModel.create(
-                        loadFormMode(),
-                        Dependencies.from(this).getPhotoshootApi()
+                        Dependencies.from(this).getPhotoshootApi(),
+                        getFormMode(),
+                        getResourceId()
                 )
         ).get(PhotoshootFormViewModel.class);
+
+        viewModel.getFormMode().observe(this, formMode -> formMode.accept(this));
     }
 
-    private FormMode loadFormMode() {
+    @Nullable
+    private UUID getResourceId() {
+
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("resource-id");
+
+        if (id == null) {
+            return null;
+        } else {
+            return UUID.fromString(id);
+        }
+    }
+
+    private FormMode getFormMode() {
+
         int value = getIntent().getIntExtra(
                 FormMode.BUNDLE_KEY,
                 FormMode.Add.asInteger()
         );
 
-        FormMode formMode = FormMode.fromInteger(value);
-
-        if (formMode == FormMode.Update) {
-            titleTextView.setText(R.string.label_update_photoshoot);
-        }
-
-        return formMode;
+        return FormMode.fromInteger(value);
     }
 
     @Override
@@ -81,43 +134,14 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
     }
 
 
-    private void setupDateViews() {
-
-        dates = new FormDates(this, getSupportFragmentManager());
-
-        dates.setupStartTime(startTimeEditText);
-
-        dates.setupEndTime(endTimeEditText);
-
-        dates.setupDate(dateEditText);
-    }
-
-    private void setupViews() {
-        startTimeEditText = findViewById(R.id.addPhotoShoot_startTimeEditText);
-        endTimeEditText = findViewById(R.id.addPhotoShoot_endTimeEditText);
-        dateEditText = findViewById(R.id.addPhotoShoot_dateEditText);
-        titleTextView = findViewById(R.id.addPhotoshootActivity_titleTextView);
-        addressEditText = findViewById(R.id.addPhotoshootActivity_addressEditText);
-        orderEditText = findViewById(R.id.addPhotoshootActivity_orderEditText);
-
-        findViewById(R.id.addPhotoShoot_backImageView).setOnClickListener(v ->
-                onBackPressed()
-        );
-
-
-        findViewById(R.id.addPhotoShoot_saveButton).setOnClickListener(v ->
-                onSaveButtonClick()
-        );
-    }
-
     private void onSaveButtonClick() {
 
         viewModel.savePhotoshoot(
                 ImmutablePhotoshootInput.builder()
                         .address(addressEditText.getText().toString())
-                        .startTime(dates.getStartTime())
-                        .endTime(dates.getEndTime())
-                        .date(dates.getDate())
+                        .startTime(startTimeField.getFormTime())
+                        .endTime(endTimeField.getFormTime())
+                        .date(dateField.getDate())
                         .orderId(orderEditText.getText().toString())
                         .build()
         );
@@ -140,8 +164,8 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
 
     @Override
     public void visitInvalidTimeRange() {
-        startTimeEditText.setError(getString(R.string.error_invalidTimeRange));
-        endTimeEditText.setError(getString(R.string.error_invalidTimeRange));
+        startTimeField.getEditText().setError(getString(R.string.error_invalidTimeRange));
+        endTimeField.getEditText().setError(getString(R.string.error_invalidTimeRange));
     }
 
     @Override
@@ -151,12 +175,12 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
 
     @Override
     public void visitEmptyStartTime() {
-        startTimeEditText.setError(getString(R.string.error_emptyStartTime));
+        startTimeField.getEditText().setError(getString(R.string.error_emptyStartTime));
     }
 
     @Override
     public void visitEmptyEndTime() {
-        endTimeEditText.setError(getString(R.string.error_emptyEndTime));
+        endTimeField.getEditText().setError(getString(R.string.error_emptyEndTime));
     }
 
     @Override
@@ -166,8 +190,36 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
 
     @Override
     public void visitEmptyDate() {
-        dateEditText.setError(getString(R.string.error_empty_date));
+        dateField.getEditText().setError(getString(R.string.error_empty_date));
     }
 
+    @Override
+    public void visitAdd() {
+        titleTextView.setText(R.string.label_add_photo_shoot);
+    }
 
+    @Override
+    public void visitUpdate() {
+        titleTextView.setText(R.string.label_update_photoshoot);
+
+        if (viewModel instanceof UpdatePhotoshootViewModel) {
+            ((UpdatePhotoshootViewModel) viewModel).getPhotoshootInfo()
+                    .observe(this, photoshoot -> {
+
+                        orderEditText.setText(String.valueOf(photoshoot.orderId()));
+                        addressEditText.setText(photoshoot.address());
+
+                        startTimeField.setTime(FormTime.fromDate(photoshoot.startTime()));
+
+                        endTimeField.setTime(
+                                FormTime.fromDateSpan(
+                                        photoshoot.startTime(),
+                                        photoshoot.durationMinutes()
+                                )
+                        );
+
+                        dateField.setDate(photoshoot.startTime());
+                    });
+        }
+    }
 }

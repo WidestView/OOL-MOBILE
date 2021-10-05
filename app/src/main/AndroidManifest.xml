@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OOLMOBILE"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.form.add_package.AddPackageTypeActivity"></activity>
+        <activity android:name=".ui.form.add_package.AddPackageTypeActivity" />
         <activity android:name=".ui.form.add_firing.AddFiringActivity" />
         <activity android:name=".ui.form.add_equipment_details.AddEquipmentDetailsActivity" />
         <activity android:name=".ui.form.add_equipment.AddEquipmentActivity" />

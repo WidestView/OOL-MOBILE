@@ -16,6 +16,7 @@ public interface FormMode {
             return FormModeValues.MODE_ADD;
         }
     };
+
     FormMode Update = new FormMode() {
 
         @Override
@@ -28,6 +29,21 @@ public interface FormMode {
             return FormModeValues.MODE_UPDATE;
         }
     };
+
+    FormMode Display = new FormMode() {
+        @Override
+        public void accept(@NonNull Visitor visitor) {
+            if (visitor instanceof ExtendedVisitor) {
+                ((ExtendedVisitor) visitor).visitDisplay();
+            }
+        }
+
+        @Override
+        public int asInteger() {
+            return 0;
+        }
+    };
+
     @NonNull
     String BUNDLE_KEY = "form-mode";
 
@@ -38,6 +54,8 @@ public interface FormMode {
                 return FormMode.Add;
             case FormModeValues.MODE_UPDATE:
                 return FormMode.Update;
+            case FormModeValues.MODE_DISPLAY:
+                return FormMode.Display;
             default:
                 throw new IllegalArgumentException(value + " is not a valid FormMode value");
         }
@@ -52,10 +70,15 @@ public interface FormMode {
 
         void visitUpdate();
     }
+
+    interface ExtendedVisitor extends Visitor {
+        void visitDisplay();
+    }
 }
 
 class FormModeValues {
     static final int MODE_ADD = 330;
     static final int MODE_UPDATE = 770;
+    static final int MODE_DISPLAY = 346;
 }
 
