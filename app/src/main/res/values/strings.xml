@@ -113,5 +113,6 @@
     <string name="menu_payments">Pagamentos</string>
     <string name="menu_payment_types">Tipos de Pagamento</string>
     <string name="menu_hirings">Contratos</string>
+    <string name="nome_atributo">Equipamentos</string>
 
 </resources>

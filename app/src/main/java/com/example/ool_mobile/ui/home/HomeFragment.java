@@ -1,6 +1,7 @@
 package com.example.ool_mobile.ui.home;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +11,19 @@ import android.widget.TextView;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ool_mobile.R;
+import com.example.ool_mobile.horizontal_package.ElementAdapter;
+import com.example.ool_mobile.horizontal_package.ElementItem;
 import com.example.ool_mobile.ui.meta.WithDrawer;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -25,6 +32,8 @@ public class HomeFragment extends Fragment {
     private TextView weekTextView;
     private TextView monthTextView;
     private TextView welcomeTextView;
+
+    private RecyclerView elementRecyclerView;
 
     @NonNull
     public View onCreateView(
@@ -40,6 +49,8 @@ public class HomeFragment extends Fragment {
         monthTextView = view.findViewById(R.id.homeFragment_monthTextView);
         welcomeTextView = view.findViewById(R.id.homeFragment_welcomeTextView);
 
+        elementRecyclerView = view.findViewById(R.id.homeFragment_recyclerView);
+
         return view;
     }
 
@@ -53,8 +64,28 @@ public class HomeFragment extends Fragment {
 
         setupSampleRecyclerView();
 
+        setupElements();
     }
 
+    private void setupElements()
+    {
+
+        List<ElementItem> items = Arrays.asList(
+                new ElementItem("Equipamento", getDrawable(R.drawable.ic_camera_roll)),
+                new ElementItem("Pacote", getDrawable(R.drawable.ic_package))
+        );
+
+        elementRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        elementRecyclerView.setAdapter(new ElementAdapter(items));
+
+        elementRecyclerView.setHasFixedSize(true);
+
+    }
+    private Drawable getDrawable(int id)
+    {
+        return ContextCompat.getDrawable(requireActivity(), id);
+    }
     private void setupSampleRecyclerView() {
 
         final double chanceOfPending = 0.5;
