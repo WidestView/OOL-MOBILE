@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.R;
+import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.util.form.DialogDateField;
 import com.example.ool_mobile.ui.util.form.DialogTimeField;
@@ -23,14 +24,14 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import static com.example.ool_mobile.ui.util.SnackMessage.snack;
 
 public class PhotoshootFormActivity extends AppCompatActivity implements
-        PhotoshootFormViewModel.Event.Visitor,
+        PhotoshootViewModel.Event.Visitor,
         FormMode.Visitor {
 
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private TextView titleTextView;
     private EditText addressEditText;
     private EditText orderEditText;
-    private PhotoshootFormViewModel viewModel;
+    private PhotoshootViewModel viewModel;
 
     private DialogTimeField startTimeField;
     private DialogTimeField endTimeField;
@@ -83,15 +84,17 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
     private void setupViewModel() {
         viewModel = new ViewModelProvider(
                 this,
-                PhotoshootFormViewModel.create(
-                        Dependencies.from(this).getPhotoshootApi(),
-                        getFormMode(),
+                PhotoshootViewModel.create(
+                        getFormMode(), Dependencies.from(this).getPhotoshootApi(),
                         getResourceId()
                 )
-        ).get(PhotoshootFormViewModel.class);
+        ).get(PhotoshootViewModel.class);
 
         viewModel.getFormMode().observe(this, formMode -> formMode.accept(this));
+
+        viewModel.getInitialPhotoshoot().observe(this, this::displayPhotoshoot);
     }
+
 
     @Nullable
     private UUID getResourceId() {
@@ -147,6 +150,22 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
         );
     }
 
+    private void displayPhotoshoot(Photoshoot photoshoot) {
+        orderEditText.setText(String.valueOf(photoshoot.orderId()));
+        addressEditText.setText(photoshoot.address());
+
+        startTimeField.setTime(FormTime.fromDate(photoshoot.startTime()));
+
+        endTimeField.setTime(
+                FormTime.fromDateSpan(
+                        photoshoot.startTime(),
+                        photoshoot.durationMinutes()
+                )
+        );
+
+        dateField.setDate(photoshoot.startTime());
+    }
+
     @Override
     public void visitSuccess() {
         finish();
@@ -154,7 +173,7 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
 
     @Override
     public void visitError() {
-        snack(PhotoshootFormActivity.this, R.string.error_operationFailed);
+        snack(this, R.string.error_operationFailed);
     }
 
     @Override
@@ -201,25 +220,5 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
     @Override
     public void visitUpdate() {
         titleTextView.setText(R.string.label_update_photoshoot);
-
-        if (viewModel instanceof UpdatePhotoshootViewModel) {
-            ((UpdatePhotoshootViewModel) viewModel).getPhotoshootInfo()
-                    .observe(this, photoshoot -> {
-
-                        orderEditText.setText(String.valueOf(photoshoot.orderId()));
-                        addressEditText.setText(photoshoot.address());
-
-                        startTimeField.setTime(FormTime.fromDate(photoshoot.startTime()));
-
-                        endTimeField.setTime(
-                                FormTime.fromDateSpan(
-                                        photoshoot.startTime(),
-                                        photoshoot.durationMinutes()
-                                )
-                        );
-
-                        dateField.setDate(photoshoot.startTime());
-                    });
-        }
     }
 }

@@ -16,6 +16,10 @@ public interface FormTime {
     @Value.Parameter
     long getMinute();
 
+    default long totalMinutes() {
+        return getHour() * 60 + getMinute();
+    }
+
     @NonNull
     static FormTime fromDate(@NonNull Date date) {
 
@@ -23,7 +27,7 @@ public interface FormTime {
         calendar.setTime(date);
 
         return ImmutableFormTime.of(
-                calendar.get(Calendar.HOUR),
+                calendar.get(Calendar.HOUR_OF_DAY),
                 calendar.get(Calendar.MINUTE)
         );
     }
@@ -37,7 +41,7 @@ public interface FormTime {
         calendar.add(Calendar.MINUTE, minutes);
 
         return ImmutableFormTime.of(
-                calendar.get(Calendar.HOUR),
+                calendar.get(Calendar.HOUR_OF_DAY),
                 calendar.get(Calendar.MINUTE)
         );
 

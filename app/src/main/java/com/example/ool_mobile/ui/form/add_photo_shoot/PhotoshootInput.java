@@ -8,7 +8,7 @@ import com.example.ool_mobile.ui.util.form.FormTime;
 import org.immutables.value.Value;
 
 @Value.Immutable(copy = false)
-public interface PhotoshootInput {
+interface PhotoshootInput {
 
     @NonNull
     String orderId();
