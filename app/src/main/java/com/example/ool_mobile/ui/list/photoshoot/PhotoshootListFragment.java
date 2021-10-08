@@ -10,10 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ool_mobile.R;
+import com.example.ool_mobile.databinding.FragmentListPhotoshootBinding;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.util.adapter.AdapterParameters;
@@ -23,7 +22,7 @@ import java.util.UUID;
 
 public class PhotoshootListFragment extends Fragment {
 
-    private RecyclerView recyclerView;
+    private FragmentListPhotoshootBinding binding;
 
     private PhotoshootRowAdapter adapter;
 
@@ -36,29 +35,17 @@ public class PhotoshootListFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_list_photoshoot, container, false);
+        binding = FragmentListPhotoshootBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setupViews();
+        binding.setFragment(this);
 
         setupViewModel();
-    }
-
-    private void setupViews() {
-
-        recyclerView = requireView().findViewById(R.id.fragmentList_recyclerView);
-
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-
-        requireView()
-                .findViewById(R.id.listFragment_addButton)
-                .setOnClickListener(v -> startFormActivity(FormMode.Add));
     }
 
     private void setupViewModel() {
@@ -79,18 +66,18 @@ public class PhotoshootListFragment extends Fragment {
                                     .build()
                     );
 
-                    recyclerView.setAdapter(adapter);
+                    binding.fragmentListRecyclerView.setAdapter(adapter);
                 }
         );
 
     }
 
-    private void onEdit(@NonNull Photoshoot photoshoot) {
+    public void onEdit(@NonNull Photoshoot photoshoot) {
         startFormActivity(FormMode.Update, photoshoot.resourceId());
     }
 
-    private void startFormActivity(FormMode mode) {
-        startFormActivity(mode, null);
+    public void onAddButtonClick() {
+        startFormActivity(FormMode.Add, null);
     }
 
     private void startFormActivity(FormMode mode, @Nullable UUID id) {
@@ -124,7 +111,7 @@ public class PhotoshootListFragment extends Fragment {
                                     .build()
                     );
 
-                    recyclerView.setAdapter(adapter);
+            binding.fragmentListRecyclerView.setAdapter(adapter);
                 }
         );
     }

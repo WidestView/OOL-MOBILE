@@ -1,52 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.example.ool_mobile.ui.component.ContentRow
-        android:id="@+id/photoshootRow_contentRow"
+    <data>
+
+        <variable
+            name="uiDate"
+            type="com.example.ool_mobile.ui.util.UiDate" />
+
+        <variable
+            name="photoshoot"
+            type="com.example.ool_mobile.model.Photoshoot" />
+
+        <variable
+            name="events"
+            type="com.example.ool_mobile.ui.component.ContentRowEvents" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:statusText="27/05/2022"
-        app:titleText="Ensaio 31">
+        android:layout_height="wrap_content">
 
-        <com.example.ool_mobile.ui.component.ContentRowField
-            android:id="@+id/photoshootRow_idField"
-            android:layout_width="wrap_content"
+        <com.example.ool_mobile.ui.component.ContentRow
+            android:id="@+id/photoshootRow_contentRow"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:label="ID"
-            app:value="31" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:statusText="27/05/2022"
+            tools:titleText="localhost avenue"
+            app:statusText="@{photoshoot.address()}"
+            app:titleText="@{uiDate.formatShortDate(photoshoot.startTime())}"
+            app:on_edit="@{events.onEdit}"
+            app:on_delete="@{events.onDelete}">
 
-        <com.example.ool_mobile.ui.component.ContentRowField
-            android:id="@+id/photoshootRow_orderIdField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="ID do pedido"
-            app:value="30" />
+            <com.example.ool_mobile.ui.component.ContentRowField
+                android:id="@+id/photoshootRow_idField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="ID"
+                app:value="@{photoshoot.resourceId().toString()}" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
-            android:id="@+id/photoshootRow_addressField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="Endereço"
-            app:value="Alguma Rua" />
+            <com.example.ool_mobile.ui.component.ContentRowField
+                android:id="@+id/photoshootRow_orderIdField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="ID do pedido"
+                tools:value="30"
+                app:value="@{Integer.toString(photoshoot.orderId())}" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
-            android:id="@+id/photoshootRow_startTimeField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="Início"
-            app:value="30/3/2021 13:00" />
+            <com.example.ool_mobile.ui.component.ContentRowField
+                android:id="@+id/photoshootRow_addressField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Endereço"
+                tools:value="Alguma Rua"
+                app:value="@{photoshoot.address()}" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
-            android:id="@+id/photoshootRow_durationField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="Duração"
-            app:value="10 minutos" />
+            <com.example.ool_mobile.ui.component.ContentRowField
+                android:id="@+id/photoshootRow_startTimeField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Início"
+                tools:value="30/3/2021 13:00"
+                app:value="@{uiDate.formatDateTime(photoshoot.startTime())}" />
 
-    </com.example.ool_mobile.ui.component.ContentRow>
+            <com.example.ool_mobile.ui.component.ContentRowField
+                android:id="@+id/photoshootRow_durationField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Duração"
+                tools:value="10 minutos"
+                app:value="@{@string/format_duration_minutes(photoshoot.durationMinutes())}" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </com.example.ool_mobile.ui.component.ContentRow>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

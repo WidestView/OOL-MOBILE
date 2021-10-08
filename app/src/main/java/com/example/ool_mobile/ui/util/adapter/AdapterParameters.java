@@ -1,10 +1,12 @@
 package com.example.ool_mobile.ui.util.adapter;
 
 
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.ool_mobile.ui.component.ContentRow;
+import com.example.ool_mobile.ui.component.ContentRowEvents;
 
 import org.immutables.value.Value;
 
@@ -25,31 +27,35 @@ public abstract class AdapterParameters<Model> {
     @Nullable
     public abstract Consumer<Model> onDelete();
 
-    public void bindRowEvents(@NonNull ContentRow contentRow, @NonNull Model model) {
-
-        Objects.requireNonNull(contentRow, "contentRow is null");
+    @NonNull
+    public ContentRowEvents asRowEvents(@NonNull Model model) {
 
         Objects.requireNonNull(model, "model is null");
 
         Consumer<Model> onEdit = onEdit();
-
-        if (onEdit == null) {
-            contentRow.disableEditButtonView();
-        } else {
-            contentRow.getEditView().setOnClickListener(v ->
-                    onEdit.accept(model)
-            );
-        }
-
         Consumer<Model> onDelete = onDelete();
 
-        if (onDelete == null) {
-            contentRow.disableDeleteButtonView();
-        } else {
-            contentRow.getDeleteView().setOnClickListener(v ->
-                    onDelete.accept(model)
-            );
-        }
+        return new ContentRowEvents() {
+            @Nullable
+            @Override
+            public View.OnClickListener getOnEdit() {
+                if (onEdit == null) {
+                    return null;
+                } else {
+                    return v -> onEdit.accept(model);
+                }
+            }
+
+            @Nullable
+            @Override
+            public View.OnClickListener getOnDelete() {
+                if (onDelete == null) {
+                    return null;
+                } else {
+                    return v -> onDelete.accept(model);
+                }
+            }
+        };
     }
 
     public static class Builder<Model> extends ImmutableAdapterParameters.Builder<Model> {

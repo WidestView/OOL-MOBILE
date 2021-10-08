@@ -3,12 +3,12 @@ package com.example.ool_mobile.ui.home;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.EmployeeRepository;
 import com.example.ool_mobile.service.api.PhotoshootApi;
+import com.example.ool_mobile.ui.util.SubscriptionViewModel;
 import com.example.ool_mobile.ui.util.ViewModelFactory;
 
 import java.text.SimpleDateFormat;
@@ -19,20 +19,22 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class HomeViewModel extends ViewModel {
+public class HomeViewModel extends SubscriptionViewModel {
 
-    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    @NonNull
-    private final EmployeeRepository employeeRepository;
-    @NonNull
-    private final PhotoshootApi photoshootApi;
+
     private MutableLiveData<String> dayOfWeek;
     private MutableLiveData<String> dayOfMonth;
     private MutableLiveData<String> employeeName;
+
     private MutableLiveData<List<Photoshoot>> pendingPhotoshoots;
+
+    @NonNull
+    private final EmployeeRepository employeeRepository;
+
+    @NonNull
+    private final PhotoshootApi photoshootApi;
 
     public HomeViewModel(
             @NonNull EmployeeRepository employeeRepository,
@@ -57,7 +59,7 @@ public class HomeViewModel extends ViewModel {
         if (employeeName == null) {
             employeeName = new MutableLiveData<>();
 
-            compositeDisposable.add(
+            subscriptions.add(
                     employeeRepository.getCurrentEmployee()
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
@@ -112,7 +114,7 @@ public class HomeViewModel extends ViewModel {
         if (pendingPhotoshoots == null) {
             pendingPhotoshoots = new MutableLiveData<>();
 
-            compositeDisposable.add(
+            subscriptions.add(
                     photoshootApi.listFromCurrentEmployee()
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(this::onPhotoshootsFetched)
@@ -144,11 +146,5 @@ public class HomeViewModel extends ViewModel {
 
         return calendar1.get(Calendar.DAY_OF_YEAR) == calendar2.get(Calendar.DAY_OF_YEAR) &&
                 calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR);
-    }
-
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        compositeDisposable.clear();
     }
 }
