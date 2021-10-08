@@ -11,17 +11,17 @@ import org.immutables.value.Value;
 interface PhotoshootInput {
 
     @NonNull
-    String orderId();
+    String getOrderId();
 
     @NonNull
-    String address();
+    String getAddress();
 
     @Nullable
-    FormTime startTime();
+    FormTime getStartTime();
 
     @Nullable
-    FormTime endTime();
+    FormTime getEndTime();
 
     @Nullable
-    Long date();
+    Long getDate();
 }

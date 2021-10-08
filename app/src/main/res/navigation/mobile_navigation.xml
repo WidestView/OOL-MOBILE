@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.example.ool_mobile.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/actionHomeToPhotoshootFormActivity"
+            app:destination="@id/photoshootFormActivity" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_packages"
         android:name="com.example.ool_mobile.ui.list.package_list.PackageListFragment"
@@ -38,7 +42,11 @@
         android:id="@+id/navigation_calendar"
         android:name="com.example.ool_mobile.ui.calendar.CalendarFragment"
         android:label="@string/label_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar">
+        <action
+            android:id="@+id/action_calendarToFormActivity"
+            app:destination="@id/photoshootFormActivity" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_employees"
@@ -92,7 +100,7 @@
         android:label="@string/menu_photoshoots"
         tools:layout="@layout/fragment_list_photoshoot">
         <action
-            android:id="@+id/action_navigation_photoshoots_to_photoshootFormActivity"
+            android:id="@+id/action_photoshootListToPhotoshootForm"
             app:destination="@id/photoshootFormActivity" />
     </fragment>
     <activity

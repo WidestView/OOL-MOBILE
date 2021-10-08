@@ -67,6 +67,8 @@ public class DialogTimeField {
 
             FormTime time = getFormTime();
 
+            Objects.requireNonNull(time);
+
             editText.setText(formatFormTime(time));
 
             editText.setError(null);

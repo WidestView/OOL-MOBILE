@@ -9,9 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
-import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.FragmentListPhotoshootBinding;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
@@ -81,21 +81,13 @@ public class PhotoshootListFragment extends Fragment {
     }
 
     private void startFormActivity(FormMode mode, @Nullable UUID id) {
-        Bundle parameters = new Bundle();
 
-        parameters.putInt(FormMode.BUNDLE_KEY,
-                mode.asInteger()
+        NavDirections action = PhotoshootListFragmentDirections.actionPhotoshootListToPhotoshootForm(
+                mode.asInteger(),
+                id == null ? null : id.toString()
         );
 
-        if (id != null) {
-            parameters.putString("resource-id", id.toString());
-        }
-
-        Navigation.findNavController(requireView())
-                .navigate(
-                        R.id.action_navigation_photoshoots_to_photoshootFormActivity,
-                        parameters
-                );
+        Navigation.findNavController(requireView()).navigate(action);
     }
 
     @Override

@@ -35,11 +35,11 @@ class PhotoshootValidation {
     public Photoshoot normalize(@NonNull final PhotoshootInput input) {
 
         final PhotoshootInput data = ImmutablePhotoshootInput.builder()
-                .orderId(input.orderId().trim())
-                .address(input.address().trim())
-                .startTime(input.startTime())
-                .endTime(input.endTime())
-                .date(input.date())
+                .orderId(input.getOrderId().trim())
+                .address(input.getAddress().trim())
+                .startTime(input.getStartTime())
+                .endTime(input.getEndTime())
+                .date(input.getDate())
                 .build();
 
         List<FormCheck<PhotoshootViewModel.Event>> checks = getChecks(data);
@@ -60,8 +60,8 @@ class PhotoshootValidation {
 
         return ImmutablePhotoshoot.builder()
                 .resourceId(UUID.randomUUID())
-                .address(data.address())
-                .orderId(Integer.parseInt(data.orderId()))
+                .address(data.getAddress())
+                .orderId(Integer.parseInt(data.getOrderId()))
                 .startTime(getDate(data))
                 .durationMinutes(getDuration(data))
                 .build();
@@ -71,13 +71,13 @@ class PhotoshootValidation {
     private List<FormCheck<PhotoshootViewModel.Event>> getChecks(PhotoshootInput data) {
         return Arrays.asList(
                 FormCheck.failIf(
-                        () -> data.address().isEmpty(),
+                        () -> data.getAddress().isEmpty(),
                         PhotoshootViewModel.Event.EmptyAddress
                 ),
                 FormCheck.succeedIf(
                         () -> {
                             try {
-                                Integer.parseInt(data.orderId());
+                                Integer.parseInt(data.getOrderId());
                                 return true;
                             } catch (NumberFormatException ex) {
                                 return false;
@@ -86,25 +86,25 @@ class PhotoshootValidation {
                         PhotoshootViewModel.Event.InvalidOrder
                 ),
                 FormCheck.failIf(
-                        () -> data.orderId().isEmpty(),
+                        () -> data.getOrderId().isEmpty(),
                         PhotoshootViewModel.Event.EmptyOrder
                 ),
                 FormCheck.failIf(
-                        () -> data.startTime() == null,
+                        () -> data.getStartTime() == null,
                         PhotoshootViewModel.Event.EmptyStartTime
                 ),
                 FormCheck.failIf(
-                        () -> data.endTime() == null,
+                        () -> data.getEndTime() == null,
                         PhotoshootViewModel.Event.EmptyEndTime
                 ),
                 FormCheck.failIf(
-                        () -> data.date() == null,
+                        () -> data.getDate() == null,
                         PhotoshootViewModel.Event.EmptyDate
                 ),
                 FormCheck.failIf(
                         () -> {
-                            FormTime end = data.endTime();
-                            FormTime start = data.startTime();
+                            FormTime end = data.getEndTime();
+                            FormTime start = data.getStartTime();
 
                             return end != null &&
                                     start != null &&
@@ -117,7 +117,11 @@ class PhotoshootValidation {
     }
 
     private int getDuration(PhotoshootInput data) {
-        return (int) ((data.endTime().totalMinutes()) - data.startTime().totalMinutes());
+
+        Objects.requireNonNull(data.getEndTime(), "endTime");
+        Objects.requireNonNull(data.getStartTime());
+
+        return (int) ((data.getEndTime().totalMinutes()) - data.getStartTime().totalMinutes());
     }
 
     @NotNull
@@ -125,10 +129,13 @@ class PhotoshootValidation {
 
         Calendar calendar = Calendar.getInstance();
 
-        calendar.setTime(new Date(data.date()));
+        Objects.requireNonNull(data.getDate(), "input date is null");
+        Objects.requireNonNull(data.getStartTime(), "input start time is null");
 
-        calendar.add(Calendar.HOUR, (int) data.startTime().getHour());
-        calendar.add(Calendar.MINUTE, (int) data.startTime().getMinute());
+        calendar.setTime(new Date(data.getDate()));
+
+        calendar.add(Calendar.HOUR, (int) data.getStartTime().getHour());
+        calendar.add(Calendar.MINUTE, (int) data.getStartTime().getMinute());
 
         return calendar.getTime();
     }

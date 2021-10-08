@@ -14,6 +14,8 @@ import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +25,7 @@ import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.meta.WithDrawer;
 import com.example.ool_mobile.ui.util.adapter.PendingPhotoshootAdapter;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.ool_mobile.ui.util.form.FormMode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -122,12 +124,14 @@ public class HomeFragment extends Fragment {
     }
 
     private void startPhotoshootActivity(@NonNull Photoshoot photoshoot) {
+
         Objects.requireNonNull(photoshoot, "photoshoot is null");
 
-        Snackbar.make(
-                Objects.requireNonNull(requireView()),
-                "Not implemented",
-                Snackbar.LENGTH_LONG
-        ).show();
+        NavDirections action = HomeFragmentDirections.actionHomeToPhotoshootFormActivity(
+                FormMode.Update.asInteger(),
+                photoshoot.resourceId().toString()
+        );
+
+        NavHostFragment.findNavController(this).navigate(action);
     }
 }
