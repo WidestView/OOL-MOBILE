@@ -1,30 +1,44 @@
 package com.example.ool_mobile.ui.login;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.service.EmployeeRepository;
+import com.example.ool_mobile.ui.util.SubscriptionViewModel;
 import com.example.ool_mobile.ui.util.ViewModelFactory;
 
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 
-public class LoginViewModel extends ViewModel {
+public class LoginViewModel extends SubscriptionViewModel {
 
-    public static final int START_CONTENT_WITHOUT_ANIMATION = 1;
-    public static final int START_CONTENT_WITH_ANIMATION = 2;
-    public static final int REPORT_FAILED_LOGIN = 3;
-    public static final int REPORT_API_UNAVAILABLE = 4;
+    public interface Event {
 
-    private final PublishSubject<Integer> events = PublishSubject.create();
+        void accept(@NonNull Visitor visitor);
+
+        Event StartContentWithoutAnimation = Visitor::visitStartContentWithoutAnimation;
+        Event StartContentWithAnimation = Visitor::visitStartContentWithAnimation;
+        Event ReportFailedLogin = Visitor::visitReportFailedLogin;
+        Event ReportApiUnavailable = Visitor::visitReportApiUnavailable;
+
+        interface Visitor {
+            void visitStartContentWithoutAnimation();
+
+            void visitStartContentWithAnimation();
+
+            void visitReportFailedLogin();
+
+            void visitReportApiUnavailable();
+        }
+    }
+
+    private final PublishSubject<Event> events = PublishSubject.create();
+
+    private final LoginInput input = new LoginInput();
 
     private final EmployeeRepository repository;
-
-    private final CompositeDisposable subscriptions = new CompositeDisposable();
 
     public LoginViewModel(@NonNull EmployeeRepository repository) {
         this.repository = repository;
@@ -39,8 +53,13 @@ public class LoginViewModel extends ViewModel {
     }
 
     @NonNull
-    public Observable<Integer> getEvents() {
+    public Observable<Event> getEvents() {
         return events;
+    }
+
+    @NonNull
+    public LoginInput getInput() {
+        return input;
     }
 
     public void checkAlreadyLogged() {
@@ -50,10 +69,10 @@ public class LoginViewModel extends ViewModel {
                 .switchIfEmpty(Single.just(false))
                 .subscribe(isLogged -> {
                     if (isLogged) {
-                        events.onNext(START_CONTENT_WITHOUT_ANIMATION);
+                        events.onNext(Event.StartContentWithoutAnimation);
                     }
                 }, error -> {
-                    events.onNext(REPORT_API_UNAVAILABLE);
+                    events.onNext(Event.ReportApiUnavailable);
 
                     error.printStackTrace();
                 });
@@ -61,22 +80,19 @@ public class LoginViewModel extends ViewModel {
         subscriptions.add(subscription);
     }
 
-    public void login(@NonNull String username, @NonNull String password) {
+    public void login() {
+
+        String username = this.input.getEmail();
+        String password = this.input.getPassword();
 
         Single<Boolean> result = repository.login(username, password);
 
         subscriptions.add(result.subscribe(success -> {
             if (success) {
-                events.onNext(START_CONTENT_WITH_ANIMATION);
+                events.onNext(Event.StartContentWithAnimation);
             } else {
-                events.onNext(REPORT_FAILED_LOGIN);
+                events.onNext(Event.ReportFailedLogin);
             }
         }));
-    }
-
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        subscriptions.clear();
     }
 }
