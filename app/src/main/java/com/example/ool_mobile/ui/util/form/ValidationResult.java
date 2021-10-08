@@ -2,10 +2,10 @@ package com.example.ool_mobile.ui.util.form;
 
 import androidx.annotation.NonNull;
 
-public interface CheckResult {
+public interface ValidationResult {
 
-    CheckResult Success = Visitor::success;
-    CheckResult Failure = Visitor::failure;
+    ValidationResult Success = Visitor::success;
+    ValidationResult Failure = Visitor::failure;
 
     void accept(@NonNull Visitor visitor);
 

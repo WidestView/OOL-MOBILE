@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_list_package" />
     <activity
         android:id="@+id/photoshootFormActivity"
-        android:name="com.example.ool_mobile.ui.form.add_photo_shoot.PhotoshootFormActivity"
+        android:name="com.example.ool_mobile.ui.form.photoshoot.PhotoshootFormActivity"
         android:label="activity_add_photo_shoot"
         tools:layout="@layout/activity_form_photoshoot">
         <argument

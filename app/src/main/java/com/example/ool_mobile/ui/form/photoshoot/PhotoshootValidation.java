@@ -1,13 +1,13 @@
-package com.example.ool_mobile.ui.form.add_photo_shoot;
+package com.example.ool_mobile.ui.form.photoshoot;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.ool_mobile.model.ImmutablePhotoshoot;
 import com.example.ool_mobile.model.Photoshoot;
-import com.example.ool_mobile.ui.util.form.CheckResult;
 import com.example.ool_mobile.ui.util.form.FormCheck;
 import com.example.ool_mobile.ui.util.form.FormTime;
+import com.example.ool_mobile.ui.util.form.ValidationResult;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -48,7 +48,7 @@ class PhotoshootValidation {
 
         for (FormCheck<PhotoshootViewModel.Event> check : checks) {
 
-            if (check.performCheck() == CheckResult.Failure) {
+            if (check.performCheck() == ValidationResult.Failure) {
                 events.onNext(check.getError());
                 error = true;
             }

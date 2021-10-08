@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.form.add_photo_shoot;
+package com.example.ool_mobile.ui.form.photoshoot;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
