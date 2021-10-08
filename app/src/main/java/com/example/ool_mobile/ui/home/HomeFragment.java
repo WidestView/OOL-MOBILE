@@ -19,8 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.FragmentHomeBinding;
-import com.example.ool_mobile.horizontal_package.ElementAdapter;
-import com.example.ool_mobile.horizontal_package.ElementItem;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.meta.WithDrawer;
@@ -58,7 +56,7 @@ public class HomeFragment extends Fragment {
 
         binding.setFragment(this);
 
-        setupElements();
+        setupOptions();
     }
 
     private HomeViewModel setupViewModel() {
@@ -80,16 +78,15 @@ public class HomeFragment extends Fragment {
         return homeViewModel;
     }
 
-    private void setupElements()
-    {
+    private void setupOptions() {
         RecyclerView elementRecyclerView = binding.homeFragmentRecyclerView;
 
-        List<ElementItem> items = Arrays.asList(
+        List<OptionItem> items = Arrays.asList(
                 getItem(R.string.label_equipments, R.drawable.ic_camera_roll),
                 getItem(R.string.label_packages, R.drawable.ic_package)
         );
 
-        elementRecyclerView.setAdapter(new ElementAdapter(items));
+        elementRecyclerView.setAdapter(new OptionAdapter(items));
 
         elementRecyclerView.setHasFixedSize(true);
 
@@ -100,8 +97,8 @@ public class HomeFragment extends Fragment {
         );
     }
 
-    private ElementItem getItem(@StringRes int string, @DrawableRes int drawable) {
-        return new ElementItem(getString(string), getDrawable(drawable));
+    private OptionItem getItem(@StringRes int string, @DrawableRes int drawable) {
+        return new OptionItem(getString(string), getDrawable(drawable));
     }
 
     private Drawable getDrawable(int id) {
