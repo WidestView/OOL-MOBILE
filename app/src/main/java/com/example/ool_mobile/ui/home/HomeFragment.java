@@ -1,23 +1,33 @@
 package com.example.ool_mobile.ui.home;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.FragmentHomeBinding;
+import com.example.ool_mobile.horizontal_package.ElementAdapter;
+import com.example.ool_mobile.horizontal_package.ElementItem;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.meta.WithDrawer;
 import com.example.ool_mobile.ui.util.adapter.PendingPhotoshootAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -47,9 +57,12 @@ public class HomeFragment extends Fragment {
         binding.setLifecycleOwner(getViewLifecycleOwner());
 
         binding.setFragment(this);
+
+        setupElements();
     }
 
     private HomeViewModel setupViewModel() {
+
 
         HomeViewModel homeViewModel = new ViewModelProvider(
                 this,
@@ -65,6 +78,34 @@ public class HomeFragment extends Fragment {
         );
 
         return homeViewModel;
+    }
+
+    private void setupElements()
+    {
+        RecyclerView elementRecyclerView = binding.homeFragmentRecyclerView;
+
+        List<ElementItem> items = Arrays.asList(
+                getItem(R.string.label_equipments, R.drawable.ic_camera_roll),
+                getItem(R.string.label_packages, R.drawable.ic_package)
+        );
+
+        elementRecyclerView.setAdapter(new ElementAdapter(items));
+
+        elementRecyclerView.setHasFixedSize(true);
+
+        elementRecyclerView.setLayoutManager(new LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false)
+        );
+    }
+
+    private ElementItem getItem(@StringRes int string, @DrawableRes int drawable) {
+        return new ElementItem(getString(string), getDrawable(drawable));
+    }
+
+    private Drawable getDrawable(int id) {
+        return ContextCompat.getDrawable(requireActivity(), id);
     }
 
     private void displayPhotoshootList(List<Photoshoot> photoshoots) {
