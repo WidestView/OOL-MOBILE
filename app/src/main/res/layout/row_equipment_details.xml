@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.ool_mobile.ui.component.ContentRow
+    <com.example.ool_mobile.ui.component.content_row.ContentRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -12,6 +12,6 @@
         app:titleText="Câmera Kodak">
 
         <include layout="@layout/part_equipment_details_fields" />
-    </com.example.ool_mobile.ui.component.ContentRow>
+    </com.example.ool_mobile.ui.component.content_row.ContentRow>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

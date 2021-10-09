@@ -2,22 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.example.ool_mobile.ui.component.ContentRow
+    <com.example.ool_mobile.ui.component.content_row.ContentRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:statusText="#27"
         app:titleText="Câmera Kodak">
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="ID"
             app:value="32" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="QR"
@@ -34,11 +35,11 @@
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="Detalhes Do Equipamento" />
+            tools:text="Detalhes Do Equipamento" />
 
         <include layout="@layout/part_equipment_details_fields" />
 
 
-    </com.example.ool_mobile.ui.component.ContentRow>
+    </com.example.ool_mobile.ui.component.content_row.ContentRow>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

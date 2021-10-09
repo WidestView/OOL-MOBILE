@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.component;
+package com.example.ool_mobile.ui.component.content_row;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.example.ool_mobile.R;
 
-import static com.example.ool_mobile.ui.component.ContentRow.setupText;
+import static com.example.ool_mobile.ui.component.content_row.ContentRow.setupText;
 import static java.util.Objects.requireNonNull;
 
 public class ContentRowField extends LinearLayout {

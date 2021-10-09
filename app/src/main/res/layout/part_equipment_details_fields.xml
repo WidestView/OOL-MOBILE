@@ -9,31 +9,31 @@
     android:padding="4dp">
 
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="ID"
             app:value="27" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Tipo de Equipamento"
             app:value="#2 - Câmera" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Nome"
             app:value="Câmera Kodak" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Seguro"
             app:value="Inexistente" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Quantidade"

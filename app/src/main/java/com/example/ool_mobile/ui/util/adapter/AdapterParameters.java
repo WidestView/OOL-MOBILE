@@ -6,7 +6,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.ool_mobile.ui.component.ContentRowEvents;
+import com.example.ool_mobile.ui.component.content_row.ContentRowEvents;
 
 import org.immutables.value.Value;
 

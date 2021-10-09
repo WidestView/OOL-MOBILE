@@ -4,55 +4,55 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.example.ool_mobile.ui.component.ContentRow
+    <com.example.ool_mobile.ui.component.content_row.ContentRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:statusText="ALGUMSTO CLENTO"
         app:titleText="Pedido 27">
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="ID"
             app:value="@string/sample_id" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Pacote"
             app:value="#32 - Pacote Random" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Carrinho"
             app:value="#27" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Entrege"
             app:value="Sim" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Quantidade de Imagens"
             app:value="32" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Preço"
             app:value="R$ 50" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Data de Entrega"
             app:value="23/08/2022" />
 
-    </com.example.ool_mobile.ui.component.ContentRow>
+    </com.example.ool_mobile.ui.component.content_row.ContentRow>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

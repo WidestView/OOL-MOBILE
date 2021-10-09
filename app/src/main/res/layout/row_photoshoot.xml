@@ -15,7 +15,7 @@
 
         <variable
             name="events"
-            type="com.example.ool_mobile.ui.component.ContentRowEvents" />
+            type="com.example.ool_mobile.ui.component.content_row.ContentRowEvents" />
 
     </data>
 
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.example.ool_mobile.ui.component.ContentRow
+        <com.example.ool_mobile.ui.component.content_row.ContentRow
             android:id="@+id/photoshootRow_contentRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,14 +35,14 @@
             app:on_edit="@{events.onEdit}"
             app:on_delete="@{events.onDelete}">
 
-            <com.example.ool_mobile.ui.component.ContentRowField
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
                 android:id="@+id/photoshootRow_idField"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:label="ID"
                 app:value="@{photoshoot.resourceId().toString()}" />
 
-            <com.example.ool_mobile.ui.component.ContentRowField
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
                 android:id="@+id/photoshootRow_orderIdField"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                 tools:value="30"
                 app:value="@{Integer.toString(photoshoot.orderId())}" />
 
-            <com.example.ool_mobile.ui.component.ContentRowField
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
                 android:id="@+id/photoshootRow_addressField"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                 tools:value="Alguma Rua"
                 app:value="@{photoshoot.address()}" />
 
-            <com.example.ool_mobile.ui.component.ContentRowField
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
                 android:id="@+id/photoshootRow_startTimeField"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                 tools:value="30/3/2021 13:00"
                 app:value="@{uiDate.formatDateTime(photoshoot.startTime())}" />
 
-            <com.example.ool_mobile.ui.component.ContentRowField
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
                 android:id="@+id/photoshootRow_durationField"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                 tools:value="10 minutos"
                 app:value="@{@string/format_duration_minutes(photoshoot.durationMinutes())}" />
 
-        </com.example.ool_mobile.ui.component.ContentRow>
+        </com.example.ool_mobile.ui.component.content_row.ContentRow>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

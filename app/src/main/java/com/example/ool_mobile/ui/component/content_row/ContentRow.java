@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.component;
+package com.example.ool_mobile.ui.component.content_row;
 
 import android.content.Context;
 import android.content.res.TypedArray;
