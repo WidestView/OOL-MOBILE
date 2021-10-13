@@ -6,7 +6,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.ool_mobile.model.Employee;
+import com.example.ool_mobile.model.Equipment;
+import com.example.ool_mobile.model.EquipmentDetails;
+import com.example.ool_mobile.model.EquipmentKind;
 import com.example.ool_mobile.model.ImmutableEmployee;
+import com.example.ool_mobile.model.ImmutableEquipment;
+import com.example.ool_mobile.model.ImmutableEquipmentDetails;
+import com.example.ool_mobile.model.ImmutableEquipmentKind;
 import com.example.ool_mobile.model.ImmutableOccupation;
 import com.example.ool_mobile.model.ImmutablePhotoshoot;
 import com.example.ool_mobile.model.ImmutablePhotoshootImage;
@@ -152,8 +158,115 @@ public class ModelJsonAdapter {
         throw new UnsupportedOperationException();
     }
 
+    @ToJson
+    @NonNull
+    public EquipmentKindData equipmentKindToJson(@NonNull EquipmentKind equipmentKind) {
+        EquipmentKindData data = new EquipmentKindData();
+        data.id = equipmentKind.getId();
+        data.name = equipmentKind.getName();
+        data.description = equipmentKind.getDescription();
 
-    @SuppressLint("UnknownNullness")
+        return data;
+    }
+
+    @FromJson
+    @NonNull
+    public EquipmentKind equipmentKindFromJson(@NonNull EquipmentKindData equipmentKindData) {
+        return ImmutableEquipmentKind.builder()
+                .id(equipmentKindData.id)
+                .name(equipmentKindData.name)
+                .description(equipmentKindData.description)
+                .build();
+    }
+
+
+    @ToJson
+    @NonNull
+    public EquipmentData equipmentToJson(@NonNull Equipment equipment) {
+        EquipmentData data = new EquipmentData();
+        data.id = equipment.getId();
+        data.available = equipment.isAvailable();
+        data.detailsId = equipment.getDetailsId();
+        data.details = equipment.getDetails();
+
+        return data;
+    }
+
+    @FromJson
+    @NonNull
+    public Equipment equipmentFromJson(@NonNull EquipmentData equipmentData) {
+        return ImmutableEquipment.builder()
+                .id(equipmentData.id)
+                .isAvailable(equipmentData.available)
+                .details(equipmentData.details)
+                .detailsId(equipmentData.detailsId)
+                .build();
+    }
+
+
+    @ToJson
+    @NonNull
+    public EquipmentDetailsData equipmentDetailsToJson(@NonNull EquipmentDetails equipmentDetails) {
+        EquipmentDetailsData data = new EquipmentDetailsData();
+        data.id = equipmentDetails.getId();
+        data.name = equipmentDetails.getName();
+        data.equipments = null;
+        data.price = equipmentDetails.getPrice();
+        data.typeId = equipmentDetails.getKindId();
+        data.type = equipmentDetails.getKind();
+
+        return data;
+    }
+
+    @FromJson
+    @NonNull
+    public EquipmentDetails equipmentDetailsFromJson(@NonNull EquipmentDetailsData equipmentDetailsData) {
+        return ImmutableEquipmentDetails.builder()
+                .id(equipmentDetailsData.id)
+                .name(equipmentDetailsData.name)
+                .price(equipmentDetailsData.price)
+                .kind(equipmentDetailsData.type)
+                .kindId(equipmentDetailsData.typeId)
+                .build();
+    }
+
+    private static class EquipmentData {
+
+        public int id;
+
+        public boolean available;
+
+        public int detailsId;
+
+        public EquipmentDetails details;
+    }
+
+    private static class EquipmentKindData {
+
+        public int id;
+
+        public String name;
+
+        public String description;
+    }
+
+    private static class EquipmentDetailsData {
+
+        public int id;
+
+        public String name;
+
+        public double price;
+
+        public int typeId;
+
+        public EquipmentKind type;
+
+        @Nullable
+        public List<Equipment> equipments;
+    }
+
+
     private static class PhotoshootData {
 
         public UUID id;

@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.example.ool_mobile.service.api.EmployeeApi;
+import com.example.ool_mobile.service.api.EquipmentApi;
 import com.example.ool_mobile.service.api.PhotoshootApi;
 import com.example.ool_mobile.service.api.UserApi;
 import com.squareup.moshi.Moshi;
@@ -79,5 +80,11 @@ public abstract class ApiProvider {
     @NonNull
     public PhotoshootApi getPhotoshootApi() {
         return getRetrofit().create(PhotoshootApi.class);
+    }
+
+    @Value.Lazy
+    @NonNull
+    public EquipmentApi getEquipmentApi() {
+        return getRetrofit().create(EquipmentApi.class);
     }
 }
