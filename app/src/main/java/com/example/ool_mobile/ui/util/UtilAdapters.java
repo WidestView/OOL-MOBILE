@@ -3,6 +3,7 @@ package com.example.ool_mobile.ui.util;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +28,14 @@ public class UtilAdapters {
 
             view.setLayoutManager(new LinearLayoutManager(context.getApplicationContext()));
         }
+    }
+
+    @BindingAdapter("adapter")
+    public static void adapter(
+            @NonNull RecyclerView recyclerView,
+            @Nullable RecyclerView.Adapter<?> adapter) {
+
+        recyclerView.setAdapter(adapter);
     }
 
 

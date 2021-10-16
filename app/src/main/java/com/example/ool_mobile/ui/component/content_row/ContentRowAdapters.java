@@ -40,6 +40,18 @@ public class ContentRowAdapters {
         view.getValueTextView().setText(text);
     }
 
+    @BindingAdapter("app:events")
+    public static void bindEvents(
+            @NonNull ContentRow contentRow,
+            @NonNull ContentRowEvents events
+    ) {
+        Objects.requireNonNull(contentRow, "contentRow is null");
+        Objects.requireNonNull(events, "events is null");
+
+        bindOnEdit(contentRow, events.getOnEdit());
+        bindOnDelete(contentRow, events.getOnDelete());
+    }
+
     @BindingAdapter("app:on_edit")
     public static void bindOnEdit(
             @NonNull ContentRow contentRow,

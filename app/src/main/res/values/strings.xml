@@ -24,6 +24,7 @@
     <string name="error_invalidTimeRange">Insira um intervalo de tempo válido</string>
     <string name="error_invalidLogin">Login Inválido</string>
 
+    <string name="format_numeric_id">#%d</string>
     <string name="format_hour">%d:%d</string>
     <string name="format_short_date">%s, %s de %s</string>
     <string name="format_welcome">Boas Vindas, %s</string>
@@ -127,4 +128,5 @@
     <string name="error_invalidOrder">Invalid order</string>
     <string name="error_empty_date">A data é obrigatória</string>
     <string name="label_photoshoot_info">Informações do ensaio</string>
+    <string name="label_equipment_details">Modelo do Equipamento</string>
 </resources>

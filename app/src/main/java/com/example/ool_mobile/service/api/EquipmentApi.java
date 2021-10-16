@@ -26,7 +26,7 @@ public interface EquipmentApi {
 
     @NonNull
     @GET("equipment")
-    Single<List<EquipmentDetails>> listEquipments();
+    Single<List<Equipment>> listEquipments();
 
     @NonNull
     @POST("equipment/add-details")
@@ -43,4 +43,8 @@ public interface EquipmentApi {
     @NonNull
     @POST("equipment/add-type")
     Single<EquipmentKind> addEquipmentKind(@NonNull @Body EquipmentKind kind);
+
+    @NonNull
+    @POST("equipment/{id}")
+    Single<Equipment> getEquipmentById(@Path("id") int id);
 }
