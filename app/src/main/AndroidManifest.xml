@@ -17,7 +17,7 @@
         <activity android:name=".ui.form.add_package.AddPackageTypeActivity" />
         <activity android:name=".ui.form.add_firing.AddFiringActivity" />
         <activity android:name=".ui.form.add_equipment_details.AddEquipmentDetailsActivity" />
-        <activity android:name=".ui.form.add_equipment.AddEquipmentActivity" />
+        <activity android:name=".ui.form.equipment.EquipmentFormActivity" />
         <activity android:name=".ui.form.add_employee.AddEmployeeActivity" />
         <activity android:name=".ui.TempActivity">
             <intent-filter>

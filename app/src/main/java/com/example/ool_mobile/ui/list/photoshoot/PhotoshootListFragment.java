@@ -17,6 +17,7 @@ import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.util.adapter.AdapterParameters;
 import com.example.ool_mobile.ui.util.form.FormMode;
+import com.example.ool_mobile.ui.util.form.FormModeValue;
 
 import java.util.UUID;
 
@@ -83,7 +84,7 @@ public class PhotoshootListFragment extends Fragment {
     private void startFormActivity(FormMode mode, @Nullable UUID id) {
 
         NavDirections action = PhotoshootListFragmentDirections.actionPhotoshootListToPhotoshootForm(
-                mode.asInteger(),
+                FormModeValue.of(mode),
                 id == null ? null : id.toString()
         );
 

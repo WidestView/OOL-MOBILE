@@ -80,8 +80,8 @@
         android:label="@string/menu_equipments"
         tools:layout="@layout/fragment_list_equipment">
         <action
-            android:id="@+id/action_navigation_equipments_to_addEquipmentActivity"
-            app:destination="@id/addEquipmentActivity" />
+            android:id="@+id/action_EquipmentListToEquipmentForm"
+            app:destination="@id/equipmentFormActivity" />
     </fragment>
 
     <fragment
@@ -108,9 +108,17 @@
         android:name="com.example.ool_mobile.ui.form.add_employee.AddEmployeeActivity"
         android:label="AddEmployeeActivity" />
     <activity
-        android:id="@+id/addEquipmentActivity"
-        android:name="com.example.ool_mobile.ui.form.add_equipment.AddEquipmentActivity"
-        android:label="AddEquipmentActivity" />
+        android:id="@+id/equipmentFormActivity"
+        android:name="com.example.ool_mobile.ui.form.equipment.EquipmentFormActivity"
+        android:label="EquipmentFormActivity">
+        <argument
+            android:name="resource-id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="form-mode"
+            app:argType="integer" />
+    </activity>
     <activity
         android:id="@+id/addEquipmentDetails"
         android:name="com.example.ool_mobile.ui.form.add_equipment_details.AddEquipmentDetailsActivity"

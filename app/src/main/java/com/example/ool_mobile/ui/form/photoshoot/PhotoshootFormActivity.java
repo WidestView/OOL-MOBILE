@@ -15,6 +15,7 @@ import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.util.form.DialogDateField;
 import com.example.ool_mobile.ui.util.form.DialogTimeField;
 import com.example.ool_mobile.ui.util.form.FormMode;
+import com.example.ool_mobile.ui.util.form.FormModeValue;
 import com.example.ool_mobile.ui.util.form.FormTime;
 
 import java.util.UUID;
@@ -113,10 +114,10 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
 
         int value = getIntent().getIntExtra(
                 FormMode.BUNDLE_KEY,
-                FormMode.Add.asInteger()
+                FormModeValue.of(FormMode.Add)
         );
 
-        return FormMode.fromInteger(value);
+        return FormModeValue.convert(value);
     }
 
     @Override

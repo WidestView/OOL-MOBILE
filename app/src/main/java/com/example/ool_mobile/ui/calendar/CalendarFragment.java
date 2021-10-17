@@ -18,6 +18,7 @@ import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.util.adapter.PendingPhotoshootAdapter;
 import com.example.ool_mobile.ui.util.form.FormMode;
+import com.example.ool_mobile.ui.util.form.FormModeValue;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
@@ -81,7 +82,7 @@ public class CalendarFragment extends Fragment {
         Objects.requireNonNull(photoshoot, "photoshoot is null");
 
         NavDirections action = CalendarFragmentDirections.actionCalendarToFormActivity(
-                FormMode.Update.asInteger(),
+                FormModeValue.of(FormMode.Update),
                 photoshoot.resourceId().toString()
         );
 

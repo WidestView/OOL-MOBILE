@@ -41,7 +41,7 @@ class AddPhotoshootViewModel extends PhotoshootViewModel {
     @Override
     public void savePhotoshoot(@NonNull PhotoshootInput input) {
 
-        Photoshoot photoshoot = validation.normalize(input);
+        Photoshoot photoshoot = validation.validate(input);
 
         if (photoshoot == null) {
             return;

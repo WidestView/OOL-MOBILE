@@ -32,7 +32,7 @@ class PhotoshootValidation {
     }
 
     @Nullable
-    public Photoshoot normalize(@NonNull final PhotoshootInput input) {
+    public Photoshoot validate(@NonNull final PhotoshootInput input) {
 
         final PhotoshootInput data = ImmutablePhotoshootInput.builder()
                 .orderId(input.getOrderId().trim())
@@ -42,19 +42,7 @@ class PhotoshootValidation {
                 .date(input.getDate())
                 .build();
 
-        List<FormCheck<PhotoshootViewModel.Event>> checks = getChecks(data);
-
-        boolean error = false;
-
-        for (FormCheck<PhotoshootViewModel.Event> check : checks) {
-
-            if (check.performCheck() == ValidationResult.Failure) {
-                events.onNext(check.getError());
-                error = true;
-            }
-        }
-
-        if (error) {
+        if (FormCheck.validate(getChecks(data), events::onNext) == ValidationResult.Failure) {
             return null;
         }
 

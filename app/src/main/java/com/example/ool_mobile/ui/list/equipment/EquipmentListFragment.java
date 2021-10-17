@@ -9,14 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
-import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.FragmentListEquipmentBinding;
 import com.example.ool_mobile.model.Equipment;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.util.adapter.AdapterParameters;
+import com.example.ool_mobile.ui.util.form.FormMode;
+import com.example.ool_mobile.ui.util.form.FormModeValue;
 
 public class EquipmentListFragment extends Fragment {
 
@@ -61,15 +62,26 @@ public class EquipmentListFragment extends Fragment {
 
     private void onEdit(Equipment equipment) {
 
-        NavController controller = Navigation.findNavController(getView());
+        NavDirections directions = EquipmentListFragmentDirections
+                .actionEquipmentListToEquipmentForm(
+                        FormModeValue.of(FormMode.Update)
+                )
+                .setResourceId(
+                        equipment.getId()
+                );
 
-        controller.navigate(R.id.action_navigation_equipments_to_addEquipmentActivity);
+        Navigation.findNavController(requireView())
+                .navigate(directions);
     }
 
     public void onAddButtonClick() {
 
-        NavController controller = Navigation.findNavController(getView());
+        NavDirections directions = EquipmentListFragmentDirections
+                .actionEquipmentListToEquipmentForm(
+                        FormModeValue.of(FormMode.Add)
+                );
 
-        controller.navigate(R.id.action_navigation_equipments_to_addEquipmentActivity);
+        Navigation.findNavController(requireView())
+                .navigate(directions);
     }
 }

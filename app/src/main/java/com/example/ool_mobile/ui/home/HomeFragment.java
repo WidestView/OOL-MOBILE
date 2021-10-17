@@ -26,6 +26,7 @@ import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.meta.WithDrawer;
 import com.example.ool_mobile.ui.util.adapter.PendingPhotoshootAdapter;
 import com.example.ool_mobile.ui.util.form.FormMode;
+import com.example.ool_mobile.ui.util.form.FormModeValue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -128,7 +129,7 @@ public class HomeFragment extends Fragment {
         Objects.requireNonNull(photoshoot, "photoshoot is null");
 
         NavDirections action = HomeFragmentDirections.actionHomeToPhotoshootFormActivity(
-                FormMode.Update.asInteger(),
+                FormModeValue.of(FormMode.Update),
                 photoshoot.resourceId().toString()
         );
 

@@ -2,52 +2,18 @@ package com.example.ool_mobile.ui.util.form;
 
 import androidx.annotation.NonNull;
 
-public interface FormMode {
+import java.io.Serializable;
 
-    FormMode Add = new FormMode() {
+public interface FormMode extends Serializable {
 
-        @Override
-        public void accept(@NonNull Visitor visitor) {
-            visitor.visitAdd();
-        }
+    FormMode Add = Visitor::visitAdd;
 
-        @Override
-        public int asInteger() {
-            return FormModeValues.MODE_ADD;
-        }
-    };
-
-    FormMode Update = new FormMode() {
-
-        @Override
-        public void accept(@NonNull Visitor visitor) {
-            visitor.visitUpdate();
-        }
-
-        @Override
-        public int asInteger() {
-            return FormModeValues.MODE_UPDATE;
-        }
-    };
+    FormMode Update = Visitor::visitUpdate;
 
     @NonNull
     String BUNDLE_KEY = "form-mode";
 
-    @NonNull
-    static FormMode fromInteger(int value) {
-        switch (value) {
-            case FormModeValues.MODE_ADD:
-                return FormMode.Add;
-            case FormModeValues.MODE_UPDATE:
-                return FormMode.Update;
-            default:
-                throw new IllegalArgumentException(value + " is not a valid FormMode value");
-        }
-    }
-
     void accept(@NonNull Visitor visitor);
-
-    int asInteger();
 
     interface Visitor {
         void visitAdd();
@@ -56,8 +22,4 @@ public interface FormMode {
     }
 }
 
-class FormModeValues {
-    static final int MODE_ADD = 330;
-    static final int MODE_UPDATE = 770;
-}
 
