@@ -121,4 +121,9 @@ public class EquipmentFormActivity extends AppCompatActivity implements
     public void visitSuccess() {
         finish();
     }
+
+    @Override
+    public void visitNotFoundDetailsId() {
+        binding.equipmentFormDetailsIdEditText.setError(getString(R.string.error_details_not_found));
+    }
 }

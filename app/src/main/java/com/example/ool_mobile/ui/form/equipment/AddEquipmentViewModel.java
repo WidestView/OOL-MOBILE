@@ -12,6 +12,8 @@ import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.Subject;
 
@@ -51,12 +53,30 @@ public class AddEquipmentViewModel extends EquipmentFormViewModel {
 
         if (equipment != null) {
 
-            subscriptions.add(
-                    api.addEquipment(equipment)
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(success -> {
-                            }, this::handleError)
-            );
+            Disposable subscription = api.getDetailsById(equipment.getDetailsId())
+                    .map(success -> true)
+                    .onErrorReturn(error -> false)
+                    .flatMap(detailsExists -> {
+                        if (detailsExists) {
+                            return api.addEquipment(equipment)
+                                    .map(success -> true);
+                        } else {
+                            return Single.just(false);
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(success -> {
+                        if (success) {
+                            events.onNext(Event.Success);
+                        } else {
+                            events.onNext(Event.NotFoundDetailsId);
+                        }
+                    }, error -> {
+                        error.printStackTrace();
+                        events.onNext(Event.Error);
+                    });
+
+            subscriptions.add(subscription);
         }
     }
 

@@ -74,6 +74,8 @@ public abstract class EquipmentFormViewModel extends SubscriptionViewModel {
 
         Event InvalidDetailsId = Visitor::visitInvalidDetailsId;
 
+        Event NotFoundDetailsId = Visitor::visitNotFoundDetailsId;
+
         Event Error = Visitor::visitError;
 
         Event Success = Visitor::visitSuccess;
@@ -86,6 +88,8 @@ public abstract class EquipmentFormViewModel extends SubscriptionViewModel {
             void visitError();
 
             void visitSuccess();
+
+            void visitNotFoundDetailsId();
         }
     }
 }
