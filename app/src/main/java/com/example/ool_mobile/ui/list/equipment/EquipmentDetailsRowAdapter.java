@@ -35,7 +35,7 @@ public class EquipmentDetailsRowAdapter extends RecyclerView.Adapter<EquipmentDe
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        EquipmentDetails details = parameters.items().get(position);
+        EquipmentDetails details = parameters.getItems().get(position);
 
         holder.binding.setEvents(parameters.asRowEvents(details));
         holder.binding.setDetails(details);
@@ -43,7 +43,7 @@ public class EquipmentDetailsRowAdapter extends RecyclerView.Adapter<EquipmentDe
 
     @Override
     public int getItemCount() {
-        return parameters.items().size();
+        return parameters.getItems().size();
     }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {

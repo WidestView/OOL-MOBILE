@@ -37,7 +37,7 @@ public class EquipmentRowAdapter extends RecyclerView.Adapter<EquipmentRowAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Equipment equipment = parameters.items().get(position);
+        Equipment equipment = parameters.getItems().get(position);
 
         holder.binding.setEquipment(equipment);
 
@@ -46,7 +46,7 @@ public class EquipmentRowAdapter extends RecyclerView.Adapter<EquipmentRowAdapte
 
     @Override
     public int getItemCount() {
-        return parameters.items().size();
+        return parameters.getItems().size();
     }
 
 

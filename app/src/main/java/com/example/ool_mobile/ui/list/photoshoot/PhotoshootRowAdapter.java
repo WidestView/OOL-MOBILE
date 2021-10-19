@@ -40,12 +40,12 @@ public class PhotoshootRowAdapter extends RecyclerView.Adapter<PhotoshootRowAdap
 
     @Override
     public void onBindViewHolder(@NonNull PhotoshootRowAdapter.ViewHolder holder, int position) {
-        holder.bind(parameters.items().get(position));
+        holder.bind(parameters.getItems().get(position));
     }
 
     @Override
     public int getItemCount() {
-        return parameters.items().size();
+        return parameters.getItems().size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

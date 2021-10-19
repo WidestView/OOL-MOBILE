@@ -19,21 +19,21 @@ import java.util.function.Consumer;
 public abstract class AdapterParameters<Model> {
 
     @NonNull
-    public abstract List<Model> items();
+    public abstract List<Model> getItems();
 
     @Nullable
-    public abstract Consumer<Model> onEdit();
+    public abstract Consumer<Model> getOnEdit();
 
     @Nullable
-    public abstract Consumer<Model> onDelete();
+    public abstract Consumer<Model> getOnDelete();
 
     @NonNull
     public ContentRowEvents asRowEvents(@NonNull Model model) {
 
         Objects.requireNonNull(model, "model is null");
 
-        Consumer<Model> onEdit = onEdit();
-        Consumer<Model> onDelete = onDelete();
+        Consumer<Model> onEdit = getOnEdit();
+        Consumer<Model> onDelete = getOnDelete();
 
         return new ContentRowEvents() {
             @Nullable
