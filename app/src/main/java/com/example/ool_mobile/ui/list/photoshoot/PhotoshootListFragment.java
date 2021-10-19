@@ -57,20 +57,6 @@ public class PhotoshootListFragment extends Fragment {
                         Dependencies.from(this).getPhotoshootApi()
                 )
         ).get(PhotoshootListViewModel.class);
-
-        viewModel.getCurrentPhotoshootList().observe(getViewLifecycleOwner(), photoshoots -> {
-
-                    adapter = new PhotoshootRowAdapter(
-                            new AdapterParameters.Builder<Photoshoot>()
-                                    .onEdit(this::onEdit)
-                                    .items(photoshoots)
-                                    .build()
-                    );
-
-                    binding.fragmentListRecyclerView.setAdapter(adapter);
-                }
-        );
-
     }
 
     public void onEdit(@NonNull Photoshoot photoshoot) {

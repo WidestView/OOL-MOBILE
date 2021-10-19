@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.ool_mobile.model.Equipment;
+import com.example.ool_mobile.model.EquipmentDetails;
 import com.example.ool_mobile.service.api.EquipmentApi;
 import com.example.ool_mobile.ui.util.SubscriptionViewModel;
 import com.example.ool_mobile.ui.util.ViewModelFactory;
@@ -15,27 +15,28 @@ import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
-public class EquipmentListViewModel extends SubscriptionViewModel {
+public class EquipmentDetailsListViewModel extends SubscriptionViewModel {
 
-    private final MutableLiveData<List<Equipment>> equipments = new MutableLiveData<>();
+    @NonNull
+    private final MutableLiveData<List<EquipmentDetails>> details = new MutableLiveData<>();
 
     @NonNull
     private final EquipmentApi api;
 
-    public EquipmentListViewModel(@NonNull EquipmentApi api) {
+    public EquipmentDetailsListViewModel(@NonNull EquipmentApi api) {
         this.api = api;
     }
 
     @NonNull
-    public LiveData<List<Equipment>> getEquipments() {
+    public LiveData<List<EquipmentDetails>> getDetails() {
 
         subscriptions.add(
-                api.listEquipments()
+                api.listDetails()
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(this.equipments::setValue)
+                        .subscribe(this.details::setValue)
         );
 
-        return equipments;
+        return details;
     }
 
     @NonNull
@@ -44,8 +45,8 @@ public class EquipmentListViewModel extends SubscriptionViewModel {
         Objects.requireNonNull(api, "api is null");
 
         return ViewModelFactory.create(
-                EquipmentListViewModel.class,
-                () -> new EquipmentListViewModel(api)
+                EquipmentDetailsListViewModel.class,
+                () -> new EquipmentDetailsListViewModel(api)
         );
     }
 }

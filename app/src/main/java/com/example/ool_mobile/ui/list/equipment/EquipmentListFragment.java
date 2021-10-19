@@ -23,6 +23,8 @@ public class EquipmentListFragment extends Fragment {
 
     private FragmentListEquipmentBinding binding;
 
+    private EquipmentListViewModel viewModel;
+
     @Nullable
     @Override
     public View onCreateView(
@@ -45,11 +47,15 @@ public class EquipmentListFragment extends Fragment {
     }
 
     private void setupViewModel() {
-
-        EquipmentListViewModel viewModel = new ViewModelProvider(this,
+        viewModel = new ViewModelProvider(this,
                 EquipmentListViewModel.create(
                         Dependencies.from(this).getEquipmentApi()
                 )).get(EquipmentListViewModel.class);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         viewModel.getEquipments().observe(getViewLifecycleOwner(), equipments ->
                 binding.setAdapter(new EquipmentRowAdapter(

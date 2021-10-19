@@ -1,17 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.example.ool_mobile.ui.component.content_row.ContentRow
+    <data>
+
+        <variable
+            name="details"
+            type="com.example.ool_mobile.model.EquipmentDetails" />
+
+
+        <variable
+            name="events"
+            type="com.example.ool_mobile.ui.component.content_row.ContentRowEvents" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:statusText="#27"
-        app:titleText="Câmera Kodak">
+        android:layout_height="match_parent">
 
-        <include layout="@layout/part_equipment_details_fields" />
-    </com.example.ool_mobile.ui.component.content_row.ContentRow>
+        <com.example.ool_mobile.ui.component.content_row.ContentRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:statusText="#27"
+            app:titleText="Câmera Kodak"
+            app:events="@{events}">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include
+                    layout="@layout/part_equipment_details_fields"
+                    app:details="@{details}" />
+            </LinearLayout>
+        </com.example.ool_mobile.ui.component.content_row.ContentRow>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
