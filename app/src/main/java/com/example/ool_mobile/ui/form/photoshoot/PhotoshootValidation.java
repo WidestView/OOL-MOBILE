@@ -1,7 +1,6 @@
 package com.example.ool_mobile.ui.form.photoshoot;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.example.ool_mobile.model.ImmutablePhotoshoot;
 import com.example.ool_mobile.model.Photoshoot;
@@ -18,6 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observer;
 
 class PhotoshootValidation {
@@ -31,8 +31,8 @@ class PhotoshootValidation {
         this.events = events;
     }
 
-    @Nullable
-    public Photoshoot validate(@NonNull final PhotoshootInput input) {
+    @NonNull
+    public Maybe<Photoshoot> validate(@NonNull final PhotoshootInput input) {
 
         final PhotoshootInput data = ImmutablePhotoshootInput.builder()
                 .orderId(input.getOrderId().trim())
@@ -42,17 +42,23 @@ class PhotoshootValidation {
                 .date(input.getDate())
                 .build();
 
-        if (FormCheck.validate(getChecks(data), events::onNext) == ValidationResult.Failure) {
-            return null;
-        }
+        return FormCheck.validate(getChecks(data), events::onNext)
+                .flatMapMaybe(result -> {
 
-        return ImmutablePhotoshoot.builder()
-                .resourceId(UUID.randomUUID())
-                .address(data.getAddress())
-                .orderId(Integer.parseInt(data.getOrderId()))
-                .startTime(getDate(data))
-                .durationMinutes(getDuration(data))
-                .build();
+                    if (result == ValidationResult.Failure) {
+                        return Maybe.empty();
+                    } else {
+                        return Maybe.just(ImmutablePhotoshoot.builder()
+                                .resourceId(UUID.randomUUID())
+                                .address(data.getAddress())
+                                .orderId(Integer.parseInt(data.getOrderId()))
+                                .startTime(getDate(data))
+                                .durationMinutes(getDuration(data))
+                                .build());
+                    }
+
+                });
+
     }
 
     @NotNull

@@ -10,12 +10,11 @@ import com.example.ool_mobile.ui.util.form.FormMode;
 
 import java.util.Objects;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.Subject;
+
+import static io.reactivex.rxjava3.android.schedulers.AndroidSchedulers.mainThread;
 
 public class AddEquipmentViewModel extends EquipmentFormViewModel {
 
@@ -31,7 +30,7 @@ public class AddEquipmentViewModel extends EquipmentFormViewModel {
 
         this.api = api;
 
-        this.validation = new EquipmentValidation(events);
+        this.validation = new EquipmentValidation(api, events);
     }
 
     @NonNull
@@ -49,35 +48,15 @@ public class AddEquipmentViewModel extends EquipmentFormViewModel {
     @Override
     public void saveEquipment(@NonNull EquipmentInput input) {
 
-        Equipment equipment = validation.validate(input);
+        subscriptions.add(
+                validation.validate(input).flatMap(equipment ->
+                        api.addEquipment(equipment).toMaybe()
+                )
+                        .observeOn(mainThread())
+                        .subscribe(success -> events.onNext(Event.Success), this::handleError)
+        );
 
-        if (equipment != null) {
 
-            Disposable subscription = api.getDetailsById(equipment.getDetailsId())
-                    .map(success -> true)
-                    .onErrorReturn(error -> false)
-                    .flatMap(detailsExists -> {
-                        if (detailsExists) {
-                            return api.addEquipment(equipment)
-                                    .map(success -> true);
-                        } else {
-                            return Single.just(false);
-                        }
-                    })
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(success -> {
-                        if (success) {
-                            events.onNext(Event.Success);
-                        } else {
-                            events.onNext(Event.NotFoundDetailsId);
-                        }
-                    }, error -> {
-                        error.printStackTrace();
-                        events.onNext(Event.Error);
-                    });
-
-            subscriptions.add(subscription);
-        }
     }
 
     private void handleError(Throwable error) {

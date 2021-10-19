@@ -1,19 +1,26 @@
 package com.example.ool_mobile.ui.util.form;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Maybe;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
+
 public class FormCheck<Error> {
 
     @NonNull
-    private final Supplier<ValidationResult> check;
+    private final Single<ValidationResult> check;
 
     private final Error error;
 
-    private FormCheck(@NonNull Supplier<ValidationResult> check, @NonNull Error error) {
+    private FormCheck(@NonNull Single<ValidationResult> check, @NonNull Error error) {
 
         Objects.requireNonNull(check, "check is null");
         Objects.requireNonNull(error, "error is null");
@@ -28,9 +35,11 @@ public class FormCheck<Error> {
             @NonNull Error error
     ) {
         return new FormCheck<>(
-                () -> check.get()
-                        ? ValidationResult.Failure
-                        : ValidationResult.Success
+                Single.fromSupplier(() ->
+                        check.get()
+                                ? ValidationResult.Failure
+                                : ValidationResult.Success
+                )
                 , error
         );
     }
@@ -41,16 +50,40 @@ public class FormCheck<Error> {
             @NonNull Error error
     ) {
         return new FormCheck<>(
-                () -> check.get()
-                        ? ValidationResult.Success
-                        : ValidationResult.Failure
+                Single.fromSupplier(() ->
+                        check.get()
+                                ? ValidationResult.Success
+                                : ValidationResult.Failure
+                )
                 , error
         );
     }
 
     @NonNull
-    public ValidationResult performCheck() {
-        return check.get();
+    public static <Error> FormCheck<Error> failIf(
+            @NonNull Single<Boolean> check,
+            @NonNull Error error
+    ) {
+        return new FormCheck<>(
+                check.map(failure -> failure ? ValidationResult.Failure : ValidationResult.Success),
+                error
+        );
+    }
+
+    @NonNull
+    public static <Error> FormCheck<Error> succeedIf(
+            @NonNull Single<Boolean> check,
+            @NonNull Error error
+    ) {
+        return new FormCheck<>(
+                check.map(success -> success ? ValidationResult.Success : ValidationResult.Failure),
+                error
+        );
+    }
+
+    @NonNull
+    public Single<ValidationResult> getCheck() {
+        return check;
     }
 
     @NonNull
@@ -59,21 +92,39 @@ public class FormCheck<Error> {
     }
 
     @NonNull
-    public static <Error> ValidationResult validate(
-            @NonNull Iterable<FormCheck<Error>> checks,
-            @NonNull Consumer<Error> consumer
-    ) {
-        ValidationResult result = ValidationResult.Success;
+    public static <Error> Single<ValidationResult> validate(
+            @NonNull List<FormCheck<Error>> checks,
+            @NonNull Consumer<Error> consumer) {
 
-        for (FormCheck<Error> check : checks) {
-
-            if (check.performCheck() == ValidationResult.Failure) {
-                consumer.accept(check.getError());
-                result = ValidationResult.Failure;
-            }
-        }
-
-        return result;
+        return validate(
+                Observable.fromIterable(checks)
+                        .observeOn(AndroidSchedulers.mainThread())
+                , consumer
+        );
     }
 
+    @NonNull
+    public static <Error> Single<ValidationResult> validate(
+            @NonNull Observable<FormCheck<Error>> checks,
+            @NonNull Consumer<Error> consumer
+    ) {
+
+        return checks.flatMapSingle(FormCheck::getCheck)
+                .zipWith(checks.map(FormCheck::getError), Pair::create)
+                .doOnNext(result -> {
+                    if (result.first == ValidationResult.Failure) {
+                        consumer.accept(result.second);
+                    }
+                })
+                .map(result -> result.first)
+                .reduce((a, b) ->
+                        a == ValidationResult.Success && b == ValidationResult.Success
+                                ? ValidationResult.Success
+                                : ValidationResult.Failure
+                )
+                .switchIfEmpty(Maybe.just(ValidationResult.Success))
+                .toSingle();
+
+
+    }
 }

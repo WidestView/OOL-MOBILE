@@ -41,14 +41,11 @@ class AddPhotoshootViewModel extends PhotoshootViewModel {
     @Override
     public void savePhotoshoot(@NonNull PhotoshootInput input) {
 
-        Photoshoot photoshoot = validation.validate(input);
-
-        if (photoshoot == null) {
-            return;
-        }
-
         subscriptions.add(
-                photoshootApi.addPhotoshoot(photoshoot)
+                validation.validate(input)
+                        .flatMapSingle(
+                                photoshootApi::addPhotoshoot
+                        )
                         .subscribe(
                                 success -> events.onNext(Event.Success),
                                 error -> {
