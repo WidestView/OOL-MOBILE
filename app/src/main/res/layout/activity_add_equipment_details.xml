@@ -1,114 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.form.photoshoot.PhotoshootFormActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <import type="com.example.ool_mobile.ui.util.form.FormMode" />
+
+        <variable
+            name="viewModel"
+            type="com.example.ool_mobile.ui.form.equipment_details.EquipmentDetailsFormViewModel" />
+
+        <variable
+            name="activity"
+            type="com.example.ool_mobile.ui.form.equipment_details.EquipmentDetailsFormActivity" />
+
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="24dp"
-        android:paddingTop="32dp"
-        android:paddingEnd="24dp">
+        android:layout_height="match_parent"
+        tools:context=".ui.form.equipment_details.EquipmentDetailsFormActivity">
 
-        <ImageView
-            android:id="@+id/addX_backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/description_go_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_arrow_back"
-            app:tint="@color/primaryLightColor" />
-
-        <TextView
-            android:id="@+id/textView21"
-            style="@style/Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Adicionar Equipamento"
-            android:textColor="@color/gray_dark"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/addX_backButton"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/linear2"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView21">
+            android:paddingStart="24dp"
+            android:paddingTop="32dp"
+            android:paddingEnd="24dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <ImageView
+                android:id="@+id/addX_backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/description_go_back"
+                android:onClick="@{() -> activity.onBackPressed()}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_arrow_back"
+                app:tint="@color/primaryLightColor" />
+
+            <TextView
+                android:id="@+id/textView21"
+                style="@style/Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/label_add_equipment"
+                android:textColor="@color/gray_dark"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/addX_backButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linear2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Tipo do Equipamento" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/label_equipment_name"
+                        android:text="@={viewModel.input.name}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/inputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nome" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
+                    <AutoCompleteTextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/label_equipment_type"
+                        android:text="@={viewModel.input.kindName}"
+                        app:items="@{viewModel.kindNames}"
+                        app:listSelection="@={viewModel.input.kindPosition}" />
 
-                <com.google.android.material.textfield.TextInputEditText
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Imagem" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="16dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/label_equipment_name"
+                        android:text="@={viewModel.input.name}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Possui Seguro" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="16dp">
 
-        </LinearLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/label_equipment_price_input"
+                        android:text='@={viewModel.input.price}' />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
 
 
-        <Button
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="120dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/label_save"
-            android:textColor="@color/primaryLightColor"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linear2"
-            app:strokeColor="@color/primaryLightColor" />
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:onClick="@{() -> viewModel.onSave()}"
+                android:text="@string/label_save"
+                android:textColor="@color/primaryLightColor"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linear2"
+                app:strokeColor="@color/primaryLightColor"
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                />
 
-</ScrollView>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/equipmentDetailsForm_equipmentImageView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginEnd="64dp"
+                android:layout_marginTop="32dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView21"
+                app:shapeAppearance="@style/CornerofImageView"
+                android:src="@drawable/unset_image_background"
+                app:srcCompat="@drawable/unset_image_background" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_phone_camera"
+                app:layout_constraintEnd_toStartOf="@+id/imageView4"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/equipmentDetailsForm_equipmentImageView"
+                android:onClick="@{() -> activity.onCameraButtonClick()}"
+                android:contentDescription="@string/description_camera_icon" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_gallery"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                app:layout_constraintTop_toTopOf="@+id/imageView3"
+                android:onClick="@{() -> activity.onGalleryButtonClick()}"
+                android:contentDescription="@string/description_icon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>

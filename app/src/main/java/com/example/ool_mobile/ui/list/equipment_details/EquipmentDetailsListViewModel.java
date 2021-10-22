@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.list.equipment;
+package com.example.ool_mobile.ui.list.equipment_details;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;

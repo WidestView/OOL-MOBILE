@@ -35,7 +35,6 @@
     <string name="format_short_date">%s, %s de %s</string>
     <string name="format_uuid_name">%s - %s</string>
     <string name="format_welcome">Boas Vindas, %s</string>
-    <string name="label_add_equipment">Adicionar Equipamento</string>
     <string name="label_add_photo_shoot">Adicionar Ensaio</string>
     <string name="label_address">Endereço</string>
     <string name="label_all">Todos</string>
@@ -128,4 +127,13 @@
     <string name="value_available">Disponível</string>
     <string name="yes">Sim</string>
     <string name="error_details_not_found">Modelo de equipamento não encontrado</string>
+    <string name="label_add_equipment_details">Adicionar Modelo de Equipamento</string>
+    <string name="label_update_equipment_details">Atualizar Modelo de Equipamento</string>
+    <string name="label_equipment_type">Tipo do Equipamento</string>
+    <string name="label_equipment_name">Nome</string>
+    <string name="label_equipment_image">Imagem</string>
+    <string name="label_equipment_price_input">Valor do seguro</string>
+    <string name="label_add_equipment">Adicionar Equipamento</string>
+    <string name="description_camera_icon">Ícone de câmera</string>
+    <string name="description_icon">Ícone de galeria</string>
 </resources>

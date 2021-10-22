@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.example.ool_mobile.ui.list.equipment.EquipmentDetailsListFragment" />
+            type="com.example.ool_mobile.ui.list.equipment_details.EquipmentDetailsListFragment" />
 
         <variable
             name="adapter"
@@ -18,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.list.equipment.EquipmentDetailsListFragment">
+        tools:context=".ui.list.equipment_details.EquipmentDetailsListFragment">
 
         <include layout="@layout/part_filter_top" />
 
