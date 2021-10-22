@@ -11,8 +11,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.ActivityAddEquipmentDetailsBinding;
 import com.example.ool_mobile.service.Dependencies;
-import com.example.ool_mobile.ui.util.ImageInputHandler;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
+import com.example.ool_mobile.ui.util.image.DefaultImageInputHandler;
+import com.example.ool_mobile.ui.util.image.ImageInputHandler;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -40,7 +41,7 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity {
 
         setupViewModel();
 
-        cameraHandler = new ImageInputHandler(this);
+        cameraHandler = new DefaultImageInputHandler(this);
     }
 
     @Override

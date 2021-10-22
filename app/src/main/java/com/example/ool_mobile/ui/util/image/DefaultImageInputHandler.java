@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.util;
+package com.example.ool_mobile.ui.util.image;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -22,6 +22,7 @@ import java.util.Objects;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableTransformer;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.reactivex.rxjava3.subjects.PublishSubject;
@@ -29,19 +30,30 @@ import io.reactivex.rxjava3.subjects.Subject;
 
 import static android.app.Activity.RESULT_OK;
 
-public class ImageInputHandler {
+public class DefaultImageInputHandler implements ImageInputHandler {
 
     private static final int REQUEST_GALLERY = 0;
     private static final int REQUEST_CAMERA = 1;
 
+    private String lastCameraPath;
+
+    private final Subject<Bitmap> results = PublishSubject.create();
+
     private final Activity activity;
 
-    public ImageInputHandler(@NonNull Activity activity) {
+    public DefaultImageInputHandler(@NonNull Activity activity) {
         Objects.requireNonNull(activity, "activity is null");
 
         this.activity = activity;
     }
 
+    @Override
+    @NonNull
+    public Observable<Bitmap> getBitmapResults() {
+        return results;
+    }
+
+    @Override
     @NonNull
     @CheckResult
     public Completable requestGallery() {
@@ -57,8 +69,7 @@ public class ImageInputHandler {
         });
     }
 
-    private String lastCameraPath;
-
+    @Override
     @NonNull
     @CheckResult
     public Completable requestCamera() {
@@ -104,41 +115,40 @@ public class ImageInputHandler {
             @SuppressLint("SimpleDateFormat")
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             String imageFileName = "JPEG_" + timeStamp + "_";
-            File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+            File storageDirectory = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
             return File.createTempFile(
-                    imageFileName,  /* prefix */
-                    ".jpg",         /* suffix */
-                    storageDir      /* directory */
+                    imageFileName,
+                    ".jpg",
+                    storageDirectory
             );
         });
     }
 
-    private final Subject<Bitmap> results = PublishSubject.create();
-
-    @NonNull
-    public Observable<Bitmap> getBitmapResults() {
-        return results;
-    }
-
+    @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         if (requestCode == REQUEST_CAMERA && resultCode == RESULT_OK && data != null) {
 
-            decodeResultBitmap(lastCameraPath)
-                    .toObservable()
-                    .concatWith(Observable.never())
+            decodeResultBitmap(lastCameraPath).toObservable()
+                    .compose(neverComplete())
                     .subscribe(results);
         }
 
         if (requestCode == REQUEST_GALLERY && resultCode == RESULT_OK && data != null) {
 
-            readFile(data.getData())
-                    .toObservable()
+            readFile(data.getData()).toObservable()
+                    .compose(neverComplete())
                     .concatWith(Observable.never())
                     .subscribe(results);
         }
     }
+
+
+    private <T> ObservableTransformer<T, T> neverComplete() {
+        return upstream -> upstream.concatWith(Observable.never());
+    }
+
 
     private Single<Bitmap> readFile(Uri path) {
 
@@ -175,7 +185,5 @@ public class ImageInputHandler {
 
             return BitmapFactory.decodeFile(filePath, bmOptions);
         }).subscribeOn(Schedulers.io());
-
-
     }
 }
