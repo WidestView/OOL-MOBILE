@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.service.api.setup.ApiInfo;
+import com.example.ool_mobile.ui.content.ContentActivity;
 import com.example.ool_mobile.ui.form.equipment_details.EquipmentDetailsFormActivity;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
@@ -19,6 +20,16 @@ public class TempActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        startContent();
+    }
+
+    private void startContent() {
+
+        startActivity(new Intent(this, ContentActivity.class));
+    }
+
+    private void startForm() {
 
         Dependencies.from(this)
                 .getEmployeeRepository()
