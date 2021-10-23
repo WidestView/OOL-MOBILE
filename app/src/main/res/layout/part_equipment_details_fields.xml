@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:label="Nome"
-                    tools:value="Câmera Kodak"
+                    tools:value="Alguma Câmera Kodak"
                     app:value="@{details.name}" />
 
                 <com.example.ool_mobile.ui.component.content_row.ContentRowField

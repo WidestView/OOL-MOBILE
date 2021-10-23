@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -22,10 +23,12 @@
         <com.example.ool_mobile.ui.component.content_row.ContentRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:events="@{events}"
             app:layout_constraintTop_toTopOf="parent"
-            app:statusText="#27"
-            app:titleText="Câmera Kodak"
-            app:events="@{events}">
+            app:statusText="@{@string/format_numeric_id(details.id)}"
+            app:titleText="@{details.name}"
+            tools:statusText="#27"
+            tools:titleText="Câmera Kodak">
 
             <LinearLayout
                 android:layout_width="match_parent"
