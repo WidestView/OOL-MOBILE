@@ -19,6 +19,7 @@ import java.util.Objects;
 
 public class UtilAdapters {
 
+    private static final int SELECTION_TAG = R.id.autoCompleteTextView_selectionTag;
 
     @BindingAdapter("app:fixedLinear")
     public static void recyclerViewFixedLinear(@NonNull RecyclerView view, boolean isFixed) {
@@ -67,20 +68,28 @@ public class UtilAdapters {
             @NonNull AutoCompleteTextView textView,
             @Nullable Integer index
     ) {
+
         Objects.requireNonNull(textView, "textView is null");
 
         if (index == null) {
             index = -1;
         }
 
-        textView.getListSelection();
-
         textView.setListSelection(index);
+
+        textView.setTag(SELECTION_TAG, index);
     }
 
     @InverseBindingAdapter(attribute = "app:listSelection")
     public static int getSelection(@NonNull AutoCompleteTextView textView) {
-        return textView.getListSelection();
+
+        Integer index = (Integer) textView.getTag(SELECTION_TAG);
+
+        if (index == null) {
+            index = textView.getListSelection();
+        }
+
+        return index;
     }
 
     @BindingAdapter("app:listSelectionAttrChanged")
@@ -91,9 +100,11 @@ public class UtilAdapters {
         Objects.requireNonNull(textView, "textView is null");
         Objects.requireNonNull(onChange);
 
-        textView.setOnItemClickListener(
-                (parent, view, position, id) ->
-                        onChange.onChange()
-        );
+        textView.setOnItemClickListener((parent, view, position, id) -> {
+
+            textView.setTag(SELECTION_TAG, position);
+
+            onChange.onChange();
+        });
     }
 }
