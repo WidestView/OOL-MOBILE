@@ -136,4 +136,9 @@
     <string name="label_add_equipment">Adicionar Equipamento</string>
     <string name="description_camera_icon">Ícone de câmera</string>
     <string name="description_icon">Ícone de galeria</string>
+    <string name="error_empty_name">O nome é obrigatório</string>
+    <string name="error_invalid_equipment_kind">Tipo de equipamento inválido selecionado</string>
+    <string name="error_missing_equipment_kind">Insira o tipo de equipamento</string>
+    <string name="error_missing_price">Preencha o valor</string>
+    <string name="error_invalid_price">Preço inválido</string>
 </resources>

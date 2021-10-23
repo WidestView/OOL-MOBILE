@@ -18,7 +18,10 @@ import com.example.ool_mobile.ui.util.image.ImageInputHandler;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
-public class EquipmentDetailsFormActivity extends AppCompatActivity {
+import static com.example.ool_mobile.ui.util.SnackMessage.snack;
+
+public class EquipmentDetailsFormActivity extends AppCompatActivity
+        implements EquipmentDetailsFormViewModel.Event.Visitor {
 
     private ActivityAddEquipmentDetailsBinding binding;
 
@@ -48,11 +51,15 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        subscriptions.add(
+        subscriptions.addAll(
                 cameraHandler
                         .getBitmapResults()
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(bitmap -> viewModel.setImageBitmap(bitmap))
+                        .subscribe(bitmap -> viewModel.setImageBitmap(bitmap)),
+
+                viewModel.getEvents().subscribe(event -> {
+                    event.accept(this);
+                })
         );
     }
 
@@ -99,5 +106,40 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity {
         viewModel.getImageBitmap().observe(this, bitmap -> {
             binding.equipmentDetailsFormEquipmentImageView.setImageBitmap(bitmap);
         });
+    }
+
+    @Override
+    public void visitError() {
+        snack(this, R.string.error_operationFailed);
+    }
+
+    @Override
+    public void visitMissingName() {
+        snack(this, R.string.error_empty_name);
+    }
+
+    @Override
+    public void visitInvalidEquipmentKind() {
+        snack(this, R.string.error_invalid_equipment_kind);
+    }
+
+    @Override
+    public void visitMissingEquipmentKind() {
+        snack(this, R.string.error_missing_equipment_kind);
+    }
+
+    @Override
+    public void visitMissingPrice() {
+        snack(this, R.string.error_missing_price);
+    }
+
+    @Override
+    public void visitInvalidPrice() {
+        snack(this, R.string.error_invalid_price);
+    }
+
+    @Override
+    public void visitSuccess() {
+        finish();
     }
 }

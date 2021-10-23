@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.model.EquipmentKind;
@@ -17,10 +16,10 @@ import com.example.ool_mobile.ui.util.form.FormMode;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.Subject;
 
@@ -34,11 +33,21 @@ public class EquipmentDetailsFormViewModel extends SubscriptionViewModel {
     @NonNull
     private final FormMode formMode;
 
+    private final EquipmentDetailsValidation validation;
+
+    private final Subject<Event> events = PublishSubject.create();
+
+    private final MutableLiveData<Bitmap> imageBitmap = new MutableLiveData<>();
+
+    private Single<List<EquipmentKind>> kinds;
+
     public EquipmentDetailsFormViewModel(
             @NonNull EquipmentApi api,
             @NonNull FormMode formMode) {
         this.api = api;
         this.formMode = formMode;
+
+        this.validation = new EquipmentDetailsValidation(events);
     }
 
     @NonNull
@@ -46,7 +55,6 @@ public class EquipmentDetailsFormViewModel extends SubscriptionViewModel {
         return new MutableLiveData<>(formMode);
     }
 
-    private final Subject<Event> events = PublishSubject.create();
 
     @NonNull
     public Observable<Event> getEvents() {
@@ -54,25 +62,42 @@ public class EquipmentDetailsFormViewModel extends SubscriptionViewModel {
     }
 
 
-    private MutableLiveData<List<EquipmentKind>> kinds;
+    @NonNull
+    private Single<List<EquipmentKind>> fetchKinds() {
+
+        return Single.defer(() -> {
+
+            if (kinds == null) {
+                kinds = api.listKinds().cache();
+            }
+
+            return kinds;
+        });
+    }
+
+
+    private MutableLiveData<List<String>> kindNames;
 
     @NonNull
     public LiveData<List<String>> getKindNames() {
 
-        if (kinds == null) {
-            kinds = new MutableLiveData<>();
-
+        if (kindNames == null) {
+            kindNames = new MutableLiveData<>();
 
             subscriptions.add(
-                    api.listKinds()
+                    fetchKinds()
+                            .flatMapObservable(Observable::fromIterable)
+                            .map(EquipmentKind::getName)
+                            .toList()
                             .observeOn(mainThread())
-                            .subscribe(kinds::setValue, this::handleError)
+                            .subscribe(
+                                    kindNames::setValue,
+                                    this::handleError
+                            )
             );
         }
 
-        return Transformations
-                .map(kinds, kinds -> kinds.stream().map(EquipmentKind::getName)
-                        .collect(Collectors.toList()));
+        return kindNames;
     }
 
     @Nullable
@@ -87,17 +112,17 @@ public class EquipmentDetailsFormViewModel extends SubscriptionViewModel {
             subscriptions.add(
                     api.getDetailsById(1)
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(details -> {
-
-                                input.setValue(new EquipmentDetailsInput(details));
-                            })
+                            .zipWith(
+                                    fetchKinds(),
+                                    EquipmentDetailsInput::new
+                            )
+                            .subscribe(this.input::setValue)
             );
         }
 
         return input;
     }
 
-    private final MutableLiveData<Bitmap> imageBitmap = new MutableLiveData<>();
 
     @NonNull
     public LiveData<Bitmap> getImageBitmap() {
@@ -113,7 +138,16 @@ public class EquipmentDetailsFormViewModel extends SubscriptionViewModel {
 
     public void onSave() {
 
-        System.out.println(getInput().getValue());
+        System.out.println(input.getValue());
+
+        subscriptions.add(
+                fetchKinds().flatMapMaybe(
+                        kinds -> validation.validate(input.getValue(), kinds)
+                                .flatMapSingle(api::addDetails)
+                ).subscribe(result -> {
+                    events.onNext(Event.Success);
+                })
+        );
     }
 
     private void handleError(Throwable error) {
@@ -137,15 +171,33 @@ public class EquipmentDetailsFormViewModel extends SubscriptionViewModel {
         );
     }
 
-
     public interface Event {
 
         Event Error = Visitor::visitError;
+
+        Event MissingName = Visitor::visitMissingName;
+        Event InvalidEquipmentKind = Visitor::visitInvalidEquipmentKind;
+        Event MissingEquipmentKind = Visitor::visitMissingEquipmentKind;
+        Event MissingPrice = Visitor::visitMissingPrice;
+        Event InvalidPrice = Visitor::visitInvalidPrice;
+        Event Success = Visitor::visitSuccess;
 
         void accept(@NonNull Visitor visitor);
 
         interface Visitor {
             void visitError();
+
+            void visitMissingName();
+
+            void visitInvalidEquipmentKind();
+
+            void visitMissingEquipmentKind();
+
+            void visitMissingPrice();
+
+            void visitInvalidPrice();
+
+            void visitSuccess();
         }
     }
 
