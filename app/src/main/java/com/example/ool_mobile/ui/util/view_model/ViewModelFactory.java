@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.util;
+package com.example.ool_mobile.ui.util.view_model;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;

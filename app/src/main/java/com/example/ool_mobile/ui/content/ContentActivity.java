@@ -20,7 +20,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.service.Dependencies;
-import com.example.ool_mobile.ui.meta.WithDrawer;
+import com.example.ool_mobile.ui.util.WithDrawer;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 

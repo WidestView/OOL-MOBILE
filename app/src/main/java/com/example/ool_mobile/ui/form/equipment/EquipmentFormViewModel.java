@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.model.Equipment;
 import com.example.ool_mobile.service.api.EquipmentApi;
-import com.example.ool_mobile.ui.util.SubscriptionViewModel;
-import com.example.ool_mobile.ui.util.ViewModelFactory;
 import com.example.ool_mobile.ui.util.form.FormMode;
+import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
+import com.example.ool_mobile.ui.util.view_model.ViewModelFactory;
 
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;

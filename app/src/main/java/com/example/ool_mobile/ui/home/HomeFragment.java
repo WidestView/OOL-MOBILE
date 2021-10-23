@@ -23,7 +23,7 @@ import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.FragmentHomeBinding;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
-import com.example.ool_mobile.ui.meta.WithDrawer;
+import com.example.ool_mobile.ui.util.WithDrawer;
 import com.example.ool_mobile.ui.util.adapter.PendingPhotoshootAdapter;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.form.FormModeValue;

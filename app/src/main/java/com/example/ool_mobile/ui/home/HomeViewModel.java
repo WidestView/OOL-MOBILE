@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.EmployeeRepository;
 import com.example.ool_mobile.service.api.PhotoshootApi;
-import com.example.ool_mobile.ui.util.SubscriptionViewModel;
-import com.example.ool_mobile.ui.util.ViewModelFactory;
+import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
+import com.example.ool_mobile.ui.util.view_model.ViewModelFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

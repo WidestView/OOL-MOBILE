@@ -14,23 +14,22 @@ import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.ActivityLoginBinding;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.content.ContentActivity;
-import com.example.ool_mobile.ui.util.AutoDisposable;
 import com.google.android.material.snackbar.Snackbar;
+
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class LoginActivity extends AppCompatActivity
         implements LoginViewModel.Event.Visitor {
 
     private LoginViewModel viewModel;
 
-    private AutoDisposable subscriptions;
+    private final CompositeDisposable subscriptions = new CompositeDisposable();
 
     private ActivityLoginBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        subscriptions = AutoDisposable.onStop(getLifecycle());
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
@@ -53,7 +52,6 @@ public class LoginActivity extends AppCompatActivity
 
     private void setupViews() {
 
-
         ConstraintLayout layout = binding.layoutLogin;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -68,6 +66,13 @@ public class LoginActivity extends AppCompatActivity
         subscriptions.add(viewModel.getEvents().subscribe(event ->
                 event.accept(this)
         ));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        subscriptions.clear();
     }
 
     @Override
@@ -87,7 +92,7 @@ public class LoginActivity extends AppCompatActivity
 
         Snackbar.make(
                 findViewById(android.R.id.content),
-                R.string.error_invalidLogin,
+                R.string.error_invalid_login,
                 Snackbar.LENGTH_LONG
         ).show();
     }

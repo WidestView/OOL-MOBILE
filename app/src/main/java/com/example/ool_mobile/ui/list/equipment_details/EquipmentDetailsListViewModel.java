@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.model.EquipmentDetails;
 import com.example.ool_mobile.service.api.EquipmentApi;
-import com.example.ool_mobile.ui.util.SubscriptionViewModel;
-import com.example.ool_mobile.ui.util.ViewModelFactory;
+import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
+import com.example.ool_mobile.ui.util.view_model.ViewModelFactory;
 
 import java.util.List;
 import java.util.Objects;

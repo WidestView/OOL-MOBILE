@@ -184,28 +184,28 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
 
     @Override
     public void visitInvalidTimeRange() {
-        startTimeField.getEditText().setError(getString(R.string.error_invalidTimeRange));
-        endTimeField.getEditText().setError(getString(R.string.error_invalidTimeRange));
+        startTimeField.getEditText().setError(getString(R.string.error_invalid_time_range));
+        endTimeField.getEditText().setError(getString(R.string.error_invalid_time_range));
     }
 
     @Override
     public void visitEmptyOrder() {
-        orderEditText.setError(getString(R.string.error_emptyOrderId));
+        orderEditText.setError(getString(R.string.error_empty_order_id));
     }
 
     @Override
     public void visitEmptyStartTime() {
-        startTimeField.getEditText().setError(getString(R.string.error_emptyStartTime));
+        startTimeField.getEditText().setError(getString(R.string.error_empty_start_time));
     }
 
     @Override
     public void visitEmptyEndTime() {
-        endTimeField.getEditText().setError(getString(R.string.error_emptyEndTime));
+        endTimeField.getEditText().setError(getString(R.string.error_empty_end_time));
     }
 
     @Override
     public void visitInvalidOrder() {
-        orderEditText.setError(getString(R.string.error_invalidOrder));
+        orderEditText.setError(getString(R.string.error_invalid_order));
     }
 
     @Override
