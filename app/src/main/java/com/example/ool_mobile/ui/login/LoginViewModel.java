@@ -7,9 +7,9 @@ import com.example.ool_mobile.service.EmployeeRepository;
 import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
 import com.example.ool_mobile.ui.util.view_model.ViewModelFactory;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 
 public class LoginViewModel extends SubscriptionViewModel {
@@ -64,9 +64,11 @@ public class LoginViewModel extends SubscriptionViewModel {
 
     public void checkAlreadyLogged() {
 
-        Disposable subscription = repository.getCurrentEmployee()
+        repository.getCurrentEmployee()
                 .map(employee -> true)
                 .switchIfEmpty(Single.just(false))
+                .observeOn(AndroidSchedulers.mainThread())
+                .to(disposedWhenCleared())
                 .subscribe(isLogged -> {
                     if (isLogged) {
                         events.onNext(Event.StartContentWithoutAnimation);
@@ -76,8 +78,6 @@ public class LoginViewModel extends SubscriptionViewModel {
 
                     error.printStackTrace();
                 });
-
-        subscriptions.add(subscription);
     }
 
     public void login() {
@@ -85,14 +85,14 @@ public class LoginViewModel extends SubscriptionViewModel {
         String username = this.input.getEmail();
         String password = this.input.getPassword();
 
-        Single<Boolean> result = repository.login(username, password);
-
-        subscriptions.add(result.subscribe(success -> {
-            if (success) {
-                events.onNext(Event.StartContentWithAnimation);
-            } else {
-                events.onNext(Event.ReportFailedLogin);
-            }
-        }));
+        repository.login(username, password)
+                .to(disposedWhenCleared())
+                .subscribe(success -> {
+                    if (success) {
+                        events.onNext(Event.StartContentWithAnimation);
+                    } else {
+                        events.onNext(Event.ReportFailedLogin);
+                    }
+                });
     }
 }

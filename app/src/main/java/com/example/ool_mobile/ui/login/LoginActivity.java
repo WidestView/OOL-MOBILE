@@ -14,16 +14,13 @@ import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.ActivityLoginBinding;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.content.ContentActivity;
+import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
 import com.google.android.material.snackbar.Snackbar;
-
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class LoginActivity extends AppCompatActivity
         implements LoginViewModel.Event.Visitor {
 
     private LoginViewModel viewModel;
-
-    private final CompositeDisposable subscriptions = new CompositeDisposable();
 
     private ActivityLoginBinding binding;
 
@@ -63,16 +60,11 @@ public class LoginActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
-        subscriptions.add(viewModel.getEvents().subscribe(event ->
-                event.accept(this)
-        ));
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        subscriptions.clear();
+        viewModel.getEvents()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe(event ->
+                        event.accept(this)
+                );
     }
 
     @Override
