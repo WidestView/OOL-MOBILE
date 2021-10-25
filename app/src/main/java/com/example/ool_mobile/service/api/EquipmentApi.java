@@ -29,11 +29,11 @@ public interface EquipmentApi {
     Single<List<Equipment>> listEquipments();
 
     @NonNull
-    @POST("equipment/add-details")
+    @POST("equipment/details")
     Single<EquipmentDetails> addDetails(@NonNull @Body EquipmentDetails details);
 
     @NonNull
-    @POST("equipment/add")
+    @POST("equipment")
     Single<Equipment> addEquipment(@NonNull @Body Equipment equipment);
 
     @NonNull
@@ -41,7 +41,7 @@ public interface EquipmentApi {
     Single<List<EquipmentKind>> listKinds();
 
     @NonNull
-    @POST("equipment/add-type")
+    @POST("equipment/types")
     Single<EquipmentKind> addEquipmentKind(@NonNull @Body EquipmentKind kind);
 
     @NonNull
