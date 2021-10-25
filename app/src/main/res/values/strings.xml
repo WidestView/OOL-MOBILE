@@ -44,6 +44,7 @@
     <string name="format_short_date">%s, %s de %s</string>
     <string name="format_uuid_name">%s - %s</string>
     <string name="format_welcome">Boas Vindas, %s</string>
+    <string name="format_equipment_details_description">Imagem do modelo de equipamento %s</string>
     <string name="label_add_equipment">Adicionar Equipamento</string>
     <string name="label_add_equipment_details">Adicionar Modelo de Equipamento</string>
     <string name="label_add_photo_shoot">Adicionar Ensaio</string>
@@ -142,4 +143,5 @@
     <string name="symbol_questionMark">\?</string>
     <string name="value_available">Disponível</string>
     <string name="yes">Sim</string>
+    <string name="label_image">Imagem</string>
 </resources>

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ool_mobile.databinding.RowEquipmentDetailsBinding;
 import com.example.ool_mobile.model.EquipmentDetails;
+import com.example.ool_mobile.service.ModelUrls;
 import com.example.ool_mobile.ui.util.adapter.AdapterParameters;
 
 import java.util.Objects;
@@ -39,6 +40,7 @@ public class EquipmentDetailsRowAdapter extends RecyclerView.Adapter<EquipmentDe
 
         holder.binding.setEvents(parameters.asRowEvents(details));
         holder.binding.setDetails(details);
+        holder.binding.setUrls(new ModelUrls());
     }
 
     @Override
