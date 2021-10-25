@@ -6,12 +6,13 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.ool_mobile.model.Equipment;
+import com.example.ool_mobile.model.EquipmentDetails;
 import com.example.ool_mobile.service.api.EquipmentApi;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
 import com.example.ool_mobile.ui.util.view_model.ViewModelFactory;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -20,15 +21,18 @@ import io.reactivex.rxjava3.core.Observable;
 public abstract class EquipmentFormViewModel extends SubscriptionViewModel {
 
     @NonNull
-    public abstract LiveData<Equipment> getInitialEquipment();
+    public abstract Observable<Event> getEvents();
+
+    @NonNull
+    public abstract LiveData<EquipmentInput> getInput();
 
     @NonNull
     public abstract LiveData<FormMode> getFormMode();
 
-    public abstract void saveEquipment(@NonNull EquipmentInput equipment);
+    public abstract void saveEquipment();
 
     @NonNull
-    public abstract Observable<Event> getEvents();
+    public abstract LiveData<List<EquipmentDetails>> getDetailsList();
 
     @NonNull
     @CheckResult
@@ -72,10 +76,6 @@ public abstract class EquipmentFormViewModel extends SubscriptionViewModel {
 
         Event EmptyDetailsId = Visitor::visitEmptyDetailsId;
 
-        Event InvalidDetailsId = Visitor::visitInvalidDetailsId;
-
-        Event NotFoundDetailsId = Visitor::visitNotFoundDetailsId;
-
         Event Error = Visitor::visitError;
 
         Event Success = Visitor::visitSuccess;
@@ -83,13 +83,9 @@ public abstract class EquipmentFormViewModel extends SubscriptionViewModel {
         interface Visitor {
             void visitEmptyDetailsId();
 
-            void visitInvalidDetailsId();
-
             void visitError();
 
             void visitSuccess();
-
-            void visitNotFoundDetailsId();
         }
     }
 }

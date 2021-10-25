@@ -1,17 +1,21 @@
 package com.example.ool_mobile.ui.form.equipment;
 
+
 import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.ool_mobile.model.Equipment;
+import com.example.ool_mobile.model.EquipmentDetails;
 import com.example.ool_mobile.service.api.EquipmentApi;
 import com.example.ool_mobile.ui.util.form.FormMode;
 
+import java.util.List;
 import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.Subject;
 
@@ -19,11 +23,16 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
 
     private final Subject<Event> events = PublishSubject.create();
 
-    private MutableLiveData<Equipment> initialEquipment;
-
     private final EquipmentApi api;
 
     private final int initialId;
+
+    private Single<List<EquipmentDetails>> detailsRequest;
+
+    private MutableLiveData<EquipmentInput> input;
+
+    private MutableLiveData<List<EquipmentDetails>> detailsList;
+
 
     public UpdateEquipmentViewModel(@NonNull EquipmentApi api, int initialId) {
         Objects.requireNonNull(api, "api is null");
@@ -39,23 +48,48 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
 
     @NonNull
     @Override
-    public LiveData<Equipment> getInitialEquipment() {
-        if (initialEquipment == null) {
-            initialEquipment = new MutableLiveData<>();
+    public LiveData<List<EquipmentDetails>> getDetailsList() {
 
-            subscriptions.add(
-                    api.getEquipmentById(initialId)
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(result -> {
-                                initialEquipment.setValue(result);
-                            }, error -> {
-                                error.printStackTrace();
-                                events.onNext(Event.Error);
-                            })
-            );
+        if (detailsList == null) {
+            detailsList = new MutableLiveData<>();
+
+            fetchDetails()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .to(disposedWhenCleared())
+                    .subscribe(result -> {
+                        detailsList.setValue(result);
+                    }, this::handleError);
         }
 
-        return initialEquipment;
+        return detailsList;
+    }
+
+    @NonNull
+    @Override
+    public LiveData<EquipmentInput> getInput() {
+        if (input == null) {
+            input = new MutableLiveData<>();
+
+            api.getEquipmentById(initialId)
+                    .zipWith(
+                            fetchDetails(),
+                            Pair::create
+                    )
+                    .to(disposedWhenCleared())
+                    .subscribe(result -> {
+
+                        this.input.postValue(
+                                new EquipmentInput(result.first, result.second)
+                        );
+                    }, this::handleError);
+        }
+
+        return input;
+    }
+
+    private void handleError(Throwable error) {
+        error.printStackTrace();
+        events.onNext(Event.Error);
     }
 
     @NonNull
@@ -65,8 +99,16 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
     }
 
     @Override
-    public void saveEquipment(@NonNull EquipmentInput equipment) {
+    public void saveEquipment() {
         throw new UnsupportedOperationException("Updates are still not available in the api");
     }
 
+    private Single<List<EquipmentDetails>> fetchDetails() {
+
+        if (detailsRequest == null) {
+            detailsRequest = api.listDetails().cache();
+        }
+
+        return detailsRequest;
+    }
 }

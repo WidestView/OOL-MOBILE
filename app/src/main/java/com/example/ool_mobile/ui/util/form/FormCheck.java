@@ -98,7 +98,6 @@ public class FormCheck<Error> {
 
         return validate(
                 Observable.fromIterable(checks)
-                        .observeOn(AndroidSchedulers.mainThread())
                 , consumer
         );
     }
@@ -111,6 +110,7 @@ public class FormCheck<Error> {
 
         return checks.flatMapSingle(FormCheck::getCheck)
                 .zipWith(checks.map(FormCheck::getError), Pair::create)
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(result -> {
                     if (result.first == ValidationResult.Failure) {
                         consumer.accept(result.second);

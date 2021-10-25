@@ -39,6 +39,7 @@
     <string name="format_duration_minutes">%d minutos</string>
     <string name="format_hour">%d:%d</string>
     <string name="format_id_name">%d - %s</string>
+    <string name="format_name_id">%s - %d</string>
     <string name="format_numeric_id">#%d</string>
     <string name="format_short_date">%s, %s de %s</string>
     <string name="format_uuid_name">%s - %s</string>

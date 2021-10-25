@@ -2,7 +2,6 @@ package com.example.ool_mobile.ui.form.equipment;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -10,14 +9,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.ActivityEquipmentFormBinding;
-import com.example.ool_mobile.model.Equipment;
+import com.example.ool_mobile.model.EquipmentDetails;
 import com.example.ool_mobile.service.Dependencies;
-import com.example.ool_mobile.ui.util.form.FormMode;
+import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
 
-import java.util.Objects;
-
-import io.reactivex.rxjava3.disposables.Disposable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.example.ool_mobile.ui.util.SnackMessage.snack;
 
@@ -52,64 +50,38 @@ public class EquipmentFormActivity extends AppCompatActivity implements
                 )
         ).get(EquipmentFormViewModel.class);
 
-        viewModel.getInitialEquipment().observe(this, this::displayEquipment);
-
-        viewModel.getFormMode().observe(this, this::displayFormMode);
+        binding.setLifecycleOwner(this);
+        binding.setViewModel(viewModel);
     }
-
-    private void displayFormMode(@NonNull FormMode formMode) {
-        binding.setFormMode(formMode);
-    }
-
-    private void displayEquipment(@NonNull Equipment equipment) {
-        binding.setEquipment(equipment);
-    }
-
-    private Disposable subscription;
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        subscription = viewModel.getEvents().subscribe(event -> {
-            event.accept(this);
-        });
+        viewModel.getEvents()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe(event -> {
+                    event.accept(this);
+                });
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
+    @Nullable
+    public List<String> displayDetails(@Nullable List<EquipmentDetails> details) {
 
-        subscription.dispose();
-    }
+        if (details == null) {
+            return null;
+        }
 
-    public void onLeave() {
-        onBackPressed();
-    }
-
-    public void onSubmit() {
-
-        viewModel.saveEquipment(
-                ImmutableEquipmentInput.builder()
-                        .detailsId(
-                                Objects.requireNonNull(
-                                        binding.equipmentFormDetailsIdEditText.getText()
-                                ).toString()
-                        )
-                        .isAvailable(binding.equipmentFormIsAvailableCheckBox.isChecked())
-                        .build()
-        );
-
+        return details.stream()
+                .map(data -> String.format(
+                        getString(R.string.format_name_id), data.getName(), data.getId())
+                )
+                .collect(Collectors.toList());
     }
 
     @Override
     public void visitEmptyDetailsId() {
         binding.equipmentFormDetailsIdEditText.setError(getString(R.string.error_fill_this_field));
-    }
-
-    @Override
-    public void visitInvalidDetailsId() {
-        binding.equipmentFormDetailsIdEditText.setError(getString(R.string.error_invalid_numeric_id));
     }
 
     @Override
@@ -120,10 +92,5 @@ public class EquipmentFormActivity extends AppCompatActivity implements
     @Override
     public void visitSuccess() {
         finish();
-    }
-
-    @Override
-    public void visitNotFoundDetailsId() {
-        binding.equipmentFormDetailsIdEditText.setError(getString(R.string.error_details_not_found));
     }
 }

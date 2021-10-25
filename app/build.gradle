@@ -44,6 +44,7 @@ dependencies {
 
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'com.uber.autodispose2:autodispose-androidx-lifecycle:2.1.1'
 
     implementation 'com.squareup.moshi:moshi:1.12.0'
 
@@ -53,6 +54,7 @@ dependencies {
 
     annotationProcessor 'org.immutables:value:2.8.2'
     compileOnly 'org.immutables:value:2.8.2'
+
 
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'

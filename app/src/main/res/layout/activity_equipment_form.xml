@@ -11,14 +11,10 @@
             type="com.example.ool_mobile.ui.form.equipment.EquipmentFormActivity" />
 
         <variable
-            name="equipment"
-            type="com.example.ool_mobile.model.Equipment" />
+            name="viewModel"
+            type="com.example.ool_mobile.ui.form.equipment.EquipmentFormViewModel" />
 
         <import type="com.example.ool_mobile.ui.util.form.FormMode" />
-
-        <variable
-            name="formMode"
-            type="com.example.ool_mobile.ui.util.form.FormMode" />
 
     </data>
 
@@ -43,7 +39,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_arrow_back"
                 app:tint="@color/primaryLightColor"
-                android:onClick="@{() -> activity.onLeave()}" />
+                android:onClick="@{() -> activity.onBackPressed()}" />
 
             <TextView
                 android:id="@+id/textView21"
@@ -52,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 tools:text="@string/label_add_equipment"
-                android:text="@{formMode == FormMode.Update ? @string/label_update_equipment: @string/label_add_equipment }"
+                android:text="@{viewModel.formMode == FormMode.Update ? @string/label_update_equipment: @string/label_add_equipment }"
                 android:textColor="@color/gray_dark"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -69,18 +65,19 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView21">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
                         android:id="@+id/equipmentForm_detailsIdEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/label_detail_id"
-                        android:text='@{equipment.detailsId == 0 ? "" : String.valueOf(equipment.detailsId)}'
-                        android:inputType="number" />
+                        app:items="@{activity.displayDetails(viewModel.detailsList)}"
+                        app:listSelection="@={viewModel.input.detailsSelection}"
+                        android:inputType="none" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <CheckBox
@@ -89,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/label_available"
                     android:fontFamily="@font/rambla"
-                    android:checked="@{equipment.available}" />
+                    android:checked="@{viewModel.input.isAvailable}" />
 
             </LinearLayout>
 
@@ -105,7 +102,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linear2"
                 app:strokeColor="@color/primaryLightColor"
-                android:onClick="@{() -> activity.onSubmit()}" />
+                android:onClick="@{() -> viewModel.saveEquipment()}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
