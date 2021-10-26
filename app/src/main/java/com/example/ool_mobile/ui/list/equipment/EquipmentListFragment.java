@@ -61,9 +61,15 @@ public class EquipmentListFragment extends Fragment {
                 binding.setAdapter(new EquipmentRowAdapter(
                         new AdapterParameters.Builder<Equipment>()
                                 .onEdit(this::onEdit)
+                                .onDelete(this::onDelete)
                                 .items(equipments)
                                 .build()
                 )));
+    }
+
+    private void onDelete(Equipment equipment) {
+
+        viewModel.archiveEquipment(equipment);
     }
 
     private void onEdit(Equipment equipment) {

@@ -38,6 +38,14 @@ public class EquipmentListViewModel extends SubscriptionViewModel {
         return equipments;
     }
 
+    public void archiveEquipment(Equipment equipment) {
+
+        api.archiveEquipment(equipment.getId())
+                .observeOn(AndroidSchedulers.mainThread())
+                .to(disposedWhenCleared())
+                .subscribe(this::getEquipments);
+    }
+
     @NonNull
     public static ViewModelProvider.Factory create(@NonNull EquipmentApi api) {
 

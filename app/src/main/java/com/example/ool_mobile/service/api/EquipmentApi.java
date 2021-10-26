@@ -8,10 +8,12 @@ import com.example.ool_mobile.model.EquipmentKind;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.annotations.CheckReturnValue;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -39,15 +41,18 @@ public interface EquipmentApi {
 
     @NonNull
     @POST("equipment/details")
+    @CheckReturnValue
     Single<EquipmentDetails> addDetails(@NonNull @Body EquipmentDetails details);
 
     @NonNull
     @POST("equipment")
+    @CheckReturnValue
     Single<Equipment> addEquipment(@NonNull @Body Equipment equipment);
 
 
     @NonNull
     @POST("equipment/types")
+    @CheckReturnValue
     Single<EquipmentKind> addEquipmentKind(@NonNull @Body EquipmentKind kind);
 
     @NonNull
@@ -57,6 +62,7 @@ public interface EquipmentApi {
     @NonNull
     @Multipart
     @POST("equipment/details/image/{id}")
+    @CheckReturnValue
     Completable postEquipmentImage(
             @Path("id") int id,
             @Part @NonNull MultipartBody.Part file
@@ -64,10 +70,17 @@ public interface EquipmentApi {
 
     @NonNull
     @PUT("equipment/{id}")
+    @CheckReturnValue
     Completable updateEquipment(@Path("id") int id, @NonNull @Body Equipment equipment);
 
     @NonNull
     @PUT("equipment/details/{id}")
+    @CheckReturnValue
     Completable updateDetails(@Path("id") int id, @NonNull @Body EquipmentDetails details);
+
+    @NonNull
+    @DELETE("equipment/{id}")
+    @CheckReturnValue
+    Completable archiveEquipment(@Path("id") int id);
 
 }
