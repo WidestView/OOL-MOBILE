@@ -34,6 +34,9 @@ public abstract class EquipmentFormViewModel extends SubscriptionViewModel {
     @NonNull
     public abstract LiveData<List<EquipmentDetails>> getDetailsList();
 
+    @Nullable
+    public abstract Integer getInitialId();
+
     @NonNull
     @CheckResult
     public static ViewModelProvider.Factory create(

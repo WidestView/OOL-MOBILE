@@ -42,6 +42,9 @@ interface DetailsViewModel {
     @NonNull
     LiveData<Uri> getImageUrl();
 
+    @Nullable
+    Integer getInitialId();
+
     @NonNull
     static ViewModelProvider.Factory create(
             @NonNull FormMode formMode,

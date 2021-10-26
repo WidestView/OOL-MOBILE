@@ -2,6 +2,7 @@ package com.example.ool_mobile.ui.form.equipment;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -64,6 +65,12 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
         }
 
         return detailsList;
+    }
+
+    @Nullable
+    @Override
+    public Integer getInitialId() {
+        return initialId;
     }
 
     @NonNull

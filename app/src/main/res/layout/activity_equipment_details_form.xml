@@ -8,6 +8,8 @@
 
         <import type="com.example.ool_mobile.ui.util.form.FormMode" />
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.example.ool_mobile.ui.form.equipment_details.DetailsViewModel" />
@@ -44,16 +46,17 @@
             <TextView
                 android:id="@+id/textView21"
                 style="@style/Title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:text="@{viewModel.formMode == FormMode.Update ? @string/label_update_equipment_details : @string/label_add_equipment_details }"
 
-                tools:text="@{viewModel.formMode == FormMode.Update ? @string/label_update_equipment_details : @string/label_add_equipment_details }"
+                tools:text="@string/label_add_equipment_details"
                 android:textColor="@color/gray_dark"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/addX_backButton"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
@@ -69,13 +72,19 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.formMode == FormMode.Update ? View.VISIBLE : View.GONE}"
                     android:layout_marginTop="16dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/label_equipment_name"
-                        android:text="@={viewModel.input.name}" />
+                        android:hint="@string/label_id"
+                        android:text="@{String.valueOf(viewModel.initialId)}"
+                        tools:visibility="visible"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" />
+
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -92,7 +101,8 @@
                         android:hint="@string/label_equipment_type"
                         android:text="@={viewModel.input.kindName}"
                         app:items="@{viewModel.kindNames}"
-                        app:listSelection="@={viewModel.input.kindPosition}" />
+                        app:listSelection="@={viewModel.input.kindPosition}"
+                        android:inputType="none" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

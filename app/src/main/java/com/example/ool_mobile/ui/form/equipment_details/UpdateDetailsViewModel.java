@@ -3,6 +3,7 @@ package com.example.ool_mobile.ui.form.equipment_details;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -70,6 +71,12 @@ class UpdateDetailsViewModel extends CommonDetailsViewModel {
             imageUrl.setValue(new ModelUrls().imageUrlFromDetailsId(initialId));
         }
         return imageUrl;
+    }
+
+    @Nullable
+    @Override
+    public Integer getInitialId() {
+        return initialId;
     }
 
     @Override

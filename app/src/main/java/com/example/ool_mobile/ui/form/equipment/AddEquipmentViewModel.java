@@ -1,6 +1,7 @@
 package com.example.ool_mobile.ui.form.equipment;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -100,6 +101,12 @@ public class AddEquipmentViewModel extends EquipmentFormViewModel {
         }
 
         return details;
+    }
+
+    @Nullable
+    @Override
+    public Integer getInitialId() {
+        return null;
     }
 
     private void handleError(Throwable error) {
