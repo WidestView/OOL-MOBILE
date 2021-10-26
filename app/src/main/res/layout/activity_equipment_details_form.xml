@@ -47,7 +47,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@string/label_add_equipment"
+                android:text="@{viewModel.formMode == FormMode.Update ? @string/label_update_equipment_details : @string/label_add_equipment_details }"
+
+                tools:text="@{viewModel.formMode == FormMode.Update ? @string/label_update_equipment_details : @string/label_add_equipment_details }"
                 android:textColor="@color/gray_dark"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -150,8 +152,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView21"
                 app:shapeAppearance="@style/CornerofImageView"
-                android:src="@drawable/unset_image_background"
-                app:srcCompat="@drawable/unset_image_background" />
+                app:url="@{viewModel.imageUrl}"
+                app:fallback="@{@drawable/unset_image_background}"
+                tools:srcCompat="@drawable/unset_image_background" />
 
             <ImageView
                 android:id="@+id/imageView3"

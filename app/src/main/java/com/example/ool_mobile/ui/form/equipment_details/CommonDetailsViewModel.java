@@ -8,14 +8,21 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.ool_mobile.model.EquipmentKind;
 import com.example.ool_mobile.service.api.EquipmentApi;
+import com.example.ool_mobile.ui.util.image.ImageInputHandler;
 import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.Subject;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import static io.reactivex.rxjava3.android.schedulers.AndroidSchedulers.mainThread;
 
@@ -35,25 +42,13 @@ abstract class CommonDetailsViewModel extends SubscriptionViewModel implements D
 
     private final MutableLiveData<Bitmap> selectedBitmap = new MutableLiveData<>();
 
+    private MutableLiveData<List<String>> kindNames;
+
     @NonNull
     @Override
     public Observable<Event> getEvents() {
         return events;
     }
-
-    @NonNull
-    protected Single<List<EquipmentKind>> fetchKinds() {
-
-        return Single.defer(() -> {
-
-            if (kindsRequest == null) {
-                kindsRequest = api.listKinds().cache();
-            }
-
-            return kindsRequest;
-        });
-    }
-
 
     @Override
     public void setSelectedBitmap(@NonNull Bitmap bitmap) {
@@ -65,13 +60,6 @@ abstract class CommonDetailsViewModel extends SubscriptionViewModel implements D
     public LiveData<Bitmap> getSelectedBitmap() {
         return selectedBitmap;
     }
-
-    protected void handleError(Throwable throwable) {
-        throwable.printStackTrace();
-        events.onNext(Event.Error);
-    }
-
-    private MutableLiveData<List<String>> kindNames;
 
     @NonNull
     public LiveData<List<String>> getKindNames() {
@@ -93,6 +81,56 @@ abstract class CommonDetailsViewModel extends SubscriptionViewModel implements D
         }
 
         return kindNames;
+    }
+
+    @NonNull
+    protected Single<List<EquipmentKind>> fetchKinds() {
+
+        return Single.defer(() -> {
+
+            if (kindsRequest == null) {
+                kindsRequest = api.listKinds().cache();
+            }
+
+            return kindsRequest;
+        });
+    }
+
+    protected void handleError(Throwable throwable) {
+        throwable.printStackTrace();
+        events.onNext(Event.Error);
+    }
+
+    @NonNull
+    protected Completable uploadBitmap(int id) {
+
+        Bitmap bitmap = getSelectedBitmap().getValue();
+
+        if (bitmap == null) {
+            return Completable.complete();
+        } else {
+            return postImage(id, bitmap);
+        }
+    }
+
+
+    @NotNull
+    private Completable postImage(int id, Bitmap bitmap) {
+
+        Single<byte[]> image = ImageInputHandler.formatBitmap(bitmap);
+
+        return image.flatMapCompletable(bytes -> {
+
+            RequestBody body = RequestBody.create(MediaType.parse("image/jpeg"), bytes);
+
+            MultipartBody.Part part = MultipartBody.Part.createFormData(
+                    "file",
+                    "image.jpg",
+                    body
+            );
+
+            return api.postEquipmentImage(id, part);
+        });
     }
 
 }

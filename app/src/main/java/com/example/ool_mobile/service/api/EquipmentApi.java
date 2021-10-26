@@ -66,4 +66,8 @@ public interface EquipmentApi {
     @PUT("equipment/{id}")
     Completable updateEquipment(@Path("id") int id, @NonNull @Body Equipment equipment);
 
+    @NonNull
+    @PUT("equipment/details/{id}")
+    Completable updateDetails(@Path("id") int id, @NonNull @Body EquipmentDetails details);
+
 }

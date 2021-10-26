@@ -33,7 +33,7 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil
-                .setContentView(this, R.layout.activity_add_equipment_details);
+                .setContentView(this, R.layout.activity_equipment_details_form);
 
         binding.setActivity(this);
 

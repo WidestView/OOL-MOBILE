@@ -11,6 +11,7 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
@@ -68,7 +69,9 @@ public class UtilAdapters {
 
         Objects.requireNonNull(imageView);
 
-        RequestCreator request = Picasso.get().load(url);
+        RequestCreator request = Picasso.get()
+                .load(url)
+                .memoryPolicy(MemoryPolicy.NO_CACHE);
 
         if (fallback != null) {
             request = request.placeholder(fallback);

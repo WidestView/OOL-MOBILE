@@ -20,6 +20,9 @@ import com.example.ool_mobile.ui.util.adapter.AdapterParameters;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
 
+import static com.example.ool_mobile.ui.list.equipment_details.EquipmentDetailsListFragmentDirections.ActionEquipmentDetailsToForm;
+import static com.example.ool_mobile.ui.list.equipment_details.EquipmentDetailsListFragmentDirections.actionEquipmentDetailsToForm;
+
 public class EquipmentDetailsListFragment extends Fragment {
 
     private FragmentListEquipmentDetailsBinding binding;
@@ -59,15 +62,29 @@ public class EquipmentDetailsListFragment extends Fragment {
         viewModel.getDetails().observe(getViewLifecycleOwner(), details -> {
             binding.setAdapter(new EquipmentDetailsRowAdapter(
                     new AdapterParameters.Builder<EquipmentDetails>()
+                            .onEdit(this::onEditButtonClick)
                             .items(details)
                             .build()
             ));
         });
     }
 
+    private void onEditButtonClick(EquipmentDetails details) {
+
+        ActionEquipmentDetailsToForm directions = actionEquipmentDetailsToForm(
+                FormModeValue.of(FormMode.Update)
+        );
+
+        directions.setResourceId(details.getId());
+
+        Navigation
+                .findNavController(requireView())
+                .navigate(directions);
+    }
+
     public void onAddButtonClick() {
 
-        NavDirections directions = EquipmentDetailsListFragmentDirections.actionEquipmentDetailsToForm(
+        NavDirections directions = actionEquipmentDetailsToForm(
                 FormModeValue.of(FormMode.Add)
         );
 

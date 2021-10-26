@@ -2,6 +2,7 @@ package com.example.ool_mobile.service;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.ool_mobile.model.EquipmentDetails;
@@ -11,6 +12,11 @@ public class ModelUrls {
 
     final String base = ApiInfo.API_BASE_URL;
 
+    @NonNull
+    public Uri imageUrlFromDetailsId(int id) {
+        return Uri.parse(base + "equipment/details/image/" + id);
+    }
+
     @Nullable
     public Uri getImageOf(@Nullable EquipmentDetails details) {
 
@@ -18,6 +24,6 @@ public class ModelUrls {
             return null;
         }
 
-        return Uri.parse(base + "equipment/details/image/" + details.getId());
+        return imageUrlFromDetailsId(details.getId());
     }
 }

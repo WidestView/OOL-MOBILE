@@ -1,6 +1,7 @@
 package com.example.ool_mobile.ui.form.equipment_details;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +38,9 @@ interface DetailsViewModel {
 
     @NonNull
     LiveData<List<String>> getKindNames();
+
+    @NonNull
+    LiveData<Uri> getImageUrl();
 
     @NonNull
     static ViewModelProvider.Factory create(
