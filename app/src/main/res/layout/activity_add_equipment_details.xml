@@ -4,13 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+    <data class="com.example.ool_mobile.ui.form.equipment_details.EquipmentDetailsFormBinding">
 
         <import type="com.example.ool_mobile.ui.util.form.FormMode" />
 
         <variable
             name="viewModel"
-            type="com.example.ool_mobile.ui.form.equipment_details.EquipmentDetailsFormViewModel" />
+            type="com.example.ool_mobile.ui.form.equipment_details.DetailsViewModel" />
 
         <variable
             name="activity"

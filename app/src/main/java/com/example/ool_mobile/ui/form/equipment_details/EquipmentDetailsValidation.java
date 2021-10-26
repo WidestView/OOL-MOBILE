@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 import com.example.ool_mobile.model.EquipmentDetails;
 import com.example.ool_mobile.model.EquipmentKind;
 import com.example.ool_mobile.model.ImmutableEquipmentDetails;
-import com.example.ool_mobile.ui.form.equipment_details.EquipmentDetailsFormViewModel.Event;
+import com.example.ool_mobile.ui.form.equipment_details.DetailsViewModel.Event;
 import com.example.ool_mobile.ui.util.form.FormCheck;
 import com.example.ool_mobile.ui.util.form.ValidationResult;
 
@@ -18,7 +18,7 @@ import java.util.Objects;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observer;
 
-public class EquipmentDetailsValidation {
+class EquipmentDetailsValidation {
 
     @NonNull
     private final Observer<Event> eventObserver;
@@ -49,11 +49,14 @@ public class EquipmentDetailsValidation {
 
                     int kindId = kinds.get(input.kindPosition.get()).getId();
 
+
                     return Maybe.just(
                             ImmutableEquipmentDetails.builder()
                                     .kindId(kindId)
                                     .name(input.name.get())
-                                    .price(Double.parseDouble(input.price.get()))
+                                    .price(Double.parseDouble(
+                                            Objects.requireNonNull(input.price.get()))
+                                    )
                                     .build()
                     );
                 }

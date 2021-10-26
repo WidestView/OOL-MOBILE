@@ -4,6 +4,7 @@ import android.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
 
 import com.example.ool_mobile.model.EquipmentDetails;
 import com.example.ool_mobile.model.EquipmentKind;
@@ -12,7 +13,7 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Observable;
 
-public class EquipmentDetailsInput {
+class EquipmentDetailsInput {
 
     @NonNull
     public final ObservableField<String> name = new ObservableField<>();
@@ -21,7 +22,7 @@ public class EquipmentDetailsInput {
     public final ObservableField<String> kindName = new ObservableField<>();
 
     @NonNull
-    public final ObservableField<Integer> kindPosition = new ObservableField<>();
+    public final ObservableInt kindPosition = new ObservableInt(-1);
 
     @NonNull
     public final ObservableField<String> price = new ObservableField<>();

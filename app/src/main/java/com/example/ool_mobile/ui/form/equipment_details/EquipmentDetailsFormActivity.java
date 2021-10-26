@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.R;
-import com.example.ool_mobile.databinding.ActivityAddEquipmentDetailsBinding;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
 import com.example.ool_mobile.ui.util.image.DefaultImageInputHandler;
@@ -21,13 +20,13 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import static com.example.ool_mobile.ui.util.SnackMessage.snack;
 
 public class EquipmentDetailsFormActivity extends AppCompatActivity
-        implements EquipmentDetailsFormViewModel.Event.Visitor {
+        implements DetailsViewModel.Event.Visitor {
 
-    private ActivityAddEquipmentDetailsBinding binding;
+    private EquipmentDetailsFormBinding binding;
 
     private ImageInputHandler cameraHandler;
 
-    private EquipmentDetailsFormViewModel viewModel;
+    private DetailsViewModel viewModel;
 
     private final CompositeDisposable subscriptions = new CompositeDisposable();
 
@@ -95,11 +94,11 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity
                 .fromBundle(getIntent().getExtras());
 
 
-        viewModel = new ViewModelProvider(this, EquipmentDetailsFormViewModel.create(
+        viewModel = new ViewModelProvider(this, DetailsViewModel.create(
                 FormModeValue.convert(args.getFormMode()),
                 Dependencies.from(this).getEquipmentApi(),
                 args.getResourceId() == -1 ? null : args.getResourceId()
-        )).get(EquipmentDetailsFormViewModel.class);
+        )).get(CommonDetailsViewModel.class);
 
         binding.setViewModel(viewModel);
 
