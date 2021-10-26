@@ -221,12 +221,21 @@ public class ModelJsonAdapter {
     @FromJson
     @NonNull
     public EquipmentDetails equipmentDetailsFromJson(@NonNull EquipmentDetailsData equipmentDetailsData) {
+
+        int quantity = 0;
+
+        if (equipmentDetailsData.equipments != null) {
+            quantity = equipmentDetailsData.equipments.size();
+        }
+
+
         return ImmutableEquipmentDetails.builder()
                 .id(equipmentDetailsData.id)
                 .name(equipmentDetailsData.name)
                 .price(equipmentDetailsData.price)
                 .kind(equipmentDetailsData.type)
                 .kindId(equipmentDetailsData.typeId)
+                .quantity(quantity)
                 .build();
     }
 

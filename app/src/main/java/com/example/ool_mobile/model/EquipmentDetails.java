@@ -26,6 +26,11 @@ public abstract class EquipmentDetails {
     @Nullable
     public abstract EquipmentKind getKind();
 
+    @Value.Default
+    public int getQuantity() {
+        return 0;
+    }
+
     @NonNull
     public EquipmentKind requireKind() {
         return Objects.requireNonNull(getKind(), "Equipment kind is not set");

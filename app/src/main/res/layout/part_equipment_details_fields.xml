@@ -5,6 +5,8 @@
 
         <data>
 
+                <import type="android.view.View" />
+
                 <variable
                     name="details"
                     type="com.example.ool_mobile.model.EquipmentDetails" />
@@ -49,8 +51,10 @@
                 <com.example.ool_mobile.ui.component.content_row.ContentRowField
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    tools:visibility="visible"
+                    android:visibility="@{details.quantity == 0 ? View.GONE : View.VISIBLE}"
                     app:label="Quantidade"
-                    app:value="PUT QUANTITY HERE" />
+                    app:value="@{String.valueOf(details.quantity)}" />
 
         </LinearLayout>
 </layout>

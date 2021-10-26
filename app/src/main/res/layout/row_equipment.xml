@@ -36,6 +36,13 @@
                 tools:value="27"
                 app:value="@{String.valueOf(equipment.id)}" />
 
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="@string/label_available"
+                tools:value="SIM"
+                app:value="@{equipment.available ? @string/yes : @string/no}" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

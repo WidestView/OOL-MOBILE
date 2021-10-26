@@ -143,5 +143,6 @@
     <string name="symbol_questionMark">\?</string>
     <string name="value_available">Disponível</string>
     <string name="yes">Sim</string>
+    <string name="no">Não</string>
     <string name="label_image">Imagem</string>
 </resources>
