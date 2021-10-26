@@ -10,12 +10,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.service.Dependencies;
+import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
 import com.example.ool_mobile.ui.util.image.DefaultImageInputHandler;
 import com.example.ool_mobile.ui.util.image.ImageInputHandler;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 import static com.example.ool_mobile.ui.util.SnackMessage.snack;
 
@@ -24,11 +24,9 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity
 
     private EquipmentDetailsFormBinding binding;
 
-    private ImageInputHandler cameraHandler;
+    private ImageInputHandler imageHandler;
 
     private DetailsViewModel viewModel;
-
-    private final CompositeDisposable subscriptions = new CompositeDisposable();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,50 +41,48 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity
 
         setupViewModel();
 
-        cameraHandler = new DefaultImageInputHandler(this);
+        imageHandler = new DefaultImageInputHandler(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        subscriptions.addAll(
-                cameraHandler
-                        .getBitmapResults()
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(bitmap -> viewModel.setImageBitmap(bitmap)),
+        imageHandler
+                .getBitmapResults()
+                .observeOn(AndroidSchedulers.mainThread())
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe(viewModel::setSelectedBitmap);
 
-                viewModel.getEvents().subscribe(event -> {
+        viewModel
+                .getEvents()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe(event -> {
                     event.accept(this);
-                })
-        );
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        subscriptions.clear();
+                });
     }
 
     public void onCameraButtonClick() {
 
-        subscriptions.add(
-                cameraHandler.requestCamera().subscribe()
-        );
+        imageHandler
+                .requestCamera()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe();
     }
 
     public void onGalleryButtonClick() {
 
-        subscriptions.add(
-                cameraHandler.requestGallery().subscribe()
-        );
+        imageHandler
+                .requestGallery()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        cameraHandler.onActivityResult(requestCode, resultCode, data);
+        imageHandler.onActivityResult(requestCode, resultCode, data);
     }
 
     private void setupViewModel() {
@@ -102,7 +98,7 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity
 
         binding.setViewModel(viewModel);
 
-        viewModel.getImageBitmap().observe(this, bitmap -> {
+        viewModel.getSelectedBitmap().observe(this, bitmap -> {
             binding.equipmentDetailsFormEquipmentImageView.setImageBitmap(bitmap);
         });
     }

@@ -8,10 +8,14 @@ import com.example.ool_mobile.model.EquipmentKind;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface EquipmentApi {
@@ -47,4 +51,12 @@ public interface EquipmentApi {
     @NonNull
     @POST("equipment/{id}")
     Single<Equipment> getEquipmentById(@Path("id") int id);
+
+    @NonNull
+    @Multipart
+    @POST("equipment/details/image/{id}")
+    Completable postEquipmentImage(
+            @Path("id") int id,
+            @Part @NonNull MultipartBody.Part file
+    );
 }

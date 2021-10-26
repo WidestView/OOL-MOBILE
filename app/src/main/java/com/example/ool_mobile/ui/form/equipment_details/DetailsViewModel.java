@@ -31,9 +31,9 @@ interface DetailsViewModel {
     LiveData<EquipmentDetailsInput> getInput();
 
     @NonNull
-    LiveData<Bitmap> getImageBitmap();
+    LiveData<Bitmap> getSelectedBitmap();
 
-    void setImageBitmap(@NonNull Bitmap bitmap);
+    void setSelectedBitmap(@NonNull Bitmap bitmap);
 
     @NonNull
     LiveData<List<String>> getKindNames();

@@ -99,6 +99,29 @@ public class DefaultImageInputHandler implements ImageInputHandler {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (requestCode == REQUEST_CAMERA && resultCode == RESULT_OK && data != null) {
+
+            decodeResultBitmap(lastCameraPath).toObservable()
+                    .compose(neverComplete())
+                    .subscribe(results);
+        }
+
+        if (requestCode == REQUEST_GALLERY && resultCode == RESULT_OK && data != null) {
+
+            readFile(data.getData()).toObservable()
+                    .compose(neverComplete())
+                    .concatWith(Observable.never())
+                    .subscribe(results);
+        }
+    }
+
+    private <T> ObservableTransformer<T, T> neverComplete() {
+        return upstream -> upstream.concatWith(Observable.never());
+    }
+
     private Uri getFileUri(File file) {
 
         return FileProvider.getUriForFile(
@@ -122,33 +145,8 @@ public class DefaultImageInputHandler implements ImageInputHandler {
                     ".jpg",
                     storageDirectory
             );
-        });
+        }).subscribeOn(Schedulers.io());
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
-        if (requestCode == REQUEST_CAMERA && resultCode == RESULT_OK && data != null) {
-
-            decodeResultBitmap(lastCameraPath).toObservable()
-                    .compose(neverComplete())
-                    .subscribe(results);
-        }
-
-        if (requestCode == REQUEST_GALLERY && resultCode == RESULT_OK && data != null) {
-
-            readFile(data.getData()).toObservable()
-                    .compose(neverComplete())
-                    .concatWith(Observable.never())
-                    .subscribe(results);
-        }
-    }
-
-
-    private <T> ObservableTransformer<T, T> neverComplete() {
-        return upstream -> upstream.concatWith(Observable.never());
-    }
-
 
     private Single<Bitmap> readFile(Uri path) {
 

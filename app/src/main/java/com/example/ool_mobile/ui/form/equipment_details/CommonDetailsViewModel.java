@@ -33,7 +33,7 @@ abstract class CommonDetailsViewModel extends SubscriptionViewModel implements D
         this.api = api;
     }
 
-    private final MutableLiveData<Bitmap> imageBitmap = new MutableLiveData<>();
+    private final MutableLiveData<Bitmap> selectedBitmap = new MutableLiveData<>();
 
     @NonNull
     @Override
@@ -56,14 +56,14 @@ abstract class CommonDetailsViewModel extends SubscriptionViewModel implements D
 
 
     @Override
-    public void setImageBitmap(@NonNull Bitmap bitmap) {
-        imageBitmap.setValue(bitmap);
+    public void setSelectedBitmap(@NonNull Bitmap bitmap) {
+        selectedBitmap.setValue(bitmap);
     }
 
     @NonNull
     @Override
-    public LiveData<Bitmap> getImageBitmap() {
-        return imageBitmap;
+    public LiveData<Bitmap> getSelectedBitmap() {
+        return selectedBitmap;
     }
 
     protected void handleError(Throwable throwable) {
