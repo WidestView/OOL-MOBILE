@@ -33,6 +33,8 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
 
     private MutableLiveData<List<EquipmentDetails>> detailsList;
 
+    private final EquipmentValidation validation = new EquipmentValidation(events);
+
 
     public UpdateEquipmentViewModel(@NonNull EquipmentApi api, int initialId) {
         Objects.requireNonNull(api, "api is null");
@@ -100,7 +102,20 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
 
     @Override
     public void saveEquipment() {
-        throw new UnsupportedOperationException("Updates are still not available in the api");
+
+        if (input.getValue() == null) {
+            return;
+        }
+
+        fetchDetails()
+                .flatMapMaybe(details -> validation.validate(input.getValue(), details))
+                .flatMapCompletable(details ->
+                        api.updateEquipment(initialId, details)
+                )
+                .to(disposedWhenCleared())
+                .subscribe(() -> {
+                    events.onNext(Event.Success);
+                }, this::handleError);
     }
 
     private Single<List<EquipmentDetails>> fetchDetails() {

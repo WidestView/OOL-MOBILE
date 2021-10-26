@@ -15,6 +15,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
@@ -33,6 +34,10 @@ public interface EquipmentApi {
     Single<List<Equipment>> listEquipments();
 
     @NonNull
+    @GET("equipment/types")
+    Single<List<EquipmentKind>> listKinds();
+
+    @NonNull
     @POST("equipment/details")
     Single<EquipmentDetails> addDetails(@NonNull @Body EquipmentDetails details);
 
@@ -40,16 +45,13 @@ public interface EquipmentApi {
     @POST("equipment")
     Single<Equipment> addEquipment(@NonNull @Body Equipment equipment);
 
-    @NonNull
-    @GET("equipment/types")
-    Single<List<EquipmentKind>> listKinds();
 
     @NonNull
     @POST("equipment/types")
     Single<EquipmentKind> addEquipmentKind(@NonNull @Body EquipmentKind kind);
 
     @NonNull
-    @POST("equipment/{id}")
+    @GET("equipment/{id}")
     Single<Equipment> getEquipmentById(@Path("id") int id);
 
     @NonNull
@@ -59,4 +61,9 @@ public interface EquipmentApi {
             @Path("id") int id,
             @Part @NonNull MultipartBody.Part file
     );
+
+    @NonNull
+    @PUT("equipment/{id}")
+    Completable updateEquipment(@Path("id") int id, @NonNull @Body Equipment equipment);
+
 }
