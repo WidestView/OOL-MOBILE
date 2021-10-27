@@ -13,9 +13,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.FragmentCalendarBinding;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
+import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
 import com.example.ool_mobile.ui.util.adapter.PendingPhotoshootAdapter;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
@@ -25,10 +27,13 @@ import com.github.sundeepk.compactcalendarview.domain.Event;
 import java.util.List;
 import java.util.Objects;
 
+import static com.example.ool_mobile.ui.util.SnackMessage.snack;
+
 public class CalendarFragment extends Fragment {
 
-
     private FragmentCalendarBinding binding;
+
+    private CalendarViewModel viewModel;
 
     @NonNull
     public View onCreateView(
@@ -48,11 +53,9 @@ public class CalendarFragment extends Fragment {
         setupViewModel();
     }
 
-
-
     private void setupViewModel() {
 
-        CalendarViewModel viewModel = new ViewModelProvider(
+        viewModel = new ViewModelProvider(
                 this,
                 CalendarViewModel.create(
                         Dependencies.from(this).getPhotoshootApi()
@@ -61,6 +64,17 @@ public class CalendarFragment extends Fragment {
 
         viewModel.getPhotoshootList()
                 .observe(getViewLifecycleOwner(), this::displayPhotoshoots);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        viewModel.getEvents()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe(errorEvent -> {
+                    snack(this, R.string.error_operationFailed);
+                });
     }
 
     private void displayPhotoshoots(List<Photoshoot> photoshoots) {
