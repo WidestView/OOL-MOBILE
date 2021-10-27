@@ -40,12 +40,11 @@ class UpdatePhotoshootViewModel extends PhotoshootViewModel {
     }
 
     @NonNull
-    public static ViewModelProvider.Factory create(@NonNull PhotoshootApi api, @NonNull UUID resourceId) {
-        return ViewModelFactory.create(
-                UpdatePhotoshootViewModel.class,
-                () -> new UpdatePhotoshootViewModel(api, resourceId)
-        );
+    @Override
+    public Observable<Event> getEvents() {
+        return events;
     }
+
 
     @NonNull
     @Override
@@ -58,18 +57,12 @@ class UpdatePhotoshootViewModel extends PhotoshootViewModel {
                     photoshootApi.getPhotoshootWithId(resourceId)
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(photoshoot ->
-                                    photoshootInfo.setValue(photoshoot)
-                            )
+                                            photoshootInfo.setValue(photoshoot)
+                                    , this::handleError)
             );
         }
 
         return photoshootInfo;
-    }
-
-    @NonNull
-    @Override
-    public Observable<Event> getEvents() {
-        return events;
     }
 
     @Override
@@ -88,4 +81,18 @@ class UpdatePhotoshootViewModel extends PhotoshootViewModel {
     public LiveData<FormMode> getFormMode() {
         return new MutableLiveData<>(FormMode.Update);
     }
+
+    private void handleError(Throwable throwable) {
+        throwable.printStackTrace();
+        events.onNext(Event.Error);
+    }
+
+    @NonNull
+    public static ViewModelProvider.Factory create(@NonNull PhotoshootApi api, @NonNull UUID resourceId) {
+        return ViewModelFactory.create(
+                UpdatePhotoshootViewModel.class,
+                () -> new UpdatePhotoshootViewModel(api, resourceId)
+        );
+    }
+
 }

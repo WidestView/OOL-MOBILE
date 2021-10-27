@@ -54,7 +54,7 @@ class UpdateDetailsViewModel extends CommonDetailsViewModel {
                                     fetchKinds(),
                                     EquipmentDetailsInput::new
                             )
-                            .subscribe(this.input::setValue)
+                            .subscribe(this.input::setValue, this::handleError)
             );
         }
 
@@ -98,6 +98,6 @@ class UpdateDetailsViewModel extends CommonDetailsViewModel {
                     if (success) {
                         events.onNext(Event.Success);
                     }
-                });
+                }, this::handleError);
     }
 }

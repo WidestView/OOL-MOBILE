@@ -48,12 +48,14 @@ class AddPhotoshootViewModel extends PhotoshootViewModel {
                         )
                         .subscribe(
                                 success -> events.onNext(Event.Success),
-                                error -> {
-                                    error.printStackTrace();
-                                    events.onNext(Event.Error);
-                                }
+                                this::handleError
                         )
         );
+    }
+
+    private void handleError(Throwable throwable) {
+        throwable.printStackTrace();
+        events.onNext(Event.Error);
     }
 
     @NonNull

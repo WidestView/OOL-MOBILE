@@ -65,7 +65,7 @@ class AddDetailsViewModel extends CommonDetailsViewModel {
                     if (success) {
                         events.onNext(Event.Success);
                     }
-                });
+                }, this::handleError);
     }
 
 }
