@@ -23,6 +23,7 @@ import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.FragmentHomeBinding;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
+import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
 import com.example.ool_mobile.ui.util.WithDrawer;
 import com.example.ool_mobile.ui.util.adapter.PendingPhotoshootAdapter;
 import com.example.ool_mobile.ui.util.form.FormMode;
@@ -33,9 +34,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import static com.example.ool_mobile.ui.util.SnackMessage.snack;
+
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+
+    private HomeViewModel viewModel;
 
     @NonNull
     public View onCreateView(
@@ -53,19 +58,19 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.setViewModel(setupViewModel());
+        setupViewModel();
+
+        setupOptions();
 
         binding.setLifecycleOwner(getViewLifecycleOwner());
 
         binding.setFragment(this);
-
-        setupOptions();
     }
 
-    private HomeViewModel setupViewModel() {
 
+    private void setupViewModel() {
 
-        HomeViewModel homeViewModel = new ViewModelProvider(
+        viewModel = new ViewModelProvider(
                 this,
                 HomeViewModel.create(
                         Dependencies.from(this).getEmployeeRepository(),
@@ -73,12 +78,24 @@ public class HomeFragment extends Fragment {
                 )
         ).get(HomeViewModel.class);
 
-        homeViewModel.getPendingPhotoshoots().observe(
+        viewModel.getPendingPhotoshoots().observe(
                 getViewLifecycleOwner(),
                 this::displayPhotoshootList
         );
 
-        return homeViewModel;
+        binding.setViewModel(viewModel);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+        viewModel.getEvents()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe(errorEvent -> {
+                    snack(this, R.string.error_operationFailed);
+                });
     }
 
     private void setupOptions() {

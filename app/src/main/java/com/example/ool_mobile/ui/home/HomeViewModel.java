@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.EmployeeRepository;
 import com.example.ool_mobile.service.api.PhotoshootApi;
+import com.example.ool_mobile.service.util.ErrorEvent;
 import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
 import com.example.ool_mobile.ui.util.view_model.ViewModelFactory;
 
@@ -19,7 +20,10 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.reactivex.rxjava3.subjects.PublishSubject;
+import io.reactivex.rxjava3.subjects.Subject;
 
 public class HomeViewModel extends SubscriptionViewModel {
 
@@ -29,6 +33,8 @@ public class HomeViewModel extends SubscriptionViewModel {
     private MutableLiveData<String> employeeName;
 
     private MutableLiveData<List<Photoshoot>> pendingPhotoshoots;
+
+    private final Subject<ErrorEvent> events = PublishSubject.create();
 
     @NonNull
     private final EmployeeRepository employeeRepository;
@@ -43,14 +49,8 @@ public class HomeViewModel extends SubscriptionViewModel {
         this.photoshootApi = photoshootApi;
     }
 
-    @NonNull
-    public static ViewModelProvider.Factory create(
-            @NonNull EmployeeRepository repository,
-            @NonNull PhotoshootApi photoshootApi
-    ) {
-        return ViewModelFactory.create(
-                HomeViewModel.class, () -> new HomeViewModel(repository, photoshootApi)
-        );
+    public Observable<ErrorEvent> getEvents() {
+        return events;
     }
 
     @NonNull
@@ -63,7 +63,10 @@ public class HomeViewModel extends SubscriptionViewModel {
                     employeeRepository.getCurrentEmployee()
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(employee -> employeeName.setValue(employee.name()))
+                            .subscribe(
+                                    employee -> employeeName.setValue(employee.name()),
+                                    this::handleError
+                            )
             );
 
         }
@@ -117,12 +120,28 @@ public class HomeViewModel extends SubscriptionViewModel {
             subscriptions.add(
                     photoshootApi.listFromCurrentEmployee()
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(this::onPhotoshootsFetched)
+                            .subscribe(this::onPhotoshootsFetched, this::handleError)
             );
         }
 
         return pendingPhotoshoots;
     }
+
+    private void handleError(Throwable throwable) {
+        throwable.printStackTrace();
+        events.onNext(ErrorEvent.Error);
+    }
+
+    @NonNull
+    public static ViewModelProvider.Factory create(
+            @NonNull EmployeeRepository repository,
+            @NonNull PhotoshootApi photoshootApi
+    ) {
+        return ViewModelFactory.create(
+                HomeViewModel.class, () -> new HomeViewModel(repository, photoshootApi)
+        );
+    }
+
 
     private void onPhotoshootsFetched(List<Photoshoot> photoshoots) {
 
@@ -147,4 +166,5 @@ public class HomeViewModel extends SubscriptionViewModel {
         return calendar1.get(Calendar.DAY_OF_YEAR) == calendar2.get(Calendar.DAY_OF_YEAR) &&
                 calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR);
     }
+
 }
