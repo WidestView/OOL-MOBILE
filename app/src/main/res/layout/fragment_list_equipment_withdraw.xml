@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.list.equipment.EquipmentBorrowingListFragment">
+    tools:context=".ui.list.equipment.EquipmentWithdrawListFragment">
 
     <include layout="@layout/part_filter_top" />
 
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/filterTop_mainLayout">
 
-        <include layout="@layout/row_equipment_borrowing" />
+        <include layout="@layout/row_equipment_withdraw" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -69,10 +69,10 @@
         android:label="@string/menu_orders" />
 
     <fragment
-        android:id="@+id/navigation_equipmentBorrowings"
-        android:name="com.example.ool_mobile.ui.list.equipment.EquipmentBorrowingListFragment"
-        android:label="@string/menu_equipment_borrowings"
-        tools:layout="@layout/fragment_list_equipment_borrowing" />
+        android:id="@+id/navigation_equipmentWithdraws"
+        android:name="com.example.ool_mobile.ui.list.equipment.EquipmentWithdrawListFragment"
+        android:label="@string/menu_equipment_withdraw"
+        tools:layout="@layout/fragment_list_equipment_withdraw" />
 
     <fragment
         android:id="@+id/navigation_equipments"

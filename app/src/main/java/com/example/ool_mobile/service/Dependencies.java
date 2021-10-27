@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.ool_mobile.service.api.EquipmentApi;
+import com.example.ool_mobile.service.api.EquipmentWithdrawApi;
 import com.example.ool_mobile.service.api.PhotoshootApi;
 import com.example.ool_mobile.service.api.setup.ApiProvider;
 import com.example.ool_mobile.service.api.setup.ApiProviderBuilder;
@@ -83,5 +84,11 @@ public abstract class Dependencies {
     @Value.Lazy
     public EquipmentApi getEquipmentApi() {
         return getApiProvider().getEquipmentApi();
+    }
+
+    @NonNull
+    @Value.Lazy
+    public EquipmentWithdrawApi getWithdrawApi() {
+        return getApiProvider().getWithdrawApi();
     }
 }

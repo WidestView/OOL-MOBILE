@@ -1,4 +1,4 @@
-package com.example.ool_mobile.service.api.setup;
+package com.example.ool_mobile.service.api.setup.json;
 
 import android.annotation.SuppressLint;
 
@@ -9,18 +9,23 @@ import com.example.ool_mobile.model.Employee;
 import com.example.ool_mobile.model.Equipment;
 import com.example.ool_mobile.model.EquipmentDetails;
 import com.example.ool_mobile.model.EquipmentKind;
+import com.example.ool_mobile.model.EquipmentWithdraw;
 import com.example.ool_mobile.model.ImmutableEmployee;
 import com.example.ool_mobile.model.ImmutableEquipment;
 import com.example.ool_mobile.model.ImmutableEquipmentDetails;
 import com.example.ool_mobile.model.ImmutableEquipmentKind;
+import com.example.ool_mobile.model.ImmutableEquipmentWithdraw;
 import com.example.ool_mobile.model.ImmutableOccupation;
 import com.example.ool_mobile.model.ImmutablePhotoshoot;
 import com.example.ool_mobile.model.ImmutablePhotoshootImage;
 import com.example.ool_mobile.model.Occupation;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.model.PhotoshootImage;
+import com.example.ool_mobile.service.api.setup.ApiDate;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
+
+import org.immutables.value.Value;
 
 import java.util.Date;
 import java.util.List;
@@ -237,6 +242,57 @@ public class ModelJsonAdapter {
                 .kindId(equipmentDetailsData.typeId)
                 .quantity(quantity)
                 .build();
+    }
+
+    @FromJson
+    @NonNull
+    public EquipmentWithdraw withdrawFromJson(ImmutableEquipmentWithdrawFromJson data) {
+
+        return ImmutableEquipmentWithdraw.builder()
+                .id(data.id())
+                .expectedDevolutionDate(data.predictedDevolutionDate())
+                .effectiveDevolutionDate(data.effectiveDevolutionDate())
+                .employee(data.employee())
+                .employeeId(data.employee() == null ? null : data.employee().cpf())
+                .equipment(data.equipment())
+                .equipmentId(data.equipment() == null ? null : data.equipment().getId())
+                .photoshoot(data.photoShoot())
+                .photoshootId(data.photoShoot() == null ? null : data.photoShoot().resourceId())
+                .withdrawDate(data.withdrawDate())
+                .build();
+    }
+
+    @ToJson
+    @NonNull
+    public ImmutableEquipmentWithdrawFromJson withdrawToJson(EquipmentWithdraw withdraw) {
+
+        return ImmutableEquipmentWithdrawFromJson.builder()
+                .id(withdraw.getId())
+                .effectiveDevolutionDate(withdraw.getEffectiveDevolutionDate())
+                .employee(withdraw.getEmployee())
+                .equipment(withdraw.getEquipment())
+                .photoShoot(withdraw.getPhotoshoot())
+                .predictedDevolutionDate(withdraw.getExpectedDevolutionDate())
+                .withdrawDate(withdraw.getWithdrawDate())
+                .build();
+    }
+
+    @Value.Immutable
+    interface EquipmentWithdrawFromJson {
+
+        int id();
+
+        Date withdrawDate();
+
+        Date predictedDevolutionDate();
+
+        Date effectiveDevolutionDate();
+
+        Photoshoot photoShoot();
+
+        Employee employee();
+
+        Equipment equipment();
     }
 
     private static class EquipmentData {

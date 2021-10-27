@@ -43,7 +43,7 @@ public class TestContext {
                 provider.getEmployeeApi(),
                 storage
         ).login(ApiInfo.DEFAULT_USER_LOGIN, ApiInfo.DEFAULT_USER_PASSWORD)
-                .subscribe();
+                .blockingSubscribe();
     }
 
     public static TestContext create() {

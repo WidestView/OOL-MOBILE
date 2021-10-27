@@ -6,8 +6,10 @@ import androidx.annotation.NonNull;
 
 import com.example.ool_mobile.service.api.EmployeeApi;
 import com.example.ool_mobile.service.api.EquipmentApi;
+import com.example.ool_mobile.service.api.EquipmentWithdrawApi;
 import com.example.ool_mobile.service.api.PhotoshootApi;
 import com.example.ool_mobile.service.api.UserApi;
+import com.example.ool_mobile.service.api.setup.json.ModelJsonAdapter;
 import com.squareup.moshi.Moshi;
 
 import org.immutables.value.Value;
@@ -86,5 +88,10 @@ public abstract class ApiProvider {
     @NonNull
     public EquipmentApi getEquipmentApi() {
         return getRetrofit().create(EquipmentApi.class);
+    }
+
+    @Value.Lazy
+    public EquipmentWithdrawApi getWithdrawApi() {
+        return getRetrofit().create(EquipmentWithdrawApi.class);
     }
 }

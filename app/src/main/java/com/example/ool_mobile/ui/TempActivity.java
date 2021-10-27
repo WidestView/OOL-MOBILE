@@ -13,8 +13,6 @@ import com.example.ool_mobile.ui.form.equipment.EquipmentFormActivity;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-
 public class TempActivity extends AppCompatActivity {
 
     @Override
@@ -24,8 +22,7 @@ public class TempActivity extends AppCompatActivity {
         Dependencies.from(this)
                 .getEmployeeRepository()
                 .login(ApiInfo.DEFAULT_USER_LOGIN, ApiInfo.DEFAULT_USER_PASSWORD)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+                .blockingSubscribe();
 
         startContent();
     }
