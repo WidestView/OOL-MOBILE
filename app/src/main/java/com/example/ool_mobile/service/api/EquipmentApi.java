@@ -83,4 +83,9 @@ public interface EquipmentApi {
     @CheckReturnValue
     Completable archiveEquipment(@Path("id") int id);
 
+    @NonNull
+    @DELETE("equipment/details/{id}")
+    @CheckReturnValue
+    Completable archiveDetails(@Path("id") int id);
+
 }

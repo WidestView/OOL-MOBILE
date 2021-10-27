@@ -39,6 +39,15 @@ public class EquipmentDetailsListViewModel extends SubscriptionViewModel {
         return details;
     }
 
+    public void archiveDetails(@NonNull EquipmentDetails details) {
+        Objects.requireNonNull(details);
+
+        api.archiveDetails(details.getId())
+                .observeOn(AndroidSchedulers.mainThread())
+                .to(disposedWhenCleared())
+                .subscribe(this::getDetails);
+    }
+
     @NonNull
     public static ViewModelProvider.Factory create(@NonNull EquipmentApi api) {
 
