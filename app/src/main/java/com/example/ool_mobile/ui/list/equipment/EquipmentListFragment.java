@@ -12,12 +12,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.FragmentListEquipmentBinding;
 import com.example.ool_mobile.model.Equipment;
 import com.example.ool_mobile.service.Dependencies;
+import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
 import com.example.ool_mobile.ui.util.adapter.AdapterParameters;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
+
+import static com.example.ool_mobile.ui.util.SnackMessage.snack;
 
 public class EquipmentListFragment extends Fragment {
 
@@ -65,6 +69,12 @@ public class EquipmentListFragment extends Fragment {
                                 .items(equipments)
                                 .build()
                 )));
+
+        viewModel.getEvents()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe(errorEvent -> {
+                    snack(this, R.string.error_operationFailed);
+                });
     }
 
     private void onDelete(Equipment equipment) {

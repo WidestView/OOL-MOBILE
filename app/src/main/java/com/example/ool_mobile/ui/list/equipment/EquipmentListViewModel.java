@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.model.Equipment;
 import com.example.ool_mobile.service.api.EquipmentApi;
+import com.example.ool_mobile.service.util.ErrorEvent;
 import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
 import com.example.ool_mobile.ui.util.view_model.ViewModelFactory;
 
@@ -14,6 +15,9 @@ import java.util.List;
 import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.subjects.PublishSubject;
+import io.reactivex.rxjava3.subjects.Subject;
 
 public class EquipmentListViewModel extends SubscriptionViewModel {
 
@@ -21,6 +25,8 @@ public class EquipmentListViewModel extends SubscriptionViewModel {
 
     @NonNull
     private final EquipmentApi api;
+
+    private final Subject<ErrorEvent> events = PublishSubject.create();
 
     public EquipmentListViewModel(@NonNull EquipmentApi api) {
         this.api = api;
@@ -32,7 +38,7 @@ public class EquipmentListViewModel extends SubscriptionViewModel {
         subscriptions.add(
                 api.listEquipments()
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(this.equipments::setValue)
+                        .subscribe(this.equipments::setValue, this::handleError)
         );
 
         return equipments;
@@ -43,7 +49,16 @@ public class EquipmentListViewModel extends SubscriptionViewModel {
         api.archiveEquipment(equipment.getId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .to(disposedWhenCleared())
-                .subscribe(this::getEquipments);
+                .subscribe(this::getEquipments, this::handleError);
+    }
+
+    public Observable<ErrorEvent> getEvents() {
+        return events;
+    }
+
+    private void handleError(Throwable error) {
+        error.printStackTrace();
+        events.onNext(ErrorEvent.Error);
     }
 
     @NonNull

@@ -3,30 +3,53 @@ package com.example.ool_mobile.ui.list.photoshoot;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.api.PhotoshootApi;
+import com.example.ool_mobile.service.util.ErrorEvent;
+import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
 import com.example.ool_mobile.ui.util.view_model.ViewModelFactory;
 
 import java.util.List;
 import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.subjects.PublishSubject;
+import io.reactivex.rxjava3.subjects.Subject;
 
-public class PhotoshootListViewModel extends ViewModel {
+public class PhotoshootListViewModel extends SubscriptionViewModel {
 
     @NonNull
     private final PhotoshootApi photoshootApi;
-    @NonNull
-    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     private final MutableLiveData<List<Photoshoot>> photoshootList = new MutableLiveData<>();
 
+    private final Subject<ErrorEvent> events = PublishSubject.create();
+
     public PhotoshootListViewModel(@NonNull PhotoshootApi photoshootApi) {
         this.photoshootApi = photoshootApi;
+    }
+
+    @NonNull
+    public LiveData<List<Photoshoot>> getCurrentPhotoshootList() {
+
+        photoshootApi.listAll()
+                .observeOn(AndroidSchedulers.mainThread())
+                .to(disposedWhenCleared())
+                .subscribe(photoshootList::setValue, this::handleError);
+
+        return photoshootList;
+    }
+
+    public Observable<ErrorEvent> getEvents() {
+        return events;
+    }
+
+    private void handleError(Throwable throwable) {
+        throwable.printStackTrace();
+        events.onNext(ErrorEvent.Error);
     }
 
     @NonNull
@@ -40,21 +63,4 @@ public class PhotoshootListViewModel extends ViewModel {
         );
     }
 
-    @NonNull
-    public LiveData<List<Photoshoot>> getCurrentPhotoshootList() {
-
-        compositeDisposable.add(
-                photoshootApi.listAll()
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(photoshootList::setValue)
-        );
-
-        return photoshootList;
-    }
-
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        compositeDisposable.clear();
-    }
 }

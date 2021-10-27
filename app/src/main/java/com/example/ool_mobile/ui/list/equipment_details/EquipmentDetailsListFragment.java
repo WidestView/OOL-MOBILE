@@ -13,15 +13,18 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.FragmentListEquipmentDetailsBinding;
 import com.example.ool_mobile.model.EquipmentDetails;
 import com.example.ool_mobile.service.Dependencies;
+import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
 import com.example.ool_mobile.ui.util.adapter.AdapterParameters;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
 
 import static com.example.ool_mobile.ui.list.equipment_details.EquipmentDetailsListFragmentDirections.ActionEquipmentDetailsToForm;
 import static com.example.ool_mobile.ui.list.equipment_details.EquipmentDetailsListFragmentDirections.actionEquipmentDetailsToForm;
+import static com.example.ool_mobile.ui.util.SnackMessage.snack;
 
 public class EquipmentDetailsListFragment extends Fragment {
 
@@ -68,6 +71,12 @@ public class EquipmentDetailsListFragment extends Fragment {
                             .build()
             ));
         });
+
+        viewModel.getEvents()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe(error -> {
+                    snack(this, R.string.error_operationFailed);
+                });
     }
 
     private void onDeleteClick(EquipmentDetails details) {
