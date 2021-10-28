@@ -19,7 +19,7 @@
         tools:context=".ui.login.LoginActivity">
 
         <ImageView
-            android:contentDescription="@string/app_logo"
+            android:contentDescription="@string/description_app_logo"
             android:id="@+id/navHeader_employeeImageView"
             android:layout_width="0dp"
             android:layout_height="93dp"

@@ -101,7 +101,7 @@ public class PhotoshootListFragment extends Fragment {
         viewModel.getEvents()
                 .to(DisposedFromLifecycle.of(this))
                 .subscribe(error -> {
-                    snack(this, R.string.error_operationFailed);
+                    snack(this, R.string.error_operation_failed);
                 });
     }
 }

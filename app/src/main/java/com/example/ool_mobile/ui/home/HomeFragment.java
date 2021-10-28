@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment {
         viewModel.getEvents()
                 .to(DisposedFromLifecycle.of(this))
                 .subscribe(errorEvent -> {
-                    snack(this, R.string.error_operationFailed);
+                    snack(this, R.string.error_operation_failed);
                 });
     }
 

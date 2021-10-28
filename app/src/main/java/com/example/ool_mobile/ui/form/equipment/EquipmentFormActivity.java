@@ -86,7 +86,7 @@ public class EquipmentFormActivity extends AppCompatActivity implements
 
     @Override
     public void visitError() {
-        snack(this, R.string.error_operationFailed);
+        snack(this, R.string.error_operation_failed);
     }
 
     @Override

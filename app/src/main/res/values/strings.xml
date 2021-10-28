@@ -1,10 +1,22 @@
 <resources>
-    <string name="action_settings">Settings</string>
-    <string name="app_logo">Out of lens logo</string>
-    <string name="app_name">OOL-MOBILE</string>
+
+    <!--
+
+    Categories:
+        description: An ImageView content description
+        error: An error or event message
+        format: A format string
+        label: A static text to be shown to the user such as TextViews or Buttons
+        sample: A sample value, probably to be shown with tools:text
+        symbol: An utility symbol
+        value: The string representation of a certain logic value
+
+    -->
+
     <string name="beep">beep</string>
     <string name="boop">boop</string>
     <string name="description_add_item">Add Item Button</string>
+    <string name="description_app_logo">Out of lens logo</string>
     <string name="description_calendar_icon">Ícone de calendário</string>
     <string name="description_camera_icon">Ícone de câmera</string>
     <string name="description_currentEmployeeImage">Current user logo</string>
@@ -20,46 +32,54 @@
     <string name="description_report">Ícone de relatório</string>
     <string name="error_api_unavailable">Api indisponível</string>
     <string name="error_details_not_found">Modelo de equipamento não encontrado</string>
-    <string name="error_empty_end_time">O horário de fim é obrigatório</string>
-    <string name="error_empty_order_id">O id do pedido é obrigatório</string>
-    <string name="error_empty_start_time">O horário de início é obrigatório</string>
     <string name="error_empty_address">O endereço é obrigatório</string>
     <string name="error_empty_date">A data é obrigatória</string>
+    <string name="error_empty_end_time">O horário de fim é obrigatório</string>
     <string name="error_empty_name">O nome é obrigatório</string>
+    <string name="error_empty_order_id">O id do pedido é obrigatório</string>
+    <string name="error_empty_start_time">O horário de início é obrigatório</string>
     <string name="error_fill_this_field">Preencha este campo</string>
-    <string name="error_invalid_login">Login Inválido</string>
-    <string name="error_invalid_order">Invalid order</string>
-    <string name="error_invalid_time_range">Insira um intervalo de tempo válido</string>
     <string name="error_invalid_equipment_kind">Tipo de equipamento inválido selecionado</string>
+    <string name="error_invalid_login">Login Inválido</string>
     <string name="error_invalid_numeric_id">ID inválido</string>
+    <string name="error_invalid_order">Invalid order</string>
     <string name="error_invalid_price">Preço inválido</string>
+    <string name="error_invalid_time_range">Insira um intervalo de tempo válido</string>
     <string name="error_missing_equipment_kind">Insira o tipo de equipamento</string>
     <string name="error_missing_price">Preencha o valor</string>
-    <string name="error_operationFailed">Erro na operação</string>
+    <string name="error_operation_failed">Erro na operação</string>
     <string name="format_duration_minutes">%d minutos</string>
+    <string name="format_equipment_details_description">Imagem do modelo de equipamento %s</string>
     <string name="format_hour">%d:%d</string>
     <string name="format_id_name">#%d - %s</string>
-    <string name="format_string_id_name">#%s - %s</string>
     <string name="format_name_id">%s - %d</string>
     <string name="format_numeric_id">#%d</string>
     <string name="format_short_date">%s, %s de %s</string>
+    <string name="format_string_id_name">#%s - %s</string>
     <string name="format_uuid_name">%s - %s</string>
     <string name="format_welcome">Boas Vindas, %s</string>
-    <string name="format_equipment_details_description">Imagem do modelo de equipamento %s</string>
+    <string name="label_active">Ativo</string>
+    <string name="label_add_employee">Adicionar Funcionário</string>
     <string name="label_add_equipment">Adicionar Equipamento</string>
     <string name="label_add_equipment_details">Adicionar Modelo de Equipamento</string>
+    <string name="label_add_firing">Adicionar Demissão</string>
+    <string name="label_add_package_type">Adicionar Tipo de Pacote</string>
     <string name="label_add_photo_shoot">Adicionar Ensaio</string>
     <string name="label_address">Endereço</string>
     <string name="label_all">Todos</string>
+    <string name="label_app_name">OOL-MOBILE</string>
     <string name="label_available">Disponível</string>
     <string name="label_base_value">Valor Base</string>
+    <string name="label_birth_date">Data de Nascimento</string>
     <string name="label_calendar">Calendário</string>
     <string name="label_content">Conteúdo</string>
     <string name="label_contentActivity">ContentActivity</string>
+    <string name="label_cpf">CPF</string>
     <string name="label_date">Data</string>
     <string name="label_description">Descrição</string>
     <string name="label_detail_id">Código do modelo</string>
     <string name="label_email">Email</string>
+    <string name="label_employee">Funcionário</string>
     <string name="label_end_time">Horário Final</string>
     <string name="label_enter">Entrar</string>
     <string name="label_equipmentType">Tipo de Equipamento</string>
@@ -71,28 +91,34 @@
     <string name="label_equipments">Equipamentos</string>
     <string name="label_filter">Filtrar por</string>
     <string name="label_finish">Finalizar</string>
+    <string name="label_firing_date">Data da Demissão</string>
     <string name="label_id">ID</string>
     <string name="label_idk">Câmera</string>
+    <string name="label_image">Imagem</string>
     <string name="label_image_quantity">Quantidade de Imagens</string>
     <string name="label_max_iterations">Iterações Máximas</string>
     <string name="label_name">Nome</string>
     <string name="label_occupation">Ocupação</string>
     <string name="label_order">Pedido</string>
-    <string name="label_packageType">Tipo de Pacote</string>
+    <string name="label_package_type">Tipo de Pacote</string>
     <string name="label_packages">Pacotes</string>
     <string name="label_password">Senha</string>
+    <string name="label_password_confirmation">Confirmação da Senha</string>
+    <string name="label_phone">Telefone</string>
     <string name="label_photoshootId">ID Ensaio</string>
     <string name="label_photoshoot_info">Informações do ensaio</string>
     <string name="label_price">Preço</string>
-    <string name="label_pricePerPhoto">Preço por Foto</string>
+    <string name="label_price_per_photo">Preço por Foto</string>
     <string name="label_quantity">Quantidade</string>
     <string name="label_quantityMultiplier">Multiplicador de Quantidade</string>
+    <string name="label_report">Relatório</string>
     <string name="label_reports">Relatórios</string>
     <string name="label_save">Salvar</string>
     <string name="label_search">Procurar</string>
     <string name="label_select_end_time">Selecione o horário de fim</string>
     <string name="label_select_start_time">Selecione o horário de início</string>
     <string name="label_shift">Turno</string>
+    <string name="label_social_name">Nome Social</string>
     <string name="label_start_time">Horário Inicial</string>
     <string name="label_today_todo">Pendencias Diárias</string>
     <string name="label_type">Tipo</string>
@@ -106,8 +132,8 @@
     <string name="menu_calendar_viewLabel">Calendário</string>
     <string name="menu_customers">Clientes</string>
     <string name="menu_employees">Funcionários</string>
-    <string name="menu_equipment_withdraw">Retiradas Eq.</string>
     <string name="menu_equipment_details">Detalhes Eq.</string>
+    <string name="menu_equipment_withdraw">Retiradas Eq.</string>
     <string name="menu_equipments">Equipamentos</string>
     <string name="menu_firings">Demissões</string>
     <string name="menu_hirings">Contratos</string>
@@ -142,20 +168,7 @@
     <string name="sample_report_title">Acontecimento</string>
     <string name="symbol_questionMark">\?</string>
     <string name="value_available">Disponível</string>
-    <string name="yes">Sim</string>
-    <string name="no">Não</string>
+    <string name="value_no">Não</string>
     <string name="value_no_date">Nenhuma</string>
-    <string name="label_image">Imagem</string>
-    <string name="label_add_firing">Adicionar Demissão</string>
-    <string name="label_report">Relatório</string>
-    <string name="label_firing_date">Data da Demissão</string>
-    <string name="label_add_employee">Adicionar Funcionário</string>
-    <string name="label_cpf">CPF</string>
-    <string name="label_social_name">Nome Social</string>
-    <string name="label_birth_date">Data de Nascimento</string>
-    <string name="label_employee">Funcionário</string>
-    <string name="label_phone">Telefone</string>
-    <string name="label_active">Ativo</string>
-    <string name="label_password_confirmation">Confirmação da Senha</string>
-    <string name="label_add_package_type">Adicionar Tipo de Pacote</string>
+    <string name="value_yes">Sim</string>
 </resources>

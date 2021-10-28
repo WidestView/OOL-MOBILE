@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 app:label="@string/label_available"
                 tools:value="SIM"
-                app:value="@{equipment.available ? @string/yes : @string/no}" />
+                app:value="@{equipment.available ? @string/value_yes : @string/value_no}" />
 
             <TextView
                 android:layout_width="wrap_content"
