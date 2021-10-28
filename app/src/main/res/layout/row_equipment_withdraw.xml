@@ -27,6 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
+            app:titleText="@{withdraw.employee.name()}"
+            app:statusText="@{withdraw.equipment.details.name}"
             tools:statusText="Câmera 21"
             tools:titleText="Carlos Almeida"
             app:events="@{events}">
