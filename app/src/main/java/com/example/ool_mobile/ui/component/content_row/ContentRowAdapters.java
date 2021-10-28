@@ -31,11 +31,10 @@ public class ContentRowAdapters {
     @BindingAdapter("app:value")
     public static void contentRowFieldValue(
             @NonNull ContentRowField view,
-            @NonNull String text
+            @Nullable String text
     ) {
 
         Objects.requireNonNull(view, "view is null");
-        Objects.requireNonNull(text, "text is null");
 
         view.getValueTextView().setText(text);
     }
