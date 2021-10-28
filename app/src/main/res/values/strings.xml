@@ -38,7 +38,8 @@
     <string name="error_operationFailed">Erro na operação</string>
     <string name="format_duration_minutes">%d minutos</string>
     <string name="format_hour">%d:%d</string>
-    <string name="format_id_name">%d - %s</string>
+    <string name="format_id_name">#%d - %s</string>
+    <string name="format_string_id_name">#%s - %s</string>
     <string name="format_name_id">%s - %d</string>
     <string name="format_numeric_id">#%d</string>
     <string name="format_short_date">%s, %s de %s</string>
@@ -106,7 +107,7 @@
     <string name="menu_calendar_viewLabel">Calendário</string>
     <string name="menu_customers">Clientes</string>
     <string name="menu_employees">Funcionários</string>
-    <string name="menu_equipment_withdraw">Retetiradas Eq.</string>
+    <string name="menu_equipment_withdraw">Retiradas Eq.</string>
     <string name="menu_equipment_details">Detalhes Eq.</string>
     <string name="menu_equipments">Equipamentos</string>
     <string name="menu_firings">Demissões</string>
@@ -144,5 +145,6 @@
     <string name="value_available">Disponível</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+    <string name="value_no_date">Nenhuma</string>
     <string name="label_image">Imagem</string>
 </resources>

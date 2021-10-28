@@ -70,7 +70,7 @@
 
     <fragment
         android:id="@+id/navigation_equipmentWithdraws"
-        android:name="com.example.ool_mobile.ui.list.equipment.EquipmentWithdrawListFragment"
+        android:name="com.example.ool_mobile.ui.list.equipment_withdraw.EquipmentWithdrawListFragment"
         android:label="@string/menu_equipment_withdraw"
         tools:layout="@layout/fragment_list_equipment_withdraw" />
 
