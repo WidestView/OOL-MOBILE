@@ -105,7 +105,7 @@
     </fragment>
     <activity
         android:id="@+id/addEmployeeActivity"
-        android:name="com.example.ool_mobile.ui.form.add_employee.AddEmployeeActivity"
+        android:name="com.example.ool_mobile.ui.form.employee.EmployeeFormActivity"
         android:label="AddEmployeeActivity" />
     <activity
         android:id="@+id/equipmentFormActivity"
@@ -144,9 +144,9 @@
     </fragment>
     <activity
         android:id="@+id/addFiringActivity"
-        android:name="com.example.ool_mobile.ui.form.add_firing.AddFiringActivity"
+        android:name="com.example.ool_mobile.ui.form.firing.FiringFormActivity"
         android:label="activity_add_firing"
-        tools:layout="@layout/activity_add_firing" />
+        tools:layout="@layout/activity_firing_form" />
     <fragment
         android:id="@+id/navigation_equipment_type"
         android:name="com.example.ool_mobile.ui.list.equipment.EquipmentTypeListFragment"
@@ -179,7 +179,7 @@
     </fragment>
     <activity
         android:id="@+id/addPackageTypeActivity"
-        android:name="com.example.ool_mobile.ui.form.add_package.AddPackageTypeActivity"
+        android:name="com.example.ool_mobile.ui.form.photoshoot_package.PackageTypeFormActivity"
         android:label="AddPackageTypeActivity" />
     <fragment
         android:id="@+id/navigation_hirings"

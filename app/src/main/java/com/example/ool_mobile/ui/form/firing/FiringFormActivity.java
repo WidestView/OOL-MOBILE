@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.form.add_package;
+package com.example.ool_mobile.ui.form.firing;
 
 import android.os.Bundle;
 
@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ool_mobile.R;
 
-public class AddPackageTypeActivity extends AppCompatActivity {
+public class FiringFormActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_package_type);
+        setContentView(R.layout.activity_firing_form);
     }
 }

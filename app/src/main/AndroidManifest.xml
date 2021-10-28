@@ -32,11 +32,11 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".ui.form.add_package.AddPackageTypeActivity" />
-        <activity android:name=".ui.form.add_firing.AddFiringActivity" />
+        <activity android:name=".ui.form.photoshoot_package.PackageTypeFormActivity" />
+        <activity android:name=".ui.form.firing.FiringFormActivity" />
         <activity android:name=".ui.form.equipment_details.EquipmentDetailsFormActivity" />
         <activity android:name=".ui.form.equipment.EquipmentFormActivity" />
-        <activity android:name=".ui.form.add_employee.AddEmployeeActivity" />
+        <activity android:name=".ui.form.employee.EmployeeFormActivity" />
         <activity android:name=".ui.TempActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

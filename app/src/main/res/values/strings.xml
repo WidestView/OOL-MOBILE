@@ -60,7 +60,6 @@
     <string name="label_description">Descrição</string>
     <string name="label_detail_id">Código do modelo</string>
     <string name="label_email">Email</string>
-    <string name="label_employee">Funcionário</string>
     <string name="label_end_time">Horário Final</string>
     <string name="label_enter">Entrar</string>
     <string name="label_equipmentType">Tipo de Equipamento</string>
@@ -147,4 +146,16 @@
     <string name="no">Não</string>
     <string name="value_no_date">Nenhuma</string>
     <string name="label_image">Imagem</string>
+    <string name="label_add_firing">Adicionar Demissão</string>
+    <string name="label_report">Relatório</string>
+    <string name="label_firing_date">Data da Demissão</string>
+    <string name="label_add_employee">Adicionar Funcionário</string>
+    <string name="label_cpf">CPF</string>
+    <string name="label_social_name">Nome Social</string>
+    <string name="label_birth_date">Data de Nascimento</string>
+    <string name="label_employee">Funcionário</string>
+    <string name="label_phone">Telefone</string>
+    <string name="label_active">Ativo</string>
+    <string name="label_password_confirmation">Confirmação da Senha</string>
+    <string name="label_add_package_type">Adicionar Tipo de Pacote</string>
 </resources>
