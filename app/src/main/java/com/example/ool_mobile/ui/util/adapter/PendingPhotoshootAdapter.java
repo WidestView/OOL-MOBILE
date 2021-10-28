@@ -100,7 +100,7 @@ public class PendingPhotoshootAdapter extends RecyclerView.Adapter<PendingPhotos
         }
 
         private void bindPhotoshootDate(Date date) {
-            dateTextView.setText(new UiDate(itemView.getContext()).formatShortDate(date));
+            dateTextView.setText(new UiDate(itemView.getContext()).formatDateName(date));
         }
     }
 }

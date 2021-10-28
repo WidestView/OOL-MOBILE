@@ -31,7 +31,7 @@
             tools:statusText="27/05/2022"
             tools:titleText="localhost avenue"
             app:statusText="@{photoshoot.address()}"
-            app:titleText="@{uiDate.formatShortDate(photoshoot.startTime())}"
+            app:titleText="@{uiDate.formatDateName(photoshoot.startTime())}"
             app:on_edit="@{events.onEdit}"
             app:on_delete="@{events.onDelete}">
 
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 app:label="Início"
                 tools:value="30/3/2021 13:00"
-                app:value="@{uiDate.formatDateTime(photoshoot.startTime())}" />
+                app:value="@{uiDate.formatDate(photoshoot.startTime())}" />
 
             <com.example.ool_mobile.ui.component.content_row.ContentRowField
                 android:id="@+id/photoshootRow_durationField"

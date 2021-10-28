@@ -36,5 +36,4 @@ public interface PhotoshootApi {
     @POST("photoshoot/add")
     Single<Photoshoot> addPhotoshoot(@NonNull @Body Photoshoot photoshoot);
 
-
 }

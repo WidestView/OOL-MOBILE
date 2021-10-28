@@ -18,22 +18,28 @@ public class UiDate {
     private final Context context;
 
     public UiDate(@NonNull Context context) {
-        this.context = context;
+        this.context = context.getApplicationContext();
     }
 
     @NonNull
-    public String formatDateTime(@NonNull Date date) {
+    public String formatDate(@NonNull Date date) {
 
         // q/9235934
-        Format dateFormat = android.text.format.DateFormat.getDateFormat(
-                context.getApplicationContext()
-        );
+        Format dateFormat = android.text.format.DateFormat.getDateFormat(context);
 
         return dateFormat.format(date);
     }
 
     @NonNull
-    public String formatShortDate(@NonNull Date date) {
+    public String formatTime(@NonNull Date date) {
+
+        Format dateFormat = android.text.format.DateFormat.getTimeFormat(context);
+
+        return dateFormat.format(date);
+    }
+
+    @NonNull
+    public String formatDateName(@NonNull Date date) {
         Context viewContext = Objects.requireNonNull(
                 context,
                 "itemView context cannot be null"

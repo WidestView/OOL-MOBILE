@@ -88,7 +88,7 @@ public class DialogDateField {
 
     public void setDate(@NonNull Date startTime) {
 
-        editText.setText(new UiDate(editText.getContext()).formatShortDate(startTime));
+        editText.setText(new UiDate(editText.getContext()).formatDateName(startTime));
 
         picker = setupDatePicker(startTime.getTime());
     }
