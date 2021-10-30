@@ -80,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:label="Devolução Efetiva"
-                app:value="@{uiDate.formatTime(withdraw.effectiveDevolutionDate) ?? @string/value_no_date}"
+                app:value="@{withdraw.effectiveDevolutionDate == null ? @string/value_no_date : uiDate.formatTime(withdraw.effectiveDevolutionDate)}"
                 tools:value="Nenhuma" />
 
         </com.example.ool_mobile.ui.component.content_row.ContentRow>

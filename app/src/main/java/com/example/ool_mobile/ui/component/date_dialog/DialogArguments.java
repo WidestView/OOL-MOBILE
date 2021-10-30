@@ -32,22 +32,23 @@ interface DialogArguments {
             return new DialogArgumentsBuilder().build();
         }
 
-        CharSequence hint;
-        CharSequence title;
 
         TypedArray array = context.obtainStyledAttributes(
                 attributeSet, new int[]{
                         R.attr.hint,
+                        android.R.attr.hint,
                         R.attr.title
                 }
         );
 
         try {
-            hint = array.getText(0);
-            title = array.getText(1);
+
+            CharSequence hint = array.getText(0);
+            CharSequence androidHint = array.getText(1);
+            CharSequence title = array.getText(2);
 
             return new DialogArgumentsBuilder()
-                    .hint(hint)
+                    .hint(hint == null ? androidHint : hint)
                     .title(title)
                     .build();
         } finally {

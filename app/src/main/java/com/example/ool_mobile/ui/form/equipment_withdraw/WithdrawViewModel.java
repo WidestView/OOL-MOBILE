@@ -49,6 +49,8 @@ public interface WithdrawViewModel {
         Event MissingDevolutionDate = Visitor::visitMissingDevolutionDate;
         Event MissingDevolutionTime = Visitor::visitMissingDevolutionTime;
 
+        Event Success = Visitor::visitSuccess;
+
         interface Visitor {
             void visitError();
 
@@ -61,6 +63,8 @@ public interface WithdrawViewModel {
             void visitMissingDevolutionDate();
 
             void visitMissingDevolutionTime();
+
+            void visitSuccess();
         }
     }
 

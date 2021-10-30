@@ -153,4 +153,9 @@ public class EquipmentWithdrawFormActivity extends AppCompatActivity implements 
     public void visitMissingDevolutionTime() {
         snack(this, R.string.missing_devolution_time);
     }
+
+    @Override
+    public void visitSuccess() {
+        finish();
+    }
 }

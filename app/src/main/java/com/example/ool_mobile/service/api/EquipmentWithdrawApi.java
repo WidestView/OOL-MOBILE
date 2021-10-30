@@ -22,11 +22,11 @@ public interface EquipmentWithdrawApi {
     Single<List<EquipmentWithdraw>> listWithdraws();
 
     @NonNull
-    @POST("equipment/withdraw/{id}")
+    @POST("equipment/withdraw")
     Completable addWithdraw(@NonNull @Body EquipmentWithdraw withdraw);
 
     @NonNull
-    @POST("equipment/withdraw/{id}")
+    @GET("equipment/withdraw/{id}")
     Single<EquipmentWithdraw> getById(@Path("id") int id);
 
     @NonNull

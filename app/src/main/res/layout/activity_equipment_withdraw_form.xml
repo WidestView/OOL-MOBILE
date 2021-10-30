@@ -89,37 +89,19 @@
                         android:text="@{String.valueOf(viewModel.initialId)}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <com.example.ool_mobile.ui.component.date_dialog.DateDialogView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/label_expected_devolution_date"
+                    app:dialogDate="@={viewModel.input.expectedDevolutionDate}" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/label_expected_devolution_date"
-                        android:inputType="none"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <com.example.ool_mobile.ui.component.date_dialog.TimeDialogView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/label_expected_devolution_time"
-                        android:inputType="none"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/label_expected_devolution_time"
+                    app:dialogTime="@={viewModel.input.expectedDevolutionTime}" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -132,7 +114,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/label_employee"
                         android:inputType="none"
-                        app:items="@{activity.formatEmployees(viewModel.lists.employees)}" />
+                        app:items="@{activity.formatEmployees(viewModel.lists.employees)}"
+                        app:listSelection="@={viewModel.input.employeeSelection}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -146,6 +129,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/label_photoshoot"
                         app:items="@{activity.formatPhotoshoots(viewModel.lists.photoshoots)}"
+                        app:listSelection="@={viewModel.input.photoshootSelection}"
                         android:inputType="none" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -161,6 +145,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/label_equipment"
                         app:items="@{activity.formatEquipments(viewModel.lists.equipments)}"
+                        app:listSelection="@={viewModel.input.equipmentSelection}"
                         android:inputType="none" />
 
                 </com.google.android.material.textfield.TextInputLayout>

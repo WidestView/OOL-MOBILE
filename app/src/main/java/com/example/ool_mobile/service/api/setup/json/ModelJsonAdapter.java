@@ -264,17 +264,30 @@ public class ModelJsonAdapter {
 
     @ToJson
     @NonNull
-    public ImmutableEquipmentWithdrawFromJson withdrawToJson(EquipmentWithdraw withdraw) {
+    public ImmutableEquipmentWithdrawToJson withdrawToJson(EquipmentWithdraw withdraw) {
 
-        return ImmutableEquipmentWithdrawFromJson.builder()
-                .id(withdraw.getId())
+        return ImmutableEquipmentWithdrawToJson.builder()
+                .expectedDevolutionDate(withdraw.getExpectedDevolutionDate())
                 .effectiveDevolutionDate(withdraw.getEffectiveDevolutionDate())
-                .employee(withdraw.getEmployee())
-                .equipment(withdraw.getEquipment())
-                .photoShoot(withdraw.getPhotoshoot())
-                .predictedDevolutionDate(withdraw.getExpectedDevolutionDate())
-                .withdrawDate(withdraw.getWithdrawDate())
+                .photoShootId(withdraw.getPhotoshootId())
+                .employeeCpf(withdraw.getEmployeeId())
+                .equipmentId(withdraw.getEquipmentId())
                 .build();
+    }
+
+    @Value.Immutable
+    interface EquipmentWithdrawToJson {
+
+        Date expectedDevolutionDate();
+
+        @Nullable
+        Date effectiveDevolutionDate();
+
+        UUID photoShootId();
+
+        String employeeCpf();
+
+        int equipmentId();
     }
 
     @Value.Immutable
@@ -286,6 +299,7 @@ public class ModelJsonAdapter {
 
         Date predictedDevolutionDate();
 
+        @Nullable
         Date effectiveDevolutionDate();
 
         Photoshoot photoShoot();

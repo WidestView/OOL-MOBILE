@@ -45,8 +45,11 @@ public class AddWithdrawViewModel extends CommonWithdrawViewModel {
                 .flatMapMaybe(fields ->
                         validation.validate(input.getValue(), fields)
                 )
+                .flatMapSingle(result -> withdrawApi.addWithdraw(result).toSingleDefault(true))
                 .to(disposedWhenCleared())
-                .subscribe();
+                .subscribe(success -> {
+                    events.onNext(Event.Success);
+                });
 
 
     }
