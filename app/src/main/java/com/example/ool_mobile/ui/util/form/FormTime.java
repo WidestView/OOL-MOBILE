@@ -6,22 +6,38 @@ import org.immutables.value.Value;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 @Value.Immutable
-public interface FormTime {
+public abstract class FormTime {
 
     @Value.Parameter
-    long getHour();
+    public abstract long getHour();
 
     @Value.Parameter
-    long getMinute();
+    public abstract long getMinute();
 
-    default long totalMinutes() {
+    @NonNull
+    public Date addToDate(@NonNull Date date) {
+
+        Objects.requireNonNull(date, "date is null");
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(date);
+
+        calendar.add(Calendar.HOUR, (int) getHour());
+        calendar.add(Calendar.MINUTE, (int) getMinute());
+
+        return calendar.getTime();
+    }
+
+    public long totalMinutes() {
         return getHour() * 60 + getMinute();
     }
 
     @NonNull
-    static FormTime fromDate(@NonNull Date date) {
+    public static FormTime fromDate(@NonNull Date date) {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -33,7 +49,7 @@ public interface FormTime {
     }
 
     @NonNull
-    static FormTime fromDateSpan(@NonNull Date date, int minutes) {
+    public static FormTime fromDateSpan(@NonNull Date date, int minutes) {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

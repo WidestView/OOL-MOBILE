@@ -11,7 +11,6 @@ import com.example.ool_mobile.ui.util.form.ValidationResult;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -121,16 +120,9 @@ class PhotoshootValidation {
     @NotNull
     private Date getDate(PhotoshootInput data) {
 
-        Calendar calendar = Calendar.getInstance();
+        Objects.requireNonNull(data.getStartTime());
+        Objects.requireNonNull(data.getDate());
 
-        Objects.requireNonNull(data.getDate(), "input date is null");
-        Objects.requireNonNull(data.getStartTime(), "input start time is null");
-
-        calendar.setTime(new Date(data.getDate()));
-
-        calendar.add(Calendar.HOUR, (int) data.getStartTime().getHour());
-        calendar.add(Calendar.MINUTE, (int) data.getStartTime().getMinute());
-
-        return calendar.getTime();
+        return data.getStartTime().addToDate(new Date(data.getDate()));
     }
 }

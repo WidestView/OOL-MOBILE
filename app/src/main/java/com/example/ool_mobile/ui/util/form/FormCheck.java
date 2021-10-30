@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.CheckReturnValue;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
@@ -103,6 +104,7 @@ public class FormCheck<Error> {
     }
 
     @NonNull
+    @CheckReturnValue
     public static <Error> Single<ValidationResult> validate(
             @NonNull Observable<FormCheck<Error>> checks,
             @NonNull Consumer<Error> consumer
