@@ -45,5 +45,4 @@ public abstract class EquipmentWithdraw {
 
     @Nullable
     public abstract Equipment getEquipment();
-
 }

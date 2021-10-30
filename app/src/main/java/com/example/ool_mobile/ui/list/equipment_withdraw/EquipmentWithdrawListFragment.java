@@ -9,12 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.FragmentListEquipmentWithdrawBinding;
 import com.example.ool_mobile.model.EquipmentWithdraw;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.util.adapter.AdapterParameters;
+import com.example.ool_mobile.ui.util.form.FormMode;
+import com.example.ool_mobile.ui.util.form.FormModeValue;
 
 public class EquipmentWithdrawListFragment extends Fragment {
 
@@ -42,6 +46,9 @@ public class EquipmentWithdrawListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        binding.setFragment(this);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
+
         setupViewModel();
     }
 
@@ -64,8 +71,12 @@ public class EquipmentWithdrawListFragment extends Fragment {
 
     public void onAddButtonClick() {
 
-        binding.setFragment(this);
-        binding.setLifecycleOwner(getViewLifecycleOwner());
+        NavDirections action = EquipmentWithdrawListFragmentDirections
+                .actionWithdrawListToForm(FormModeValue.of(FormMode.Add));
+
+        NavHostFragment
+                .findNavController(this)
+                .navigate(action);
     }
 
 

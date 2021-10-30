@@ -6,8 +6,10 @@ import com.example.ool_mobile.model.EquipmentWithdraw;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -21,12 +23,22 @@ public interface EquipmentWithdrawApi {
 
     @NonNull
     @POST("equipment/withdraw/{id}")
-    Single<List<EquipmentWithdraw>> addWithdraw(@NonNull @Body EquipmentWithdraw withdraw);
+    Completable addWithdraw(@NonNull @Body EquipmentWithdraw withdraw);
+
+    @NonNull
+    @POST("equipment/withdraw/{id}")
+    Single<EquipmentWithdraw> getById(@Path("id") int id);
 
     @NonNull
     @PUT("equipment/withdraw/{id}")
     Single<List<EquipmentWithdraw>> updateWithdraw(
             @Path("id") int id,
             @NonNull @Body EquipmentWithdraw withdraw
+    );
+
+    @DELETE("equipment/withdraw/{id}")
+    @NonNull
+    Completable archiveWithdraw(
+            @Path("id") int id
     );
 }

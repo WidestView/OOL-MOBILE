@@ -51,7 +51,7 @@ public abstract class Dependencies {
 
     @Value.Lazy
     @NonNull
-    protected ApiProvider getApiProvider() {
+    public ApiProvider getApiProvider() {
         return new ApiProviderBuilder()
                 .interceptor(new JwtInterceptor(getTokenStorage()))
                 .tokenStorage(getTokenStorage())

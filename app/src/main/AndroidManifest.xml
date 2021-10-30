@@ -11,7 +11,6 @@
         </intent>
     </queries>
 
-
     <application
         android:name=".service.ProjectApplication"
         android:allowBackup="true"
@@ -21,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OOLMOBILE"
         tools:ignore="AllowBackup">
+        <activity android:name=".ui.form.equipment_withdraw.EquipmentWithdrawFormActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

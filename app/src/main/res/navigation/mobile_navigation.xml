@@ -72,7 +72,11 @@
         android:id="@+id/navigation_equipmentWithdraws"
         android:name="com.example.ool_mobile.ui.list.equipment_withdraw.EquipmentWithdrawListFragment"
         android:label="@string/menu_equipment_withdraw"
-        tools:layout="@layout/fragment_list_equipment_withdraw" />
+        tools:layout="@layout/fragment_list_equipment_withdraw">
+        <action
+            android:id="@+id/action_withdrawListToForm"
+            app:destination="@id/equipmentWithdrawFormActivity" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_equipments"
@@ -186,6 +190,17 @@
         android:name="com.example.ool_mobile.ui.list.hiring.HiringListFragment"
         android:label="@string/menu_hirings"
         tools:layout="@layout/fragment_list_hiring" />
+    <activity
+        android:id="@+id/equipmentWithdrawFormActivity"
+        android:name="com.example.ool_mobile.ui.form.equipment_withdraw.EquipmentWithdrawFormActivity"
+        android:label="EquipmentWithdrawFormActivity">
+        <argument
+            android:name="form-mode"
+            app:argType="integer" />
+        <argument
+            android:name="resource-id"
+            android:defaultValue="-1" />
+    </activity>
 
 
 </navigation>
