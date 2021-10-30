@@ -37,7 +37,7 @@ public class WithdrawListViewModel extends SubscriptionViewModel {
         return events;
     }
 
-    public LiveData<List<EquipmentWithdraw>> getWithdraws() {
+    public LiveData<List<EquipmentWithdraw>> fetchWithdraws() {
 
         api.listWithdraws()
                 .observeOn(AndroidSchedulers.mainThread())

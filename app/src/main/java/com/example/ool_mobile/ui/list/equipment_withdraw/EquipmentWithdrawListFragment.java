@@ -16,9 +16,12 @@ import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.FragmentListEquipmentWithdrawBinding;
 import com.example.ool_mobile.model.EquipmentWithdraw;
 import com.example.ool_mobile.service.Dependencies;
+import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
 import com.example.ool_mobile.ui.util.adapter.AdapterParameters;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
+
+import static com.example.ool_mobile.ui.util.SnackMessage.snack;
 
 public class EquipmentWithdrawListFragment extends Fragment {
 
@@ -57,9 +60,20 @@ public class EquipmentWithdrawListFragment extends Fragment {
         viewModel = new ViewModelProvider(this,
                 WithdrawListViewModel.create(
                         Dependencies.from(this).getWithdrawApi()
-                )).get(WithdrawListViewModel.class);
+                ))
+                .get(WithdrawListViewModel.class);
 
-        viewModel.getWithdraws().observe(getViewLifecycleOwner(), withdraws -> {
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        viewModel.getEvents()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe(event -> snack(this, R.string.error_operation_failed));
+
+        viewModel.fetchWithdraws().observe(getViewLifecycleOwner(), withdraws -> {
 
             binding.setAdapter(new EquipmentWithdrawRowAdapter(
                     new AdapterParameters.Builder<EquipmentWithdraw>()
