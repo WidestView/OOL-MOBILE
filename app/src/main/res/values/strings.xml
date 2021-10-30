@@ -166,6 +166,7 @@
     <string name="sample_quantity">3</string>
     <string name="sample_reportName">Algum Relatório</string>
     <string name="sample_report_title">Acontecimento</string>
+    <string name="sample_default_date_title">Pick a date</string>
     <string name="symbol_questionMark">\?</string>
     <string name="value_available">Disponível</string>
     <string name="value_no">Não</string>

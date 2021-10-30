@@ -6,14 +6,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.ool_mobile.ui.component.date_dialog.DialogContent;
 import com.example.ool_mobile.ui.util.UiDate;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 
-public class DialogDateField {
+public class DateDialogContent implements DialogContent<Date> {
 
     private MaterialDatePicker<Long> picker;
 
@@ -21,26 +23,33 @@ public class DialogDateField {
     private final AtomicBoolean activated = new AtomicBoolean();
 
     @NonNull
+    private Consumer<Date> listener = v -> {
+    };
+
     private final EditText editText;
 
-    private final int title;
+    private final CharSequence title;
 
     private final FragmentManager fragmentManager;
 
-    public DialogDateField(@NonNull EditText editText, int message, @NonNull FragmentManager manager) {
+    public DateDialogContent(
+            @NonNull EditText editText,
+            @Nullable CharSequence title,
+            @NonNull FragmentManager manager
+    ) {
 
         Objects.requireNonNull(editText, "editText is null");
         Objects.requireNonNull(manager, "manager is null");
 
         this.editText = editText;
-        this.title = message;
+        this.title = title;
         this.fragmentManager = manager;
 
-        picker = setupTimePicker();
+        picker = setupDefaultDatePicker();
     }
 
     @NonNull
-    public MaterialDatePicker<Long> setupTimePicker() {
+    private MaterialDatePicker<Long> setupDefaultDatePicker() {
         return setupDatePicker(MaterialDatePicker.todayInUtcMilliseconds());
     }
 
@@ -54,11 +63,15 @@ public class DialogDateField {
                 .setTitleText(title)
                 .build();
 
-        picker.addOnPositiveButtonClickListener(dialog -> editText.setText(picker.getHeaderText()));
-
-        picker.addOnDismissListener(dialog -> {
+        picker.addOnPositiveButtonClickListener(dialog -> {
             editText.setText(picker.getHeaderText());
             editText.setError(null);
+
+            if (picker.getSelection() == null) {
+                listener.accept(null);
+            } else {
+                listener.accept(new Date(picker.getSelection()));
+            }
         });
 
         editText.setOnClickListener(v -> {
@@ -73,9 +86,9 @@ public class DialogDateField {
 
 
     @Nullable
-    public Long getDate() {
-        if (activated.get()) {
-            return picker.getSelection();
+    public Date getSelection() {
+        if (activated.get() && picker.getSelection() != null) {
+            return new Date(picker.getSelection());
         } else {
             return null;
         }
@@ -86,10 +99,20 @@ public class DialogDateField {
         return editText;
     }
 
-    public void setDate(@NonNull Date startTime) {
+    public void setSelection(@Nullable Date startTime) {
 
-        editText.setText(new UiDate(editText.getContext()).formatDateName(startTime));
+        if (startTime == null) {
+            editText.setText(null);
 
-        picker = setupDatePicker(startTime.getTime());
+            picker = setupDefaultDatePicker();
+        } else {
+            editText.setText(new UiDate(editText.getContext()).formatDateName(startTime));
+
+            picker = setupDatePicker(startTime.getTime());
+        }
+    }
+
+    public void setSelectionListener(@NonNull Consumer<Date> listener) {
+        this.listener = listener;
     }
 }

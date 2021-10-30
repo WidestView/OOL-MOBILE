@@ -2,21 +2,17 @@ package com.example.ool_mobile.ui.form.photoshoot;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.R;
-import com.example.ool_mobile.model.Photoshoot;
+import com.example.ool_mobile.databinding.ActivityFormPhotoshootBinding;
 import com.example.ool_mobile.service.Dependencies;
-import com.example.ool_mobile.ui.util.form.DialogDateField;
-import com.example.ool_mobile.ui.util.form.DialogTimeField;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
-import com.example.ool_mobile.ui.util.form.FormTime;
 
 import java.util.UUID;
 
@@ -29,57 +25,19 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
         FormMode.Visitor {
 
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private TextView titleTextView;
-    private EditText addressEditText;
-    private EditText orderEditText;
     private PhotoshootViewModel viewModel;
 
-    private DialogTimeField startTimeField;
-    private DialogTimeField endTimeField;
-    private DialogDateField dateField;
+    private ActivityFormPhotoshootBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form_photoshoot);
 
-        setupViews();
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_form_photoshoot);
+
+        binding.setActivity(this);
 
         setupViewModel();
-    }
-
-    private void setupViews() {
-
-        startTimeField = new DialogTimeField(
-                findViewById(R.id.addPhotoShoot_startTimeEditText),
-                R.string.label_select_start_time,
-                getSupportFragmentManager()
-        );
-
-        endTimeField = new DialogTimeField(
-                findViewById(R.id.addPhotoShoot_endTimeEditText),
-                R.string.label_select_end_time,
-                getSupportFragmentManager()
-        );
-
-        dateField = new DialogDateField(
-                findViewById(R.id.addPhotoShoot_dateEditText),
-                R.string.label_select_end_time,
-                getSupportFragmentManager()
-        );
-
-        titleTextView = findViewById(R.id.addPhotoshootActivity_titleTextView);
-        addressEditText = findViewById(R.id.addPhotoshootActivity_addressEditText);
-        orderEditText = findViewById(R.id.addPhotoshootActivity_orderEditText);
-
-        findViewById(R.id.addPhotoShoot_backImageView).setOnClickListener(v ->
-                onBackPressed()
-        );
-
-
-        findViewById(R.id.addPhotoShoot_saveButton).setOnClickListener(v ->
-                onSaveButtonClick()
-        );
     }
 
     private void setupViewModel() {
@@ -93,7 +51,7 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
 
         viewModel.getFormMode().observe(this, formMode -> formMode.accept(this));
 
-        viewModel.getInitialPhotoshoot().observe(this, this::displayPhotoshoot);
+        binding.setViewModel(viewModel);
     }
 
 
@@ -137,36 +95,6 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
         compositeDisposable.clear();
     }
 
-
-    private void onSaveButtonClick() {
-
-        viewModel.savePhotoshoot(
-                ImmutablePhotoshootInput.builder()
-                        .address(addressEditText.getText().toString())
-                        .startTime(startTimeField.getFormTime())
-                        .endTime(endTimeField.getFormTime())
-                        .date(dateField.getDate())
-                        .orderId(orderEditText.getText().toString())
-                        .build()
-        );
-    }
-
-    private void displayPhotoshoot(Photoshoot photoshoot) {
-        orderEditText.setText(String.valueOf(photoshoot.orderId()));
-        addressEditText.setText(photoshoot.address());
-
-        startTimeField.setTime(FormTime.fromDate(photoshoot.startTime()));
-
-        endTimeField.setTime(
-                FormTime.fromDateSpan(
-                        photoshoot.startTime(),
-                        photoshoot.durationMinutes()
-                )
-        );
-
-        dateField.setDate(photoshoot.startTime());
-    }
-
     @Override
     public void visitSuccess() {
         finish();
@@ -179,47 +107,58 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
 
     @Override
     public void visitEmptyAddress() {
-        addressEditText.setError(getString(R.string.error_empty_address));
+        binding.addPhotoshootActivityAddressEditText.setError(getString(R.string.error_empty_address));
     }
 
     @Override
     public void visitInvalidTimeRange() {
-        startTimeField.getEditText().setError(getString(R.string.error_invalid_time_range));
-        endTimeField.getEditText().setError(getString(R.string.error_invalid_time_range));
+        binding.addPhotoShootStartTimeInputLayout.getEditText()
+                .setError(getString(R.string.error_invalid_time_range));
+
+        binding.addPhotoShootEndTimeInputLayout
+                .getEditText().setError(getString(R.string.error_invalid_time_range));
     }
 
     @Override
     public void visitEmptyOrder() {
-        orderEditText.setError(getString(R.string.error_empty_order_id));
+        binding.addPhotoshootActivityOrderEditText
+                .setError(getString(R.string.error_empty_order_id));
     }
 
     @Override
     public void visitEmptyStartTime() {
-        startTimeField.getEditText().setError(getString(R.string.error_empty_start_time));
+        binding.addPhotoShootStartTimeInputLayout
+                .getEditText().setError(getString(R.string.error_empty_start_time));
     }
 
     @Override
     public void visitEmptyEndTime() {
-        endTimeField.getEditText().setError(getString(R.string.error_empty_end_time));
+        binding.addPhotoShootEndTimeInputLayout
+                .getEditText().setError(getString(R.string.error_empty_end_time));
     }
 
     @Override
     public void visitInvalidOrder() {
-        orderEditText.setError(getString(R.string.error_invalid_order));
+        binding.addPhotoshootActivityOrderEditText
+                .setError(getString(R.string.error_invalid_order));
     }
 
     @Override
     public void visitEmptyDate() {
-        dateField.getEditText().setError(getString(R.string.error_empty_date));
+        binding.addPhotoshootActivityDateDialogView
+                .getEditText().setError(getString(R.string.error_empty_date));
     }
+
 
     @Override
     public void visitAdd() {
-        titleTextView.setText(R.string.label_add_photo_shoot);
+        binding.addPhotoshootActivityTitleTextView
+                .setText(R.string.label_add_photo_shoot);
     }
 
     @Override
     public void visitUpdate() {
-        titleTextView.setText(R.string.label_update_photoshoot);
+        binding.addPhotoshootActivityTitleTextView
+                .setText(R.string.label_update_photoshoot);
     }
 }

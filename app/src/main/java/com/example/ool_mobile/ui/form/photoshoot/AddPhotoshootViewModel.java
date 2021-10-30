@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.api.PhotoshootApi;
 import com.example.ool_mobile.ui.util.form.FormMode;
 
@@ -14,11 +13,15 @@ import io.reactivex.rxjava3.subjects.Subject;
 
 class AddPhotoshootViewModel extends PhotoshootViewModel {
 
-    private final PhotoshootApi photoshootApi;
+    private final MutableLiveData<PhotoshootInput> input = new MutableLiveData<>(
+            new PhotoshootInput()
+    );
 
     private final Subject<Event> events = PublishSubject.create();
 
     private final PhotoshootValidation validation = new PhotoshootValidation(events);
+
+    private final PhotoshootApi photoshootApi;
 
     public AddPhotoshootViewModel(
             @NonNull PhotoshootApi photoshootApi
@@ -28,8 +31,8 @@ class AddPhotoshootViewModel extends PhotoshootViewModel {
 
     @NonNull
     @Override
-    public LiveData<Photoshoot> getInitialPhotoshoot() {
-        return new MutableLiveData<>();
+    public LiveData<PhotoshootInput> getInput() {
+        return input;
     }
 
     @NonNull
@@ -39,10 +42,10 @@ class AddPhotoshootViewModel extends PhotoshootViewModel {
     }
 
     @Override
-    public void savePhotoshoot(@NonNull PhotoshootInput input) {
+    public void savePhotoshoot() {
 
         subscriptions.add(
-                validation.validate(input)
+                validation.validate(input.getValue())
                         .flatMapSingle(
                                 photoshootApi::addPhotoshoot
                         )

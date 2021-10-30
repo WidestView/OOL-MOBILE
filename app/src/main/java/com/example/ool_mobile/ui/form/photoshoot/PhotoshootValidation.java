@@ -1,6 +1,7 @@
 package com.example.ool_mobile.ui.form.photoshoot;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.ool_mobile.model.ImmutablePhotoshoot;
 import com.example.ool_mobile.model.Photoshoot;
@@ -31,15 +32,18 @@ class PhotoshootValidation {
     }
 
     @NonNull
-    public Maybe<Photoshoot> validate(@NonNull final PhotoshootInput input) {
+    public Maybe<Photoshoot> validate(@Nullable final PhotoshootInput input) {
 
-        final PhotoshootInput data = ImmutablePhotoshootInput.builder()
-                .orderId(input.getOrderId().trim())
-                .address(input.getAddress().trim())
-                .startTime(input.getStartTime())
-                .endTime(input.getEndTime())
-                .date(input.getDate())
-                .build();
+        if (input == null) {
+            return null;
+        }
+
+        final PhotoshootInput data = new PhotoshootInput();
+        data.setOrderId(input.getOrderId().trim());
+        data.setAddress(input.getAddress().trim());
+        data.setStartTime(input.getStartTime());
+        data.setEndTime(input.getEndTime());
+        data.setDate(input.getDate());
 
         return FormCheck.validate(getChecks(data), events::onNext)
                 .flatMapMaybe(result -> {
@@ -123,6 +127,6 @@ class PhotoshootValidation {
         Objects.requireNonNull(data.getStartTime());
         Objects.requireNonNull(data.getDate());
 
-        return data.getStartTime().addToDate(new Date(data.getDate()));
+        return data.getStartTime().addToDate(data.getDate());
     }
 }

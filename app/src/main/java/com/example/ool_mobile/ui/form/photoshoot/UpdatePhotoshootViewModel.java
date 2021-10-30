@@ -1,11 +1,11 @@
 package com.example.ool_mobile.ui.form.photoshoot;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.api.PhotoshootApi;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.view_model.ViewModelFactory;
@@ -20,7 +20,7 @@ import io.reactivex.rxjava3.subjects.Subject;
 
 class UpdatePhotoshootViewModel extends PhotoshootViewModel {
 
-    private MutableLiveData<Photoshoot> photoshootInfo;
+    private MutableLiveData<PhotoshootInput> photoshootInfo;
 
     private final Subject<Event> events = PublishSubject.create();
 
@@ -30,7 +30,7 @@ class UpdatePhotoshootViewModel extends PhotoshootViewModel {
     @NonNull
     private final UUID resourceId;
 
-    protected UpdatePhotoshootViewModel(@NonNull PhotoshootApi photoshootApi, @NonNull UUID resourceId) {
+    protected UpdatePhotoshootViewModel(@NonNull PhotoshootApi photoshootApi, @Nullable UUID resourceId) {
 
         Objects.requireNonNull(photoshootApi, "photoshootApi is null");
         Objects.requireNonNull(resourceId, "resourceId is null");
@@ -48,7 +48,7 @@ class UpdatePhotoshootViewModel extends PhotoshootViewModel {
 
     @NonNull
     @Override
-    public LiveData<Photoshoot> getInitialPhotoshoot() {
+    public LiveData<PhotoshootInput> getInput() {
 
         if (photoshootInfo == null) {
             photoshootInfo = new MutableLiveData<>();
@@ -57,16 +57,17 @@ class UpdatePhotoshootViewModel extends PhotoshootViewModel {
                     photoshootApi.getPhotoshootWithId(resourceId)
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(photoshoot ->
-                                            photoshootInfo.setValue(photoshoot)
+                                            photoshootInfo.setValue(new PhotoshootInput(photoshoot))
                                     , this::handleError)
             );
+
         }
 
         return photoshootInfo;
     }
 
     @Override
-    public void savePhotoshoot(@NonNull PhotoshootInput input) {
+    public void savePhotoshoot() {
         // todo: implement this
 
         if (Math.random() < 0.5) {

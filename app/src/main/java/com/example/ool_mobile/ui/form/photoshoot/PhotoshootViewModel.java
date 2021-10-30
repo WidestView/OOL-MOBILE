@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.api.PhotoshootApi;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
@@ -16,18 +15,18 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.rxjava3.core.Observable;
 
-abstract class PhotoshootViewModel extends SubscriptionViewModel {
+public abstract class PhotoshootViewModel extends SubscriptionViewModel {
 
     @NonNull
     public abstract Observable<Event> getEvents();
 
     @NonNull
-    public abstract LiveData<Photoshoot> getInitialPhotoshoot();
-
-    public abstract void savePhotoshoot(@NonNull PhotoshootInput input);
+    public abstract LiveData<PhotoshootInput> getInput();
 
     @NonNull
     public abstract LiveData<FormMode> getFormMode();
+
+    public abstract void savePhotoshoot();
 
     interface Event {
 

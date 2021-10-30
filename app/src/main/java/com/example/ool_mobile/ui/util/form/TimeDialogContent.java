@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.ool_mobile.R;
+import com.example.ool_mobile.ui.component.date_dialog.DialogContent;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
@@ -15,8 +16,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 
-public class DialogTimeField {
+public class TimeDialogContent implements DialogContent<FormTime> {
 
     private MaterialTimePicker picker;
 
@@ -28,17 +30,24 @@ public class DialogTimeField {
     @NonNull
     private final EditText editText;
 
-    private final int title;
+    private Consumer<FormTime> listener = v -> {
+    };
+
+    private final CharSequence title;
 
     private final FragmentManager fragmentManager;
 
-    public DialogTimeField(@NonNull EditText editText, int message, @NonNull FragmentManager manager) {
+    public TimeDialogContent(
+            @NonNull EditText editText,
+            @Nullable CharSequence title,
+            @NonNull FragmentManager manager
+    ) {
 
         Objects.requireNonNull(editText, "editText is null");
         Objects.requireNonNull(manager, "manager is null");
 
         this.editText = editText;
-        this.title = message;
+        this.title = title;
         this.fragmentManager = manager;
 
         context = editText.getContext().getApplicationContext();
@@ -52,7 +61,7 @@ public class DialogTimeField {
     }
 
     @NonNull
-    private MaterialTimePicker setupTimePicker(@NonNull FormTime initialTime) {
+    private MaterialTimePicker setupTimePicker(@Nullable FormTime initialTime) {
 
         Objects.requireNonNull(initialTime, "initialTime is null");
 
@@ -63,15 +72,17 @@ public class DialogTimeField {
                 .setMinute((int) initialTime.getMinute())
                 .build();
 
-        picker.addOnDismissListener(dialog -> {
+        picker.addOnPositiveButtonClickListener(dialog -> {
 
-            FormTime time = getFormTime();
+            FormTime time = getSelection();
 
-            Objects.requireNonNull(time);
+            if (time != null) {
+                editText.setText(formatFormTime(time));
 
-            editText.setText(formatFormTime(time));
+                editText.setError(null);
+            }
 
-            editText.setError(null);
+            listener.accept(time);
         });
 
         editText.setOnClickListener(v -> {
@@ -93,8 +104,10 @@ public class DialogTimeField {
         );
     }
 
+
     @Nullable
-    public FormTime getFormTime() {
+    @Override
+    public FormTime getSelection() {
         if (activated.get()) {
             return ImmutableFormTime.of(
                     picker.getHour(),
@@ -105,15 +118,28 @@ public class DialogTimeField {
         }
     }
 
+    @Override
+    public void setSelection(@Nullable FormTime formTime) {
+
+        if (formTime == null) {
+            picker = setupTimePicker();
+
+            editText.setText(null);
+        } else {
+            picker = setupTimePicker(formTime);
+
+            editText.setText(formatFormTime(formTime));
+        }
+    }
+
     @NonNull
+    @Override
     public EditText getEditText() {
         return editText;
     }
 
-    public void setTime(@NonNull FormTime formTime) {
-
-        picker = setupTimePicker(formTime);
-
-        editText.setText(formatFormTime(formTime));
+    @Override
+    public void setSelectionListener(@NonNull Consumer<FormTime> listener) {
+        this.listener = listener;
     }
 }
