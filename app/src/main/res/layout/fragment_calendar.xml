@@ -50,6 +50,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/calendarFragment_calendarView"
                 android:focusable="false"
+                tools:listitem="@layout/row_pending_photoshoot"
+                tools:itemCount="2"
                 app:fixedLinear="@{true}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
