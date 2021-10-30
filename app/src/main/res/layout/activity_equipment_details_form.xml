@@ -100,8 +100,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/label_equipment_type"
                         android:text="@={viewModel.input.kindName}"
-                        app:items="@{viewModel.kindNames}"
-                        app:listSelection="@={viewModel.input.kindPosition}"
+                        items="@{viewModel.kindNames}"
+                        itemSelection="@={viewModel.input.kindPosition}"
                         android:inputType="none" />
 
                 </com.google.android.material.textfield.TextInputLayout>

@@ -2,6 +2,7 @@ package com.example.ool_mobile.ui.util.binding_adapter;
 
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ListAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,8 +19,8 @@ public class AutoCompleteTextViewAdapters {
 
     private static final int SELECTION_TAG = R.id.autoCompleteTextView_selectionTag;
 
-    @BindingAdapter("app:listSelection")
-    public static void setSelection(
+    @BindingAdapter("itemSelection")
+    public static void setItemSelection(
             @NonNull AutoCompleteTextView textView,
             @Nullable Integer index
     ) {
@@ -33,10 +34,20 @@ public class AutoCompleteTextViewAdapters {
         textView.setListSelection(index);
 
         textView.setTag(SELECTION_TAG, index);
+
+        ListAdapter adapter = textView.getAdapter();
+
+        if (adapter != null) {
+            Object object = textView.getAdapter().getItem(index);
+
+            if (object instanceof String) {
+                textView.setText((String) object);
+            }
+        }
     }
 
-    @InverseBindingAdapter(attribute = "app:listSelection")
-    public static int getSelection(@NonNull AutoCompleteTextView textView) {
+    @InverseBindingAdapter(attribute = "itemSelection")
+    public static int getItemSelection(@NonNull AutoCompleteTextView textView) {
 
         Integer index = (Integer) textView.getTag(SELECTION_TAG);
 
@@ -47,8 +58,8 @@ public class AutoCompleteTextViewAdapters {
         return index;
     }
 
-    @BindingAdapter("app:listSelectionAttrChanged")
-    public static void setSelectionListener(
+    @BindingAdapter("itemSelectionAttrChanged")
+    public static void setItemSelectionListener(
             @NonNull AutoCompleteTextView textView,
             @NonNull InverseBindingListener onChange
     ) {
@@ -63,7 +74,7 @@ public class AutoCompleteTextViewAdapters {
         });
     }
 
-    @BindingAdapter("app:items")
+    @BindingAdapter("items")
     public static void setItems(
             @NonNull AutoCompleteTextView textView,
             @Nullable List<String> items
