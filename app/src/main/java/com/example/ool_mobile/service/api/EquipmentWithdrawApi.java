@@ -31,7 +31,7 @@ public interface EquipmentWithdrawApi {
 
     @NonNull
     @PUT("equipment/withdraw/{id}")
-    Single<List<EquipmentWithdraw>> updateWithdraw(
+    Single<EquipmentWithdraw> updateWithdraw(
             @Path("id") int id,
             @NonNull @Body EquipmentWithdraw withdraw
     );
@@ -41,4 +41,8 @@ public interface EquipmentWithdrawApi {
     Completable archiveWithdraw(
             @Path("id") int id
     );
+
+    @GET("equipment/withdraw/finish/{id}")
+    @NonNull
+    Completable finishWithdraw(@Path("id") int id);
 }

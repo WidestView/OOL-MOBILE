@@ -185,4 +185,5 @@
     <string name="missing_devolution_date">Preencha a data de devolução</string>
     <string name="label_equipment_withdraw">Retirada de Equipamento</string>
     <string name="label_end">Finalizar</string>
+    <string name="message_withdraw_finished">Devolução finalizada</string>
 </resources>

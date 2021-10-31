@@ -34,6 +34,11 @@ public interface WithdrawViewModel {
     @NonNull
     LiveData<WithdrawInput.ListFields> getLists();
 
+    @NonNull
+    LiveData<Boolean> getCanBeFinished();
+
+    void finishWithdraw();
+
     void saveInput();
 
     interface Event {
@@ -51,6 +56,8 @@ public interface WithdrawViewModel {
 
         Event Success = Visitor::visitSuccess;
 
+        Event WithdrawFinished = Visitor::visitWithdrawFinished;
+
         interface Visitor {
             void visitError();
 
@@ -65,6 +72,8 @@ public interface WithdrawViewModel {
             void visitMissingDevolutionTime();
 
             void visitSuccess();
+
+            void visitWithdrawFinished();
         }
     }
 

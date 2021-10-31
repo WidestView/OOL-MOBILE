@@ -36,6 +36,17 @@ public class AddWithdrawViewModel extends CommonWithdrawViewModel {
         return input;
     }
 
+    @NonNull
+    @Override
+    public LiveData<Boolean> getCanBeFinished() {
+        return new MutableLiveData<>(false);
+    }
+
+    @Override
+    public void finishWithdraw() {
+
+    }
+
     @Override
     public void saveInput() {
 
@@ -50,7 +61,6 @@ public class AddWithdrawViewModel extends CommonWithdrawViewModel {
                 .subscribe(success -> {
                     events.onNext(Event.Success);
                 });
-
 
     }
 }

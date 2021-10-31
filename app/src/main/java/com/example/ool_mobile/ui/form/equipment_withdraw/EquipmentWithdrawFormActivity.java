@@ -158,4 +158,10 @@ public class EquipmentWithdrawFormActivity extends AppCompatActivity implements 
     public void visitSuccess() {
         finish();
     }
+
+    @Override
+    public void visitWithdrawFinished() {
+        snack(this, R.string.message_withdraw_finished);
+
+    }
 }
