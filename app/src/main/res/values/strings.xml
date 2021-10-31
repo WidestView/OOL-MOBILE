@@ -172,6 +172,8 @@
     <string name="value_no">Não</string>
     <string name="value_no_date">Nenhuma</string>
     <string name="value_yes">Sim</string>
+    <string name="value_add">Adicionar</string>
+    <string name="value_update">Atualizar</string>
     <string name="label_expected_devolution_date">Data de devolução esperada</string>
     <string name="label_expected_devolution_time">Horário de devolução esperado</string>
     <string name="label_photoshoot">Ensaio</string>
@@ -181,4 +183,6 @@
     <string name="error_missing_equipment">O equipamento é obrigatório</string>
     <string name="missing_devolution_time">Preencha o horário de devolução</string>
     <string name="missing_devolution_date">Preencha a data de devolução</string>
+    <string name="label_equipment_withdraw">Retirada de Equipamento</string>
+    <string name="label_end">Finalizar</string>
 </resources>

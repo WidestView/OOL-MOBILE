@@ -78,9 +78,21 @@ public class EquipmentWithdrawListFragment extends Fragment {
             binding.setAdapter(new EquipmentWithdrawRowAdapter(
                     new AdapterParameters.Builder<EquipmentWithdraw>()
                             .items(withdraws)
+                            .onEdit(this::onEdit)
                             .build()
             ));
         });
+    }
+
+    private void onEdit(EquipmentWithdraw withdraw) {
+
+        NavDirections action = EquipmentWithdrawListFragmentDirections
+                .actionWithdrawListToForm(FormModeValue.of(FormMode.Update))
+                .setResourceId(withdraw.getId());
+
+        NavHostFragment
+                .findNavController(this)
+                .navigate(action);
     }
 
     public void onAddButtonClick() {
