@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.functions.Predicate;
 
 public class WithdrawInput {
 
@@ -39,25 +40,32 @@ public class WithdrawInput {
         expectedDevolutionDate.set(withdraw.getExpectedDevolutionDate());
         expectedDevolutionTime.set(FormTime.fromDate(withdraw.getExpectedDevolutionDate()));
 
-        Observable.range(0, fields.getEmployees().size())
-                .filter(index ->
-                        fields.getEmployees().get(index).cpf().equals(withdraw.getEmployeeId()))
-                .firstElement()
-                .blockingSubscribe(employeeSelection::set);
+        selectItem(
+                employeeSelection,
+                fields.getEmployees(),
+                it -> it.cpf().equals(withdraw.getEmployeeId())
+        );
 
-        Observable.range(0, fields.getEquipments().size())
-                .filter(index ->
-                        fields.getEquipments().get(index).getId() == withdraw.getEquipmentId())
-                .firstElement()
-                .blockingSubscribe(equipmentSelection::set);
+        selectItem(
+                equipmentSelection,
+                fields.getEquipments(),
+                it -> it.getId() == withdraw.getEquipmentId()
+        );
 
-        Observable.range(0, fields.getPhotoshoots().size())
-                .filter(index -> fields.getPhotoshoots()
-                        .get(index)
-                        .resourceId()
-                        .equals(withdraw.getPhotoshootId())
-                ).firstElement()
-                .blockingSubscribe(photoshootSelection::set);
+        selectItem(
+                photoshootSelection,
+                fields.getPhotoshoots(),
+                it -> it.resourceId().equals(withdraw.getPhotoshootId())
+        );
+
+    }
+
+    private <T> void selectItem(ObservableInt selection, List<T> items, Predicate<T> predicate) {
+
+        Observable.range(0, items.size())
+                .filter(index -> predicate.test(items.get(index))).firstElement()
+                .blockingSubscribe(selection::set);
+
     }
 
     @Value.Immutable
