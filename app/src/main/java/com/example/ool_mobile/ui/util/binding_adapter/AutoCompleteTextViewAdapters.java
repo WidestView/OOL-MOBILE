@@ -37,7 +37,7 @@ public class AutoCompleteTextViewAdapters {
 
         ListAdapter adapter = textView.getAdapter();
 
-        if (adapter != null) {
+        if (adapter != null && index != -1) {
             Object object = textView.getAdapter().getItem(index);
 
             if (object instanceof String) {
