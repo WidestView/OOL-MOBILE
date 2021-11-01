@@ -1,4 +1,4 @@
-package com.example.ool_mobile.service.util;
+package com.example.ool_mobile.ui.util;
 
 public interface ErrorEvent {
 

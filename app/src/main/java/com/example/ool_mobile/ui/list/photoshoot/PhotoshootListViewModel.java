@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.api.PhotoshootApi;
-import com.example.ool_mobile.service.util.ErrorEvent;
+import com.example.ool_mobile.ui.util.ErrorEvent;
 import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
 import com.example.ool_mobile.ui.util.view_model.ViewModelFactory;
 
