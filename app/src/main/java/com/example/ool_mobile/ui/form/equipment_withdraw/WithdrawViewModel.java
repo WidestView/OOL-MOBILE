@@ -41,10 +41,13 @@ public interface WithdrawViewModel {
 
     void saveInput();
 
+    void handleReceivedQr(@NonNull String code);
+
     interface Event {
 
-
         void accept(@NonNull Visitor visitor);
+
+        Event Success = Visitor::visitSuccess;
 
         Event Error = Visitor::visitError;
 
@@ -54,7 +57,8 @@ public interface WithdrawViewModel {
         Event MissingDevolutionDate = Visitor::visitMissingDevolutionDate;
         Event MissingDevolutionTime = Visitor::visitMissingDevolutionTime;
 
-        Event Success = Visitor::visitSuccess;
+        Event UnsupportedQr = Visitor::visitUnsupportedQr;
+        Event UnknownQr = Visitor::visitUnknownQr;
 
         Event WithdrawFinished = Visitor::visitWithdrawFinished;
 
@@ -74,6 +78,10 @@ public interface WithdrawViewModel {
             void visitSuccess();
 
             void visitWithdrawFinished();
+
+            void visitUnknownQr();
+
+            void visitUnsupportedQr();
         }
     }
 

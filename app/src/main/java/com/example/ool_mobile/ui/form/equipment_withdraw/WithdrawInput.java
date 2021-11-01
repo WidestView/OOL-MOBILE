@@ -60,6 +60,14 @@ public class WithdrawInput {
 
     }
 
+    public void selectEquipmentWithId(int id, List<Equipment> equipments) {
+        selectItem(
+                equipmentSelection,
+                equipments,
+                it -> it.getId() == id
+        );
+    }
+
     private <T> void selectItem(ObservableInt selection, List<T> items, Predicate<T> predicate) {
 
         Observable.range(0, items.size())

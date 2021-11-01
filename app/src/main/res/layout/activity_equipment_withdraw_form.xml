@@ -173,7 +173,9 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:icon="@drawable/ic_phone_camera"
                         app:iconPadding="0dp"
-                        app:iconGravity="textStart" />
+                        app:iconGravity="textStart"
+                        android:enabled="@{viewModel.input != null}"
+                        android:onClick="@{() -> activity.startQr()}" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

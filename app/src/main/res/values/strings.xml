@@ -186,4 +186,7 @@
     <string name="label_equipment_withdraw">Retirada de Equipamento</string>
     <string name="label_end">Finalizar</string>
     <string name="message_withdraw_finished">Devolução finalizada</string>
+    <string name="error_unsupported_qr">QR Code não suportado</string>
+    <string name="error_unknown_qr">QR desconhecido</string>
+    <string name="label_scan_qr">Escaneie o QR</string>
 </resources>

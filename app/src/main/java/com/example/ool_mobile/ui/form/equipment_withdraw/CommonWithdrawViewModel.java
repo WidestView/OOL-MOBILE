@@ -5,12 +5,15 @@ import androidx.core.util.Pair;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.ool_mobile.service.QrMessageHandler;
 import com.example.ool_mobile.service.api.EmployeeApi;
 import com.example.ool_mobile.service.api.EquipmentApi;
 import com.example.ool_mobile.service.api.EquipmentWithdrawApi;
 import com.example.ool_mobile.service.api.PhotoshootApi;
 import com.example.ool_mobile.service.api.setup.ApiProvider;
 import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
+
+import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
@@ -38,6 +41,46 @@ public abstract class CommonWithdrawViewModel extends SubscriptionViewModel impl
         this.photoshootApi = provider.getPhotoshootApi();
         this.employeeApi = provider.getEmployeeApi();
     }
+
+    @Override
+    public void handleReceivedQr(@NonNull String jsonString) {
+
+        Objects.requireNonNull(jsonString, "jsonString is null");
+
+        // we can't do anything if the input has not been loaded yet >~<
+
+        if (getInput().getValue() == null) {
+            return;
+        }
+
+        QrMessageHandler handler = new QrMessageHandler();
+
+        handler.parseQrString(jsonString).accept(new QrMessageHandler.Result.Visitor() {
+            @Override
+            public void visitInvalidQr() {
+                events.onNext(Event.UnknownQr);
+            }
+
+            @Override
+            public void visitUnsupportedQr() {
+                events.onNext(Event.UnsupportedQr);
+            }
+
+            @Override
+            public void visitSuccess(int equipmentId) {
+
+                fetchListFields()
+                        .map(WithdrawInput.ListFields::getEquipments)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .to(disposedWhenCleared())
+                        .subscribe(items -> {
+                            getInput().getValue().selectEquipmentWithId(equipmentId, items);
+                        });
+            }
+        });
+
+    }
+
 
     @NonNull
     @Override

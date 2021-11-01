@@ -2,6 +2,7 @@ package com.example.ool_mobile.ui.form.equipment_withdraw;
 
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -15,6 +16,8 @@ import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
 import com.example.ool_mobile.ui.util.UiDate;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,6 +75,21 @@ public class EquipmentWithdrawFormActivity extends AppCompatActivity implements 
                     event.accept(this);
                 });
 
+    }
+
+    private final ActivityResultLauncher<ScanOptions> launcher = registerForActivityResult(
+            new ScanContract(), result -> {
+                if (result != null && result.getContents() != null) {
+                    viewModel.handleReceivedQr(result.getContents());
+                }
+            }
+    );
+
+    public void startQr() {
+
+        ScanOptions options = new ScanOptions();
+        options.setPrompt(getString(R.string.label_scan_qr));
+        launcher.launch(new ScanOptions());
     }
 
     public List<String> formatEquipments(@Nullable List<Equipment> equipments) {
@@ -163,5 +181,15 @@ public class EquipmentWithdrawFormActivity extends AppCompatActivity implements 
     public void visitWithdrawFinished() {
         snack(this, R.string.message_withdraw_finished);
 
+    }
+
+    @Override
+    public void visitUnknownQr() {
+        snack(this, R.string.error_unknown_qr);
+    }
+
+    @Override
+    public void visitUnsupportedQr() {
+        snack(this, R.string.error_unsupported_qr);
     }
 }
