@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.ActivityFormPhotoshootBinding;
 import com.example.ool_mobile.service.Dependencies;
+import com.example.ool_mobile.ui.form.photoshoot.viewmodel.PhotoshootViewModel;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
 
@@ -49,9 +50,11 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
                 )
         ).get(PhotoshootViewModel.class);
 
-        viewModel.getFormMode().observe(this, formMode -> formMode.accept(this));
+        viewModel.getFormMode().accept(this);
 
         binding.setViewModel(viewModel);
+
+        binding.setLifecycleOwner(this);
     }
 
 

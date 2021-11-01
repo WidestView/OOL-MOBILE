@@ -1,10 +1,11 @@
-package com.example.ool_mobile.ui.form.photoshoot;
+package com.example.ool_mobile.ui.form.photoshoot.viewmodel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.ool_mobile.model.ImmutablePhotoshoot;
 import com.example.ool_mobile.model.Photoshoot;
+import com.example.ool_mobile.ui.form.photoshoot.PhotoshootInput;
 import com.example.ool_mobile.ui.util.form.FormCheck;
 import com.example.ool_mobile.ui.util.form.FormTime;
 import com.example.ool_mobile.ui.util.form.ValidationResult;
@@ -35,7 +36,7 @@ class PhotoshootValidation {
     public Maybe<Photoshoot> validate(@Nullable final PhotoshootInput input) {
 
         if (input == null) {
-            return null;
+            return Maybe.empty();
         }
 
         final PhotoshootInput data = new PhotoshootInput();

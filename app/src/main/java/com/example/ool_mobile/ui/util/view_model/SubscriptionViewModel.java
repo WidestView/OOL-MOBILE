@@ -1,5 +1,6 @@
 package com.example.ool_mobile.ui.util.view_model;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import autodispose2.AutoDispose;
@@ -13,12 +14,13 @@ public abstract class SubscriptionViewModel extends ViewModel {
 
     private final CompletableSubject clearedEvent = CompletableSubject.create();
 
-    protected final <T> AutoDisposeConverter<T> disposedWhenCleared() {
+    @NonNull
+    public <T> AutoDisposeConverter<T> disposedWhenCleared() {
         return AutoDispose.autoDisposable(clearedEvent);
     }
 
     @Override
-    protected void onCleared() {
+    protected final void onCleared() {
         super.onCleared();
         subscriptions.clear();
         clearedEvent.onComplete();

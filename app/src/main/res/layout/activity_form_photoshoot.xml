@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.ool_mobile.ui.form.photoshoot.PhotoshootViewModel" />
+            type="com.example.ool_mobile.ui.form.photoshoot.viewmodel.PhotoshootViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
