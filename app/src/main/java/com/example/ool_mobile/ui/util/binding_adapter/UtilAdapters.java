@@ -60,21 +60,32 @@ public class UtilAdapters {
     }
 
 
-    @BindingAdapter(value = {"app:url", "app:fallback"}, requireAll = false)
+    @BindingAdapter(
+            value = {
+                    "app:url",
+                    "app:fallback",
+                    "app:cacheResult"
+            },
+            requireAll = false
+    )
     public static void setImageViewUrl(
             @NonNull ImageView imageView,
             @Nullable Uri url,
-            @Nullable Drawable fallback
+            @Nullable Drawable fallback,
+            @Nullable Boolean cacheResult
     ) {
 
         Objects.requireNonNull(imageView);
 
         RequestCreator request = Picasso.get()
-                .load(url)
-                .memoryPolicy(MemoryPolicy.NO_CACHE);
+                .load(url);
+
+        if (cacheResult != null && cacheResult) {
+            request.memoryPolicy(MemoryPolicy.NO_CACHE);
+        }
 
         if (fallback != null) {
-            request = request.placeholder(fallback);
+            request.placeholder(fallback);
         }
 
         request.into(imageView);
