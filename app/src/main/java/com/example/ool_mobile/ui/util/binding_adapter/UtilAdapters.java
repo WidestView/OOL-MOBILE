@@ -3,6 +3,7 @@ package com.example.ool_mobile.ui.util.binding_adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -89,6 +90,22 @@ public class UtilAdapters {
         }
 
         request.into(imageView);
+    }
+
+    @BindingAdapter("visible")
+    public static void setVisible(@NonNull View view, boolean isVisible) {
+
+        Objects.requireNonNull(view);
+
+        view.setVisibility(isVisible ? View.VISIBLE : View.INVISIBLE);
+    }
+
+    @BindingAdapter("gone")
+    public static void setGone(@NonNull View view, boolean isGone) {
+
+        Objects.requireNonNull(view);
+
+        view.setVisibility(isGone ? View.VISIBLE : View.GONE);
     }
 }
 
