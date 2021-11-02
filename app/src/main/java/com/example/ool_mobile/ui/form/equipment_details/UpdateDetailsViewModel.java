@@ -51,11 +51,11 @@ class UpdateDetailsViewModel extends CommonDetailsViewModel {
 
             subscriptions.add(
                     api.getDetailsById(initialId)
-                            .observeOn(AndroidSchedulers.mainThread())
                             .zipWith(
                                     fetchKinds(),
                                     EquipmentDetailsInput::new
                             )
+                            .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(value -> {
                                 this.input.setValue(value);
                                 loading.setValue(false);
