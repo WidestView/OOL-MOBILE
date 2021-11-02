@@ -30,7 +30,7 @@ import io.reactivex.rxjava3.subjects.Subject;
 
 import static android.app.Activity.RESULT_OK;
 
-public class DefaultImageInputHandler implements ImageInputHandler {
+public class LegacySelectionHandler implements ImageSelectionHandler {
 
     private static final int REQUEST_GALLERY = 0;
     private static final int REQUEST_CAMERA = 1;
@@ -41,7 +41,7 @@ public class DefaultImageInputHandler implements ImageInputHandler {
 
     private final Activity activity;
 
-    public DefaultImageInputHandler(@NonNull Activity activity) {
+    public LegacySelectionHandler(@NonNull Activity activity) {
         Objects.requireNonNull(activity, "activity is null");
 
         this.activity = activity;
@@ -116,6 +116,14 @@ public class DefaultImageInputHandler implements ImageInputHandler {
                     .concatWith(Observable.never())
                     .subscribe(results);
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode,
+            @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
+
     }
 
     private <T> ObservableTransformer<T, T> neverComplete() {

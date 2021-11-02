@@ -14,7 +14,7 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public interface ImageInputHandler {
+public interface ImageSelectionHandler {
     @NonNull
     Observable<Bitmap> getBitmapResults();
 
@@ -27,6 +27,11 @@ public interface ImageInputHandler {
     Completable requestCamera();
 
     void onActivityResult(int requestCode, int resultCode, @Nullable Intent data);
+
+    void onRequestPermissionsResult(
+            int requestCode,
+            @NonNull String[] permissions,
+            @NonNull int[] grantResults);
 
     @NonNull
     static Single<byte[]> formatBitmap(@NonNull Bitmap bitmap) {

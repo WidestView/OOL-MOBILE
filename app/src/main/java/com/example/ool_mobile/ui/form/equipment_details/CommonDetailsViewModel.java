@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.ool_mobile.model.EquipmentKind;
 import com.example.ool_mobile.service.api.EquipmentApi;
-import com.example.ool_mobile.ui.util.image.ImageInputHandler;
+import com.example.ool_mobile.ui.util.image.ImageSelectionHandler;
 import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
 
 import org.jetbrains.annotations.NotNull;
@@ -124,7 +124,7 @@ abstract class CommonDetailsViewModel extends SubscriptionViewModel implements D
     @NotNull
     private Completable postImage(int id, Bitmap bitmap) {
 
-        Single<byte[]> image = ImageInputHandler.formatBitmap(bitmap);
+        Single<byte[]> image = ImageSelectionHandler.formatBitmap(bitmap);
 
         return image.flatMapCompletable(bytes -> {
 

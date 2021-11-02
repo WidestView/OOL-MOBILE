@@ -3,6 +3,7 @@ package com.example.ool_mobile.ui.form.equipment_details;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -12,8 +13,8 @@ import com.example.ool_mobile.R;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
-import com.example.ool_mobile.ui.util.image.DefaultImageInputHandler;
-import com.example.ool_mobile.ui.util.image.ImageInputHandler;
+import com.example.ool_mobile.ui.util.image.ImageSelectionHandler;
+import com.example.ool_mobile.ui.util.image.LegacySelectionHandler;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
@@ -24,7 +25,7 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity
 
     private EquipmentDetailsFormBinding binding;
 
-    private ImageInputHandler imageHandler;
+    private ImageSelectionHandler imageHandler;
 
     private DetailsViewModel viewModel;
 
@@ -41,7 +42,7 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity
 
         setupViewModel();
 
-        imageHandler = new DefaultImageInputHandler(this);
+        imageHandler = new LegacySelectionHandler(this);
     }
 
     @Override
@@ -83,6 +84,12 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
 
         imageHandler.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        imageHandler.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private void setupViewModel() {
