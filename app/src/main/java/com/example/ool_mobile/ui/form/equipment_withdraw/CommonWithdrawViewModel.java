@@ -35,6 +35,8 @@ public abstract class CommonWithdrawViewModel extends SubscriptionViewModel impl
 
     protected final WithdrawValidation validation = new WithdrawValidation(events);
 
+    protected final MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
+
     protected CommonWithdrawViewModel(@NonNull ApiProvider provider) {
         this.withdrawApi = provider.getWithdrawApi();
         this.equipmentApi = provider.getEquipmentApi();
@@ -74,7 +76,8 @@ public abstract class CommonWithdrawViewModel extends SubscriptionViewModel impl
                         .observeOn(AndroidSchedulers.mainThread())
                         .to(disposedWhenCleared())
                         .subscribe(items -> {
-                            getInput().getValue().selectEquipmentWithId(equipmentId, items);
+                            Objects.requireNonNull(getInput().getValue())
+                                    .selectEquipmentWithId(equipmentId, items);
                         });
             }
         });
@@ -86,6 +89,11 @@ public abstract class CommonWithdrawViewModel extends SubscriptionViewModel impl
     @Override
     public Subject<Event> getEvents() {
         return events;
+    }
+
+    @Override
+    public LiveData<Boolean> isLoading() {
+        return loading;
     }
 
     @NonNull

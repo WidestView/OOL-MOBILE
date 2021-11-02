@@ -10,6 +10,8 @@ import com.example.ool_mobile.ui.util.form.FormMode;
 
 import java.util.Objects;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+
 public class AddWithdrawViewModel extends CommonWithdrawViewModel {
 
     private final MutableLiveData<WithdrawInput> input = new MutableLiveData<>(new WithdrawInput());
@@ -45,6 +47,8 @@ public class AddWithdrawViewModel extends CommonWithdrawViewModel {
     @Override
     public void finishWithdraw() {
 
+        // todo: implement this
+
     }
 
     @Override
@@ -52,11 +56,17 @@ public class AddWithdrawViewModel extends CommonWithdrawViewModel {
 
         Objects.requireNonNull(input.getValue());
 
+        loading.setValue(true);
+
         fetchListFields()
                 .flatMapMaybe(fields ->
                         validation.validate(input.getValue(), fields)
                 )
                 .flatMapSingle(result -> withdrawApi.addWithdraw(result).toSingleDefault(true))
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> {
+                    loading.setValue(false);
+                })
                 .to(disposedWhenCleared())
                 .subscribe(success -> {
                     events.onNext(Event.Success);

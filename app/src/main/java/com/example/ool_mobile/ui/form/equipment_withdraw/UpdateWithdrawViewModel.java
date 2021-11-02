@@ -43,9 +43,14 @@ class UpdateWithdrawViewModel extends CommonWithdrawViewModel {
         if (input == null) {
             input = new MutableLiveData<>();
 
+            loading.setValue(true);
+
             fetchWithdraw()
                     .zipWith(fetchListFields(), WithdrawInput::new)
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doFinally(() -> {
+                        loading.setValue(false);
+                    })
                     .to(disposedWhenCleared())
                     .subscribe(input::setValue);
         }
@@ -62,9 +67,14 @@ class UpdateWithdrawViewModel extends CommonWithdrawViewModel {
         if (canBeFinished == null) {
             canBeFinished = new MutableLiveData<>(false);
 
+            loading.setValue(true);
+
             fetchWithdraw()
                     .map(withdraw -> withdraw.getEffectiveDevolutionDate() == null)
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doFinally(() -> {
+                        loading.setValue(false);
+                    })
                     .to(disposedWhenCleared())
                     .subscribe(canBeFinished::setValue);
         }
@@ -86,9 +96,14 @@ class UpdateWithdrawViewModel extends CommonWithdrawViewModel {
     @Override
     public void finishWithdraw() {
 
+        loading.setValue(true);
+
         withdrawApi
                 .finishWithdraw(initialId)
                 .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> {
+                    loading.setValue(false);
+                })
                 .to(disposedWhenCleared())
                 .subscribe(() -> {
                     events.onNext(Event.WithdrawFinished);
@@ -104,9 +119,14 @@ class UpdateWithdrawViewModel extends CommonWithdrawViewModel {
             return;
         }
 
+        loading.setValue(true);
+
         validation.validate(input.getValue(), getLists().getValue())
                 .flatMapSingle(result -> withdrawApi.updateWithdraw(initialId, result))
                 .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> {
+                    loading.setValue(false);
+                })
                 .to(disposedWhenCleared())
                 .subscribe(success -> {
                     events.onNext(Event.Success);

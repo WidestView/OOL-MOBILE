@@ -43,6 +43,10 @@ public interface WithdrawViewModel {
 
     void handleReceivedQr(@NonNull String code);
 
+    @NonNull
+    LiveData<Boolean> isLoading();
+
+
     interface Event {
 
         void accept(@NonNull Visitor visitor);
