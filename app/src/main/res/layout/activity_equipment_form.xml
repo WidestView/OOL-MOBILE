@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/label_available"
                     android:fontFamily="@font/rambla"
-                    android:checked="@{viewModel.input.isAvailable}" />
+                    android:checked="@={viewModel.input.isAvailable}" />
 
             </LinearLayout>
 

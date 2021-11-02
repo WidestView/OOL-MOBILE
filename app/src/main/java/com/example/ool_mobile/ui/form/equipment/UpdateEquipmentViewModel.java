@@ -84,6 +84,7 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
                             fetchDetails(),
                             Pair::create
                     )
+                    .observeOn(AndroidSchedulers.mainThread())
                     .to(disposedWhenCleared())
                     .subscribe(result -> {
 
@@ -119,6 +120,7 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
                 .flatMapCompletable(details ->
                         api.updateEquipment(initialId, details)
                 )
+                .observeOn(AndroidSchedulers.mainThread())
                 .to(disposedWhenCleared())
                 .subscribe(() -> {
                     events.onNext(Event.Success);
