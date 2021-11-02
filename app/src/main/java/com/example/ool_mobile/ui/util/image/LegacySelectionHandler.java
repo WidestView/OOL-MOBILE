@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -13,8 +14,11 @@ import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
+import androidx.core.util.Pair;
+import androidx.exifinterface.media.ExifInterface;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -102,7 +106,7 @@ public class LegacySelectionHandler implements ImageSelectionHandler {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-        if (requestCode == REQUEST_CAMERA && resultCode == RESULT_OK && data != null) {
+        if (requestCode == REQUEST_CAMERA && resultCode == RESULT_OK) {
 
             decodeResultBitmap(lastCameraPath).toObservable()
                     .compose(neverComplete())
@@ -113,7 +117,6 @@ public class LegacySelectionHandler implements ImageSelectionHandler {
 
             readFile(data.getData()).toObservable()
                     .compose(neverComplete())
-                    .concatWith(Observable.never())
                     .subscribe(results);
         }
     }
@@ -168,28 +171,104 @@ public class LegacySelectionHandler implements ImageSelectionHandler {
 
     private Single<Bitmap> decodeResultBitmap(String filePath) {
 
-        return Single.fromSupplier(() -> {
+        return Single.fromSupplier(() -> scaleAndDecode(filePath))
+                .map(bitmap ->
+                        rotateIfNecessary(filePath, bitmap)
+                )
+                .subscribeOn(Schedulers.io());
 
-            int targetW = 512;
-            int targetH = 512;
+    }
 
-            // Get the dimensions of the bitmap
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            bmOptions.inJustDecodeBounds = true;
+    private Bitmap rotateIfNecessary(String filePath, Bitmap bitmap) throws IOException {
+        float rotation = getRotation(filePath);
 
-            BitmapFactory.decodeFile(filePath, bmOptions);
+        if (rotation != 0) {
+            return rotate(bitmap, rotation);
+        } else {
+            return bitmap;
+        }
+    }
 
-            int photoW = bmOptions.outWidth;
-            int photoH = bmOptions.outHeight;
 
-            // Determine how much to scale down the image
-            int scaleFactor = Math.max(1, Math.min(photoW / targetW, photoH / targetH));
+    private float getRotation(String path) throws IOException {
 
-            // Decode the image file into a Bitmap sized to fill the View
-            bmOptions.inJustDecodeBounds = false;
-            bmOptions.inSampleSize = scaleFactor;
+        int orientation = new androidx.exifinterface.media.ExifInterface(path).getAttributeInt(
+                ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_UNDEFINED);
 
-            return BitmapFactory.decodeFile(filePath, bmOptions);
-        }).subscribeOn(Schedulers.io());
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return 90;
+
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return 180;
+
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return 270;
+
+            default:
+                return 0;
+        }
+    }
+
+    private Bitmap scaleAndDecode(String filePath) {
+
+        // Get the dimensions of the bitmap
+        Pair<Integer, Integer> size = getFileDimensions(filePath);
+
+        int scaleFactor = calculateScaleFactor(size);
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+
+        // Decode the image file into a Bitmap sized to fill the View
+        options.inJustDecodeBounds = false;
+        options.inSampleSize = scaleFactor;
+
+        return BitmapFactory.decodeFile(filePath, options);
+
+    }
+
+    private int calculateScaleFactor(Pair<Integer, Integer> dimensions) {
+
+        int targetW = 512;
+        int targetH = 512;
+
+        int photoW = dimensions.first;
+        int photoH = dimensions.second;
+
+        // Determine how much to scale down the image
+        return Math.max(1, Math.min(photoW / targetW, photoH / targetH));
+    }
+
+    private Pair<Integer, Integer> getFileDimensions(String filePath) {
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+
+        BitmapFactory.decodeFile(filePath, options);
+
+        return Pair.create(options.outWidth, options.outHeight);
+    }
+
+    private Bitmap rotate(Bitmap bitmap, float angle) {
+
+        try {
+
+            Matrix matrix = new Matrix();
+            matrix.postRotate(angle);
+
+            return Bitmap.createBitmap(
+                    bitmap,
+                    0,
+                    0,
+                    bitmap.getWidth(),
+                    bitmap.getHeight(),
+                    matrix,
+                    true);
+        } finally {
+            bitmap.recycle();
+        }
+
     }
 }
