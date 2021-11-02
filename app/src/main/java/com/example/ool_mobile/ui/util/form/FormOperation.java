@@ -1,8 +1,6 @@
-package com.example.ool_mobile.ui.form.photoshoot.viewmodel;
+package com.example.ool_mobile.ui.util.form;
 
 import androidx.annotation.NonNull;
-
-import com.example.ool_mobile.ui.util.form.FormMode;
 
 import io.reactivex.rxjava3.annotations.CheckReturnValue;
 import io.reactivex.rxjava3.core.Completable;

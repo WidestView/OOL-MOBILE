@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.example.ool_mobile.ui.form.photoshoot.PhotoshootInput;
 import com.example.ool_mobile.ui.util.form.FormMode;
+import com.example.ool_mobile.ui.util.form.FormOperation;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
