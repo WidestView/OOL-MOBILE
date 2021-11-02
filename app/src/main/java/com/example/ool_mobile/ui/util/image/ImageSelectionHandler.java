@@ -7,12 +7,8 @@ import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.io.ByteArrayOutputStream;
-
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public interface ImageSelectionHandler {
     @NonNull
@@ -32,17 +28,4 @@ public interface ImageSelectionHandler {
             int requestCode,
             @NonNull String[] permissions,
             @NonNull int[] grantResults);
-
-    @NonNull
-    static Single<byte[]> formatBitmap(@NonNull Bitmap bitmap) {
-
-        return Single.fromSupplier(() -> {
-
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-
-            return stream.toByteArray();
-        }).subscribeOn(Schedulers.io());
-    }
 }
