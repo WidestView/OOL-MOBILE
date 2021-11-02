@@ -2,7 +2,6 @@ package com.example.ool_mobile.ui.util.binding_adapter;
 
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.ListAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,16 +33,6 @@ public class AutoCompleteTextViewAdapters {
         textView.setListSelection(index);
 
         textView.setTag(SELECTION_TAG, index);
-
-        ListAdapter adapter = textView.getAdapter();
-
-        if (adapter != null && index != -1) {
-            Object object = textView.getAdapter().getItem(index);
-
-            if (object instanceof String) {
-                textView.setText((String) object);
-            }
-        }
     }
 
     @InverseBindingAdapter(attribute = "itemSelection")
