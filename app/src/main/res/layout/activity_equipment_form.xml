@@ -82,7 +82,8 @@
                         android:inputType="none"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:text="@{String.valueOf(viewModel.initialId)}" />
+                        android:text="@{String.valueOf(viewModel.initialId)}"
+                        android:enabled="@{!viewModel.isLoading()}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -98,7 +99,8 @@
                         android:hint="@string/label_detail_id"
                         items="@{activity.displayDetails(viewModel.detailsList)}"
                         itemSelection="@={viewModel.input.detailsSelection}"
-                        android:inputType="none" />
+                        android:inputType="none"
+                        android:enabled="@{!viewModel.isLoading()}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <CheckBox
@@ -107,9 +109,18 @@
                     android:layout_height="wrap_content"
                     android:text="@string/label_available"
                     android:fontFamily="@font/rambla"
-                    android:checked="@={viewModel.input.isAvailable}" />
+                    android:checked="@={viewModel.input.isAvailable}"
+                    android:enabled="@{!viewModel.isLoading()}" />
 
             </LinearLayout>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/linear2"
+                android:layout_marginTop="8dp"
+                android:indeterminate="true"
+                visible="@{viewModel.isLoading()}" />
 
 
             <Button
@@ -123,7 +134,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linear2"
                 app:strokeColor="@color/primaryLightColor"
-                android:onClick="@{() -> viewModel.saveEquipment()}" />
+                android:onClick="@{() -> viewModel.saveEquipment()}"
+                android:enabled="@{!viewModel.isLoading()}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

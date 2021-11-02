@@ -28,6 +28,8 @@ public class AddEquipmentViewModel extends EquipmentFormViewModel {
 
     private final EquipmentValidation validation;
 
+    private final MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
+
     private final MutableLiveData<EquipmentInput> input = new MutableLiveData<>(
             new EquipmentInput()
     );
@@ -61,6 +63,8 @@ public class AddEquipmentViewModel extends EquipmentFormViewModel {
 
         Objects.requireNonNull(input.getValue());
 
+        loading.setValue(true);
+
         fetchDetails()
                 .flatMapMaybe(details ->
                         validation.validate(input.getValue(), details).flatMap(equipment ->
@@ -69,7 +73,10 @@ public class AddEquipmentViewModel extends EquipmentFormViewModel {
                 )
                 .observeOn(mainThread())
                 .to(disposedWhenCleared())
-                .subscribe(success -> events.onNext(Event.Success), this::handleError);
+                .subscribe(success -> {
+                    events.onNext(Event.Success);
+                    loading.setValue(false);
+                }, this::handleError);
     }
 
     private Single<List<EquipmentDetails>> fetchDetails() {
@@ -94,10 +101,15 @@ public class AddEquipmentViewModel extends EquipmentFormViewModel {
 
             details = new MutableLiveData<>();
 
+            loading.setValue(true);
+
             fetchDetails()
                     .observeOn(AndroidSchedulers.mainThread())
                     .to(disposedWhenCleared())
-                    .subscribe(details::setValue, this::handleError);
+                    .subscribe(value -> {
+                        details.setValue(value);
+                        loading.setValue(false);
+                    }, this::handleError);
         }
 
         return details;
@@ -107,6 +119,11 @@ public class AddEquipmentViewModel extends EquipmentFormViewModel {
     @Override
     public Integer getInitialId() {
         return null;
+    }
+
+    @Override
+    public LiveData<Boolean> isLoading() {
+        return loading;
     }
 
     private void handleError(Throwable error) {

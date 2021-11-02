@@ -24,6 +24,8 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
 
     private final Subject<Event> events = PublishSubject.create();
 
+    private final MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
+
     private final EquipmentApi api;
 
     private final int initialId;
@@ -56,11 +58,14 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
         if (detailsList == null) {
             detailsList = new MutableLiveData<>();
 
+            loading.setValue(true);
+
             fetchDetails()
                     .observeOn(AndroidSchedulers.mainThread())
                     .to(disposedWhenCleared())
                     .subscribe(result -> {
                         detailsList.setValue(result);
+                        loading.setValue(false);
                     }, this::handleError);
         }
 
@@ -73,11 +78,18 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
         return initialId;
     }
 
+    @Override
+    public LiveData<Boolean> isLoading() {
+        return loading;
+    }
+
     @NonNull
     @Override
     public LiveData<EquipmentInput> getInput() {
         if (input == null) {
             input = new MutableLiveData<>();
+
+            loading.setValue(true);
 
             api.getEquipmentById(initialId)
                     .zipWith(
@@ -87,10 +99,8 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
                     .observeOn(AndroidSchedulers.mainThread())
                     .to(disposedWhenCleared())
                     .subscribe(result -> {
-
-                        this.input.postValue(
-                                new EquipmentInput(result.first, result.second)
-                        );
+                        this.input.setValue(new EquipmentInput(result.first, result.second));
+                        loading.setValue(false);
                     }, this::handleError);
         }
 
@@ -115,6 +125,8 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
             return;
         }
 
+        loading.setValue(true);
+
         fetchDetails()
                 .flatMapMaybe(details -> validation.validate(input.getValue(), details))
                 .flatMapCompletable(details ->
@@ -124,6 +136,7 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
                 .to(disposedWhenCleared())
                 .subscribe(() -> {
                     events.onNext(Event.Success);
+                    loading.setValue(false);
                 }, this::handleError);
     }
 

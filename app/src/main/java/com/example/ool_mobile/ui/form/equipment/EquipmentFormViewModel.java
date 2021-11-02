@@ -38,6 +38,9 @@ public abstract class EquipmentFormViewModel extends SubscriptionViewModel {
     public abstract Integer getInitialId();
 
     @NonNull
+    public abstract LiveData<Boolean> isLoading();
+
+    @NonNull
     @CheckResult
     public static ViewModelProvider.Factory create(
             @NonNull FormMode formMode,
