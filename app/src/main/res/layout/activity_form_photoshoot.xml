@@ -62,7 +62,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray_light"
                 android:hint="@string/label_order"
-                android:text="@={viewModel.input.orderId}" />
+                android:text="@={viewModel.input.orderId}"
+                android:enabled="@{!viewModel.isLoading()}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,9 +82,9 @@
                 android:id="@+id/addPhotoshootActivity_addressEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gray_light"
                 android:hint="@string/label_address"
-                android:text="@={viewModel.input.address}" />
+                android:text="@={viewModel.input.address}"
+                android:enabled="@{!viewModel.isLoading()}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,6 +122,14 @@
             app:hint="@string/label_end_time"
             app:dialogTime="@={viewModel.input.endTime}" />
 
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/thingy"
+            app:layout_constraintBottom_toTopOf="@id/addPhotoShoot_saveButton"
+            android:layout_marginBottom="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            visible="@{viewModel.isLoading()}"
+            android:indeterminate="true" />
 
         <Button
             android:id="@+id/addPhotoShoot_saveButton"
@@ -135,7 +144,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/addPhotoShoot_endTimeInputLayout"
             app:strokeColor="@color/primaryLightColor"
-            android:onClick="@{() -> viewModel.savePhotoshoot()}" />
+            android:onClick="@{() -> viewModel.savePhotoshoot()}"
+            android:enabled="@{!viewModel.isLoading()}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

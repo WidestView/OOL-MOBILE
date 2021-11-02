@@ -32,8 +32,10 @@ public class PhotoshootViewModel extends SubscriptionViewModel {
 
     final PhotoshootValidation validation = new PhotoshootValidation(events);
 
+    final MutableLiveData<Boolean> isLoading = new MutableLiveData<>(true);
 
-    PhotoshootViewModel(PhotoshootApi api, FormMode formMode, UUID initialId) {
+
+    private PhotoshootViewModel(PhotoshootApi api, FormMode formMode, UUID initialId) {
 
         photoshootApi = api;
 
@@ -63,6 +65,7 @@ public class PhotoshootViewModel extends SubscriptionViewModel {
 
     }
 
+
     @NonNull
     public Observable<Event> getEvents() {
         return events;
@@ -78,7 +81,10 @@ public class PhotoshootViewModel extends SubscriptionViewModel {
             operation.getInput()
                     .observeOn(AndroidSchedulers.mainThread())
                     .to(disposedWhenCleared())
-                    .subscribe(this.input::setValue);
+                    .subscribe(value -> {
+                        this.input.setValue(value);
+                        this.isLoading.setValue(false);
+                    });
         }
 
         return input;
@@ -89,12 +95,20 @@ public class PhotoshootViewModel extends SubscriptionViewModel {
         return operation.getFormMode();
     }
 
+    @NonNull
+    public LiveData<Boolean> isLoading() {
+        return isLoading;
+    }
+
     public void savePhotoshoot() {
+
+        isLoading.setValue(true);
 
         operation.savePhotoshoot()
                 .observeOn(AndroidSchedulers.mainThread())
                 .to(disposedWhenCleared())
                 .subscribe(() -> {
+                    isLoading.setValue(false);
                 }, this::handleError);
     }
 

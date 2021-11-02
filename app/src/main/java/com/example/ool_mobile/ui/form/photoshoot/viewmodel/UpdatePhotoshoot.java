@@ -37,7 +37,9 @@ public class UpdatePhotoshoot implements FormOperation<PhotoshootInput> {
     @Override
     public Single<PhotoshootInput> getInput() {
 
-        return viewModel.photoshootApi.getPhotoshootWithId(resourceId)
+        return viewModel.photoshootApi.
+                getPhotoshootWithId(resourceId)
+                .delay(2, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .map(PhotoshootInput::new);
 
     }
@@ -46,7 +48,7 @@ public class UpdatePhotoshoot implements FormOperation<PhotoshootInput> {
     public Completable savePhotoshoot() {
 
         return Completable
-                .timer(5, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .timer(2, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .doOnComplete(() -> {
 
                     // todo: implement this
