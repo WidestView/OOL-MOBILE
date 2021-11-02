@@ -33,12 +33,8 @@ class AddPhotoshoot implements FormOperation<PhotoshootInput> {
     public Completable savePhotoshoot() {
 
         return Completable.fromMaybe(
-
                 viewModel.validation.validate(viewModel.getInput().getValue())
                         .flatMapSingle(viewModel.photoshootApi::addPhotoshoot)
-                        .doOnSuccess(result -> {
-                            viewModel.events.onNext(PhotoshootViewModel.Event.Success);
-                        })
         );
 
     }

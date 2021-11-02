@@ -12,6 +12,7 @@ import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface PhotoshootApi {
@@ -36,4 +37,8 @@ public interface PhotoshootApi {
     @POST("photoshoot/add")
     Single<Photoshoot> addPhotoshoot(@NonNull @Body Photoshoot photoshoot);
 
+    @NonNull
+    @CheckReturnValue
+    @PUT("photoshoot/{id}")
+    Single<Photoshoot> updatePhotoshoot(@NonNull @Path("id") UUID id, @NonNull @Body Photoshoot photoshoot);
 }

@@ -116,6 +116,7 @@ public class PhotoshootViewModel extends SubscriptionViewModel {
                 })
                 .to(disposedWhenCleared())
                 .subscribe(() -> {
+                    events.onNext(PhotoshootViewModel.Event.Success);
                 }, this::handleError);
     }
 

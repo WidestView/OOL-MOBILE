@@ -48,17 +48,16 @@ public class UpdatePhotoshoot implements FormOperation<PhotoshootInput> {
     @Override
     public Completable savePhotoshoot() {
 
-        return Completable
-                .timer(2, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                .doOnComplete(() -> {
+        PhotoshootInput input = viewModel.getInput().getValue();
 
-                    // todo: implement this
+        if (input == null) {
+            return Completable.complete();
+        }
 
-                    if (Math.random() < 0.5) {
-                        viewModel.events.onNext(PhotoshootViewModel.Event.Error);
-                    } else {
-                        viewModel.events.onNext(PhotoshootViewModel.Event.Success);
-                    }
-                });
+        return Completable.fromMaybe(
+                viewModel.validation.validate(input)
+                        .flatMapSingle(result ->
+                                viewModel.photoshootApi.updatePhotoshoot(resourceId, result))
+        );
     }
 }
