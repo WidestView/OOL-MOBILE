@@ -53,6 +53,8 @@ class AddDetailsViewModel extends CommonDetailsViewModel {
             return;
         }
 
+        loading.setValue(true);
+
         fetchKinds()
                 .flatMapMaybe(kinds -> validation.validate(input.getValue(), kinds))
                 .flatMapSingle(api::addDetails)
@@ -65,6 +67,8 @@ class AddDetailsViewModel extends CommonDetailsViewModel {
                     if (success) {
                         events.onNext(Event.Success);
                     }
+
+                    loading.setValue(false);
                 }, this::handleError);
     }
 

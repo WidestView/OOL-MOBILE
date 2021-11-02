@@ -47,6 +47,8 @@ class UpdateDetailsViewModel extends CommonDetailsViewModel {
         if (input == null) {
             input = new MutableLiveData<>();
 
+            loading.setValue(true);
+
             subscriptions.add(
                     api.getDetailsById(initialId)
                             .observeOn(AndroidSchedulers.mainThread())
@@ -54,7 +56,10 @@ class UpdateDetailsViewModel extends CommonDetailsViewModel {
                                     fetchKinds(),
                                     EquipmentDetailsInput::new
                             )
-                            .subscribe(this.input::setValue, this::handleError)
+                            .subscribe(value -> {
+                                this.input.setValue(value);
+                                loading.setValue(false);
+                            }, this::handleError)
             );
         }
 
@@ -86,18 +91,23 @@ class UpdateDetailsViewModel extends CommonDetailsViewModel {
             return;
         }
 
+        loading.setValue(true);
+
         fetchKinds()
                 .flatMapMaybe(kinds -> validation.validate(input.getValue(), kinds))
                 .flatMapSingle(details ->
                         api.updateDetails(initialId, details).toSingleDefault(true))
                 .flatMapSingle(success -> uploadBitmap(initialId).toSingleDefault(true))
                 .switchIfEmpty(Single.just(false))
+                .observeOn(AndroidSchedulers.mainThread())
                 .to(disposedWhenCleared())
                 .subscribe(success -> {
 
                     if (success) {
                         events.onNext(Event.Success);
                     }
+
+                    loading.setValue(false);
                 }, this::handleError);
     }
 }

@@ -44,6 +44,13 @@ abstract class CommonDetailsViewModel extends SubscriptionViewModel implements D
 
     private MutableLiveData<List<String>> kindNames;
 
+    protected final MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
+
+    @Override
+    public LiveData<Boolean> isLoading() {
+        return loading;
+    }
+
     @NonNull
     @Override
     public Observable<Event> getEvents() {

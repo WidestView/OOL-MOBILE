@@ -45,6 +45,8 @@ interface DetailsViewModel {
     @Nullable
     Integer getInitialId();
 
+    LiveData<Boolean> isLoading();
+
     @NonNull
     static ViewModelProvider.Factory create(
             @NonNull FormMode formMode,
