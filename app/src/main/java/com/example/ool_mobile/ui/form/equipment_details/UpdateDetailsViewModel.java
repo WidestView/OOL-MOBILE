@@ -56,9 +56,11 @@ class UpdateDetailsViewModel extends CommonDetailsViewModel {
                                     EquipmentDetailsInput::new
                             )
                             .observeOn(AndroidSchedulers.mainThread())
+                            .doFinally(() -> {
+                                loading.setValue(false);
+                            })
                             .subscribe(value -> {
                                 this.input.setValue(value);
-                                loading.setValue(false);
                             }, this::handleError)
             );
         }
@@ -100,6 +102,9 @@ class UpdateDetailsViewModel extends CommonDetailsViewModel {
                 .flatMapSingle(success -> uploadBitmap(initialId).toSingleDefault(true))
                 .switchIfEmpty(Single.just(false))
                 .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> {
+                    loading.setValue(false);
+                })
                 .to(disposedWhenCleared())
                 .subscribe(success -> {
 
@@ -107,7 +112,6 @@ class UpdateDetailsViewModel extends CommonDetailsViewModel {
                         events.onNext(Event.Success);
                     }
 
-                    loading.setValue(false);
                 }, this::handleError);
     }
 }

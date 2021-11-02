@@ -62,13 +62,14 @@ class AddDetailsViewModel extends CommonDetailsViewModel {
                 .flatMapSingle(id -> uploadBitmap(id).toSingleDefault(true))
                 .switchIfEmpty(Single.just(false))
                 .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> {
+                    loading.setValue(false);
+                })
                 .to(disposedWhenCleared())
                 .subscribe(success -> {
                     if (success) {
                         events.onNext(Event.Success);
                     }
-
-                    loading.setValue(false);
                 }, this::handleError);
     }
 

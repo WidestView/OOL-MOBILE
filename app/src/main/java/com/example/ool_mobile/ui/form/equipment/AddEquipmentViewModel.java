@@ -72,10 +72,12 @@ public class AddEquipmentViewModel extends EquipmentFormViewModel {
                         )
                 )
                 .observeOn(mainThread())
+                .doFinally(() -> {
+                    loading.setValue(false);
+                })
                 .to(disposedWhenCleared())
                 .subscribe(success -> {
                     events.onNext(Event.Success);
-                    loading.setValue(false);
                 }, this::handleError);
     }
 
@@ -105,10 +107,12 @@ public class AddEquipmentViewModel extends EquipmentFormViewModel {
 
             fetchDetails()
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doFinally(() -> {
+                        loading.setValue(false);
+                    })
                     .to(disposedWhenCleared())
                     .subscribe(value -> {
                         details.setValue(value);
-                        loading.setValue(false);
                     }, this::handleError);
         }
 

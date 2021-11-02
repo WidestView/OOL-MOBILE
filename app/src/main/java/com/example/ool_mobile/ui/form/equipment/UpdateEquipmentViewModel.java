@@ -62,10 +62,12 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
 
             fetchDetails()
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doFinally(() -> {
+                        loading.setValue(false);
+                    })
                     .to(disposedWhenCleared())
                     .subscribe(result -> {
                         detailsList.setValue(result);
-                        loading.setValue(false);
                     }, this::handleError);
         }
 
@@ -97,10 +99,12 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
                             Pair::create
                     )
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doFinally(() -> {
+                        loading.setValue(false);
+                    })
                     .to(disposedWhenCleared())
                     .subscribe(result -> {
                         this.input.setValue(new EquipmentInput(result.first, result.second));
-                        loading.setValue(false);
                     }, this::handleError);
         }
 
@@ -133,10 +137,12 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
                         api.updateEquipment(initialId, details)
                 )
                 .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> {
+                    loading.setValue(false);
+                })
                 .to(disposedWhenCleared())
                 .subscribe(() -> {
                     events.onNext(Event.Success);
-                    loading.setValue(false);
                 }, this::handleError);
     }
 
