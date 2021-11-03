@@ -89,7 +89,10 @@ public class EquipmentWithdrawFormActivity extends AppCompatActivity implements 
 
         ScanOptions options = new ScanOptions();
         options.setPrompt(getString(R.string.label_scan_qr));
-        launcher.launch(new ScanOptions());
+        options.setDesiredBarcodeFormats(ScanOptions.QR_CODE);
+        options.setOrientationLocked(true);
+
+        launcher.launch(options);
     }
 
     public List<String> formatEquipments(@Nullable List<Equipment> equipments) {
