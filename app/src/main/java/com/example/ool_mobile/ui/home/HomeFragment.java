@@ -6,34 +6,41 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.LayoutRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ool_mobile.R;
-import com.example.ool_mobile.horizontal_package.ElementAdapter;
-import com.example.ool_mobile.horizontal_package.ElementItem;
-import com.example.ool_mobile.ui.meta.WithDrawer;
+import com.example.ool_mobile.databinding.FragmentHomeBinding;
+import com.example.ool_mobile.model.Photoshoot;
+import com.example.ool_mobile.service.Dependencies;
+import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
+import com.example.ool_mobile.ui.util.WithDrawer;
+import com.example.ool_mobile.ui.util.adapter.PendingPhotoshootAdapter;
+import com.example.ool_mobile.ui.util.form.FormMode;
+import com.example.ool_mobile.ui.util.form.FormModeValue;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
+
+import static com.example.ool_mobile.ui.util.SnackMessage.snack;
 
 public class HomeFragment extends Fragment {
 
+    private FragmentHomeBinding binding;
 
-    private RecyclerView recyclerView;
-    private TextView weekTextView;
-    private TextView monthTextView;
-    private TextView welcomeTextView;
-
-    private RecyclerView elementRecyclerView;
+    private HomeViewModel viewModel;
 
     @NonNull
     public View onCreateView(
@@ -41,104 +48,108 @@ public class HomeFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState
     ) {
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        recyclerView = view.findViewById(R.id.homeFragment_pendingSessionsRecyclerview);
-        weekTextView = view.findViewById(R.id.homeFragment_weekTextView);
-        monthTextView = view.findViewById(R.id.homeFragment_monthTextView);
-        welcomeTextView = view.findViewById(R.id.homeFragment_welcomeTextView);
-
-        elementRecyclerView = view.findViewById(R.id.homeFragment_recyclerView);
-
-        return view;
+        return binding.getRoot();
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setupDates();
+        setupViewModel();
 
-        setupWelcomeMessage();
+        setupOptions();
 
-        setupSampleRecyclerView();
+        binding.setLifecycleOwner(getViewLifecycleOwner());
 
-        setupElements();
+        binding.setFragment(this);
     }
 
-    private void setupElements()
-    {
 
-        List<ElementItem> items = Arrays.asList(
-                new ElementItem("Equipamento", getDrawable(R.drawable.ic_camera_roll)),
-                new ElementItem("Pacote", getDrawable(R.drawable.ic_package))
+    private void setupViewModel() {
+
+        viewModel = new ViewModelProvider(
+                this,
+                HomeViewModel.create(
+                        Dependencies.from(this).getEmployeeRepository(),
+                        Dependencies.from(this).getPhotoshootApi()
+                )
+        ).get(HomeViewModel.class);
+
+        viewModel.getPendingPhotoshoots().observe(
+                getViewLifecycleOwner(),
+                this::displayPhotoshootList
         );
 
-        elementRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+        binding.setViewModel(viewModel);
+    }
 
-        elementRecyclerView.setAdapter(new ElementAdapter(items));
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+        viewModel.getEvents()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe(errorEvent -> {
+                    snack(this, R.string.error_operation_failed);
+                });
+    }
+
+    private void setupOptions() {
+        RecyclerView elementRecyclerView = binding.homeFragmentRecyclerView;
+
+        List<OptionItem> items = Arrays.asList(
+                getItem(R.string.label_equipments, R.drawable.ic_camera_roll),
+                getItem(R.string.label_packages, R.drawable.ic_package)
+        );
+
+        elementRecyclerView.setAdapter(new OptionAdapter(items));
 
         elementRecyclerView.setHasFixedSize(true);
 
-    }
-    private Drawable getDrawable(int id)
-    {
-        return ContextCompat.getDrawable(requireActivity(), id);
-    }
-    private void setupSampleRecyclerView() {
-
-        final double chanceOfPending = 0.5;
-
-        recyclerView.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-                @LayoutRes
-                int resource = Math.random() > chanceOfPending
-                        ? R.layout.row_pending_photoshoot
-                        : R.layout.row_due_pending_photoshoot;
-
-                View view = LayoutInflater
-                        .from(parent.getContext())
-                        .inflate(resource, parent, false);
-
-                return new RecyclerView.ViewHolder(view) {
-                };
-            }
-
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) { }
-
-            @Override
-            public int getItemCount() {
-                return 10;
-            }
-
-        });
-
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(requireContext())
+        elementRecyclerView.setLayoutManager(new LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false)
         );
     }
 
-    private void setupWelcomeMessage() {
-        welcomeTextView.setOnClickListener(v -> {
-            Activity activity = getActivity();
-
-            if (activity instanceof WithDrawer) {
-                ((WithDrawer) activity).openDrawer();
-            }
-        });
+    private OptionItem getItem(@StringRes int string, @DrawableRes int drawable) {
+        return new OptionItem(getString(string), getDrawable(drawable));
     }
 
-    private void setupDates() {
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+    private Drawable getDrawable(int id) {
+        return ContextCompat.getDrawable(requireActivity(), id);
+    }
 
-        monthTextView.setText(homeViewModel.getDayOfMonth());
-        weekTextView.setText(homeViewModel.getDayOfWeek());
+    private void displayPhotoshootList(List<Photoshoot> photoshoots) {
+
+        Consumer<Photoshoot> onClick = this::startPhotoshootActivity;
+
+        binding.homePendingSessions.setAdapter(new PendingPhotoshootAdapter(photoshoots, onClick));
+    }
+
+    public void openNavigation() {
+
+        Activity activity = getActivity();
+
+        if (activity instanceof WithDrawer) {
+            ((WithDrawer) activity).openDrawer();
+        }
+    }
+
+    private void startPhotoshootActivity(@NonNull Photoshoot photoshoot) {
+
+        Objects.requireNonNull(photoshoot, "photoshoot is null");
+
+        NavDirections action = HomeFragmentDirections.actionHomeToPhotoshootFormActivity(
+                FormModeValue.of(FormMode.Update),
+                photoshoot.resourceId().toString()
+        );
+
+        NavHostFragment.findNavController(this).navigate(action);
     }
 }

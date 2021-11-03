@@ -4,43 +4,43 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
-    <com.example.ool_mobile.ui.component.ContentRow
+    <com.example.ool_mobile.ui.component.content_row.ContentRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:titleText="@string/sample_report_title"
         app:statusText="25/07/2021">
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="ID"
             app:value="@string/sample_id" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:label="@string/employee"
+            app:label="@string/label_employee"
             app:value="@string/sample_employee_data" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:label="@string/photoshoot_id"
+            app:label="@string/label_photoshootId"
             app:value="@string/sample_id" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:label="@string/date"
+            app:label="@string/label_date"
             app:value="@string/sample_date" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:label="@string/description"
+            app:label="@string/label_description"
             app:value="@string/sample_description" />
 
-    </com.example.ool_mobile.ui.component.ContentRow>
+    </com.example.ool_mobile.ui.component.content_row.ContentRow>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

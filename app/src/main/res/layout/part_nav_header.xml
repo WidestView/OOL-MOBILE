@@ -20,11 +20,11 @@
         >
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageView"
+            android:id="@+id/navHeader_employeeImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:contentDescription="@string/nav_header_desc"
+            android:contentDescription="@string/description_currentEmployeeImage"
             android:elevation="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,31 +32,31 @@
             app:srcCompat="@mipmap/ic_launcher_round" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/navHeader_employeeName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/rambla_bold"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:text="@string/nav_header_title"
+            android:text="@string/sample_employeeName"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/gray_dark"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView" />
+            app:layout_constraintTop_toBottomOf="@id/navHeader_employeeImageView" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/navHeader_employeeRole"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/rambla"
-            android:text="@string/nav_header_subtitle"
+            android:text="@string/sample_employeeRole"
             android:textColor="#CC333333"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView1" />
+            app:layout_constraintTop_toBottomOf="@id/navHeader_employeeName" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

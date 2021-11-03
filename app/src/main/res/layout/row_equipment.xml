@@ -1,44 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.example.ool_mobile.ui.component.ContentRow
+    <data>
+
+        <variable
+            name="equipment"
+            type="com.example.ool_mobile.model.Equipment" />
+
+        <variable
+            name="events"
+            type="com.example.ool_mobile.ui.component.content_row.ContentRowEvents" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:statusText="#27"
-        app:titleText="Câmera Kodak">
+        android:layout_height="wrap_content">
 
-        <com.example.ool_mobile.ui.component.ContentRowField
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="ID"
-            app:value="32" />
-
-        <com.example.ool_mobile.ui.component.ContentRowField
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="QR"
-            app:value="abcdef" />
-
-        <View
+        <com.example.ool_mobile.ui.component.content_row.ContentRow
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/gray_dark" />
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="Detalhes Do Equipamento" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:statusText="#27"
+            app:statusText="@{@string/format_numeric_id(equipment.id)}"
+            tools:titleText="Câmera Kodak"
+            app:titleText="@{equipment.requireDetails().name}"
+            app:events="@{events}">
 
-        <include layout="@layout/part_equipment_details_fields" />
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="ID"
+                tools:value="27"
+                app:value="@{String.valueOf(equipment.id)}" />
+
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="@string/label_available"
+                tools:value="SIM"
+                app:value="@{equipment.available ? @string/value_yes : @string/value_no}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/gray_dark"
+                android:text="@string/label_equipment_details"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include
+                    layout="@layout/part_equipment_details_fields"
+                    app:details='@{equipment.requireDetails()}' />
+
+            </LinearLayout>
+
+        </com.example.ool_mobile.ui.component.content_row.ContentRow>
 
 
-    </com.example.ool_mobile.ui.component.ContentRow>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

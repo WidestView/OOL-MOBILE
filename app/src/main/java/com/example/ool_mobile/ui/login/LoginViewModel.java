@@ -1,20 +1,42 @@
 package com.example.ool_mobile.ui.login;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.ool_mobile.service.EmployeeRepository;
-import com.example.ool_mobile.ui.util.ViewModelFactory;
+import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
+import com.example.ool_mobile.ui.util.view_model.ViewModelFactory;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 
-public class LoginViewModel extends ViewModel {
+public class LoginViewModel extends SubscriptionViewModel {
 
-    private final PublishSubject<Boolean> events = PublishSubject.create();
+    public interface Event {
+
+        void accept(@NonNull Visitor visitor);
+
+        Event StartContentWithoutAnimation = Visitor::visitStartContentWithoutAnimation;
+        Event StartContentWithAnimation = Visitor::visitStartContentWithAnimation;
+        Event ReportFailedLogin = Visitor::visitReportFailedLogin;
+        Event ReportApiUnavailable = Visitor::visitReportApiUnavailable;
+
+        interface Visitor {
+            void visitStartContentWithoutAnimation();
+
+            void visitStartContentWithAnimation();
+
+            void visitReportFailedLogin();
+
+            void visitReportApiUnavailable();
+        }
+    }
+
+    private final PublishSubject<Event> events = PublishSubject.create();
+
+    private final LoginInput input = new LoginInput();
 
     private final EmployeeRepository repository;
 
@@ -31,25 +53,46 @@ public class LoginViewModel extends ViewModel {
     }
 
     @NonNull
-    public Observable<Boolean> getEvents() {
+    public Observable<Event> getEvents() {
         return events;
     }
 
-    public void login(@NonNull String username, @NonNull String password) {
-
-        Single<Boolean> result = repository.login(username, password);
-
-        result.subscribe(new DisposableSingleObserver<Boolean>() {
-            @Override
-            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull Boolean success) {
-                events.onNext(success);
-            }
-
-            @Override
-            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable ex) {
-                events.onError(ex);
-            }
-        });
+    @NonNull
+    public LoginInput getInput() {
+        return input;
     }
 
+    public void checkAlreadyLogged() {
+
+        repository.getCurrentEmployee()
+                .map(employee -> true)
+                .switchIfEmpty(Single.just(false))
+                .observeOn(AndroidSchedulers.mainThread())
+                .to(disposedWhenCleared())
+                .subscribe(isLogged -> {
+                    if (isLogged) {
+                        events.onNext(Event.StartContentWithoutAnimation);
+                    }
+                }, error -> {
+                    events.onNext(Event.ReportApiUnavailable);
+
+                    error.printStackTrace();
+                });
+    }
+
+    public void login() {
+
+        String username = this.input.getEmail();
+        String password = this.input.getPassword();
+
+        repository.login(username, password)
+                .to(disposedWhenCleared())
+                .subscribe(success -> {
+                    if (success) {
+                        events.onNext(Event.StartContentWithAnimation);
+                    } else {
+                        events.onNext(Event.ReportFailedLogin);
+                    }
+                });
+    }
 }

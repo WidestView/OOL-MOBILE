@@ -40,9 +40,9 @@
             android:title="@string/menu_equipment_details" />
 
         <item
-            android:id="@+id/navigation_equipmentBorrowings"
+            android:id="@+id/navigation_equipmentWithdraws"
             android:iconTint="@color/gray_dark"
-            android:title="@string/menu_equipment_borrowings" />
+            android:title="@string/menu_equipment_withdraw" />
 
         <item
             android:id="@+id/navigation_photoshoots"
@@ -73,16 +73,16 @@
         <item
             android:id="@+id/navigation_equipment_type"
             android:iconTint="@color/gray_dark"
-            android:title="@string/equipment_type_label" />
+            android:title="@string/label_equipmentType" />
         <item
             android:id="@+id/navigation_shift"
             android:iconTint="@color/gray_dark"
-            android:title="@string/turno_label" />
+            android:title="@string/label_shift" />
 
         <item
             android:id="@+id/navigation_occupation"
             android:iconTint="@color/gray_dark"
-            android:title="@string/occupation_label" />
+            android:title="@string/label_occupation" />
 
 
         <item

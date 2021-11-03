@@ -6,90 +6,100 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.ool_mobile.R;
+import com.example.ool_mobile.databinding.FragmentCalendarBinding;
+import com.example.ool_mobile.model.Photoshoot;
+import com.example.ool_mobile.service.Dependencies;
+import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
+import com.example.ool_mobile.ui.util.adapter.PendingPhotoshootAdapter;
+import com.example.ool_mobile.ui.util.form.FormMode;
+import com.example.ool_mobile.ui.util.form.FormModeValue;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
-import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+
+import static com.example.ool_mobile.ui.util.SnackMessage.snack;
 
 public class CalendarFragment extends Fragment {
 
-    private CompactCalendarView calendarView;
+    private FragmentCalendarBinding binding;
 
-    private RecyclerView recyclerView;
+    private CalendarViewModel viewModel;
 
     @NonNull
     public View onCreateView(
-            @NonNull
-            LayoutInflater inflater,
-            @Nullable
-            ViewGroup container,
+            @NonNull LayoutInflater inflater,
+            @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState
     ) {
-        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+        binding = FragmentCalendarBinding.inflate(inflater, container, false);
 
-        calendarView = view.findViewById(R.id.calendarFragment_calendarView);
-        recyclerView = view.findViewById(R.id.calendarFragment_recyclerView);
-
-        return view;
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Event event = new Event(Color.GREEN, new Date().getTime(), "Some extra data");
-
-        calendarView.addEvent(event);
-
-        recyclerView.setFocusable(false);
-
-        setupSampleRecyclerView();
+        setupViewModel();
     }
 
-    private void setupSampleRecyclerView() {
+    private void setupViewModel() {
 
-        final double chanceOfPending = 0.5;
+        viewModel = new ViewModelProvider(
+                this,
+                CalendarViewModel.create(
+                        Dependencies.from(this).getPhotoshootApi()
+                )
+        ).get(CalendarViewModel.class);
 
-        recyclerView.setAdapter(new RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-            @NonNull
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        viewModel.getPhotoshootList()
+                .observe(getViewLifecycleOwner(), this::displayPhotoshoots);
+    }
 
-                @LayoutRes
-                int resource = Math.random() > chanceOfPending
-                        ? R.layout.row_pending_photoshoot
-                        : R.layout.row_due_pending_photoshoot;
+    @Override
+    public void onStart() {
+        super.onStart();
 
-                View view = LayoutInflater
-                        .from(parent.getContext())
-                        .inflate(resource, parent, false);
+        viewModel.getEvents()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe(errorEvent -> {
+                    snack(this, R.string.error_operation_failed);
+                });
+    }
 
-                return new RecyclerView.ViewHolder(view) {
-                };
-            }
+    private void displayPhotoshoots(List<Photoshoot> photoshoots) {
 
-            @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) { }
+        CompactCalendarView calendarView = binding.calendarFragmentCalendarView;
 
-            @Override
-            public int getItemCount() {
-                return 10;
-            }
+        // todo: select good color lmao
+        int color = Color.parseColor("#056162");
 
-        });
+        photoshoots.stream()
+                .map(photoshoot -> new Event(color, photoshoot.startTime().getTime(), photoshoot))
+                .forEach(calendarView::addEvent);
 
-//        recyclerView.setHasFixedSize(true);
+        binding.calendarFragmentRecyclerView
+                .setAdapter(new PendingPhotoshootAdapter(photoshoots, this::startPhotoshootActivity));
+    }
 
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(requireContext())
+    private void startPhotoshootActivity(@NonNull Photoshoot photoshoot) {
+        Objects.requireNonNull(photoshoot, "photoshoot is null");
+
+        NavDirections action = CalendarFragmentDirections.actionCalendarToFormActivity(
+                FormModeValue.of(FormMode.Update),
+                photoshoot.resourceId().toString()
         );
+
+        NavHostFragment.findNavController(this).navigate(action);
     }
 }

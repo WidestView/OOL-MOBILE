@@ -4,32 +4,26 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
-    <com.example.ool_mobile.ui.component.ContentRow
+    <com.example.ool_mobile.ui.component.content_row.ContentRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:titleText="01"
         app:statusText="11:09">
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Funcionário"
             app:value="#09 - Francisco de Almeida" />
 
-        <com.example.ool_mobile.ui.component.ContentRowField
+        <com.example.ool_mobile.ui.component.content_row.ContentRowField
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:label="Data de Término"
             app:value="20:09" />
 
 
-
-
-
-
-
-
-    </com.example.ool_mobile.ui.component.ContentRow>
+    </com.example.ool_mobile.ui.component.content_row.ContentRow>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

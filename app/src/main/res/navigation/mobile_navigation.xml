@@ -9,21 +9,29 @@
         android:id="@+id/navigation_home"
         android:name="com.example.ool_mobile.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/actionHomeToPhotoshootFormActivity"
+            app:destination="@id/photoshootFormActivity" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_packages"
         android:name="com.example.ool_mobile.ui.list.package_list.PackageListFragment"
-        android:label="@string/search"
-        tools:layout="@layout/fragment_list_package">
-        <action
-            android:id="@+id/action_nav_package_to_addPhotoShootActivity"
-            app:destination="@id/addPhotoShootActivity" />
-    </fragment>
+        android:label="@string/label_search"
+        tools:layout="@layout/fragment_list_package" />
     <activity
-        android:id="@+id/addPhotoShootActivity"
-        android:name="com.example.ool_mobile.ui.form.add_photo_shoot.AddPhotoShootActivity"
+        android:id="@+id/photoshootFormActivity"
+        android:name="com.example.ool_mobile.ui.form.photoshoot.PhotoshootFormActivity"
         android:label="activity_add_photo_shoot"
-        tools:layout="@layout/activity_add_photo_shoot" />
+        tools:layout="@layout/activity_form_photoshoot">
+        <argument
+            android:name="form-mode"
+            app:argType="integer" />
+        <argument
+            android:name="resource-id"
+            app:argType="string"
+            app:nullable="true" />
+    </activity>
     <fragment
         android:id="@id/navigation_reports"
         android:name="com.example.ool_mobile.ui.list.report_list.ReportListFragment"
@@ -34,7 +42,11 @@
         android:id="@+id/navigation_calendar"
         android:name="com.example.ool_mobile.ui.calendar.CalendarFragment"
         android:label="@string/label_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar">
+        <action
+            android:id="@+id/action_calendarToFormActivity"
+            app:destination="@id/photoshootFormActivity" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_employees"
@@ -57,10 +69,14 @@
         android:label="@string/menu_orders" />
 
     <fragment
-        android:id="@+id/navigation_equipmentBorrowings"
-        android:name="com.example.ool_mobile.ui.list.equipment.EquipmentBorrowingListFragment"
-        android:label="@string/menu_equipment_borrowings"
-        tools:layout="@layout/fragment_list_equipment_borrowing" />
+        android:id="@+id/navigation_equipmentWithdraws"
+        android:name="com.example.ool_mobile.ui.list.equipment_withdraw.EquipmentWithdrawListFragment"
+        android:label="@string/menu_equipment_withdraw"
+        tools:layout="@layout/fragment_list_equipment_withdraw">
+        <action
+            android:id="@+id/action_withdrawListToForm"
+            app:destination="@id/equipmentWithdrawFormActivity" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_equipments"
@@ -68,37 +84,57 @@
         android:label="@string/menu_equipments"
         tools:layout="@layout/fragment_list_equipment">
         <action
-            android:id="@+id/action_navigation_equipments_to_addEquipmentActivity"
-            app:destination="@id/addEquipmentActivity" />
+            android:id="@+id/action_EquipmentListToEquipmentForm"
+            app:destination="@id/equipmentFormActivity" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_equipmentDetails"
-        android:name="com.example.ool_mobile.ui.list.equipment.EquipmentDetailsListFragment"
+        android:name="com.example.ool_mobile.ui.list.equipment_details.EquipmentDetailsListFragment"
         android:label="@string/menu_equipment_details"
         tools:layout="@layout/fragment_list_equipment_details">
         <action
-            android:id="@+id/action_navigation_equipmentDetails_to_addEquipmentDetails"
-            app:destination="@id/addEquipmentDetails" />
+            android:id="@+id/action_equipmentDetailsToForm"
+            app:destination="@id/equipmentDetailsFormActivity" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_photoshoots"
-        android:name="com.example.ool_mobile.ui.list.photoshoot_list.PhotoshootListFragment"
-        android:label="fragment_photoshoot_list"
-        tools:layout="@layout/fragment_list_photoshoot" />
+        android:name="com.example.ool_mobile.ui.list.photoshoot.PhotoshootListFragment"
+        android:label="@string/menu_photoshoots"
+        tools:layout="@layout/fragment_list_photoshoot">
+        <action
+            android:id="@+id/action_photoshootListToPhotoshootForm"
+            app:destination="@id/photoshootFormActivity" />
+    </fragment>
     <activity
         android:id="@+id/addEmployeeActivity"
-        android:name="com.example.ool_mobile.ui.form.add_employee.AddEmployeeActivity"
+        android:name="com.example.ool_mobile.ui.form.employee.EmployeeFormActivity"
         android:label="AddEmployeeActivity" />
     <activity
-        android:id="@+id/addEquipmentActivity"
-        android:name="com.example.ool_mobile.ui.form.add_equipment.AddEquipmentActivity"
-        android:label="AddEquipmentActivity" />
+        android:id="@+id/equipmentFormActivity"
+        android:name="com.example.ool_mobile.ui.form.equipment.EquipmentFormActivity"
+        android:label="EquipmentFormActivity">
+        <argument
+            android:name="resource-id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="form-mode"
+            app:argType="integer" />
+    </activity>
     <activity
-        android:id="@+id/addEquipmentDetails"
-        android:name="com.example.ool_mobile.ui.form.add_equipment_details.AddEquipmentDetailsActivity"
-        android:label="AddEquipmentDetails" />
+        android:id="@+id/equipmentDetailsFormActivity"
+        android:name="com.example.ool_mobile.ui.form.equipment_details.EquipmentDetailsFormActivity"
+        android:label="AddEquipmentDetails">
+        <argument
+            android:name="resource-id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="form-mode"
+            app:argType="integer" />
+    </activity>
 
     <fragment
         android:id="@+id/navigation_firings"
@@ -112,13 +148,13 @@
     </fragment>
     <activity
         android:id="@+id/addFiringActivity"
-        android:name="com.example.ool_mobile.ui.form.add_firing.AddFiringActivity"
+        android:name="com.example.ool_mobile.ui.form.firing.FiringFormActivity"
         android:label="activity_add_firing"
-        tools:layout="@layout/activity_add_firing" />
+        tools:layout="@layout/activity_firing_form" />
     <fragment
         android:id="@+id/navigation_equipment_type"
         android:name="com.example.ool_mobile.ui.list.equipment.EquipmentTypeListFragment"
-        android:label="Tipo de Equipamento"
+        android:label="@string/label_equipmentType"
         tools:layout="@layout/fragment_list_equipment_type" />
     <fragment
         android:id="@+id/navigation_shift"
@@ -147,13 +183,24 @@
     </fragment>
     <activity
         android:id="@+id/addPackageTypeActivity"
-        android:name="com.example.ool_mobile.ui.form.add_package.AddPackageTypeActivity"
+        android:name="com.example.ool_mobile.ui.form.photoshoot_package.PackageTypeFormActivity"
         android:label="AddPackageTypeActivity" />
     <fragment
         android:id="@+id/navigation_hirings"
         android:name="com.example.ool_mobile.ui.list.hiring.HiringListFragment"
         android:label="@string/menu_hirings"
         tools:layout="@layout/fragment_list_hiring" />
+    <activity
+        android:id="@+id/equipmentWithdrawFormActivity"
+        android:name="com.example.ool_mobile.ui.form.equipment_withdraw.EquipmentWithdrawFormActivity"
+        android:label="EquipmentWithdrawFormActivity">
+        <argument
+            android:name="form-mode"
+            app:argType="integer" />
+        <argument
+            android:name="resource-id"
+            android:defaultValue="-1" />
+    </activity>
 
 
 </navigation>

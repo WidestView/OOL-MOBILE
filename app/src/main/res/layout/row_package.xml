@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/available"
+            android:text="@string/value_available"
             android:textAllCaps="true"
             android:textColor="@color/primaryDarkColor"
             android:textStyle="bold"
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:contentDescription="@string/delete_icon_description"
+            android:contentDescription="@string/description_delete_icon"
             android:src="@drawable/ic_delete_outline"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/packageRow_expandImageView"
@@ -55,7 +55,7 @@
             android:id="@+id/packageRow_expandImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/expand_icon_description"
+            android:contentDescription="@string/description_expand_icon"
             app:tint="@color/partial_gray_dark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:contentDescription="@string/edit_icon_description"
+            android:contentDescription="@string/description_edit_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/packageRow_deleteImageView"
             app:layout_constraintTop_toTopOf="parent"
@@ -94,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/id"
+            android:text="@string/label_id"
             android:textColor="@color/primaryDarkColor"
             android:textStyle="bold"
 
@@ -104,7 +104,7 @@
             android:id="@+id/textView20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/question_mark"
+            android:text="@string/symbol_questionMark"
             android:textColor="@color/secondaryText"
 
              />
@@ -115,7 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/name"
+            android:text="@string/label_name"
             android:textColor="@color/primaryDarkColor"
             android:textStyle="bold"
 
@@ -135,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/description"
+            android:text="@string/label_description"
             android:textColor="@color/primaryDarkColor"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -155,7 +155,7 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/price_per_photo"
+            android:text="@string/label_price_per_photo"
             android:textColor="@color/primaryDarkColor"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -174,7 +174,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/base_value"
+            android:text="@string/label_base_value"
             android:textColor="@color/primaryDarkColor"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -192,7 +192,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/image_quantity"
+            android:text="@string/label_image_quantity"
             android:textColor="@color/primaryDarkColor"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -211,7 +211,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/quantity_multiplier"
+            android:text="@string/label_quantityMultiplier"
             android:textColor="@color/primaryDarkColor"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -230,7 +230,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/package_type"
+            android:text="@string/label_package_type"
             android:textColor="@color/primaryDarkColor"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -251,7 +251,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/price"
+            android:text="@string/label_price"
             android:textColor="@color/primaryDarkColor"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -272,7 +272,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/max_iterations"
+            android:text="@string/label_max_iterations"
             android:textColor="@color/primaryDarkColor"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -293,7 +293,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/available"
+            android:text="@string/value_available"
             android:textColor="@color/primaryDarkColor"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -303,7 +303,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/yes"
+            android:text="@string/value_yes"
             android:textColor="@color/secondaryText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView13" />

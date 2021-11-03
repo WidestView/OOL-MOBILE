@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="activity"
+            type="com.example.ool_mobile.ui.form.equipment_withdraw.EquipmentWithdrawFormActivity" />
+
+        <variable
+            name="viewModel"
+            type="com.example.ool_mobile.ui.form.equipment_withdraw.WithdrawViewModel" />
+
+        <import type="com.example.ool_mobile.ui.util.form.FormMode" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.form.equipment_withdraw.EquipmentWithdrawFormActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="24dp"
+            android:paddingTop="32dp"
+            android:paddingEnd="24dp">
+
+            <ImageView
+                android:id="@+id/addX_backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/description_go_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_arrow_back"
+                app:tint="@color/primaryLightColor"
+                android:onClick="@{() -> activity.onBackPressed()}" />
+
+            <TextView
+                android:id="@+id/textView21"
+                style="@style/Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/label_equipment_withdraw"
+                android:textColor="@color/gray_dark"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/addX_backButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.formMode == FormMode.Update ? @string/value_update : @string/value_add}"
+                tools:text="Adicionar"
+                app:layout_constraintStart_toStartOf="@id/textView21"
+                app:layout_constraintTop_toBottomOf="@id/textView21" />
+
+            <LinearLayout
+                android:id="@+id/linear2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView22">
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:visibility="@{viewModel.initialId == null ? View.GONE : View.VISIBLE}"
+                    tools:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/label_id"
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:text="@{String.valueOf(viewModel.initialId)}"
+                        android:enabled="@{!viewModel.isLoading()}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.example.ool_mobile.ui.component.date_dialog.DateDialogView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/label_expected_devolution_date"
+                    app:dialogDate="@={viewModel.input.expectedDevolutionDate}" />
+
+                <com.example.ool_mobile.ui.component.date_dialog.TimeDialogView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/label_expected_devolution_time"
+                    app:dialogTime="@={viewModel.input.expectedDevolutionTime}" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <AutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/label_employee"
+                        android:inputType="none"
+                        items="@{activity.formatEmployees(viewModel.lists.employees)}"
+                        itemSelection="@={viewModel.input.employeeSelection}"
+                        android:enabled="@{!viewModel.isLoading()}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <AutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/label_photoshoot"
+                        items="@{activity.formatPhotoshoots(viewModel.lists.photoshoots)}"
+                        itemSelection="@={viewModel.input.photoshootSelection}"
+                        android:inputType="none"
+                        android:enabled="@{!viewModel.isLoading()}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/imageView"
+                        android:layout_marginEnd="8dp">
+
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/label_equipment"
+                            items="@{activity.formatEquipments(viewModel.lists.equipments)}"
+                            itemSelection="@={viewModel.input.equipmentSelection}"
+                            android:inputType="none"
+                            android:enabled="@{!viewModel.isLoading()}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        app:strokeColor="@color/primaryDarkColor"
+                        android:id="@+id/imageView"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="W,1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:icon="@drawable/ic_phone_camera"
+                        app:iconPadding="0dp"
+                        app:iconGravity="textStart"
+                        android:enabled="@{viewModel.input != null &amp;&amp; !viewModel.isLoading()}"
+                        android:onClick="@{() -> activity.startQr()}" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/linear2"
+                android:layout_marginTop="8dp"
+                android:indeterminate="true"
+                visible="@{viewModel.isLoading()}" />
+
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:onClick="@{() -> viewModel.saveInput()}"
+                android:text="@string/label_save"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linear2"
+                app:strokeColor="@color/primaryLightColor"
+                android:layout_marginTop="16dp"
+                style="@style/FormButton"
+                android:enabled="@{!viewModel.isLoading()}" />
+
+            <Button
+                android:id="@+id/button"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_height="60dp"
+                android:text="@string/label_end"
+                android:textColor="@color/primaryDarkColor"
+                android:textSize="18sp"
+                app:strokeColor="@color/primaryDarkColor"
+                app:layout_constraintBottom_toBottomOf="@+id/button3"
+                app:layout_constraintStart_toEndOf="@+id/button3"
+                app:layout_constraintTop_toTopOf="@+id/button3"
+                android:visibility="@{viewModel.formMode == FormMode.Update ? View.VISIBLE : View.GONE}"
+                android:enabled="@{viewModel.canBeFinished &amp;&amp; !viewModel.isLoading()}"
+                android:onClick="@{() -> viewModel.finishWithdraw()}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>

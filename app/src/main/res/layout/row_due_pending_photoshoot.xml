@@ -25,7 +25,7 @@
             >
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/pendingPhotoshootRow_titleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sample_photoshoot_name_1"
@@ -36,7 +36,7 @@
                 android:textColor="@color/white"/>
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/pendingPhotoshootRow_dateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -44,16 +44,17 @@
                 android:textColor="#CCFFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView9" />
+                app:layout_constraintTop_toBottomOf="@id/pendingPhotoshootRow_titleTextView" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/pendingPhotoshootRow_viewButton"
                 android:layout_width="wrap_content"
                 android:layout_height="44dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="3dp"
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/rambla_bold"
-                android:text="@string/finish"
+                android:text="@string/label_finish"
                 android:textAllCaps="false"
                 android:textColor="@color/mainRed"
                 android:textSize="13sp"

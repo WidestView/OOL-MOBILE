@@ -1,87 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_login"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_login"
-    tools:context=".ui.login.LoginActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:contentDescription="@string/out_of_lens_logo"
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="93dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ool_logo" />
+    <data>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputLayoutEmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:hint="@string/label_email"
-        android:textColorHint="@color/gray_light"
-        app:boxBackgroundColor="@color/white"
-        app:boxBackgroundMode="filled"
-        app:hintTextColor="@color/primaryDarkColor"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:shapeAppearanceOverlay="@style/LoginEditTextCorner">
+        <variable
+            name="viewModel"
+            type="com.example.ool_mobile.ui.login.LoginViewModel" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/login_emailEditText"
-            android:layout_width="match_parent"
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_login"
+        tools:context=".ui.login.LoginActivity">
+
+        <ImageView
+            android:contentDescription="@string/description_app_logo"
+            android:id="@+id/navHeader_employeeImageView"
+            android:layout_width="0dp"
+            android:layout_height="93dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="180dp"
+            android:layout_marginEnd="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ool_logo" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutEmail"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/rambla"
-            android:textColor="@color/gray_light"
+            android:layout_marginTop="50dp"
+            android:hint="@string/label_email"
+            android:textColorHint="@color/gray_light"
+            app:boxBackgroundColor="@color/white"
+            app:boxBackgroundMode="filled"
+            app:hintTextColor="@color/primaryDarkColor"
+            app:layout_constraintEnd_toEndOf="@+id/navHeader_employeeImageView"
+            app:layout_constraintStart_toStartOf="@+id/navHeader_employeeImageView"
+            app:layout_constraintTop_toBottomOf="@+id/navHeader_employeeImageView"
+            app:shapeAppearanceOverlay="@style/LoginEditTextCorner">
 
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_emailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rambla"
+                android:textColor="@color/gray_light"
+                android:text="@={viewModel.input.email}" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputLayoutSenha"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:hint="@string/label_password"
-        android:textColorHint="@color/gray_light"
-        app:boxBackgroundColor="@color/white"
-        app:hintTextColor="@color/primaryDarkColor"
-        app:layout_constraintEnd_toEndOf="@+id/inputLayoutEmail"
-        app:layout_constraintStart_toStartOf="@+id/inputLayoutEmail"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayoutEmail"
-        app:shapeAppearanceOverlay="@style/LoginEditTextCorner">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/login_passwordEditText"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutSenha"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:hint="@string/label_password"
+            android:textColorHint="@color/gray_light"
+            app:boxBackgroundColor="@color/white"
+            app:hintTextColor="@color/primaryDarkColor"
+            app:layout_constraintEnd_toEndOf="@+id/inputLayoutEmail"
+            app:layout_constraintStart_toStartOf="@+id/inputLayoutEmail"
+            app:layout_constraintTop_toBottomOf="@+id/inputLayoutEmail"
+            app:shapeAppearanceOverlay="@style/LoginEditTextCorner">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rambla"
+                android:inputType="textPassword"
+                android:textColor="@color/gray_light"
+                android:text="@={viewModel.input.password}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/login_startButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="80dp"
             android:fontFamily="@font/rambla"
-            android:inputType="textPassword"
-            android:textColor="@color/gray_light" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="@string/label_enter"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputLayoutSenha"
+            app:strokeColor="@color/primaryLightColor"
+            android:onClick="@{() -> viewModel.login()}" />
 
-    <Button
-        android:id="@+id/login_startButton"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="80dp"
-        android:fontFamily="@font/rambla"
-        android:text="@string/label_enter"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayoutSenha"
-        app:strokeColor="@color/primaryLightColor" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

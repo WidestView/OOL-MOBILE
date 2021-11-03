@@ -12,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.ui.util.Collapse;
@@ -45,9 +43,6 @@ public class PackageListFragment extends Fragment {
 
         view.findViewById(R.id.packageList_addFab).setOnClickListener(v -> {
 
-            NavController controller = Navigation.findNavController(getView());
-
-            controller.navigate(R.id.action_nav_package_to_addPhotoShootActivity);
 
         });
 
@@ -77,9 +72,9 @@ public class PackageListFragment extends Fragment {
         PopupMenu popup = new PopupMenu(requireContext(), view);
 
         Menu menu = popup.getMenu();
-        menu.add(R.string.type);
-        menu.add(R.string.price);
-        menu.add(R.string.quantity);
+        menu.add(R.string.label_type);
+        menu.add(R.string.label_price);
+        menu.add(R.string.label_quantity);
 
         popup.show();
     }

@@ -1,113 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <TextView
-        android:id="@+id/homeFragment_welcomeTextView"
-        style="@style/Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/rambla"
-        android:text="@string/welcome_format"
-        android:textColor="@color/gray_dark"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <variable
+            name="viewModel"
+            type="com.example.ool_mobile.ui.home.HomeViewModel" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/see_whats_up"
-        android:textAllCaps="true"
-        android:textColor="@color/partial_gray_dark"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeFragment_welcomeTextView" />
+        <variable
+            name="fragment"
+            type="com.example.ool_mobile.ui.home.HomeFragment" />
 
+    </data>
 
-    <TextView
-        android:id="@+id/textView8"
-        style="@style/Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/today_todo"
-        android:textColor="@color/gray_dark"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView12" />
-
-    <ImageView
-        android:id="@+id/imageView12"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_login"
-        android:contentDescription="@string/sample_image_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeFragment_recyclerView"
-        tools:src="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/homeFragment_weekTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sample_day_of_week"
-        android:textAllCaps="true"
-        android:textColor="@color/gray_dark"
-        app:layout_constraintBottom_toTopOf="@+id/homeFragment_monthTextView"
-        app:layout_constraintEnd_toEndOf="@+id/homeFragment_monthTextView"
-        app:layout_constraintStart_toStartOf="@+id/homeFragment_monthTextView"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <TextView
-        android:id="@+id/homeFragment_monthTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/sample_day_of_month"
-        android:textColor="@color/primaryLightColor"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeFragment_weekTextView" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/homeFragment_pendingSessionsRecyclerview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:overScrollMode="never"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/homeFragment_monthTextView"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/homeFragment_recyclerView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="93dp"
-        android:layout_marginTop="20dp"
-        android:scrollbars="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        android:layout_height="match_parent"
+        tools:context=".ui.home.HomeFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/homeFragment_welcomeTextView"
+            style="@style/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/rambla"
+            tools:text="@string/format_welcome"
+            android:text='@{viewModel.employeeName == null ? "Boas Vindas" : @string/format_welcome(viewModel.employeeName)}'
+            android:textColor="@color/gray_dark"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> fragment.openNavigation()}" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/label_whats_up"
+            android:textAllCaps="true"
+            android:textColor="@color/partial_gray_dark"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeFragment_welcomeTextView" />
+
+        <TextView
+            android:id="@+id/textView8"
+            style="@style/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/label_today_todo"
+            android:textColor="@color/gray_dark"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_login"
+            android:contentDescription="@string/sample_image_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeFragment_recyclerView"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/homeFragment_weekTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.dayOfWeek}"
+            android:textAllCaps="true"
+            android:textColor="@color/gray_dark"
+            app:layout_constraintBottom_toTopOf="@+id/homeFragment_monthTextView"
+            app:layout_constraintEnd_toEndOf="@+id/homeFragment_monthTextView"
+            app:layout_constraintStart_toStartOf="@+id/homeFragment_monthTextView"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="@string/sample_day_of_week" />
+
+        <TextView
+            android:id="@+id/homeFragment_monthTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:text="@{viewModel.dayOfMonth}"
+            android:textColor="@color/primaryLightColor"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeFragment_weekTextView"
+            tools:text="@string/sample_day_of_month" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/home_pendingSessions"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/homeFragment_monthTextView"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            tools:listitem="@layout/row_pending_photoshoot"
+            app:fixedLinear="@{true}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homeFragment_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:scrollbars="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            tools:listitem="@layout/row_option_item"
+            tools:itemCount="1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

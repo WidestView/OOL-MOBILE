@@ -5,20 +5,38 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
+
     <application
         android:name=".service.ProjectApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_ool_icon"
-        android:label="@string/app_name"
+        android:label="@string/label_app_name"
         android:roundIcon="@drawable/ic_ool_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.OOLMOBILE"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.form.add_package.AddPackageTypeActivity"></activity>
-        <activity android:name=".ui.form.add_firing.AddFiringActivity" />
-        <activity android:name=".ui.form.add_equipment_details.AddEquipmentDetailsActivity" />
-        <activity android:name=".ui.form.add_equipment.AddEquipmentActivity" />
-        <activity android:name=".ui.form.add_employee.AddEmployeeActivity" />
+        <activity android:name=".ui.form.equipment_withdraw.EquipmentWithdrawFormActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.ool_mobile.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name=".ui.form.photoshoot_package.PackageTypeFormActivity" />
+        <activity android:name=".ui.form.firing.FiringFormActivity" />
+        <activity android:name=".ui.form.equipment_details.EquipmentDetailsFormActivity" />
+        <activity android:name=".ui.form.equipment.EquipmentFormActivity" />
+        <activity android:name=".ui.form.employee.EmployeeFormActivity" />
         <activity android:name=".ui.TempActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,20 +45,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.form.add_photo_shoot.AddPhotoShootActivity"
+            android:name=".ui.form.photoshoot.PhotoshootFormActivity"
             android:theme="@style/Theme.OOLMOBILE.NoActionBar" />
         <activity
-            android:name=".ui.ContentActivity"
-            android:label="@string/title_activity_content"
+            android:name=".ui.content.ContentActivity"
+            android:label="@string/label_contentActivity"
             android:theme="@style/Theme.OOLMOBILE.NoActionBar" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:theme="@style/Theme.OOLMOBILE.NoActionBar" />
-        <activity android:name=".ui.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+
+        <!-- This is required so that ZXing can scan on portrait mode -->
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
+
     </application>
 
 </manifest>

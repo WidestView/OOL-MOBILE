@@ -1,17 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.example.ool_mobile.ui.component.ContentRow
+    <data>
+
+        <variable
+            name="details"
+            type="com.example.ool_mobile.model.EquipmentDetails" />
+
+
+        <variable
+            name="events"
+            type="com.example.ool_mobile.ui.component.content_row.ContentRowEvents" />
+
+        <variable
+            name="urls"
+            type="com.example.ool_mobile.service.ModelUrls" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:statusText="#27"
-        app:titleText="Câmera Kodak">
+        android:layout_height="wrap_content">
 
-        <include layout="@layout/part_equipment_details_fields" />
-    </com.example.ool_mobile.ui.component.ContentRow>
+        <com.example.ool_mobile.ui.component.content_row.ContentRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:events="@{events}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:statusText="@{@string/format_numeric_id(details.id)}"
+            app:titleText="@{details.name}"
+            tools:statusText="#27"
+            tools:titleText="Câmera Kodak">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintDimensionRatio="W,1:1"
+                    android:layout_marginEnd="64dp"
+                    android:layout_marginStart="64dp"
+                    app:url="@{urls.getImageOf(details)}"
+                    app:fallback="@{@drawable/unset_image_background}"
+                    tools:src="@drawable/unset_image_background"
+                    app:shapeAppearance="@style/CornerofImageView"
+                    android:contentDescription="@{@string/format_equipment_details_description(details.name)}" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/imageView"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <include
+                        layout="@layout/part_equipment_details_fields"
+                        app:details="@{details}" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.example.ool_mobile.ui.component.content_row.ContentRow>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

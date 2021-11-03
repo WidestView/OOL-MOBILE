@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ContentRow">
-        <attr name="titleText" format="string"/>
+        <attr name="titleText" format="string" />
         <attr name="statusText" format="string" />
     </declare-styleable>
 
     <declare-styleable name="ContentRowField">
-        <attr name="label" format="string"/>
-        <attr name="value" format="string"/>
+        <attr name="label" format="string" />
+        <attr name="value" format="string" />
+    </declare-styleable>
+    <declare-styleable name="DateDialogView">
+        <attr name="hint" format="string" />
+        <attr name="title" format="string" />
     </declare-styleable>
 </resources>
