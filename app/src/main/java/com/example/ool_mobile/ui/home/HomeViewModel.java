@@ -134,11 +134,6 @@ public class HomeViewModel extends SubscriptionViewModel {
             .subscribe(()->{}, this::handleError);
     }
 
-    private void handleError(Throwable throwable) {
-        throwable.printStackTrace();
-        events.onNext(ErrorEvent.Error);
-    }
-
     @NonNull
     public static ViewModelProvider.Factory create(
             @NonNull EmployeeRepository repository,
@@ -147,6 +142,11 @@ public class HomeViewModel extends SubscriptionViewModel {
         return ViewModelFactory.create(
                 HomeViewModel.class, () -> new HomeViewModel(repository, photoshootApi)
         );
+    }
+
+    private void handleError(Throwable throwable) {
+        throwable.printStackTrace();
+        events.onNext(ErrorEvent.Error);
     }
 
     private void onPhotoshootsFetched(List<Photoshoot> photoshoots) {
