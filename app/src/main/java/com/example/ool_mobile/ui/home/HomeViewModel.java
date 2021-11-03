@@ -131,7 +131,23 @@ public class HomeViewModel extends SubscriptionViewModel {
         employeeRepository.logout()
             .observeOn(AndroidSchedulers.mainThread())
             .to(disposedWhenCleared())
-            .subscribe(()->{}, this::handleError);
+            .subscribe(()->{
+                events.onNext(Event.Error);
+            }, this::handleError);
+    }
+
+    public interface Event {
+
+        void accept(Visitor visitor);
+
+        Event Error = Visitor::visitError;
+        Event Logout = Visitor::visitLogout;
+        
+        interface Visitor {
+
+            void visitError();
+            void visitLogout();
+        }
     }
 
     @NonNull
@@ -146,7 +162,7 @@ public class HomeViewModel extends SubscriptionViewModel {
 
     private void handleError(Throwable throwable) {
         throwable.printStackTrace();
-        events.onNext(ErrorEvent.Error);
+        events.onNext(Event.Error);
     }
 
     private void onPhotoshootsFetched(List<Photoshoot> photoshoots) {
