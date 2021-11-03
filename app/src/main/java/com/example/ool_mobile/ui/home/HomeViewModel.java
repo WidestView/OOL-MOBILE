@@ -127,6 +127,13 @@ public class HomeViewModel extends SubscriptionViewModel {
         return pendingPhotoshoots;
     }
 
+    public void logout() {
+        employeeRepository.logout()
+            .observeOn(AndroidSchedulers.mainThread())
+            .to(disposedWhenCleared())
+            .subscribe(()->{}, this::handleError);
+    }
+
     private void handleError(Throwable throwable) {
         throwable.printStackTrace();
         events.onNext(ErrorEvent.Error);
@@ -141,7 +148,6 @@ public class HomeViewModel extends SubscriptionViewModel {
                 HomeViewModel.class, () -> new HomeViewModel(repository, photoshootApi)
         );
     }
-
 
     private void onPhotoshootsFetched(List<Photoshoot> photoshoots) {
 

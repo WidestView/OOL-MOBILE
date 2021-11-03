@@ -1,4 +1,5 @@
-Implement EmployeeRepository logout
-Implement LoginActivity logout
+Implement exit on logout
 Implement tests
 Fix weird bug with withdraw selection
+Sort strings.xml
+Move HomeViewModel create method position

@@ -37,6 +37,22 @@
             android:onClick="@{() -> fragment.openNavigation()}" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/rambla"
+            tools:text="@string/format_welcome"
+            android:text="Logout"
+            android:textColor="@color/gray_dark"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/homeFragment_welcomeTextView"
+            app:layout_constraintTop_toBottomOf="@id/homeFragment_welcomeTextView"
+            android:onClick="@{() -> viewModel.logout()}"
+            />
+
+
+        <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

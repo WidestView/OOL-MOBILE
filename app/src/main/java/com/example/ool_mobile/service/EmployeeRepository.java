@@ -74,6 +74,15 @@ public class EmployeeRepository {
 
     @NonNull
     @CheckReturnValue
+    public Completable logout() {
+
+        return Completable.fromAction(() -> {
+            this.tokenStorage.setToken(null);
+        });
+    }
+
+    @NonNull
+    @CheckReturnValue
     public Maybe<Employee> getCurrentEmployee() {
 
         return Maybe.defer(() -> {
