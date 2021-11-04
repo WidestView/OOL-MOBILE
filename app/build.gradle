@@ -1,5 +1,7 @@
 plugins {
     id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -42,7 +44,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     implementation 'com.squareup.picasso:picasso:2.8'
 
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.0'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'com.uber.autodispose2:autodispose-androidx-lifecycle:2.1.1'
 
@@ -54,11 +56,13 @@ dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 
     annotationProcessor 'org.immutables:value:2.8.2'
-    compileOnly 'org.immutables:value:2.8.2'
+
+    //noinspection AnnotationProcessorOnCompilePath
+    implementation 'org.immutables:value:2.8.2'
 
 
-    implementation 'androidx.navigation:navigation-fragment:2.3.5'
-    implementation 'androidx.navigation:navigation-ui:2.3.5'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
