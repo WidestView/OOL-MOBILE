@@ -65,6 +65,8 @@ class EquipmentDetailsValidation {
         });
     }
 
+    private Double priceValue;
+
     @NonNull
     private List<FormCheck<Event>> getChecks(EquipmentDetailsInput input) {
 
@@ -79,12 +81,16 @@ class EquipmentDetailsValidation {
                 FormCheck.succeedIf(() -> {
 
                     try {
-                        Double.parseDouble(price);
+                        priceValue = Double.parseDouble(price);
                         return true;
                     } catch (NumberFormatException ex) {
                         return false;
                     }
                 }, Event.InvalidPrice),
+
+                FormCheck.succeedIf(() -> {
+                    return coalesce(priceValue, 1.0) > 0;
+                }, Event.NotPositivePrice),
 
                 FormCheck.failIf(name::isEmpty, Event.MissingName),
 

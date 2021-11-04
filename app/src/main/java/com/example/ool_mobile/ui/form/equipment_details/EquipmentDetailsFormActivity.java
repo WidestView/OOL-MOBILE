@@ -141,6 +141,11 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity
     }
 
     @Override
+    public void visitNotPositivePrice() {
+        snack(this, R.string.error_not_negative_price);
+    }
+
+    @Override
     public void visitSuccess() {
         finish();
     }

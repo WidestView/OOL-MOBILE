@@ -125,14 +125,15 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/label_equipment_price_input">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/label_equipment_price_input"
                         android:text='@={viewModel.input.price}'
-                        android:enabled="@{!viewModel.isLoading()}" />
+                        android:enabled="@{!viewModel.isLoading()}"
+                        android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
