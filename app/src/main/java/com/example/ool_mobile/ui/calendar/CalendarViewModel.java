@@ -20,7 +20,7 @@ import io.reactivex.rxjava3.subjects.Subject;
 
 public class CalendarViewModel extends SubscriptionViewModel {
 
-    private MutableLiveData<List<Photoshoot>> photoshootList;
+    private final MutableLiveData<List<Photoshoot>> photoshootList = new MutableLiveData<>();
 
     private final Subject<ErrorEvent> events = PublishSubject.create();
 
@@ -37,20 +37,15 @@ public class CalendarViewModel extends SubscriptionViewModel {
 
 
     @NonNull
-    public LiveData<List<Photoshoot>> getPhotoshootList() {
+    public LiveData<List<Photoshoot>> fetchPhotoshootList() {
 
-        if (photoshootList == null) {
-            photoshootList = new MutableLiveData<>();
-
-            subscriptions.add(
-                    photoshootApi.listFromCurrentEmployee()
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                    photoshoots -> photoshootList.setValue(photoshoots),
-                                    this::handleError
-                            )
-            );
-        }
+        photoshootApi.listFromCurrentEmployee()
+                .observeOn(AndroidSchedulers.mainThread())
+                .to(disposedWhenCleared())
+                .subscribe(
+                        photoshootList::setValue,
+                        this::handleError
+                );
 
         return photoshootList;
     }
