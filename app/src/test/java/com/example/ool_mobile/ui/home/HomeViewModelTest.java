@@ -109,7 +109,7 @@ public class HomeViewModelTest {
                 .build();
 
         Mockito.when(employeeRepository.getCurrentEmployee())
-                .thenReturn(Maybe.just(sampleEmployee));
+                .thenReturn(Maybe.just(sampleEmployee).subscribeOn(Schedulers.io()));
 
         String name = observeWithTimeout(viewModel.getEmployeeName());
 
@@ -147,7 +147,7 @@ public class HomeViewModelTest {
                 .build();
 
         Mockito.when(photoshootApi.listFromCurrentEmployee())
-                .thenReturn(Single.just(Collections.singletonList(photoshoot)));
+                .thenReturn(Single.just(Collections.singletonList(photoshoot)).subscribeOn(Schedulers.io()));
 
         assertThat(
                 observeWithTimeout(viewModel.getPendingPhotoshoots())
