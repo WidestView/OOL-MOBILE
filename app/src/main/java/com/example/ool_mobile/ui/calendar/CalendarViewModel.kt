@@ -1,65 +1,56 @@
-package com.example.ool_mobile.ui.calendar;
+package com.example.ool_mobile.ui.calendar
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.ool_mobile.model.Photoshoot
+import com.example.ool_mobile.service.api.PhotoshootApi
+import com.example.ool_mobile.ui.util.ErrorEvent
+import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel
+import com.example.ool_mobile.ui.util.view_model.viewModelFactory
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.subjects.PublishSubject
 
-import com.example.ool_mobile.model.Photoshoot;
-import com.example.ool_mobile.service.api.PhotoshootApi;
-import com.example.ool_mobile.ui.util.ErrorEvent;
-import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
-import com.example.ool_mobile.ui.util.view_model.ViewModelFactory;
+/**
+ * Handles all logic related operations of the CalendarFragment
+ */
+class CalendarViewModel(private val photoshootApi: PhotoshootApi) : SubscriptionViewModel() {
 
-import java.util.List;
+    private val photoshootList = MutableLiveData<List<Photoshoot>>()
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.subjects.PublishSubject;
-import io.reactivex.rxjava3.subjects.Subject;
+    private val _events = PublishSubject.create<ErrorEvent>()
 
-public class CalendarViewModel extends SubscriptionViewModel {
-
-    private final MutableLiveData<List<Photoshoot>> photoshootList = new MutableLiveData<>();
-
-    private final Subject<ErrorEvent> events = PublishSubject.create();
-
-    @NonNull
-    private final PhotoshootApi photoshootApi;
-
-    private CalendarViewModel(@NonNull PhotoshootApi photoshootApi) {
-        this.photoshootApi = photoshootApi;
-    }
-
-    public Observable<ErrorEvent> getEvents() {
-        return events;
-    }
+    /**
+     * The exposed error events
+     */
+    val events: Observable<ErrorEvent> = _events
 
 
-    @NonNull
-    public LiveData<List<Photoshoot>> fetchPhotoshootList() {
-
+    /**
+     * Fetches the photoshoot list from the api
+     */
+    fun fetchPhotoshootList(): LiveData<List<Photoshoot>> {
         photoshootApi.listFromCurrentEmployee()
                 .observeOn(AndroidSchedulers.mainThread())
                 .to(disposedWhenCleared())
-                .subscribe(
-                        photoshootList::setValue,
-                        this::handleError
-                );
+                .subscribe(photoshootList::setValue, this::handleError)
 
-        return photoshootList;
+        return photoshootList
     }
 
-    private void handleError(Throwable error) {
-        error.printStackTrace();
-        events.onNext(ErrorEvent.Error);
+    private fun handleError(error: Throwable) {
+        error.printStackTrace()
+        _events.onNext(ErrorEvent.Error)
     }
 
-    @NonNull
-    public static ViewModelProvider.Factory create(@NonNull PhotoshootApi photoshootApi) {
-        return ViewModelFactory.create(
-                CalendarViewModel.class,
-                () -> new CalendarViewModel(photoshootApi)
-        );
+    companion object {
+
+        /**
+         * Creates a new CalendarViewModel.
+         */
+        @JvmStatic
+        fun create(photoshootApi: PhotoshootApi) = viewModelFactory {
+            CalendarViewModel(photoshootApi)
+        }
     }
 }
