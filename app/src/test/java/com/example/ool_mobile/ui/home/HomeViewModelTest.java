@@ -8,7 +8,7 @@ import com.example.ool_mobile.model.ImmutablePhotoshoot;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.EmployeeRepository;
 import com.example.ool_mobile.service.api.PhotoshootApi;
-import com.example.ool_mobile.ui.util.ErrorEvent;
+import com.example.ool_mobile.ui.home.HomeViewModel.Event;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -57,7 +57,7 @@ public class HomeViewModelTest {
     @Test
     public void employeeNameSendsErrorEvent() {
 
-        Observable<ErrorEvent> events = viewModel.getEvents().cache();
+        Observable<Event> events = viewModel.getEvents().cache();
         events.subscribe();
 
         Mockito.when(employeeRepository.getCurrentEmployee())
@@ -67,7 +67,7 @@ public class HomeViewModelTest {
 
         assertThat(name).isNull();
 
-        ErrorEvent event = events.firstElement().blockingGet();
+        Event event = events.firstElement().blockingGet();
 
         assertThat(event).isNotNull();
     }
@@ -75,7 +75,7 @@ public class HomeViewModelTest {
     @Test
     public void photoshootListSendsErrorEvent() {
 
-        Observable<ErrorEvent> events = viewModel.getEvents().cache();
+        Observable<Event> events = viewModel.getEvents().cache();
         events.subscribe();
 
         Mockito.when(photoshootApi.listFromCurrentEmployee())

@@ -1,6 +1,5 @@
 package com.example.ool_mobile;
 
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 
 import java.util.concurrent.CountDownLatch;
@@ -9,7 +8,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class LiveDataTestUtil {
 
-    @Nullable
     public static <T> T observeWithTimeout(LiveData<T> liveData) throws InterruptedException {
 
         CountDownLatch latch = new CountDownLatch(1);
