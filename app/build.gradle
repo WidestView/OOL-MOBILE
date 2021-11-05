@@ -70,7 +70,7 @@ dependencies {
 
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 
-    annotationProcessor 'org.immutables:value:2.8.2'
+    kapt 'org.immutables:value:2.8.2'
 
     //noinspection AnnotationProcessorOnCompilePath
     implementation 'org.immutables:value:2.8.2'
