@@ -99,7 +99,8 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity
         binding.setViewModel(viewModel);
 
         viewModel.getSelectedBitmap().observe(this, bitmap -> {
-            binding.equipmentDetailsFormEquipmentImageView.setImageBitmap(bitmap);
+            binding.selectionView.imageSelectionComponentMainImageView
+                    .setImageBitmap(bitmap);
         });
     }
 
