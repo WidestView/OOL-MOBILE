@@ -34,6 +34,18 @@ android {
     buildFeatures {
         dataBinding true
     }
+
+    lintOptions {
+        disable "AutoDispose"
+    }
+}
+
+tasks.withType(Test) {
+    testLogging {
+        exceptionFormat "full"
+        events "started", "skipped", "passed", "failed"
+        showStandardStreams true
+    }
 }
 
 dependencies {
