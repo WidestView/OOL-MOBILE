@@ -61,9 +61,6 @@ public class CalendarFragment extends Fragment {
                         Dependencies.from(this).getPhotoshootApi()
                 )
         ).get(CalendarViewModel.class);
-
-        viewModel.getPhotoshootList()
-                .observe(getViewLifecycleOwner(), this::displayPhotoshoots);
     }
 
     @Override
@@ -75,6 +72,9 @@ public class CalendarFragment extends Fragment {
                 .subscribe(errorEvent -> {
                     snack(this, R.string.error_operation_failed);
                 });
+
+        viewModel.fetchPhotoshootList()
+                .observe(getViewLifecycleOwner(), this::displayPhotoshoots);
     }
 
     private void displayPhotoshoots(List<Photoshoot> photoshoots) {

@@ -95,6 +95,7 @@ interface DetailsViewModel {
         Event MissingPrice = Visitor::visitMissingPrice;
         Event InvalidPrice = Visitor::visitInvalidPrice;
         Event Success = Visitor::visitSuccess;
+        Event NotPositivePrice = Visitor::visitNotPositivePrice;
 
         void accept(@NonNull Visitor visitor);
 
@@ -110,6 +111,8 @@ interface DetailsViewModel {
             void visitMissingPrice();
 
             void visitInvalidPrice();
+
+            void visitNotPositivePrice();
 
             void visitSuccess();
         }

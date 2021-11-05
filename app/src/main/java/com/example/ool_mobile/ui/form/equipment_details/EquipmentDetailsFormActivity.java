@@ -106,7 +106,8 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity
         binding.setViewModel(viewModel);
 
         viewModel.getSelectedBitmap().observe(this, bitmap -> {
-            binding.equipmentDetailsFormEquipmentImageView.setImageBitmap(bitmap);
+            binding.selectionView.imageSelectionComponentMainImageView
+                    .setImageBitmap(bitmap);
         });
     }
 
@@ -138,6 +139,11 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity
     @Override
     public void visitInvalidPrice() {
         snack(this, R.string.error_invalid_price);
+    }
+
+    @Override
+    public void visitNotPositivePrice() {
+        snack(this, R.string.error_not_negative_price);
     }
 
     @Override
