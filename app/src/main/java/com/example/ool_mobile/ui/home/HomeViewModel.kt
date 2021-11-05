@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.ool_mobile.model.Photoshoot
 import com.example.ool_mobile.service.EmployeeRepository
 import com.example.ool_mobile.service.api.PhotoshootApi
-import com.example.ool_mobile.ui.util.ErrorEvent
 import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel
 import com.example.ool_mobile.ui.util.view_model.viewModelFactory
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -181,9 +180,9 @@ class HomeViewModel(
         private val photoshootApi: PhotoshootApi
 ) : SubscriptionViewModel() {
 
-    private val _events: Subject<ErrorEvent> = PublishSubject.create()
+    private val _events: Subject<Event> = PublishSubject.create()
 
-    val events: Observable<ErrorEvent> = _events
+    val events: Observable<Event> = _events
 
     val employeeName: LiveData<String> by lazy {
 
@@ -231,10 +230,42 @@ class HomeViewModel(
 
     val pendingPhotoshoots: LiveData<List<Photoshoot>> get() = _pendingPhotoshoots
 
+    fun logout() {
+
+        employeeRepository.logout()
+                .observeOn(AndroidSchedulers.mainThread())
+                .to(disposedWhenCleared<Any>())
+                .subscribe({ _events.onNext(Event.Logout) })
+                { handleError(it) }
+    }
+
+    interface Event {
+        fun accept(visitor: Visitor)
+
+        interface Visitor {
+            fun visitError()
+            fun visitLogout()
+        }
+
+        companion object {
+            val Error: Event = object : Event {
+                override fun accept(visitor: Visitor) {
+                    visitor.visitError()
+                }
+            }
+
+            val Logout: Event = object : Event {
+                override fun accept(visitor: Visitor) {
+                    visitor.visitLogout()
+                }
+            }
+        }
+    }
+
 
     private fun handleError(throwable: Throwable) {
         throwable.printStackTrace()
-        _events.onNext(ErrorEvent.Error)
+        _events.onNext(Event.Error)
     }
 
     private fun onPhotoshootsFetched(photoshoots: List<Photoshoot>) {

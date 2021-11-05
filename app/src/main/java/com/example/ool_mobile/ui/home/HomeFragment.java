@@ -36,7 +36,7 @@ import java.util.function.Consumer;
 
 import static com.example.ool_mobile.ui.util.SnackMessage.snack;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeViewModel.Event.Visitor {
 
     private FragmentHomeBinding binding;
 
@@ -93,8 +93,8 @@ public class HomeFragment extends Fragment {
 
         viewModel.getEvents()
                 .to(DisposedFromLifecycle.of(this))
-                .subscribe(errorEvent -> {
-                    snack(this, R.string.error_operation_failed);
+                .subscribe(event -> {
+                    event.accept(this);
                 });
     }
 
@@ -151,5 +151,15 @@ public class HomeFragment extends Fragment {
         );
 
         NavHostFragment.findNavController(this).navigate(action);
+    }
+
+    @Override
+    public void visitLogout() {
+        requireActivity().finish();
+    }
+
+    @Override
+    public void visitError() {
+        snack(this, R.string.error_operation_failed);
     }
 }

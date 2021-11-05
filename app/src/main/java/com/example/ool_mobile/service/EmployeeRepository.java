@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.Objects;
 
 import io.reactivex.rxjava3.annotations.CheckReturnValue;
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.Response;
@@ -69,6 +70,15 @@ public class EmployeeRepository {
             } else {
                 throw new ResponseException(response);
             }
+        });
+    }
+
+    @NonNull
+    @CheckReturnValue
+    public Completable logout() {
+
+        return Completable.fromAction(() -> {
+            this.tokenStorage.setToken(null);
         });
     }
 
