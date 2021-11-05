@@ -51,13 +51,24 @@
                 android:layout_marginStart="8dp"
                 android:text="@{viewModel.formMode == FormMode.Update ? @string/label_update_equipment_details : @string/label_add_equipment_details }"
 
-                tools:text="@string/label_add_equipment_details"
                 android:textColor="@color/gray_dark"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/addX_backButton"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/addX_backButton"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/label_add_equipment_details" />
+
+            <include
+                android:id="@+id/selectionView"
+                layout="@layout/component_image_selection"
+                app:layout_constraintTop_toBottomOf="@id/textView21"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imageUrl="@{viewModel.imageUrl}"
+                app:enabled="@{!viewModel.isLoading()}"
+                app:onCameraClick="@{() -> activity.onCameraButtonClick()}"
+                app:onGalleryClick="@{() -> activity.onGalleryButtonClick()}" />
 
             <LinearLayout
                 android:id="@+id/linear2"
@@ -66,23 +77,23 @@
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3">
+                app:layout_constraintTop_toBottomOf="@+id/selectionView">
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewModel.formMode == FormMode.Update ? View.VISIBLE : View.GONE}"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="16dp"
+                    android:visibility="@{viewModel.formMode == FormMode.Update ? View.VISIBLE : View.GONE}">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:hint="@string/label_id"
                         android:text="@{String.valueOf(viewModel.initialId)}"
-                        tools:visibility="visible"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false" />
+                        tools:visibility="visible" />
 
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -96,14 +107,14 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/textView"
+                        itemSelection="@={viewModel.input.kindPosition}"
+                        items="@{viewModel.kindNames}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:enabled="@{!viewModel.isLoading()}"
                         android:hint="@string/label_equipment_type"
-                        android:text="@={viewModel.input.kindName}"
-                        items="@{viewModel.kindNames}"
-                        itemSelection="@={viewModel.input.kindPosition}"
                         android:inputType="none"
-                        android:enabled="@{!viewModel.isLoading()}" />
+                        android:text="@={viewModel.input.kindName}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -116,9 +127,9 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:enabled="@{!viewModel.isLoading()}"
                         android:hint="@string/label_equipment_name"
-                        android:text="@={viewModel.input.name}"
-                        android:enabled="@{!viewModel.isLoading()}" />
+                        android:text="@={viewModel.input.name}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -139,72 +150,28 @@
             </LinearLayout>
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
-                app:layout_constraintTop_toBottomOf="@id/linear2"
+                visible="@{viewModel.isLoading()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:indeterminate="true"
-                visible="@{viewModel.isLoading()}" />
+                app:layout_constraintTop_toBottomOf="@id/linear2" />
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="120dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
+                android:enabled="@{!viewModel.isLoading()}"
                 android:onClick="@{() -> viewModel.onSave()}"
                 android:text="@string/label_save"
                 android:textColor="@color/primaryLightColor"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/linear2"
-                app:strokeColor="@color/primaryLightColor"
-                android:enabled="@{!viewModel.isLoading()}"
-                />
+                app:strokeColor="@color/primaryLightColor" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/equipmentDetailsForm_equipmentImageView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="64dp"
-                android:layout_marginEnd="64dp"
-                android:layout_marginTop="32dp"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView21"
-                app:shapeAppearance="@style/CornerofImageView"
-                app:url="@{viewModel.imageUrl}"
-                app:fallback="@{@drawable/unset_image_background}"
-                tools:srcCompat="@drawable/unset_image_background" />
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/ic_phone_camera"
-                app:layout_constraintEnd_toStartOf="@+id/imageView4"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="spread"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/equipmentDetailsForm_equipmentImageView"
-                android:onClick="@{() -> activity.onCameraButtonClick()}"
-                android:contentDescription="@string/description_camera_icon"
-                android:clickable="@{!viewModel.isLoading()}" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:src="@drawable/ic_gallery"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="@+id/imageView3"
-                android:onClick="@{() -> activity.onGalleryButtonClick()}"
-                android:contentDescription="@string/description_icon"
-                android:clickable="@{!viewModel.isLoading()}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
