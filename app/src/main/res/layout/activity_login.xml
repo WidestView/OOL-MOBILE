@@ -52,7 +52,9 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rambla"
                 android:textColor="@color/gray_light"
-                android:text="@={viewModel.input.email}" />
+                android:text="@={viewModel.input.email}"
+                android:enabled="@{viewModel.isEnabled()}" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -76,7 +78,8 @@
                 android:fontFamily="@font/rambla"
                 android:inputType="textPassword"
                 android:textColor="@color/gray_light"
-                android:text="@={viewModel.input.password}" />
+                android:text="@={viewModel.input.password}"
+                android:enabled="@{viewModel.isEnabled()}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,7 +97,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inputLayoutSenha"
             app:strokeColor="@color/primaryLightColor"
-            android:onClick="@{() -> viewModel.login()}" />
+            android:onClick="@{() -> viewModel.login()}"
+            android:enabled="@{viewModel.isEnabled()}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -43,6 +43,10 @@ public class LoginActivity extends AppCompatActivity
                         Dependencies.from(this).getEmployeeRepository()
                 )
         ).get(LoginViewModel.class);
+
+        LoginActivityArgs args = LoginActivityArgs.fromBundle(getIntent().getExtras());
+
+        viewModel.initializeErrorState(args.getIsError(), this);
     }
 
     private void setupViews() {
@@ -82,10 +86,6 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void visitReportApiUnavailable() {
-
-        binding.loginEmailEditText.setEnabled(false);
-        binding.loginPasswordEditText.setEnabled(false);
-        binding.loginStartButton.setEnabled(false);
 
         Snackbar.make(
                 findViewById(android.R.id.content),

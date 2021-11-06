@@ -1,5 +1,7 @@
 package com.example.ool_mobile.ui.login
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.ool_mobile.service.EmployeeRepository
 import com.example.ool_mobile.ui.login.LoginViewModel.Event
 import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel
@@ -11,9 +13,24 @@ class LoginViewModel(private val repository: EmployeeRepository) : SubscriptionV
 
     val input = LoginInput()
 
+
     private val _events = PublishSubject.create<Event>()
 
     val events: Observable<Event> = _events
+
+
+    private val _isEnabled = MutableLiveData(true)
+
+    val isEnabled: LiveData<Boolean> = _isEnabled
+
+    fun initializeErrorState(isError: Boolean, visitor: Event.Visitor) {
+        _isEnabled.value = !isError
+
+        if (isError) {
+            Event.ReportApiUnavailable.accept(visitor)
+        }
+    }
+
 
     fun login() {
 
@@ -28,6 +45,7 @@ class LoginViewModel(private val repository: EmployeeRepository) : SubscriptionV
                 }) { error ->
                     error.printStackTrace()
                     _events.onNext(Event.ReportApiUnavailable)
+                    _isEnabled.value = false
                 }
     }
 
