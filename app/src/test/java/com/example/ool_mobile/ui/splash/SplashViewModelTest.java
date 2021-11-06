@@ -2,10 +2,12 @@ package com.example.ool_mobile.ui.splash;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
+import com.example.ool_mobile.TrampolineSchedulersRule;
 import com.example.ool_mobile.model.Employee;
 import com.example.ool_mobile.service.EmployeeRepository;
 
 import org.junit.Before;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,15 +15,16 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import static com.google.common.truth.Truth.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SplashViewModelTest {
+
+    @ClassRule
+    public static TrampolineSchedulersRule trampolineRule = new TrampolineSchedulersRule();
 
     @Mock
     public EmployeeRepository employeeRepository;
@@ -35,9 +38,6 @@ public class SplashViewModelTest {
 
     @Before
     public void setup() {
-
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler(a -> Schedulers.trampoline());
-        RxAndroidPlugins.setMainThreadSchedulerHandler(a -> Schedulers.trampoline());
 
         viewModel = new SplashViewModel(employeeRepository);
 

@@ -2,6 +2,7 @@ package com.example.ool_mobile.ui.home;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
+import com.example.ool_mobile.TrampolineSchedulersRule;
 import com.example.ool_mobile.model.Employee;
 import com.example.ool_mobile.model.ImmutableEmployee;
 import com.example.ool_mobile.model.ImmutablePhotoshoot;
@@ -11,6 +12,7 @@ import com.example.ool_mobile.service.api.PhotoshootApi;
 import com.example.ool_mobile.ui.home.HomeViewModel.Event;
 
 import org.junit.Before;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +24,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.UUID;
 
-import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins;
 import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
@@ -37,6 +38,9 @@ public class HomeViewModelTest {
     @Rule
     public InstantTaskExecutorRule taskExecutorRule = new InstantTaskExecutorRule();
 
+    @ClassRule
+    public static TrampolineSchedulersRule trampolineRule = new TrampolineSchedulersRule();
+
     @Mock
     public EmployeeRepository employeeRepository;
 
@@ -48,8 +52,6 @@ public class HomeViewModelTest {
     @Before
     public void setup() {
 
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler(a -> Schedulers.trampoline());
-        RxAndroidPlugins.setMainThreadSchedulerHandler(a -> Schedulers.trampoline());
 
         viewModel = new HomeViewModel(employeeRepository, photoshootApi);
     }
