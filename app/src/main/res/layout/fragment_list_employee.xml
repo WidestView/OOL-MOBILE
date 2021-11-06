@@ -1,32 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.list.employee_list.EmployeeListFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include layout="@layout/part_filter_top" />
+    <data>
 
-    <LinearLayout
+        <variable
+            name="fragment"
+            type="com.example.ool_mobile.ui.list.employee.EmployeeListFragment" />
+
+        <variable
+            name="adapter"
+            type="androidx.recyclerview.widget.RecyclerView.Adapter" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/filterTop_mainLayout">
+        android:layout_height="match_parent"
+        tools:context=".ui.list.employee.EmployeeListFragment">
 
-        <include layout="@layout/row_employee" />
-    </LinearLayout>
+        <include layout="@layout/part_filter_top" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/listEmployee_addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:contentDescription="@string/description_add_item"
-        android:src="@drawable/ic_add"
-        app:backgroundTint="@color/primaryDarkColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/white" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/filterTop_mainLayout"
+            tools:listitem="@layout/row_employee"
+            tools:itemCount="1"
+            app:fixedLinear="@{true}"
+            adapter="@{adapter}" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/description_add_item"
+            android:src="@drawable/ic_add"
+            app:backgroundTint="@color/primaryDarkColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/white"
+            android:onClick="@{() -> fragment.onAddButtonClick()}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -20,12 +20,18 @@ public abstract class RowAdapter<Model, Binding extends ViewDataBinding> extends
     }
 
     public interface Inflater<Binding> {
-        Binding inflate(LayoutInflater layoutInflater, ViewGroup parent, boolean attachToRoot);
+
+        @NonNull
+        Binding inflate(
+                @NonNull LayoutInflater layoutInflater,
+                @NonNull ViewGroup parent,
+                boolean attachToRoot);
     }
 
+    @NonNull
     public abstract Inflater<Binding> getInflater();
 
-    protected abstract void bind(Binding binding, Model model);
+    protected abstract void bind(@NonNull Binding binding, @NonNull Model model);
 
     @NonNull
     @Override
