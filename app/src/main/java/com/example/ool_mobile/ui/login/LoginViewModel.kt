@@ -1,79 +1,61 @@
-package com.example.ool_mobile.ui.login;
+package com.example.ool_mobile.ui.login
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
+import com.example.ool_mobile.service.EmployeeRepository
+import com.example.ool_mobile.ui.login.LoginViewModel.Event
+import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel
+import com.example.ool_mobile.ui.util.view_model.viewModelFactory
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.subjects.PublishSubject
 
-import com.example.ool_mobile.service.EmployeeRepository;
-import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
-import com.example.ool_mobile.ui.util.view_model.ViewModelFactory;
+class LoginViewModel(private val repository: EmployeeRepository) : SubscriptionViewModel() {
 
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.subjects.PublishSubject;
+    val input = LoginInput()
 
-public class LoginViewModel extends SubscriptionViewModel {
+    private val _events = PublishSubject.create<Event>()
 
-    public interface Event {
+    val events: Observable<Event> = _events
 
-        void accept(@NonNull Visitor visitor);
+    fun login() {
 
-        Event StartContent = Visitor::visitStartContent;
-        Event ReportFailedLogin = Visitor::visitReportFailedLogin;
-        Event ReportApiUnavailable = Visitor::visitReportApiUnavailable;
+        repository.login(input.email, input.password)
+                .to(disposedWhenCleared())
+                .subscribe({ success ->
+                    if (success) {
+                        _events.onNext(Event.StartContent)
+                    } else {
+                        _events.onNext(Event.ReportFailedLogin)
+                    }
+                }) { error ->
+                    error.printStackTrace()
+                    _events.onNext(Event.ReportApiUnavailable)
+                }
+    }
+
+    fun interface Event {
+        fun accept(visitor: Visitor)
 
         interface Visitor {
+            fun visitStartContent()
+            fun visitReportFailedLogin()
+            fun visitReportApiUnavailable()
+        }
 
-            void visitStartContent();
+        companion object {
+            @JvmField
+            val StartContent = Event { it.visitStartContent() }
 
-            void visitReportFailedLogin();
+            @JvmField
+            val ReportFailedLogin = Event { it.visitReportFailedLogin() }
 
-            void visitReportApiUnavailable();
+            @JvmField
+            val ReportApiUnavailable = Event { it.visitReportApiUnavailable() }
         }
     }
 
-    private final PublishSubject<Event> events = PublishSubject.create();
-
-    private final LoginInput input = new LoginInput();
-
-    private final EmployeeRepository repository;
-
-    public LoginViewModel(@NonNull EmployeeRepository repository) {
-        this.repository = repository;
-    }
-
-    @NonNull
-    public static ViewModelProvider.Factory create(@NonNull EmployeeRepository repository) {
-        return ViewModelFactory.create(
-                LoginViewModel.class,
-                () -> new LoginViewModel(repository)
-        );
-    }
-
-    @NonNull
-    public Observable<Event> getEvents() {
-        return events;
-    }
-
-    @NonNull
-    public LoginInput getInput() {
-        return input;
-    }
-
-    public void login() {
-
-        String username = this.input.getEmail();
-        String password = this.input.getPassword();
-
-        repository.login(username, password)
-                .to(disposedWhenCleared())
-                .subscribe(success -> {
-                    if (success) {
-                        events.onNext(Event.StartContent);
-                    } else {
-                        events.onNext(Event.ReportFailedLogin);
-                    }
-                }, error -> {
-                    error.printStackTrace();
-                    events.onNext(Event.ReportApiUnavailable);
-                });
+    companion object {
+        @JvmStatic
+        fun create(repository: EmployeeRepository) = viewModelFactory {
+            LoginViewModel(repository)
+        }
     }
 }
