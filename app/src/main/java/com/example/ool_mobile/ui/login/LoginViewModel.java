@@ -7,9 +7,7 @@ import com.example.ool_mobile.service.EmployeeRepository;
 import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
 import com.example.ool_mobile.ui.util.view_model.ViewModelFactory;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 
 public class LoginViewModel extends SubscriptionViewModel {
@@ -18,15 +16,13 @@ public class LoginViewModel extends SubscriptionViewModel {
 
         void accept(@NonNull Visitor visitor);
 
-        Event StartContentWithoutAnimation = Visitor::visitStartContentWithoutAnimation;
-        Event StartContentWithAnimation = Visitor::visitStartContentWithAnimation;
+        Event StartContent = Visitor::visitStartContent;
         Event ReportFailedLogin = Visitor::visitReportFailedLogin;
         Event ReportApiUnavailable = Visitor::visitReportApiUnavailable;
 
         interface Visitor {
-            void visitStartContentWithoutAnimation();
 
-            void visitStartContentWithAnimation();
+            void visitStartContent();
 
             void visitReportFailedLogin();
 
@@ -62,24 +58,6 @@ public class LoginViewModel extends SubscriptionViewModel {
         return input;
     }
 
-    public void checkAlreadyLogged() {
-
-        repository.getCurrentEmployee()
-                .map(employee -> true)
-                .switchIfEmpty(Single.just(false))
-                .observeOn(AndroidSchedulers.mainThread())
-                .to(disposedWhenCleared())
-                .subscribe(isLogged -> {
-                    if (isLogged) {
-                        events.onNext(Event.StartContentWithoutAnimation);
-                    }
-                }, error -> {
-                    events.onNext(Event.ReportApiUnavailable);
-
-                    error.printStackTrace();
-                });
-    }
-
     public void login() {
 
         String username = this.input.getEmail();
@@ -89,10 +67,13 @@ public class LoginViewModel extends SubscriptionViewModel {
                 .to(disposedWhenCleared())
                 .subscribe(success -> {
                     if (success) {
-                        events.onNext(Event.StartContentWithAnimation);
+                        events.onNext(Event.StartContent);
                     } else {
                         events.onNext(Event.ReportFailedLogin);
                     }
+                }, error -> {
+                    error.printStackTrace();
+                    events.onNext(Event.ReportApiUnavailable);
                 });
     }
 }

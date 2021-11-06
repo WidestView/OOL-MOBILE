@@ -35,8 +35,6 @@ public class LoginActivity extends AppCompatActivity
         setupViewModel();
 
         binding.setViewModel(viewModel);
-
-        viewModel.checkAlreadyLogged();
     }
 
     private void setupViewModel() {
@@ -68,14 +66,7 @@ public class LoginActivity extends AppCompatActivity
     }
 
     @Override
-    public void visitStartContentWithoutAnimation() {
-
-        finish();
-        startActivity(new Intent(this, ContentActivity.class));
-    }
-
-    @Override
-    public void visitStartContentWithAnimation() {
+    public void visitStartContent() {
         startActivity(new Intent(this, ContentActivity.class));
     }
 
