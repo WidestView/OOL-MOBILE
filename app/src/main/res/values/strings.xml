@@ -191,4 +191,5 @@
     <string name="value_yes">Sim</string>
     <string name="error_not_negative_price">O preço deve ser positivo</string>
     <string name="label_logout">Logout</string>
+    <string name="label_todo">Todo</string>
 </resources>
