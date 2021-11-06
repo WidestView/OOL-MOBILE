@@ -23,7 +23,7 @@ class SplashViewModel(
         repository.currentEmployee
                 .map { true }
                 .switchIfEmpty(Single.just(false))
-                .delay(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+                .delay(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread(), true)
                 .to(disposedWhenCleared())
                 .subscribe({ isLogged ->
                     if (isLogged) {

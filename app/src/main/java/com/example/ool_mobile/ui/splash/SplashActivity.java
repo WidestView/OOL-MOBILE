@@ -73,8 +73,8 @@ public class SplashActivity extends AppCompatActivity implements SplashViewModel
     }
 
     private void forgetActivityAndStartIntent(Intent intent) {
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        finish();
     }
 
 }
