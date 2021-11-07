@@ -21,6 +21,10 @@
             name="onGalleryClick"
             type="android.view.View.OnClickListener" />
 
+        <variable
+            name="imageBitmap"
+            type="android.graphics.Bitmap" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,6 +44,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            imageBitmap="@{imageBitmap}"
             app:shapeAppearance="@style/CornerofImageView"
             app:url="@{imageUrl}"
             tools:srcCompat="@drawable/unset_image_background" />
