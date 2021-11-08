@@ -10,6 +10,9 @@
             name="viewModel"
             type="com.example.ool_mobile.ui.form.employee.EmployeeViewModel" />
 
+        <variable
+            name="activity"
+            type="com.example.ool_mobile.ui.form.employee.EmployeeFormActivity" />
 
     </data>
 
@@ -59,7 +62,9 @@
 
                 <include
                     layout="@layout/component_image_selection"
-                    app:imageUrl="@{viewModel.imageUrl}" />
+                    app:imageUrl="@{viewModel.imageUrl}"
+                    app:onCameraClick="@{() -> activity.onCameraClick()}"
+                    app:onGalleryClick="@{() -> activity.onGalleryClick()}" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -173,6 +178,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/label_access_level"
+                            items="@{activity.formatAccessLevels(viewModel.input.lists.accessLevels)}"
                             itemSelection="@={viewModel.input.accessLevelSelection}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -203,6 +209,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/label_occupation"
+                        items="@{activity.formatOccupations(viewModel.input.lists.occupations)}"
                         itemSelection="@={viewModel.input.occupationSelection}" />
 
                 </com.google.android.material.textfield.TextInputLayout>

@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OOLMOBILE"
         tools:ignore="AllowBackup">
+
         <activity android:name=".ui.form.equipment_withdraw.EquipmentWithdrawFormActivity" />
 
         <provider
@@ -39,8 +40,6 @@
         <activity android:name=".ui.form.equipment_details.EquipmentDetailsFormActivity" />
 
         <activity android:name=".ui.form.equipment.EquipmentFormActivity" />
-
-        <activity android:name=".ui.form.employee.EmployeeFormActivity" />
 
         <activity android:name=".ui.TempActivity" />
 

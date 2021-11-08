@@ -1,17 +1,21 @@
 package com.example.ool_mobile.ui.form.employee;
 
-import android.os.Bundle;
+import androidx.annotation.NonNull;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import com.example.ool_mobile.model.AccessLevel;
+import com.example.ool_mobile.model.Occupation;
 
-import com.example.ool_mobile.R;
+import java.util.List;
 
-public class EmployeeFormActivity extends AppCompatActivity {
+public interface EmployeeFormActivity {
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_employee_form);
-    }
+    void onGalleryClick();
+
+    void onCameraClick();
+
+    @NonNull
+    List<String> formatAccessLevels(@NonNull List<AccessLevel> accessLevels);
+
+    @NonNull
+    List<String> formatOccupations(@NonNull List<Occupation> occupations);
 }

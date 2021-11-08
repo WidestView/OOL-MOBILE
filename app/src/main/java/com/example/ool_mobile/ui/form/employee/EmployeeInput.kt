@@ -2,6 +2,7 @@ package com.example.ool_mobile.ui.form.employee
 
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
+import com.example.ool_mobile.model.AccessLevel
 import com.example.ool_mobile.model.Occupation
 import java.util.*
 
@@ -25,7 +26,7 @@ class EmployeeInput(
 
 
     class Lists(
-            val accessLevels: List<String>,
+            val accessLevels: List<AccessLevel>,
             val occupations: List<Occupation>
     )
 }
