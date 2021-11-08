@@ -193,4 +193,7 @@
     <string name="label_logout">Logout</string>
     <string name="label_todo">Todo</string>
     <string name="label_none">Nenhum</string>
+    <string name="label_password_confirmtation">Confirmação de Senha</string>
+    <string name="label_access_level">Nivel de acesso</string>
+    <string name="label_gender">Gênero</string>
 </resources>
