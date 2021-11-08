@@ -104,7 +104,7 @@ abstract class CommonDetailsViewModel extends SubscriptionViewModel implements D
     }
 
     protected void handleError(Throwable throwable) {
-        throwable.printStackTrace();
+        Timber.e(throwable);
         events.onNext(Event.Error);
     }
 

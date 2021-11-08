@@ -39,7 +39,7 @@ class CalendarViewModel(private val photoshootApi: PhotoshootApi) : Subscription
     }
 
     private fun handleError(error: Throwable) {
-        error.printStackTrace()
+        Timber.e(error);
         _events.onNext(ErrorEvent.Error)
     }
 

@@ -112,7 +112,7 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
     }
 
     private void handleError(Throwable error) {
-        error.printStackTrace();
+        Timber.e(error);
         events.onNext(Event.Error);
     }
 

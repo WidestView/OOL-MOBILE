@@ -61,7 +61,7 @@ public class EquipmentDetailsListViewModel extends SubscriptionViewModel {
 
     private void handleError(Throwable error) {
 
-        error.printStackTrace();
+        Timber.e(error);
 
         events.onNext(ErrorEvent.Error);
     }

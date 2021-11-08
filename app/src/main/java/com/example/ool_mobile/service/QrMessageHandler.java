@@ -38,7 +38,7 @@ public class QrMessageHandler {
         try {
             result = adapter.fromJson(qrString);
         } catch (IOException e) {
-            e.printStackTrace();
+            Timber.e(e);
 
             return Result.UnknownQr;
         }

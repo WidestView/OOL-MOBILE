@@ -264,7 +264,7 @@ class HomeViewModel(
 
 
     private fun handleError(throwable: Throwable) {
-        throwable.printStackTrace()
+        Timber.e(throwable);
         _events.onNext(Event.Error)
     }
 

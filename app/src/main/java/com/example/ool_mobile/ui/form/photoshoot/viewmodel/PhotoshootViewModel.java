@@ -121,7 +121,7 @@ public class PhotoshootViewModel extends SubscriptionViewModel {
     }
 
     private void handleError(Throwable throwable) {
-        throwable.printStackTrace();
+        Timber.e(throwable);
         events.onNext(Event.Error);
     }
 
