@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 
 interface EmployeeViewModel {
 
-    val input: EmployeeInput
+    val input: LiveData<EmployeeInput>
 
     val imageUrl: LiveData<Uri>
+
+    fun save()
 }
