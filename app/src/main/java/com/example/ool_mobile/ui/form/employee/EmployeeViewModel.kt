@@ -26,11 +26,59 @@ interface EmployeeViewModel {
 
             @JvmField
             val Success = Event { it.visitSuccess() }
+
+            @JvmField
+            val MissingName = Event { it.visitMissingName() }
+
+            @JvmField
+            val MissingSocialName = Event { it.visitMissingSocialName() }
+
+            @JvmField
+            val MissingBirthDate = Event { it.visitMissingBirthDate() }
+
+            @JvmField
+            val MissingPhone = Event { it.visitMissingPhone() }
+
+            @JvmField
+            val MissingEmail = Event { it.visitMissingEmail() }
+
+            @JvmField
+            val MissingPassword = Event { it.visitMissingPassword() }
+
+            @JvmField
+            val MissingPasswordConfirmation = Event { it.visitMissingPasswordConfirmation() }
+
+            @JvmField
+            val MissingAccessLevel = Event { it.visitMissingAccessLevel() }
+
+            @JvmField
+            val MissingGender = Event { it.visitMissingGender() }
+
+            @JvmField
+            val MissingOccupation = Event { it.visitMissingOccupation() }
+
+            @JvmField
+            val PasswordsDoNotMatch = Event { it.visitPasswordsDoNotMatch() }
+
+            @JvmField
+            val InvalidPhone = Event { it.visitInvalidPhone() }
         }
 
         interface Visitor {
             fun visitError()
             fun visitSuccess()
+            fun visitMissingName()
+            fun visitMissingSocialName()
+            fun visitMissingBirthDate()
+            fun visitMissingPhone()
+            fun visitMissingEmail()
+            fun visitMissingPassword()
+            fun visitMissingPasswordConfirmation()
+            fun visitMissingAccessLevel()
+            fun visitMissingGender()
+            fun visitMissingOccupation()
+            fun visitPasswordsDoNotMatch()
+            fun visitInvalidPhone()
         }
     }
 }
