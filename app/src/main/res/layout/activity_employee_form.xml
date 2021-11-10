@@ -40,7 +40,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_arrow_back"
-                app:tint="@color/primaryLightColor" />
+                app:tint="@color/primaryLightColor"
+                android:onClick="@{() -> activity.onBackPressed()}" />
 
             <TextView
                 android:id="@+id/textView21"
@@ -48,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@string/label_add_employee"
+                android:text="@string/label_update_employee"
                 android:textColor="@color/gray_dark"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -81,7 +82,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.input.cpf}"
-                        error="@{errors.cpfError}" />
+                        error="@{errors.cpfError}"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -206,7 +209,11 @@
                             android:hint="@string/label_access_level"
                             items="@{activity.formatAccessLevels(viewModel.input.lists.accessLevels)}"
                             itemSelection="@={viewModel.input.accessLevelSelection}"
-                            error="@{errors.accessLevelError}" />
+                            error="@{errors.accessLevelError}"
+                            android:inputType="none"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:enabled="false" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -239,7 +246,8 @@
                         android:hint="@string/label_occupation"
                         items="@{activity.formatOccupations(viewModel.input.lists.occupations)}"
                         itemSelection="@={viewModel.input.occupationSelection}"
-                        error="@{errors.occupationError}" />
+                        error="@{errors.occupationError}"
+                        android:inputType="none" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

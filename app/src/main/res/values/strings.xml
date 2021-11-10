@@ -209,4 +209,5 @@
     <string name="error_invalid_employeee_phone">Telefone inválido</string>
     <string name="invalid_employee_rg">RG inválido</string>
     <string name="label_rg">RG</string>
+    <string name="label_update_employee">Atualizar funcionário</string>
 </resources>
