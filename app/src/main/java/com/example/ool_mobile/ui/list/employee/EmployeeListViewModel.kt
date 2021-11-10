@@ -10,6 +10,7 @@ import com.example.ool_mobile.ui.util.view_model.viewModelFactory
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
+import timber.log.Timber
 
 class EmployeeListViewModel(
         employeeApi: EmployeeApi
@@ -39,7 +40,7 @@ class EmployeeListViewModel(
 
 
     private fun handleError(error: Throwable) {
-        error.printStackTrace()
+        Timber.e(error)
         _events.onNext(ErrorEvent.Error)
     }
 

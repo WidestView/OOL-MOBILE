@@ -18,6 +18,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.PublishSubject
+import timber.log.Timber
 
 class EmployeeViewModelImpl(
         employeeRepository: EmployeeRepository,
@@ -84,8 +85,8 @@ class EmployeeViewModelImpl(
     }
 
     private fun handleError(error: Throwable) {
+        Timber.e(error)
         _events.onNext(Event.Error)
-        error.printStackTrace()
     }
 
     private val listsSingle: Single<EmployeeInput.Lists> by lazy {
