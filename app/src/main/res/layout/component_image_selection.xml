@@ -11,7 +11,7 @@
 
         <variable
             name="enabled"
-            type="boolean" />
+            type="java.lang.Boolean" />
 
         <variable
             name="onCameraClick"
@@ -54,7 +54,7 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginTop="16dp"
-            android:clickable="@{enabled}"
+            android:clickable="@{enabled ?? true}"
             android:contentDescription="@string/description_camera_icon"
             android:onClick="@{onCameraClick}"
             android:src="@drawable/ic_phone_camera"
@@ -68,7 +68,7 @@
             android:id="@+id/imageView4"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:clickable="@{enabled}"
+            android:clickable="@{enabled ?? true}"
             android:contentDescription="@string/description_icon"
             android:onClick="@{onGalleryClick}"
             android:src="@drawable/ic_gallery"
