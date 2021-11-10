@@ -22,7 +22,7 @@ class EmployeeValidation(
                             .builder()
                             .cpf(input.cpf.get()!!)
                             .name(input.name.get()!!)
-                            .socialName(input.socialName.get()!!)
+                            .socialName(input.socialName.get())
                             .birthDate(input.birthDate.get()!!)
                             .phone(input.phone.get()!!)
                             .accessLevel(

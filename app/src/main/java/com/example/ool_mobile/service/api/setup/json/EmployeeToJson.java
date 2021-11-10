@@ -1,6 +1,7 @@
 package com.example.ool_mobile.service.api.setup.json;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.immutables.value.Value;
 
@@ -15,7 +16,7 @@ public interface EmployeeToJson {
     @NonNull
     String name();
 
-    @NonNull
+    @Nullable
     String socialName();
 
     @NonNull

@@ -71,7 +71,10 @@ public class EmployeeValidationTest {
 
         input.getSocialName().set(null);
 
-        validation.validate(input).blockingSubscribe();
+        assertThat(
+                validation.validate(input).blockingGet()
+        ).isNotNull();
+
 
         ensureNoError();
     }
@@ -140,7 +143,9 @@ public class EmployeeValidationTest {
 
         consumer.accept(input);
 
-        validation.validate(input).blockingSubscribe();
+        assertThat(
+                validation.validate(input).blockingGet()
+        ).isNull();
 
         eventSubject.onComplete();
 
