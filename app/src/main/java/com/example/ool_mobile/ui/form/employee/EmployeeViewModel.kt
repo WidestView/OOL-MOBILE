@@ -17,6 +17,10 @@ interface EmployeeViewModel {
 
     val imageBitmap: MutableLiveData<Bitmap>
 
+    val isLoading: LiveData<Boolean>
+
+    val isEnabled: LiveData<Boolean>
+
     fun save()
 
     fun interface Event {
