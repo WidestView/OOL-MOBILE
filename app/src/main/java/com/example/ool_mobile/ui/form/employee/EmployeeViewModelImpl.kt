@@ -62,9 +62,11 @@ class EmployeeViewModelImpl(
                 .flatMapSingle { employee ->
                     employeeApi.updateCurrentEmployee(employee)
                 }
-                .flatMapCompletable { uploadImage() }
+                .flatMapSingle {
+                    uploadImage().toSingleDefault(true)
+                }
                 .observeOn(AndroidSchedulers.mainThread())
-                .to(disposedWhenCleared<Unit>())
+                .to(disposedWhenCleared())
                 .subscribe({
                     _events.onNext(Event.Success)
                 }, this::handleError)
