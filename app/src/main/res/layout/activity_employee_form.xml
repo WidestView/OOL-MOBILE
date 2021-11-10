@@ -181,7 +181,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.input.password}"
-                        error="@{errors.passwordError}" />
+                        error="@{errors.passwordError}"
+                        android:inputType="textPassword" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -194,7 +195,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@={viewModel.input.passwordConfirmation}"
-                            error="@{errors.passwordConfirmationError}" />
+                            error="@{errors.passwordConfirmationError}"
+                            android:inputType="textPassword" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
