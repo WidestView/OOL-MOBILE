@@ -1,7 +1,7 @@
 package com.example.ool_mobile.ui.form.employee
 
-import com.example.ool_mobile.model.Employee
-import com.example.ool_mobile.model.ImmutableEmployee
+import com.example.ool_mobile.service.api.setup.json.EmployeeToJson
+import com.example.ool_mobile.service.api.setup.json.ImmutableEmployeeToJson
 import com.example.ool_mobile.ui.form.employee.EmployeeViewModel.Event
 import com.example.ool_mobile.ui.util.form.FormCheck
 import com.example.ool_mobile.ui.util.form.FormCheck.failIf
@@ -13,12 +13,12 @@ class EmployeeValidation(
         private val events: Observer<Event>
 ) {
 
-    fun validate(input: EmployeeInput): Maybe<Employee> {
+    fun validate(input: EmployeeInput): Maybe<EmployeeToJson> {
 
         return FormCheck.validate(getChecks(input), events::onNext)
                 .filter { it == ValidationResult.Success }
                 .map {
-                    ImmutableEmployee
+                    ImmutableEmployeeToJson
                             .builder()
                             .cpf(input.cpf.get()!!)
                             .name(input.name.get()!!)
@@ -38,6 +38,7 @@ class EmployeeValidation(
                                     ].id()
                             )
                             .rg(input.rg.get()!!)
+                            .password(input.password.get()!!)
                             .build()
                 }
     }

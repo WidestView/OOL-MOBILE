@@ -34,6 +34,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+// the methods that just throw UnsupportedOperation
+// are required for moshi to work, but we don't really need them
+
 public class ModelJsonAdapter {
 
     @FromJson
@@ -140,24 +143,30 @@ public class ModelJsonAdapter {
 
     @Nullable
     @FromJson
-    public Occupation occupationFromJson(@Nullable OccupationData occupationData) {
+    public Occupation occupationFromJson(@Nullable ImmutableOccupationData occupationData) {
 
         if (occupationData == null) {
             return null;
         }
 
         return ImmutableOccupation.builder()
-                .id(occupationData.id)
-                .description(occupationData.description)
-                .name(occupationData.name)
+                .id(occupationData.id())
+                .description(occupationData.description())
+                .name(occupationData.name())
                 .build();
     }
 
 
     @ToJson
     @NonNull
-    public OccupationData occupationToJson(@NonNull Occupation occupation) {
-        throw new UnsupportedOperationException();
+    public ImmutableOccupationData occupationToJson(@NonNull Occupation occupation) {
+
+        return ImmutableOccupationData
+                .builder()
+                .id(occupation.id())
+                .description(occupation.description())
+                .name(occupation.name())
+                .build();
     }
 
     @ToJson
@@ -253,7 +262,7 @@ public class ModelJsonAdapter {
                 .employee(data.employee())
                 .employeeId(data.employee() == null ? null : data.employee().cpf())
                 .equipment(data.equipment())
-                .equipmentId(data.equipment() == null ? null : data.equipment().getId())
+                .equipmentId(data.equipment() == null ? 0 : data.equipment().getId())
                 .photoshoot(data.photoShoot())
                 .photoshootId(data.photoShoot() == null ? null : data.photoShoot().resourceId())
                 .withdrawDate(data.withdrawDate())
@@ -271,12 +280,6 @@ public class ModelJsonAdapter {
                 .employeeCpf(withdraw.getEmployeeId())
                 .equipmentId(withdraw.getEquipmentId())
                 .build();
-    }
-
-    @ToJson
-    @NonNull
-    public ImmutableEmployeeToJson employeeToJson(@NonNull Employee employee) {
-        throw new UnsupportedOperationException();
     }
 
     @FromJson
@@ -297,6 +300,29 @@ public class ModelJsonAdapter {
     }
 
 
+    @ToJson
+    @NonNull
+    public ImmutableEmployeeToJson employeeToJson(@NonNull EmployeeToJson employeeToJson) {
+        return ImmutableEmployeeToJson
+                .builder()
+                .from(employeeToJson)
+                .build();
+    }
+
+
+    @FromJson
+    @NonNull
+    public EmployeeToJson employeeToJsonFromJson(@NonNull ImmutableEmployeeToJson json) {
+        return json;
+    }
+
+    @ToJson
+    @NonNull
+    public ImmutableEmployeeToJson employeeModelToJson(@NonNull Employee employee) {
+        throw new UnsupportedOperationException();
+    }
+
+
     @Value.Immutable
     interface AccessLevelFromJson {
         int id();
@@ -304,40 +330,6 @@ public class ModelJsonAdapter {
         String name();
     }
 
-    @Value.Immutable
-    interface EmployeeToJson {
-
-        @NonNull
-        String cpf();
-
-        @NonNull
-        String name();
-
-        @NonNull
-        String socialName();
-
-        @NonNull
-        Date birthDate();
-
-        @NonNull
-        String phone();
-
-        @NonNull
-        String email();
-
-        @NonNull
-        String password();
-
-        int accessLevel();
-
-        @NonNull
-        String gender();
-
-        @NonNull
-        String rg();
-
-        int occupationId();
-    }
 
     @Value.Immutable
     interface EquipmentWithdrawToJson {
@@ -471,12 +463,12 @@ public class ModelJsonAdapter {
         public String rg;
     }
 
-    @SuppressLint("UnknownNullness")
-    static class OccupationData {
-        public int id;
+    @Value.Immutable
+    interface OccupationData {
+        int id();
 
-        public String name;
+        String name();
 
-        public String description;
+        String description();
     }
 }

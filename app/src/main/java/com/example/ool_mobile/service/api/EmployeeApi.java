@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.example.ool_mobile.model.AccessLevel;
 import com.example.ool_mobile.model.Employee;
 import com.example.ool_mobile.model.Occupation;
+import com.example.ool_mobile.service.api.setup.json.EmployeeToJson;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import io.reactivex.rxjava3.core.Single;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface EmployeeApi {
 
@@ -33,6 +34,6 @@ public interface EmployeeApi {
     Single<List<AccessLevel>> listAccessLevels();
 
     @NonNull
-    @POST("employee/info")
-    Single<Employee> updateCurrentEmployee(@NonNull @Body Employee employee);
+    @PUT("employee/info")
+    Single<Employee> updateCurrentEmployee(@NonNull @Body EmployeeToJson employee);
 }
