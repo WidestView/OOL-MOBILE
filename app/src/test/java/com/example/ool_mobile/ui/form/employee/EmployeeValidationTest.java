@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.function.Consumer;
 
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.PublishSubject;
@@ -77,10 +78,67 @@ public class EmployeeValidationTest {
 
     @Test
     public void reportsMissingName() {
+        ensureError(Event.MissingName, input -> input.getName().set(null));
+    }
+
+    @Test
+    public void reportsMissingBirthDate() {
+        ensureError(Event.MissingBirthDate, input -> input.getBirthDate().set(null));
+    }
+
+    @Test
+    public void reportsMissingPhone() {
+        ensureError(Event.MissingPhone, input -> input.getPhone().set(null));
+    }
+
+    @Test
+    public void reportsMissingEmail() {
+        ensureError(Event.MissingEmail, input -> input.getEmail().set(null));
+    }
+
+    @Test
+    public void reportsMissingPassword() {
+        ensureError(Event.MissingPassword, input -> input.getPassword().set(null));
+    }
+
+    @Test
+    public void reportsMissingPasswordConfirmation() {
+        ensureError(Event.MissingPasswordConfirmation, input -> input.getPasswordConfirmation().set(null));
+    }
+
+    @Test
+    public void reportsMissingAccessLevel() {
+        ensureError(Event.MissingAccessLevel, input -> input.getAccessLevelSelection().set(-1));
+    }
+
+    @Test
+    public void reportsMissingGender() {
+        ensureError(Event.MissingGender, input -> input.getGender().set(null));
+    }
+
+    @Test
+    public void reportsMissingOccupation() {
+        ensureError(Event.MissingOccupation, input -> input.getOccupationSelection().set(-1));
+    }
+
+    @Test
+    public void reportsPasswordsDoNotMatch() {
+        ensureError(Event.PasswordsDoNotMatch, input -> {
+            input.getPasswordConfirmation().set(input.getPassword().get() + "butDifferent");
+        });
+    }
+
+    @Test
+    public void reportsMissingRg() {
+        ensureError(Event.MissingRg, input -> input.getRg().set(null));
+    }
+
+
+    private void ensureError(Event error, Consumer<EmployeeInput> consumer) {
 
         EmployeeInput input = createValidEmployeeInput();
 
-        input.getName().set(null);
+        consumer.accept(input);
 
         validation.validate(input).blockingSubscribe();
 
@@ -88,7 +146,7 @@ public class EmployeeValidationTest {
 
         assertThat(
                 events.toList().blockingGet()
-        ).containsExactly(Event.MissingName);
+        ).contains(error);
     }
 
 
