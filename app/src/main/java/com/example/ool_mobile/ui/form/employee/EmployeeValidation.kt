@@ -13,10 +13,10 @@ class EmployeeValidation(
         private val events: Observer<Event>
 ) {
 
-    fun validate(input: EmployeeInput): Maybe<EmployeeToJson> {
+    fun validate(input: EmployeeInput): Maybe<EmployeeToJson> = Maybe.defer {
 
-        return FormCheck.validate(getChecks(input), events::onNext)
-                .filter { it == ValidationResult.Success }
+        FormCheck.validate(getChecks(input), events::onNext)
+                .filter { it === ValidationResult.Success }
                 .map {
                     ImmutableEmployeeToJson
                             .builder()
@@ -38,7 +38,7 @@ class EmployeeValidation(
                                     ].id()
                             )
                             .rg(input.rg.get()!!)
-                            .password(input.password.get()!!)
+                            .password(input.password.get())
                             .build()
                 }
     }
@@ -60,11 +60,15 @@ class EmployeeValidation(
                 { input.email.get()?.isEmpty() }
                         to Event.MissingEmail,
 
-                { input.password.get()?.isEmpty() }
-                        to Event.MissingPassword,
+                {
+                    !input.password.get().isNullOrEmpty() &&
+                            input.passwordConfirmation.get().isNullOrEmpty()
+                } to Event.MissingPasswordConfirmation,
 
-                { input.passwordConfirmation.get()?.isEmpty() }
-                        to Event.MissingPasswordConfirmation,
+                {
+                    !input.passwordConfirmation.get().isNullOrEmpty() &&
+                            input.passwordConfirmation.get()!! != input.password.get()
+                } to Event.PasswordsDoNotMatch,
 
                 { input.accessLevelSelection.get() == -1 }
                         to Event.MissingAccessLevel,
@@ -74,11 +78,6 @@ class EmployeeValidation(
 
                 { input.occupationSelection.get() == -1 }
                         to Event.MissingOccupation,
-
-                {
-                    input.passwordConfirmation.get() != null &&
-                            input.passwordConfirmation.get()!! != input.password.get()
-                } to Event.PasswordsDoNotMatch,
 
                 { input.phone.get()?.isEmpty() }
                         to Event.MissingPhone,

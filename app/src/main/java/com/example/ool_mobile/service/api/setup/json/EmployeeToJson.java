@@ -28,7 +28,7 @@ public interface EmployeeToJson {
     @NonNull
     String email();
 
-    @NonNull
+    @Nullable
     String password();
 
     int accessLevel();
