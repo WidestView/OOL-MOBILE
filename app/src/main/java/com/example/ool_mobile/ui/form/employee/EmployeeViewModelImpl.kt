@@ -1,5 +1,6 @@
 package com.example.ool_mobile.ui.form.employee
 
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -43,6 +44,8 @@ class EmployeeViewModelImpl(
     private val _events = PublishSubject.create<Event>()
 
     override val events: Observable<Event> = _events
+
+    override val imageBitmap: MutableLiveData<Bitmap> = MutableLiveData()
 
 
     private val validation = EmployeeValidation(_events)

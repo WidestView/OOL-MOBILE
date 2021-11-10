@@ -1,7 +1,9 @@
 package com.example.ool_mobile.ui.form.employee
 
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.ool_mobile.ui.form.employee.EmployeeViewModel.Event
 import io.reactivex.rxjava3.core.Observable
 
@@ -12,6 +14,8 @@ interface EmployeeViewModel {
     val imageUrl: LiveData<Uri>
 
     val events: Observable<Event>
+
+    val imageBitmap: MutableLiveData<Bitmap>
 
     fun save()
 

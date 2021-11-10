@@ -1,5 +1,6 @@
 package com.example.ool_mobile.ui.form.employee;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,9 +14,13 @@ import com.example.ool_mobile.model.AccessLevel;
 import com.example.ool_mobile.model.Occupation;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
+import com.example.ool_mobile.ui.util.image.ImageSelectionHandler;
+import com.example.ool_mobile.ui.util.image.LegacySelectionHandler;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 import static com.example.ool_mobile.ui.util.SnackMessage.snack;
 
@@ -25,6 +30,8 @@ public class EmployeeFormActivity extends AppCompatActivity
     private ActivityEmployeeFormBinding binding;
 
     private EmployeeViewModel employeeViewModel;
+
+    private ImageSelectionHandler imageSelectionHandler;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,30 +50,58 @@ public class EmployeeFormActivity extends AppCompatActivity
         binding.setErrors(new EmployeeFormErrors());
 
         binding.setViewModel(employeeViewModel);
+
+        imageSelectionHandler = new LegacySelectionHandler(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-
         employeeViewModel.getEvents()
                 .to(DisposedFromLifecycle.of(this))
                 .subscribe(event -> {
                     event.accept(this);
                 });
+
+        imageSelectionHandler.getBitmapResults()
+                .observeOn(AndroidSchedulers.mainThread())
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe(bitmap -> {
+                    employeeViewModel.getImageBitmap().setValue(bitmap);
+                });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        imageSelectionHandler.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode,
+            @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        imageSelectionHandler.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+
     public void onGalleryClick() {
-        throw new UnsupportedOperationException();
+        imageSelectionHandler.requestGallery()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe();
     }
 
     public void onCameraClick() {
-        throw new UnsupportedOperationException();
+        imageSelectionHandler.requestCamera()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe();
     }
 
     @Nullable
-    public List<String> formatAccessLevels(@NonNull List<AccessLevel> accessLevels) {
+    public List<String> formatAccessLevels(@Nullable List<AccessLevel> accessLevels) {
 
         if (accessLevels == null) {
             return null;
@@ -79,7 +114,7 @@ public class EmployeeFormActivity extends AppCompatActivity
     }
 
     @Nullable
-    public List<String> formatOccupations(@NonNull List<Occupation> occupations) {
+    public List<String> formatOccupations(@Nullable List<Occupation> occupations) {
 
         if (occupations == null) {
             return null;

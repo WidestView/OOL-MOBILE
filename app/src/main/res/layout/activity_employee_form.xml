@@ -68,8 +68,9 @@
                 <include
                     layout="@layout/component_image_selection"
                     app:imageUrl="@{viewModel.imageUrl}"
-                    app:onCameraClick="@{() -> activity.onCameraClick()}"
-                    app:onGalleryClick="@{() -> activity.onGalleryClick()}" />
+                    app:onCameraClick="@{v -> activity.onCameraClick()}"
+                    app:onGalleryClick="@{v -> activity.onGalleryClick()}"
+                    app:imageBitmap="@{viewModel.imageBitmap}" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
