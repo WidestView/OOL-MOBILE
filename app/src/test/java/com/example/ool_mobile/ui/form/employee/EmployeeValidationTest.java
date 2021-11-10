@@ -101,8 +101,17 @@ public class EmployeeValidationTest {
 
     @Test
     public void reportsMissingPassword() {
-        ensureError(Event.MissingPassword, input -> input.getPassword().set(null));
+        ensureError(Event.PasswordsDoNotMatch, input -> {
+            input.getPassword().set(null);
+            input.getPasswordConfirmation().set("beep");
+        });
+
+        ensureError(Event.PasswordsDoNotMatch, input -> {
+            input.getPasswordConfirmation().set(null);
+            input.getPassword().set("beep");
+        });
     }
+
 
     @Test
     public void reportsMissingPasswordConfirmation() {
