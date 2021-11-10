@@ -7,8 +7,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.ool_mobile.model.EquipmentKind;
+import com.example.ool_mobile.service.api.ApiUtil;
 import com.example.ool_mobile.service.api.EquipmentApi;
-import com.example.ool_mobile.ui.util.image.ImageUtil;
 import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel;
 
 import org.jetbrains.annotations.NotNull;
@@ -20,9 +20,6 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.Subject;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 import static io.reactivex.rxjava3.android.schedulers.AndroidSchedulers.mainThread;
 
@@ -124,20 +121,11 @@ abstract class CommonDetailsViewModel extends SubscriptionViewModel implements D
     @NotNull
     private Completable postImage(int id, Bitmap bitmap) {
 
-        Single<byte[]> image = ImageUtil.decodeBitmap(bitmap);
+        return ApiUtil.multiPartFromBitmap(bitmap)
+                .flatMapCompletable(part -> {
 
-        return image.flatMapCompletable(bytes -> {
-
-            RequestBody body = RequestBody.create(MediaType.parse("image/jpeg"), bytes);
-
-            MultipartBody.Part part = MultipartBody.Part.createFormData(
-                    "file",
-                    "image.jpg",
-                    body
-            );
-
-            return api.postEquipmentImage(id, part);
-        });
+                    return api.postEquipmentImage(id, part);
+                });
     }
 
 }

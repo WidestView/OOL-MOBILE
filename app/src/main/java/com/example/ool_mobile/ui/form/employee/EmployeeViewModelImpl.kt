@@ -8,11 +8,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.example.ool_mobile.service.Dependencies
 import com.example.ool_mobile.service.EmployeeRepository
+import com.example.ool_mobile.service.api.ApiUtil
 import com.example.ool_mobile.service.api.EmployeeApi
 import com.example.ool_mobile.ui.form.employee.EmployeeViewModel.Event
 import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel
 import com.example.ool_mobile.ui.util.view_model.viewModelFactory
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -59,11 +61,26 @@ class EmployeeViewModelImpl(
                 .flatMapSingle { employee ->
                     employeeApi.updateCurrentEmployee(employee)
                 }
+                .flatMapCompletable { uploadImage() }
                 .observeOn(AndroidSchedulers.mainThread())
-                .to(disposedWhenCleared())
+                .to(disposedWhenCleared<Unit>())
                 .subscribe({
                     _events.onNext(Event.Success)
                 }, this::handleError)
+    }
+
+    private fun uploadImage() = Completable.defer {
+
+        val bitmap = imageBitmap.value
+
+        if (bitmap == null) {
+            Completable.complete()
+        } else {
+            ApiUtil.multiPartFromBitmap(bitmap)
+                    .flatMapCompletable { file ->
+                        employeeApi.setCurrentUserImage(file)
+                    }
+        }
     }
 
     private fun handleError(error: Throwable) {
