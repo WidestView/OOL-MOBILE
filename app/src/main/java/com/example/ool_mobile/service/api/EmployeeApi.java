@@ -10,7 +10,9 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.Response;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public interface EmployeeApi {
 
@@ -29,4 +31,8 @@ public interface EmployeeApi {
     @NonNull
     @GET("employee/levels")
     Single<List<AccessLevel>> listAccessLevels();
+
+    @NonNull
+    @POST("employee/info")
+    Single<Employee> updateCurrentEmployee(@NonNull @Body Employee employee);
 }
