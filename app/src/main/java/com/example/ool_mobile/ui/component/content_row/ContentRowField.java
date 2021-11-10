@@ -3,7 +3,6 @@ package com.example.ool_mobile.ui.component.content_row;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,7 +34,9 @@ public class ContentRowField extends LinearLayout {
 
         labelTextView = requireNonNull(findViewById(R.id.contentRowField_labelTextView));
         valueTextView = requireNonNull(findViewById(R.id.contentRowField_valueTextView));
-        rootLayout = Objects.requireNonNull(findViewById(R.id.contentRowField_rootLayout));
+
+        //noinspection RedundantCast
+        rootLayout = Objects.requireNonNull((LinearLayout) findViewById(R.id.contentRowField_rootLayout));
 
         setupArguments(context, attrs);
     }
@@ -54,11 +55,6 @@ public class ContentRowField extends LinearLayout {
         }
     }
 
-    private void setupVisibility(TypedArray array) {
-        int visibility = array.getInt(2, View.VISIBLE);
-
-        rootLayout.setVisibility(visibility);
-    }
 
     @NonNull
     public TextView getLabelTextView() {

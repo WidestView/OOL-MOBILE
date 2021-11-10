@@ -191,4 +191,23 @@
     <string name="value_yes">Sim</string>
     <string name="error_not_negative_price">O preço deve ser positivo</string>
     <string name="label_logout">Logout</string>
+    <string name="label_todo">Todo</string>
+    <string name="label_none">Nenhum</string>
+    <string name="label_password_confirmtation">Confirmação de Senha</string>
+    <string name="label_access_level">Nivel de acesso</string>
+    <string name="label_gender">Gênero</string>
+    <string name="error_missing_employee_name">O nome é obrigatório</string>
+    <string name="error_missing_employee_social_name">O nome social é obrigatório</string>
+    <string name="error_missing_employee_birth_date">A data de nascimento é obrigatória</string>
+    <string name="error_missing_employee_phone">O telefone é obrigatório</string>
+    <string name="error_missing_employee_password">A senha é obrigatória</string>
+    <string name="error_missing_employee_password_confirmation">A confirmação de senha é obrigatória</string>
+    <string name="error_missing_employee_access_level">O nível de acesso é obrigatório</string>
+    <string name="error_missing_employee_gender">O gênero é obrigatório</string>
+    <string name="error_missing_employee_occupation">A ocupação é obrigatória</string>
+    <string name="error_passwords_not_match">A senha deve ser igual à confirmação</string>
+    <string name="error_invalid_employeee_phone">Telefone inválido</string>
+    <string name="invalid_employee_rg">RG inválido</string>
+    <string name="label_rg">RG</string>
+    <string name="label_update_employee">Atualizar funcionário</string>
 </resources>

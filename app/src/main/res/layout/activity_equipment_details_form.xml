@@ -68,7 +68,8 @@
                 app:imageUrl="@{viewModel.imageUrl}"
                 app:enabled="@{!viewModel.isLoading()}"
                 app:onCameraClick="@{() -> activity.onCameraButtonClick()}"
-                app:onGalleryClick="@{() -> activity.onGalleryButtonClick()}" />
+                app:onGalleryClick="@{() -> activity.onGalleryButtonClick()}"
+                app:imageBitmap="@{viewModel.selectedBitmap}" />
 
             <LinearLayout
                 android:id="@+id/linear2"

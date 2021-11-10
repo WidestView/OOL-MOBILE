@@ -50,7 +50,7 @@
 
     <fragment
         android:id="@+id/navigation_employees"
-        android:name="com.example.ool_mobile.ui.list.employee_list.EmployeeListFragment"
+        android:name="com.example.ool_mobile.ui.list.employee.EmployeeListFragment"
         android:label="@string/menu_employees"
         tools:layout="@layout/fragment_list_employee">
         <action

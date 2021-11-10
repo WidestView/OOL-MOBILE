@@ -1,48 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.example.ool_mobile.ui.component.content_row.ContentRow
+    <data>
+
+        <variable
+            name="employee"
+            type="com.example.ool_mobile.model.Employee" />
+
+        <variable
+            name="uiDate"
+            type="com.example.ool_mobile.ui.util.UiDate" />
+
+        <variable
+            name="events"
+            type="com.example.ool_mobile.ui.component.content_row.ContentRowEvents" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:statusText="11111111111"
-        app:titleText="Carlos Pereira">
+        android:layout_height="wrap_content">
 
-        <include layout="@layout/part_user_fields" />
-
-        <com.example.ool_mobile.ui.component.content_row.ContentRowField
-            android:layout_width="wrap_content"
+        <com.example.ool_mobile.ui.component.content_row.ContentRow
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:label="Nivel de Acesso"
-            app:value="1" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:statusText="11111111111"
+            tools:titleText="Carlos Pereira"
 
-        <com.example.ool_mobile.ui.component.content_row.ContentRowField
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="RFID"
-            app:value="idk" />
+            app:statusText="@{employee.cpf()}"
+            app:titleText="@{employee.name()}"
 
-        <com.example.ool_mobile.ui.component.content_row.ContentRowField
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="Ocupação"
-            app:value="#3 - Funcionário" />
+            app:events="@{events}">
 
-        <com.example.ool_mobile.ui.component.content_row.ContentRowField
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="Gênero"
-            app:value="Helicóptero de Ataque" />
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="CPF"
+                app:value="@{employee.cpf()}"
+                tools:value="11111111111" />
 
-        <com.example.ool_mobile.ui.component.content_row.ContentRowField
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="RG"
-            app:value="12356" />
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Nome Social"
+                app:value="@{employee.socialName() ?? @string/label_none}"
+                tools:value="Nenhum" />
 
-    </com.example.ool_mobile.ui.component.content_row.ContentRow>
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Nome Oficial"
+                app:value="@{employee.name()}"
+                tools:value="Carlos Pereira" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Data de Nascimento"
+                app:value="@{uiDate.formatDate(employee.birthDate())}"
+                tools:value="21/03/1999" />
+
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Telefone"
+                app:value="@{employee.phone()}"
+                tools:value="11912341234" />
+
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Email"
+                app:value="@{employee.email()}"
+                tools:value="carlos@carlos.com" />
+
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Nivel de Acesso"
+                app:value="@{String.valueOf(employee.accessLevel())}"
+                tools:value="1" />
+
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Ocupação"
+                app:value="@{employee.requireOccupation().name()}"
+                tools:value="#3 - Funcionário" />
+
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Gênero"
+                app:value="@{employee.gender()}"
+                tools:value="Helicóptero de Ataque" />
+
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="RG"
+                app:value="@{employee.rg()}"
+                tools:value="12356" />
+
+        </com.example.ool_mobile.ui.component.content_row.ContentRow>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

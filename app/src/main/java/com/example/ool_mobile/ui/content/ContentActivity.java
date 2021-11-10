@@ -1,6 +1,7 @@
 package com.example.ool_mobile.ui.content;//package com.example.ool_mobile.ui.content;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -20,6 +21,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.service.Dependencies;
+import com.example.ool_mobile.ui.form.employee.EmployeeFormActivity;
 import com.example.ool_mobile.ui.util.WithDrawer;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
@@ -73,6 +75,10 @@ public class ContentActivity extends AppCompatActivity implements WithDrawer {
         requireNonNull(employeeImageView);
         requireNonNull(employeeRoleTextView);
         requireNonNull(employeeNameTextView);
+
+        employeeNameTextView.setOnClickListener(v -> {
+            startActivity(new Intent(this, EmployeeFormActivity.class));
+        });
 
     }
 

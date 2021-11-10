@@ -1,9 +1,11 @@
 package com.example.ool_mobile.ui.util.binding_adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -106,6 +108,19 @@ public class UtilAdapters {
         Objects.requireNonNull(view);
 
         view.setVisibility(isGone ? View.VISIBLE : View.GONE);
+    }
+
+    @BindingAdapter("imageBitmap")
+    public static void setBitmap(@NonNull ImageView view, @Nullable Bitmap bitmap) {
+
+        Objects.requireNonNull(view);
+
+        view.setImageBitmap(bitmap);
+    }
+
+    @BindingAdapter("error")
+    public static void setEditTextError(@NonNull EditText editText, @Nullable String error) {
+        editText.setError(error);
     }
 }
 

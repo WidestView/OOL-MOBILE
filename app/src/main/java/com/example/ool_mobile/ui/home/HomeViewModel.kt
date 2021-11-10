@@ -11,6 +11,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.Subject
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.stream.Collectors
@@ -264,7 +265,7 @@ class HomeViewModel(
 
 
     private fun handleError(throwable: Throwable) {
-        throwable.printStackTrace()
+        Timber.e(throwable)
         _events.onNext(Event.Error)
     }
 

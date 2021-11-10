@@ -5,11 +5,13 @@ import android.annotation.SuppressLint;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.ool_mobile.model.AccessLevel;
 import com.example.ool_mobile.model.Employee;
 import com.example.ool_mobile.model.Equipment;
 import com.example.ool_mobile.model.EquipmentDetails;
 import com.example.ool_mobile.model.EquipmentKind;
 import com.example.ool_mobile.model.EquipmentWithdraw;
+import com.example.ool_mobile.model.ImmutableAccessLevel;
 import com.example.ool_mobile.model.ImmutableEmployee;
 import com.example.ool_mobile.model.ImmutableEquipment;
 import com.example.ool_mobile.model.ImmutableEquipmentDetails;
@@ -31,6 +33,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+// the methods that just throw UnsupportedOperation
+// are required for moshi to work, but we don't really need them
 
 public class ModelJsonAdapter {
 
@@ -135,32 +140,33 @@ public class ModelJsonAdapter {
                 .build();
     }
 
-    @ToJson
-    @NonNull
-    public EmployeeData employeeToJson(@NonNull Employee employee) {
-        throw new UnsupportedOperationException();
-    }
 
     @Nullable
     @FromJson
-    public Occupation occupationFromJson(@Nullable OccupationData occupationData) {
+    public Occupation occupationFromJson(@Nullable ImmutableOccupationData occupationData) {
 
         if (occupationData == null) {
             return null;
         }
 
         return ImmutableOccupation.builder()
-                .id(occupationData.id)
-                .description(occupationData.description)
-                .name(occupationData.name)
+                .id(occupationData.id())
+                .description(occupationData.description())
+                .name(occupationData.name())
                 .build();
     }
 
 
     @ToJson
     @NonNull
-    public OccupationData occupationToJson(@NonNull Occupation occupation) {
-        throw new UnsupportedOperationException();
+    public ImmutableOccupationData occupationToJson(@NonNull Occupation occupation) {
+
+        return ImmutableOccupationData
+                .builder()
+                .id(occupation.id())
+                .description(occupation.description())
+                .name(occupation.name())
+                .build();
     }
 
     @ToJson
@@ -246,7 +252,8 @@ public class ModelJsonAdapter {
 
     @FromJson
     @NonNull
-    public EquipmentWithdraw withdrawFromJson(ImmutableEquipmentWithdrawFromJson data) {
+    public EquipmentWithdraw withdrawFromJson(@NonNull ImmutableEquipmentWithdrawFromJson data) {
+
 
         return ImmutableEquipmentWithdraw.builder()
                 .id(data.id())
@@ -255,7 +262,7 @@ public class ModelJsonAdapter {
                 .employee(data.employee())
                 .employeeId(data.employee() == null ? null : data.employee().cpf())
                 .equipment(data.equipment())
-                .equipmentId(data.equipment() == null ? null : data.equipment().getId())
+                .equipmentId(data.equipment() == null ? 0 : data.equipment().getId())
                 .photoshoot(data.photoShoot())
                 .photoshootId(data.photoShoot() == null ? null : data.photoShoot().resourceId())
                 .withdrawDate(data.withdrawDate())
@@ -264,7 +271,7 @@ public class ModelJsonAdapter {
 
     @ToJson
     @NonNull
-    public ImmutableEquipmentWithdrawToJson withdrawToJson(EquipmentWithdraw withdraw) {
+    public ImmutableEquipmentWithdrawToJson withdrawToJson(@NonNull EquipmentWithdraw withdraw) {
 
         return ImmutableEquipmentWithdrawToJson.builder()
                 .expectedDevolutionDate(withdraw.getExpectedDevolutionDate())
@@ -274,6 +281,55 @@ public class ModelJsonAdapter {
                 .equipmentId(withdraw.getEquipmentId())
                 .build();
     }
+
+    @FromJson
+    @NonNull
+    public AccessLevel accessLevelFromJson(@NonNull ImmutableAccessLevelFromJson accessLevel) {
+
+        return ImmutableAccessLevel
+                .builder()
+                .id(accessLevel.id())
+                .name(accessLevel.name())
+                .build();
+    }
+
+    @ToJson
+    @NonNull
+    public Object accessLevelToJson(@NonNull AccessLevel accessLevel) {
+        throw new UnsupportedOperationException();
+    }
+
+
+    @ToJson
+    @NonNull
+    public ImmutableEmployeeToJson employeeToJson(@NonNull EmployeeToJson employeeToJson) {
+        return ImmutableEmployeeToJson
+                .builder()
+                .from(employeeToJson)
+                .build();
+    }
+
+
+    @FromJson
+    @NonNull
+    public EmployeeToJson employeeToJsonFromJson(@NonNull ImmutableEmployeeToJson json) {
+        return json;
+    }
+
+    @ToJson
+    @NonNull
+    public ImmutableEmployeeToJson employeeModelToJson(@NonNull Employee employee) {
+        throw new UnsupportedOperationException();
+    }
+
+
+    @Value.Immutable
+    interface AccessLevelFromJson {
+        int id();
+
+        String name();
+    }
+
 
     @Value.Immutable
     interface EquipmentWithdrawToJson {
@@ -407,12 +463,12 @@ public class ModelJsonAdapter {
         public String rg;
     }
 
-    @SuppressLint("UnknownNullness")
-    static class OccupationData {
-        public int id;
+    @Value.Immutable
+    interface OccupationData {
+        int id();
 
-        public String name;
+        String name();
 
-        public String description;
+        String description();
     }
 }
