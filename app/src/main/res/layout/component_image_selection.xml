@@ -47,7 +47,8 @@
             imageBitmap="@{imageBitmap}"
             app:shapeAppearance="@style/CornerofImageView"
             app:url="@{imageUrl}"
-            tools:srcCompat="@drawable/unset_image_background" />
+            tools:srcCompat="@drawable/unset_image_background"
+            android:elevation="10dp" />
 
         <ImageView
             android:id="@+id/imageView3"
