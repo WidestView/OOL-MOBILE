@@ -78,6 +78,9 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:5.0.1'
 
 
+    implementation 'ru.egslava:MaskedEditText:1.0.5'
+
+
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'

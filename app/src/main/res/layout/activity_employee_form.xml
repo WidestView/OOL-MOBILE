@@ -2,6 +2,7 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -87,6 +88,7 @@
                         android:focusable="false"
                         android:focusableInTouchMode="false" />
 
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -130,6 +132,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.input.rg}"
+                        android:inputType="number"
                         error="@{errors.rgError}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -147,12 +150,18 @@
                     android:layout_marginTop="16dp"
                     android:hint="@string/label_phone">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <br.com.sapereaude.maskedEditText.MaskedEditText
+                        android:id="@+id/phone_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        mask:allowed_chars="1234567890"
+                        mask:mask="(##)#####-####"
                         android:text="@={viewModel.input.phone}"
                         error="@{errors.phoneError}" />
 
+                    <!--
+                        -->
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout

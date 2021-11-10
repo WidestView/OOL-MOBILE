@@ -83,7 +83,10 @@ class EmployeeValidation(
                         to Event.MissingPhone,
 
                 { input.rg.get()?.isEmpty() }
-                        to Event.MissingRg
+                        to Event.MissingRg,
+
+                { input.phone.get()?.length != 11 }
+                        to Event.InvalidPhone
 
         ).map {
             failIf({ it.first() ?: true }, it.second)
@@ -94,7 +97,13 @@ class EmployeeValidation(
         input.cpf.set(input.cpf.get()?.trim())
         input.name.set(input.name.get()?.trim())
         input.socialName.set(input.socialName.get()?.trim())
-        input.phone.set(input.phone.get()?.trim())
+
+        input.phone.get()?.let { phone ->
+
+            input.phone.set(
+                    phone.trim().replace(Regex("[().\\-]"), "")
+            )
+        }
         input.email.set(input.email.get()?.trim())
         input.password.set(input.password.get()?.trim())
         input.passwordConfirmation.set(input.passwordConfirmation.get()?.trim())
