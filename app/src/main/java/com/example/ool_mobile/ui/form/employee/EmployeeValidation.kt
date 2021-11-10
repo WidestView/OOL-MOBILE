@@ -37,6 +37,7 @@ class EmployeeValidation(
                                             input.occupationSelection.get()
                                     ].id()
                             )
+                            .rg(input.rg.get()!!)
                             .build()
                 }
     }
@@ -82,7 +83,10 @@ class EmployeeValidation(
                 } to Event.PasswordsDoNotMatch,
 
                 { input.phone.get()?.isEmpty() }
-                        to Event.MissingPhone
+                        to Event.MissingPhone,
+
+                { input.rg.get()?.isEmpty() }
+                        to Event.MissingRg
 
         ).map {
             failIf({ it.first() ?: true }, it.second)

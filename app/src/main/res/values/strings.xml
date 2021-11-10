@@ -207,4 +207,6 @@
     <string name="error_missing_employee_occupation">A ocupação é obrigatória</string>
     <string name="error_passwords_not_match">A senha deve ser igual à confirmação</string>
     <string name="error_invalid_employeee_phone">Telefone inválido</string>
+    <string name="invalid_employee_rg">RG inválido</string>
+    <string name="label_rg">RG</string>
 </resources>

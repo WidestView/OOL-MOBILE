@@ -62,6 +62,10 @@ interface EmployeeViewModel {
 
             @JvmField
             val InvalidPhone = Event { it.visitInvalidPhone() }
+
+            @JvmField
+            val MissingRg = Event { it.visitMissingRg() }
+
         }
 
         interface Visitor {
@@ -79,6 +83,7 @@ interface EmployeeViewModel {
             fun visitMissingOccupation()
             fun visitPasswordsDoNotMatch()
             fun visitInvalidPhone()
+            fun visitMissingRg()
         }
     }
 }

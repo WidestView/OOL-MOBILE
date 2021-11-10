@@ -15,4 +15,5 @@ class EmployeeFormErrors {
     val accessLevelError = ObservableField<String>()
     val genderError = ObservableField<String>()
     val occupationError = ObservableField<String>()
+    val rgError = ObservableField<String>()
 }

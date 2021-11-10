@@ -192,4 +192,12 @@ public class EmployeeFormActivity extends AppCompatActivity
                 .getPhoneError()
                 .set(getString(R.string.error_invalid_employeee_phone));
     }
+
+    @Override
+    public void visitMissingRg() {
+
+        binding.getErrors()
+                .getRgError()
+                .set(getString(R.string.invalid_employee_rg));
+    }
 }

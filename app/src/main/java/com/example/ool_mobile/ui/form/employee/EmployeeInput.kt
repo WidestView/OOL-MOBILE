@@ -37,6 +37,8 @@ class EmployeeInput(
             lists.occupations.indexOfFirst { it.id() == employee.occupationId() }
     )
 
+    val rg = ObservableField(employee.rg())
+
     class Lists(
             val accessLevels: List<AccessLevel>,
             val occupations: List<Occupation>
