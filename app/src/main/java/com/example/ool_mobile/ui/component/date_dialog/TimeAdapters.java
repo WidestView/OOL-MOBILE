@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class TimeAdapters {
 
-    @BindingAdapter("app:dialogTime")
+    @BindingAdapter("dialogTime")
     public static void setDialogTime(@NonNull TimeDialogView view, @NonNull FormTime formTime) {
 
         Objects.requireNonNull(view, "view is null");
@@ -22,14 +22,14 @@ public class TimeAdapters {
         }
     }
 
-    @InverseBindingAdapter(attribute = "app:dialogTime")
+    @InverseBindingAdapter(attribute = "dialogTime")
     @Nullable
     public static FormTime getDialogTime(@NonNull TimeDialogView view) {
         return view.getContent().getSelection();
     }
 
 
-    @BindingAdapter("app:dialogTimeAttrChanged")
+    @BindingAdapter("dialogTimeAttrChanged")
     public static void setDialogTimeEvents(
             @NonNull TimeDialogView view,
             @NonNull InverseBindingListener listener) {
