@@ -144,11 +144,6 @@ public class EmployeeFormActivity extends AppCompatActivity
     }
 
     @Override
-    public void visitMissingSocialName() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void visitMissingBirthDate() {
         binding.getErrors()
                 .getBirthDateError()

@@ -51,9 +51,6 @@ class EmployeeValidation(
                 { input.name.get()?.isEmpty() }
                         to Event.MissingName,
 
-                { input.socialName.get()?.isEmpty() }
-                        to Event.MissingSocialName,
-
                 { input.birthDate.get() == null }
                         to Event.MissingBirthDate,
 

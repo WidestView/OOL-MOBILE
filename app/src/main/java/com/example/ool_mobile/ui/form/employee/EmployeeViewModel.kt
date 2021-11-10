@@ -35,9 +35,6 @@ interface EmployeeViewModel {
             val MissingName = Event { it.visitMissingName() }
 
             @JvmField
-            val MissingSocialName = Event { it.visitMissingSocialName() }
-
-            @JvmField
             val MissingBirthDate = Event { it.visitMissingBirthDate() }
 
             @JvmField
@@ -76,7 +73,6 @@ interface EmployeeViewModel {
             fun visitError()
             fun visitSuccess()
             fun visitMissingName()
-            fun visitMissingSocialName()
             fun visitMissingBirthDate()
             fun visitMissingPhone()
             fun visitMissingEmail()
