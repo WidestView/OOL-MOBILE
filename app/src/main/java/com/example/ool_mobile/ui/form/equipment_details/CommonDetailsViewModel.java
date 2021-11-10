@@ -20,6 +20,7 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.Subject;
+import timber.log.Timber;
 
 import static io.reactivex.rxjava3.android.schedulers.AndroidSchedulers.mainThread;
 
@@ -101,7 +102,7 @@ abstract class CommonDetailsViewModel extends SubscriptionViewModel implements D
     }
 
     protected void handleError(Throwable throwable) {
-        throwable.printStackTrace();
+        Timber.e(throwable);
         events.onNext(Event.Error);
     }
 

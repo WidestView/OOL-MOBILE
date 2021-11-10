@@ -19,6 +19,7 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.Subject;
+import timber.log.Timber;
 
 public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
 
@@ -112,7 +113,7 @@ public class UpdateEquipmentViewModel extends EquipmentFormViewModel {
     }
 
     private void handleError(Throwable error) {
-        error.printStackTrace();
+        Timber.e(error);
         events.onNext(Event.Error);
     }
 

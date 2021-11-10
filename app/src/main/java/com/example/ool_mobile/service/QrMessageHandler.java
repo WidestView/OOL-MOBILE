@@ -8,6 +8,8 @@ import com.squareup.moshi.Moshi;
 import java.io.IOException;
 import java.util.Objects;
 
+import timber.log.Timber;
+
 public class QrMessageHandler {
 
     static class QrJson {
@@ -38,7 +40,7 @@ public class QrMessageHandler {
         try {
             result = adapter.fromJson(qrString);
         } catch (IOException e) {
-            e.printStackTrace();
+            Timber.e(e);
 
             return Result.UnknownQr;
         }

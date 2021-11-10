@@ -18,6 +18,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.Subject;
+import timber.log.Timber;
 
 public class PhotoshootListViewModel extends SubscriptionViewModel {
 
@@ -48,7 +49,7 @@ public class PhotoshootListViewModel extends SubscriptionViewModel {
     }
 
     private void handleError(Throwable throwable) {
-        throwable.printStackTrace();
+        Timber.e(throwable);
         events.onNext(ErrorEvent.Error);
     }
 
