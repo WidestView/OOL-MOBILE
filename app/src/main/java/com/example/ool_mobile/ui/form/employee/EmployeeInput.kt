@@ -30,11 +30,11 @@ class EmployeeInput(
     val gender = ObservableField(employee.gender())
 
     val accessLevelSelection = ObservableInt(
-            lists.accessLevels.first { it.id == employee.accessLevel() }.id
+            lists.accessLevels.indexOfFirst { it.id == employee.accessLevel() }
     )
 
     val occupationSelection = ObservableInt(
-            lists.occupations.first { it.id() == employee.occupationId() }.id()
+            lists.occupations.indexOfFirst { it.id() == employee.occupationId() }
     )
 
     class Lists(

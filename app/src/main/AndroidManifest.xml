@@ -68,6 +68,10 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.form.employee.EmployeeFormActivity"
+            android:theme="@style/Theme.OOLMOBILE.NoActionBar" />
+
 
         <meta-data
             android:name="preloaded_fonts"
