@@ -8,6 +8,8 @@ import com.squareup.moshi.Moshi;
 import java.io.IOException;
 import java.util.Objects;
 
+import timber.log.Timber;
+
 public class QrMessageHandler {
 
     static class QrJson {

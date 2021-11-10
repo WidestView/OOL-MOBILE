@@ -17,6 +17,7 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subjects.Subject;
+import timber.log.Timber;
 
 import static io.reactivex.rxjava3.android.schedulers.AndroidSchedulers.mainThread;
 
