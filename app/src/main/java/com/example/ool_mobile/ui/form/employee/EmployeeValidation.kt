@@ -76,14 +76,16 @@ class EmployeeValidation(
                 { input.occupationSelection.get() == -1 }
                         to Event.MissingOccupation,
 
-                { input.password.get()?.equals(input.passwordConfirmation.get())?.not() }
-                        to Event.PasswordsDoNotMatch,
+                {
+                    input.passwordConfirmation.get() != null &&
+                            input.passwordConfirmation.get()!! != input.password.get()
+                } to Event.PasswordsDoNotMatch,
 
                 { input.phone.get()?.isEmpty() }
                         to Event.MissingPhone
 
         ).map {
-            failIf({ it.first() ?: false }, it.second)
+            failIf({ it.first() ?: true }, it.second)
         }
     }
 
