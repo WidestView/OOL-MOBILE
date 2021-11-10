@@ -12,20 +12,26 @@ import com.example.ool_mobile.databinding.ActivityEmployeeFormBinding;
 import com.example.ool_mobile.model.AccessLevel;
 import com.example.ool_mobile.model.Occupation;
 import com.example.ool_mobile.service.Dependencies;
+import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EmployeeFormActivity extends AppCompatActivity {
+import static com.example.ool_mobile.ui.util.SnackMessage.snack;
 
-    ActivityEmployeeFormBinding binding;
+public class EmployeeFormActivity extends AppCompatActivity
+        implements EmployeeViewModel.Event.Visitor {
+
+    private ActivityEmployeeFormBinding binding;
+
+    private EmployeeViewModel employeeViewModel;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_employee_form);
 
-        EmployeeViewModel employeeViewModel = EmployeeViewModelImpl.create(
+        employeeViewModel = EmployeeViewModelImpl.create(
                 this,
                 Dependencies.from(this)
         );
@@ -34,7 +40,21 @@ public class EmployeeFormActivity extends AppCompatActivity {
 
         binding.setLifecycleOwner(this);
 
+        binding.setErrors(new EmployeeFormErrors());
+
         binding.setViewModel(employeeViewModel);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        employeeViewModel.getEvents()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe(event -> {
+                    event.accept(this);
+                });
     }
 
     public void onGalleryClick() {
@@ -69,5 +89,107 @@ public class EmployeeFormActivity extends AppCompatActivity {
                 .map(occupation -> String.format(getString(R.string.format_id_name),
                         occupation.id(), occupation.name()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void visitError() {
+        snack(this, R.string.error_operation_failed);
+    }
+
+    @Override
+    public void visitSuccess() {
+        finish();
+    }
+
+    @Override
+    public void visitMissingName() {
+        binding.getErrors()
+                .getNameError()
+                .set(getString(R.string.error_missing_employee_name));
+    }
+
+    @Override
+    public void visitMissingSocialName() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void visitMissingBirthDate() {
+        binding.getErrors()
+                .getBirthDateError()
+                .set(getString(R.string.error_missing_employee_birth_date));
+
+        snack(this, R.string.error_missing_employee_birth_date);
+    }
+
+    @Override
+    public void visitMissingPhone() {
+        binding.getErrors()
+                .getPhoneError()
+                .set(getString(R.string.error_missing_employee_phone));
+
+    }
+
+    @Override
+    public void visitMissingEmail() {
+
+        binding.getErrors()
+                .getEmailError()
+                .set(getString(R.string.error_missing_employee));
+    }
+
+    @Override
+    public void visitMissingPassword() {
+
+        binding.getErrors()
+                .getPasswordError()
+                .set(getString(R.string.error_missing_employee_password));
+    }
+
+    @Override
+    public void visitMissingPasswordConfirmation() {
+
+        binding.getErrors()
+                .getPasswordConfirmationError()
+                .set(getString(R.string.error_missing_employee_password_confirmation));
+    }
+
+    @Override
+    public void visitMissingAccessLevel() {
+
+        binding.getErrors()
+                .getAccessLevelError()
+                .set(getString(R.string.error_missing_employee_access_level));
+    }
+
+    @Override
+    public void visitMissingGender() {
+
+        binding.getErrors()
+                .getGenderError()
+                .set(getString(R.string.error_missing_employee_gender));
+    }
+
+    @Override
+    public void visitMissingOccupation() {
+
+        binding.getErrors()
+                .getOccupationError()
+                .set(getString(R.string.error_missing_employee_occupation));
+    }
+
+    @Override
+    public void visitPasswordsDoNotMatch() {
+        binding.getErrors()
+                .getPasswordConfirmationError()
+                .set(getString(R.string.error_passwords_not_match));
+    }
+
+    @Override
+    public void visitInvalidPhone() {
+
+        binding.getErrors()
+                .getPhoneError()
+                .set(getString(R.string.error_invalid_employeee_phone));
     }
 }

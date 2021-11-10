@@ -14,6 +14,10 @@
             name="activity"
             type="com.example.ool_mobile.ui.form.employee.EmployeeFormActivity" />
 
+        <variable
+            name="errors"
+            type="com.example.ool_mobile.ui.form.employee.EmployeeFormErrors" />
+
     </data>
 
     <ScrollView
@@ -76,7 +80,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@={viewModel.input.cpf}" />
+                        android:text="@={viewModel.input.cpf}"
+                        error="@{errors.cpfError}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,7 +95,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@={viewModel.input.name}" />
+                        android:text="@={viewModel.input.name}"
+                        error="@{errors.nameError}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,7 +110,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@={viewModel.input.socialName}" />
+                        android:text="@={viewModel.input.socialName}"
+                        error="@{errors.socialNameError}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,7 +131,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@={viewModel.input.phone}" />
+                        android:text="@={viewModel.input.phone}"
+                        error="@{errors.phoneError}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -138,7 +146,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@={viewModel.input.email}" />
+                        android:text="@={viewModel.input.email}"
+                        error="@{errors.emailError}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -152,7 +161,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@={viewModel.input.password}" />
+                        android:text="@={viewModel.input.password}"
+                        error="@{errors.passwordError}" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -164,7 +174,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@={viewModel.input.passwordConfirmation}" />
+                            android:text="@={viewModel.input.passwordConfirmation}"
+                            error="@{errors.passwordConfirmationError}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -179,7 +190,8 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/label_access_level"
                             items="@{activity.formatAccessLevels(viewModel.input.lists.accessLevels)}"
-                            itemSelection="@={viewModel.input.accessLevelSelection}" />
+                            itemSelection="@={viewModel.input.accessLevelSelection}"
+                            error="@{errors.accessLevelError}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -195,7 +207,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@={viewModel.input.gender}" />
+                        android:text="@={viewModel.input.gender}"
+                        error="@{errors.genderError}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -210,7 +223,8 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/label_occupation"
                         items="@{activity.formatOccupations(viewModel.input.lists.occupations)}"
-                        itemSelection="@={viewModel.input.occupationSelection}" />
+                        itemSelection="@={viewModel.input.occupationSelection}"
+                        error="@{errors.occupationError}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
