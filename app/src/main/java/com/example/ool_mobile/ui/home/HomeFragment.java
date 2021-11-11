@@ -1,6 +1,7 @@
 package com.example.ool_mobile.ui.home;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +24,8 @@ import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.FragmentHomeBinding;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
+import com.example.ool_mobile.ui.login.LoginActivity;
+import com.example.ool_mobile.ui.login.LoginActivityArgs;
 import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
 import com.example.ool_mobile.ui.util.WithDrawer;
 import com.example.ool_mobile.ui.util.adapter.PendingPhotoshootAdapter;
@@ -155,6 +158,15 @@ public class HomeFragment extends Fragment implements HomeViewModel.Event.Visito
 
     @Override
     public void visitLogout() {
+        LoginActivityArgs args = new LoginActivityArgs.Builder()
+                .setIsError(false)
+                .build();
+
+        startActivity(
+                new Intent(requireActivity(), LoginActivity.class)
+                        .putExtras(args.toBundle())
+        );
+
         requireActivity().finish();
     }
 
