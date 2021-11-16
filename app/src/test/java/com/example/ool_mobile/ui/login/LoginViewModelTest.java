@@ -2,6 +2,7 @@ package com.example.ool_mobile.ui.login;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
+import com.example.ool_mobile.RxErrorRule;
 import com.example.ool_mobile.TrampolineSchedulersRule;
 import com.example.ool_mobile.service.EmployeeRepository;
 
@@ -25,7 +26,10 @@ import static org.mockito.ArgumentMatchers.anyString;
 public class LoginViewModelTest {
 
     @Rule
-    public InstantTaskExecutorRule executorRule = new InstantTaskExecutorRule();
+    public RxErrorRule rule = new RxErrorRule();
+
+    @Rule
+    public InstantTaskExecutorRule taskExecutorRule = new InstantTaskExecutorRule();
 
     @ClassRule
     public static TrampolineSchedulersRule schedulersRule = new TrampolineSchedulersRule();
