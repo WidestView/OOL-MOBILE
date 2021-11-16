@@ -17,11 +17,13 @@ public class ProjectApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        dependencies = ImmutableDependencies.builder().context(this).build();
+
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
 
-        dependencies = ImmutableDependencies.builder().context(this).build();
+        Timber.plant(dependencies.getLogDatabaseTree());
     }
 
     @NonNull

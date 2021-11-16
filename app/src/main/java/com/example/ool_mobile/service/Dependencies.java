@@ -13,6 +13,9 @@ import com.example.ool_mobile.service.api.setup.ApiProvider;
 import com.example.ool_mobile.service.api.setup.ApiProviderBuilder;
 import com.example.ool_mobile.service.api.setup.JwtInterceptor;
 import com.example.ool_mobile.service.api.setup.TokenStorage;
+import com.example.ool_mobile.service.log.LogDatabase;
+import com.example.ool_mobile.service.log.LogDatabaseTree;
+import com.example.ool_mobile.service.log.SQLiteLogDatabase;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
@@ -72,6 +75,19 @@ public abstract class Dependencies {
                 getApiProvider().getEmployeeApi(),
                 getTokenStorage()
         );
+    }
+
+
+    @NonNull
+    @Value.Lazy
+    public LogDatabase getLogDatabase() {
+        return new SQLiteLogDatabase(context());
+    }
+
+    @NonNull
+    @Value.Lazy
+    public LogDatabaseTree getLogDatabaseTree() {
+        return new LogDatabaseTree(getLogDatabase());
     }
 
     @NonNull
