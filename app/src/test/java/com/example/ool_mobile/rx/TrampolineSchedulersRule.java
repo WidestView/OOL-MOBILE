@@ -1,4 +1,4 @@
-package com.example.ool_mobile;
+package com.example.ool_mobile.rx;
 
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;

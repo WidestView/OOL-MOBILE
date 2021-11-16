@@ -1,4 +1,4 @@
-package com.example.ool_mobile;
+package com.example.ool_mobile.rx;
 
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
@@ -22,17 +22,10 @@ public class RxErrorRule implements TestRule {
 
                 Consumer<? super Throwable> previous = RxJavaPlugins.getErrorHandler();
 
-                AtomicReference<Throwable> result = new AtomicReference<>();
-
-                RxJavaPlugins.setErrorHandler(result::set);
+                AtomicReference<Throwable> result = setupErrorHandler();
 
                 try {
                     base.evaluate();
-                } catch (Throwable error) {
-
-                    if (previous != null) {
-                        previous.accept(error);
-                    }
                 } finally {
                     RxJavaPlugins.setErrorHandler(previous);
                 }
@@ -42,6 +35,13 @@ public class RxErrorRule implements TestRule {
                 }
             }
         };
+    }
+
+    private AtomicReference<Throwable> setupErrorHandler() {
+        AtomicReference<Throwable> result = new AtomicReference<>();
+
+        RxJavaPlugins.setErrorHandler(result::set);
+        return result;
     }
 
 }

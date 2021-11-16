@@ -1,12 +1,10 @@
 package com.example.ool_mobile.ui.form.employee;
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
-
-import com.example.ool_mobile.TrampolineSchedulersRule;
 import com.example.ool_mobile.model.Employee;
 import com.example.ool_mobile.model.ImmutableAccessLevel;
 import com.example.ool_mobile.model.ImmutableEmployee;
 import com.example.ool_mobile.model.ImmutableOccupation;
+import com.example.ool_mobile.rx.RxTestRule;
 import com.example.ool_mobile.service.api.setup.json.EmployeeToJson;
 import com.example.ool_mobile.ui.form.employee.EmployeeViewModel.Event;
 
@@ -27,10 +25,7 @@ import static com.google.common.truth.Truth.assertThat;
 public class EmployeeValidationTest {
 
     @Rule
-    public TrampolineSchedulersRule schedulersRule = new TrampolineSchedulersRule();
-
-    @Rule
-    public InstantTaskExecutorRule executorRule = new InstantTaskExecutorRule();
+    public RxTestRule rule = new RxTestRule();
 
     private EmployeeValidation validation;
 
