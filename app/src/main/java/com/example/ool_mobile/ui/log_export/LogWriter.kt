@@ -3,6 +3,7 @@ package com.example.ool_mobile.ui.log_export
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
+import android.os.Environment
 import androidx.annotation.CheckResult
 import com.example.ool_mobile.service.EmployeeRepository
 import com.example.ool_mobile.service.log.LogEntry
@@ -17,6 +18,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class LogWriter(
+        @Suppress("unused")
         private val context: Context,
         private val employeeRepository: EmployeeRepository,
         private val adapter: JsonAdapter<LogExport>
@@ -54,17 +56,31 @@ class LogWriter(
     @SuppressLint("SimpleDateFormat")
     private fun writeLogExport(export: LogExport): Completable = Completable.fromAction {
 
-        val file = resolveFile(export)
-
-        ensureNewFile(file)
-
-        val output: OutputStream = FileOutputStream(file)
+        val output = resolveFile(export)
 
         output.write(adapter.toJson(export).toByteArray())
 
+        output.flush()
+
+        output.close()
+
     }.subscribeOn(Schedulers.io())
 
-    private fun ensureNewFile(file: File) {
+    @SuppressLint("SimpleDateFormat")
+    private fun resolveFile(export: LogExport): OutputStream {
+
+        val date = SimpleDateFormat("yyyy-mm-dd").format(export.date())
+
+        val fileName = "ool-log-$date.json"
+
+        // shut up android.
+        @Suppress("DEPRECATION")
+        val directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
+
+        directory.mkdirs()
+
+        val file = File(directory, fileName)
+
         if (file.exists()) {
             if (!file.delete()) {
                 throw IOException("Failed to delete file")
@@ -72,21 +88,10 @@ class LogWriter(
         }
 
         if (!file.createNewFile()) {
-            throw IOException("Failed to create new file")
+            throw IOException("Failed to create file")
         }
-    }
 
-    @SuppressLint("SimpleDateFormat")
-    private fun resolveFile(export: LogExport): File {
-
-        val filesDir = context.getExternalFilesDir(null)
-                ?: throw IOException("The android external directory is not available")
-
-        val date = SimpleDateFormat("yyyy-mm-dd").format(export.date())
-
-        val fileName = "ool-log-$date.json"
-
-        return File(filesDir, fileName)
+        return FileOutputStream(file)
     }
 
 }
