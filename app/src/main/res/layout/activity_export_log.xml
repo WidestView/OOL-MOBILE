@@ -59,28 +59,15 @@
                 android:id="@+id/linear2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView21">
 
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="@{!viewModel.isLoading()}"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:hint="@string/label_directory"
-                        android:text="@{viewModel.chosenDirectoryPath.toString()}"
-                        android:onClick="@{() -> activity.onPathEditTextClick()}" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:text="@string/label_log_explain" />
 
             </LinearLayout>
 
@@ -98,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
-                android:enabled="@{!viewModel.isLoading()}"
+                android:enabled="@{viewModel.isEnabled()}"
                 android:onClick="@{() -> viewModel.export()}"
                 android:text="@string/label_save"
                 android:textColor="@color/primaryLightColor"

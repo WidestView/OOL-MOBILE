@@ -1,6 +1,5 @@
 package com.example.ool_mobile.ui.log_export;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,10 +9,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.ActivityExportLogBinding;
 import com.example.ool_mobile.service.Dependencies;
+import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
 
 import org.jetbrains.annotations.Nullable;
 
-public class ExportLogActivity extends AppCompatActivity {
+import static com.example.ool_mobile.ui.util.SnackMessage.snack;
+
+public class ExportLogActivity extends AppCompatActivity implements
+        LogExportViewModel.Event.Visitor {
 
     private LogExportViewModel viewModel;
 
@@ -38,26 +41,22 @@ public class ExportLogActivity extends AppCompatActivity {
         binding.setViewModel(viewModel);
     }
 
-    int DIRECTORY_REQUEST = 16;
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-    public void onPathEditTextClick() {
-
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-
-        //noinspection deprecation
-        startActivityForResult(intent, DIRECTORY_REQUEST);
+        viewModel.getEvents()
+                .to(DisposedFromLifecycle.of(this))
+                .subscribe(event -> event.accept(this));
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void visitError() {
+        snack(this, R.string.error_operation_failed);
+    }
 
-        if (requestCode == DIRECTORY_REQUEST && resultCode == RESULT_OK) {
-
-            if (data != null && data.getData() != null) {
-                viewModel.getChosenDirectoryPath().setValue(data.getData());
-            }
-
-        }
+    @Override
+    public void visitSuccess() {
+        finish();
     }
 }
