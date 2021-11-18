@@ -95,6 +95,8 @@ public class SQLiteLogDatabase extends SQLiteOpenHelper implements LogDatabase {
                 }
             }
 
+            emitter.onComplete();
+
         }).toList();
     }
 
