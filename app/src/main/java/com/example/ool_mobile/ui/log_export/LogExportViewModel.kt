@@ -11,6 +11,8 @@ import com.example.ool_mobile.ui.util.view_model.viewModelFactory
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
+import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 class LogExportViewModel(
         private val database: LogDatabase,
@@ -36,15 +38,24 @@ class LogExportViewModel(
 
     fun export() {
 
+        _isLoading.value = true
+
         database.listEntries()
+                .delay(3, TimeUnit.SECONDS)
                 .flatMapCompletable { entries ->
                     logWriter.writeLogEntries(entries)
                 }
                 .observeOn(AndroidSchedulers.mainThread())
-                .to(disposedWhenCleared<Unit>())
-                .subscribe {
-                    _events.onNext(Event.Success)
+                .doFinally {
+                    _isLoading.value = false
                 }
+                .to(disposedWhenCleared<Unit>())
+                .subscribe({
+                    _events.onNext(Event.Success)
+                }, { error ->
+                    _events.onNext(Event.Error)
+                    Timber.e(error)
+                })
 
     }
 
