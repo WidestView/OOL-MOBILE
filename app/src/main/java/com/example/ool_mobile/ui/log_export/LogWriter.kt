@@ -1,5 +1,6 @@
 package com.example.ool_mobile.ui.log_export
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.CheckResult
@@ -12,6 +13,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
+import java.text.SimpleDateFormat
 import java.util.*
 
 class LogWriter(
@@ -20,7 +22,7 @@ class LogWriter(
 ) {
 
     @CheckResult
-    fun writeLogEntries(uri: Uri, entries: List<LogEntry>): Completable {
+    fun writeLogEntries(directoryUri: Uri, entries: List<LogEntry>): Completable {
 
         return employeeRepository.currentEmployee
                 .toSingle()
@@ -35,7 +37,7 @@ class LogWriter(
                             .build()
                 }
                 .flatMapCompletable { export ->
-                    writeLogExport(uri, export)
+                    writeLogExport(directoryUri, export)
                 }
 
 
@@ -49,12 +51,19 @@ class LogWriter(
                 .build()
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun writeLogExport(uri: Uri, export: LogExport): Completable = Completable.fromAction {
 
-        val path = uri.toString()
+        val file = resolveFile(uri, export)
 
-        val file = File(path)
+        ensureNewFile(file)
 
+        val output: OutputStream = FileOutputStream(file)
+
+        output.write(adapter.toJson(export).toByteArray())
+    }.subscribeOn(Schedulers.io())
+
+    private fun ensureNewFile(file: File) {
         if (file.exists()) {
             if (!file.delete()) {
                 throw IOException("Failed to delete file")
@@ -64,10 +73,21 @@ class LogWriter(
         if (!file.createNewFile()) {
             throw IOException("Failed to create new file")
         }
+    }
 
-        val output: OutputStream = FileOutputStream(file)
+    @SuppressLint("SimpleDateFormat")
+    private fun resolveFile(uri: Uri, export: LogExport): File {
+        val path = uri.toString()
 
-        output.write(adapter.toJson(export).toByteArray())
-    }.subscribeOn(Schedulers.io())
+        if (!File(path).exists()) {
+            throw IOException("The given directory does not exist.")
+        }
+
+        val date = SimpleDateFormat("yyyy-mm-dd").format(export.date())
+
+        val fileName = "ool-log-$date.json"
+
+        return File(path, fileName)
+    }
 
 }
