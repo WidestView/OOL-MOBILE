@@ -1,7 +1,7 @@
 package com.example.ool_mobile.ui.log_export
 
 import android.annotation.SuppressLint
-import android.net.Uri
+import android.content.Context
 import android.os.Build
 import androidx.annotation.CheckResult
 import com.example.ool_mobile.service.EmployeeRepository
@@ -17,12 +17,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class LogWriter(
+        private val context: Context,
         private val employeeRepository: EmployeeRepository,
         private val adapter: JsonAdapter<LogExport>
 ) {
-
     @CheckResult
-    fun writeLogEntries(directoryUri: Uri, entries: List<LogEntry>): Completable {
+    fun writeLogEntries(entries: List<LogEntry>): Completable {
 
         return employeeRepository.currentEmployee
                 .toSingle()
@@ -37,7 +37,7 @@ class LogWriter(
                             .build()
                 }
                 .flatMapCompletable { export ->
-                    writeLogExport(directoryUri, export)
+                    writeLogExport(export)
                 }
 
 
@@ -52,15 +52,16 @@ class LogWriter(
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun writeLogExport(uri: Uri, export: LogExport): Completable = Completable.fromAction {
+    private fun writeLogExport(export: LogExport): Completable = Completable.fromAction {
 
-        val file = resolveFile(uri, export)
+        val file = resolveFile(export)
 
         ensureNewFile(file)
 
         val output: OutputStream = FileOutputStream(file)
 
         output.write(adapter.toJson(export).toByteArray())
+
     }.subscribeOn(Schedulers.io())
 
     private fun ensureNewFile(file: File) {
@@ -76,18 +77,16 @@ class LogWriter(
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun resolveFile(uri: Uri, export: LogExport): File {
-        val path = uri.toString()
+    private fun resolveFile(export: LogExport): File {
 
-        if (!File(path).exists()) {
-            throw IOException("The given directory does not exist.")
-        }
+        val filesDir = context.getExternalFilesDir(null)
+                ?: throw IOException("The android external directory is not available")
 
         val date = SimpleDateFormat("yyyy-mm-dd").format(export.date())
 
         val fileName = "ool-log-$date.json"
 
-        return File(path, fileName)
+        return File(filesDir, fileName)
     }
 
 }
