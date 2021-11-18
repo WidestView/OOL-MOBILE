@@ -210,4 +210,6 @@
     <string name="invalid_employee_rg">RG inválido</string>
     <string name="label_rg">RG</string>
     <string name="label_update_employee">Atualizar funcionário</string>
+    <string name="label_export_logs">Exportar Logs</string>
+    <string name="label_directory">Pasta</string>
 </resources>

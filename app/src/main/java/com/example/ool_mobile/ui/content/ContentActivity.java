@@ -22,6 +22,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.ool_mobile.R;
 import com.example.ool_mobile.service.Dependencies;
 import com.example.ool_mobile.ui.form.employee.EmployeeFormActivity;
+import com.example.ool_mobile.ui.log_export.ExportLogActivity;
 import com.example.ool_mobile.ui.util.WithDrawer;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
@@ -80,6 +81,10 @@ public class ContentActivity extends AppCompatActivity implements WithDrawer {
             startActivity(new Intent(this, EmployeeFormActivity.class));
         });
 
+        view.findViewById(R.id.navHeader_exportLogsTextView).setOnClickListener(v -> {
+            startActivity(new Intent(this, ExportLogActivity.class));
+        });
+
     }
 
     private void setupViewModel() {
@@ -96,7 +101,7 @@ public class ContentActivity extends AppCompatActivity implements WithDrawer {
             employeeNameTextView.setText(employee.name());
 
             String occupation = employee.occupation() == null ?
-                    "unknown occupation" : employee.occupation().name();
+                    "unknown occupation" : employee.requireOccupation().name();
 
             employeeRoleTextView.setText(occupation);
 
