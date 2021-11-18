@@ -9,6 +9,7 @@ import com.example.ool_mobile.service.api.EquipmentApi;
 import com.example.ool_mobile.service.api.EquipmentWithdrawApi;
 import com.example.ool_mobile.service.api.PhotoshootApi;
 import com.example.ool_mobile.service.api.UserApi;
+import com.example.ool_mobile.service.api.setup.json.DataTypeJsonAdapter;
 import com.example.ool_mobile.service.api.setup.json.ModelJsonAdapter;
 import com.squareup.moshi.Moshi;
 
@@ -53,6 +54,7 @@ public abstract class ApiProvider {
         OkHttpClient httpClient = getOkHttpClient();
 
         Moshi moshi = new Moshi.Builder()
+                .add(new DataTypeJsonAdapter())
                 .add(new ModelJsonAdapter())
                 .build();
 
@@ -91,6 +93,7 @@ public abstract class ApiProvider {
     }
 
     @Value.Lazy
+    @NonNull
     public EquipmentWithdrawApi getWithdrawApi() {
         return getRetrofit().create(EquipmentWithdrawApi.class);
     }
