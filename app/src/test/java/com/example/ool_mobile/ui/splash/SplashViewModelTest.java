@@ -1,13 +1,10 @@
 package com.example.ool_mobile.ui.splash;
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
-
-import com.example.ool_mobile.TrampolineSchedulersRule;
 import com.example.ool_mobile.model.Employee;
+import com.example.ool_mobile.rx.RxTestRule;
 import com.example.ool_mobile.service.EmployeeRepository;
 
 import org.junit.Before;
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,14 +20,11 @@ import static com.google.common.truth.Truth.assertThat;
 @RunWith(MockitoJUnitRunner.class)
 public class SplashViewModelTest {
 
-    @ClassRule
-    public static TrampolineSchedulersRule trampolineRule = new TrampolineSchedulersRule();
+    @Rule
+    public RxTestRule rule = new RxTestRule();
 
     @Mock
     public EmployeeRepository employeeRepository;
-
-    @Rule
-    public InstantTaskExecutorRule taskExecutorRule = new InstantTaskExecutorRule();
 
     private SplashViewModel viewModel;
 

@@ -1,18 +1,15 @@
 package com.example.ool_mobile.ui.home;
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
-
-import com.example.ool_mobile.TrampolineSchedulersRule;
 import com.example.ool_mobile.model.Employee;
 import com.example.ool_mobile.model.ImmutableEmployee;
 import com.example.ool_mobile.model.ImmutablePhotoshoot;
 import com.example.ool_mobile.model.Photoshoot;
+import com.example.ool_mobile.rx.RxTestRule;
 import com.example.ool_mobile.service.EmployeeRepository;
 import com.example.ool_mobile.service.api.PhotoshootApi;
 import com.example.ool_mobile.ui.home.HomeViewModel.Event;
 
 import org.junit.Before;
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,10 +33,7 @@ import static com.google.common.truth.Truth.assertThat;
 public class HomeViewModelTest {
 
     @Rule
-    public InstantTaskExecutorRule taskExecutorRule = new InstantTaskExecutorRule();
-
-    @ClassRule
-    public static TrampolineSchedulersRule trampolineRule = new TrampolineSchedulersRule();
+    public RxTestRule rule = new RxTestRule();
 
     @Mock
     public EmployeeRepository employeeRepository;

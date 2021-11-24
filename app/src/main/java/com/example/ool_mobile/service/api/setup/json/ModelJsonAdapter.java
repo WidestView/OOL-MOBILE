@@ -41,30 +41,6 @@ public class ModelJsonAdapter {
 
     @FromJson
     @NonNull
-    public UUID UUIDFromJson(@NonNull String text) {
-        return UUID.fromString(text);
-    }
-
-    @ToJson
-    @NonNull
-    public String UUIDtoJson(@NonNull UUID uuid) {
-        return uuid.toString();
-    }
-
-    @FromJson
-    @NonNull
-    public Date dateFromJson(@NonNull String text) {
-        return ApiDate.parse(text);
-    }
-
-    @ToJson
-    @NonNull
-    public String dateToJson(@NonNull Date date) {
-        return ApiDate.format(date);
-    }
-
-    @FromJson
-    @NonNull
     public Photoshoot photoshootFromJson(@NonNull PhotoshootData photoshootData) {
 
         return ImmutablePhotoshoot.builder()

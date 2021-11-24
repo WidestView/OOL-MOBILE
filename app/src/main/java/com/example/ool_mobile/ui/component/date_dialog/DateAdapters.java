@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class DateAdapters {
 
-    @InverseBindingAdapter(attribute = "app:dialogDate")
+    @InverseBindingAdapter(attribute = "dialogDate")
     @Nullable
     public static Date getDialogDate(@NonNull DateDialogView view) {
 
@@ -20,7 +20,7 @@ public class DateAdapters {
         return view.getContent().getSelection();
     }
 
-    @BindingAdapter("app:dialogDate")
+    @BindingAdapter("dialogDate")
     public static void setDialogDate(@NonNull DateDialogView view, @Nullable Date date) {
 
         Objects.requireNonNull(view, "view is null");
@@ -30,7 +30,7 @@ public class DateAdapters {
         }
     }
 
-    @BindingAdapter("app:dialogDateAttrChanged")
+    @BindingAdapter("dialogDateAttrChanged")
     public static void setDateListeners(
             @NonNull DateDialogView view,
             @NonNull InverseBindingListener changeListener

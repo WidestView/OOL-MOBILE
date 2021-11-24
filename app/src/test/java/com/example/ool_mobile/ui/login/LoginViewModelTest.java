@@ -1,10 +1,10 @@
 package com.example.ool_mobile.ui.login;
 
-import com.example.ool_mobile.TrampolineSchedulersRule;
+import com.example.ool_mobile.rx.RxTestRule;
 import com.example.ool_mobile.service.EmployeeRepository;
 
 import org.junit.Before;
-import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -21,8 +21,8 @@ import static org.mockito.ArgumentMatchers.anyString;
 @RunWith(MockitoJUnitRunner.class)
 public class LoginViewModelTest {
 
-    @ClassRule
-    public static TrampolineSchedulersRule schedulersRule = new TrampolineSchedulersRule();
+    @Rule
+    public RxTestRule rxTestRule = new RxTestRule();
 
     @Mock
     public EmployeeRepository employeeRepository;

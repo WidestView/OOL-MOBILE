@@ -13,10 +13,20 @@ import com.example.ool_mobile.service.api.setup.ApiProvider;
 import com.example.ool_mobile.service.api.setup.ApiProviderBuilder;
 import com.example.ool_mobile.service.api.setup.JwtInterceptor;
 import com.example.ool_mobile.service.api.setup.TokenStorage;
+import com.example.ool_mobile.service.api.setup.json.DataTypeJsonAdapter;
+import com.example.ool_mobile.service.log.LogDatabase;
+import com.example.ool_mobile.service.log.LogDatabaseTree;
+import com.example.ool_mobile.service.log.LogJsonAdapter;
+import com.example.ool_mobile.service.log.SQLiteLogDatabase;
+import com.example.ool_mobile.ui.log_export.ImmutableLogExport;
+import com.example.ool_mobile.ui.log_export.LogExport;
+import com.example.ool_mobile.ui.log_export.LogWriter;
+import com.squareup.moshi.Moshi;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
 import org.immutables.value.Value;
+import org.jetbrains.annotations.NotNull;
 
 // todo: use dagger.
 
@@ -34,7 +44,7 @@ public abstract class Dependencies {
     }
 
     @NonNull
-    abstract Context context();
+    abstract Context getContext();
 
     @Value.Check
     protected void onCreate() {
@@ -42,7 +52,7 @@ public abstract class Dependencies {
     }
 
     private void setupPicasso() {
-        Picasso picasso = new Picasso.Builder(context())
+        Picasso picasso = new Picasso.Builder(getContext())
                 .downloader(new OkHttp3Downloader(getApiProvider().getOkHttpClient()))
                 .build();
 
@@ -55,14 +65,14 @@ public abstract class Dependencies {
         return new ApiProviderBuilder()
                 .interceptor(new JwtInterceptor(getTokenStorage()))
                 .tokenStorage(getTokenStorage())
-                .context(context())
+                .context(getContext())
                 .build();
     }
 
     @NonNull
     @Value.Lazy
     protected TokenStorage getTokenStorage() {
-        return new TokenStorage(context());
+        return new TokenStorage(getContext());
     }
 
     @NonNull
@@ -72,6 +82,34 @@ public abstract class Dependencies {
                 getApiProvider().getEmployeeApi(),
                 getTokenStorage()
         );
+    }
+
+
+    @NonNull
+    @Value.Lazy
+    public LogDatabase getLogDatabase() {
+        return new SQLiteLogDatabase(getContext());
+    }
+
+    @NotNull
+    public LogWriter getLogWriter() {
+
+        return new LogWriter(
+                getContext(),
+                getEmployeeRepository(),
+                new Moshi.Builder()
+                        .add(new DataTypeJsonAdapter())
+                        .add(new LogJsonAdapter())
+                        .build()
+                        .<LogExport>adapter(ImmutableLogExport.class)
+        );
+    }
+
+
+    @NonNull
+    @Value.Lazy
+    public LogDatabaseTree getLogDatabaseTree() {
+        return new LogDatabaseTree(getLogDatabase());
     }
 
     @NonNull

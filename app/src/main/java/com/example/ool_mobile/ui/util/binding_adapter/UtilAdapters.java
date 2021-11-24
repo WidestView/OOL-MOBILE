@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class UtilAdapters {
 
-    @BindingAdapter("app:fixedLinear")
+    @BindingAdapter("fixedLinear")
     public static void setRecyclerViewFixedLinear(@NonNull RecyclerView view, boolean isFixedLinear) {
 
         if (isFixedLinear) {
@@ -31,7 +31,7 @@ public class UtilAdapters {
         }
     }
 
-    @BindingAdapter("app:hasFixedSize")
+    @BindingAdapter("hasFixedSize")
     public static void setRecyclerViewFixedSize(@NonNull RecyclerView view, boolean hasFixedSize) {
 
         Objects.requireNonNull(view, "view is null");
@@ -39,7 +39,7 @@ public class UtilAdapters {
         view.setHasFixedSize(hasFixedSize);
     }
 
-    @BindingAdapter("app:isLinear")
+    @BindingAdapter("isLinear")
     public static void setRecyclerViewLinear(@NonNull RecyclerView view, boolean isLinear) {
 
         Objects.requireNonNull(view, "view is null");
@@ -65,9 +65,9 @@ public class UtilAdapters {
 
     @BindingAdapter(
             value = {
-                    "app:url",
-                    "app:fallback",
-                    "app:cacheResult"
+                    "url",
+                    "fallback",
+                    "cacheResult"
             },
             requireAll = false
     )

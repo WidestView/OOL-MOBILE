@@ -8,6 +8,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.PublishSubject
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class SplashViewModel(
@@ -33,7 +34,8 @@ class SplashViewModel(
                     }
                 }, { error ->
                     _events.onNext(Event.Error)
-                    error.printStackTrace()
+
+                    Timber.e(error)
                 })
     }
 

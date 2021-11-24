@@ -2,6 +2,7 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -70,7 +71,15 @@
                     app:imageUrl="@{viewModel.imageUrl}"
                     app:onCameraClick="@{v -> activity.onCameraClick()}"
                     app:onGalleryClick="@{v -> activity.onGalleryClick()}"
-                    app:imageBitmap="@{viewModel.imageBitmap}" />
+                    app:imageBitmap="@{viewModel.imageBitmap}"
+                    app:enabled="@{viewModel.isEnabled()}" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:indeterminate="true"
+                    visible="@{viewModel.isLoading()}" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -85,7 +94,9 @@
                         android:text="@={viewModel.input.cpf}"
                         error="@{errors.cpfError}"
                         android:focusable="false"
-                        android:focusableInTouchMode="false" />
+                        android:focusableInTouchMode="false"
+                        android:enabled="@{viewModel.isEnabled()}" />
+
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,7 +111,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.input.name}"
-                        error="@{errors.nameError}" />
+                        error="@{errors.nameError}"
+                        android:enabled="@{viewModel.isEnabled()}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,7 +127,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.input.socialName}"
-                        error="@{errors.socialNameError}" />
+                        error="@{errors.socialNameError}"
+                        android:enabled="@{viewModel.isEnabled()}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,7 +143,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.input.rg}"
-                        error="@{errors.rgError}" />
+                        android:inputType="number"
+                        error="@{errors.rgError}"
+                        android:enabled="@{viewModel.isEnabled()}" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.example.ool_mobile.ui.component.date_dialog.DateDialogView
@@ -147,12 +163,19 @@
                     android:layout_marginTop="16dp"
                     android:hint="@string/label_phone">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <br.com.sapereaude.maskedEditText.MaskedEditText
+                        android:id="@+id/phone_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        mask:allowed_chars="1234567890"
+                        mask:mask="(##)#####-####"
                         android:text="@={viewModel.input.phone}"
-                        error="@{errors.phoneError}" />
+                        error="@{errors.phoneError}"
+                        android:enabled="@{viewModel.isEnabled()}" />
 
+                    <!--
+                        -->
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -166,7 +189,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.input.email}"
-                        error="@{errors.emailError}" />
+                        error="@{errors.emailError}"
+                        android:enabled="@{viewModel.isEnabled()}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -181,7 +205,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.input.password}"
-                        error="@{errors.passwordError}" />
+                        error="@{errors.passwordError}"
+                        android:inputType="textPassword"
+                        android:enabled="@{viewModel.isEnabled()}" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -194,7 +220,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@={viewModel.input.passwordConfirmation}"
-                            error="@{errors.passwordConfirmationError}" />
+                            error="@{errors.passwordConfirmationError}"
+                            android:inputType="textPassword"
+                            android:enabled="@{viewModel.isEnabled()}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -231,7 +259,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.input.gender}"
-                        error="@{errors.genderError}" />
+                        error="@{errors.genderError}"
+                        android:enabled="@{viewModel.isEnabled()}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -248,12 +277,19 @@
                         items="@{activity.formatOccupations(viewModel.input.lists.occupations)}"
                         itemSelection="@={viewModel.input.occupationSelection}"
                         error="@{errors.occupationError}"
-                        android:inputType="none" />
+                        android:inputType="none"
+                        android:enabled="@{viewModel.isEnabled()}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-            </LinearLayout>
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:indeterminate="true"
+                    visible="@{viewModel.isLoading()}" />
 
+            </LinearLayout>
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"

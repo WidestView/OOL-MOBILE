@@ -2,10 +2,7 @@ package com.example.ool_mobile.ui.form.employee
 
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.*
 import com.example.ool_mobile.service.Dependencies
 import com.example.ool_mobile.service.EmployeeRepository
 import com.example.ool_mobile.service.api.ApiUtil
@@ -19,6 +16,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.PublishSubject
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 class EmployeeViewModelImpl(
         employeeRepository: EmployeeRepository,
@@ -27,10 +25,17 @@ class EmployeeViewModelImpl(
 
     override val input: LiveData<EmployeeInput> by lazy {
         MutableLiveData<EmployeeInput>().also { input ->
+
+            _isLoading.value = true
+
             employeeRepository.currentEmployee
                     .toSingle()
+                    .delay(2, TimeUnit.SECONDS)
                     .zipWith(listsSingle, ::EmployeeInput)
                     .observeOn(AndroidSchedulers.mainThread())
+                    .doFinally {
+                        _isLoading.value = false
+                    }
                     .to(disposedWhenCleared())
                     .subscribe({ result ->
                         input.value = result
@@ -48,7 +53,17 @@ class EmployeeViewModelImpl(
 
     override val events: Observable<Event> = _events
 
+
     override val imageBitmap: MutableLiveData<Bitmap> = MutableLiveData()
+
+
+    private val _isLoading = MutableLiveData(false)
+
+    override val isLoading: LiveData<Boolean> = _isLoading
+
+    override val isEnabled: LiveData<Boolean> = Transformations.map(isLoading) {
+        !(it ?: false)
+    }
 
 
     private val validation = EmployeeValidation(_events)
@@ -58,13 +73,21 @@ class EmployeeViewModelImpl(
 
         val input = input.value ?: return
 
+        _isLoading.value = true
+
         validation.validate(input)
+                .delay(2, TimeUnit.SECONDS)
                 .flatMapSingle { employee ->
                     employeeApi.updateCurrentEmployee(employee)
                 }
-                .flatMapCompletable { uploadImage() }
+                .flatMapSingle {
+                    uploadImage().toSingleDefault(true)
+                }
                 .observeOn(AndroidSchedulers.mainThread())
-                .to(disposedWhenCleared<Unit>())
+                .doFinally {
+                    _isLoading.value = false
+                }
+                .to(disposedWhenCleared())
                 .subscribe({
                     _events.onNext(Event.Success)
                 }, this::handleError)

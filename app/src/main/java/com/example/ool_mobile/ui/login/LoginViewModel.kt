@@ -8,6 +8,7 @@ import com.example.ool_mobile.ui.util.view_model.SubscriptionViewModel
 import com.example.ool_mobile.ui.util.view_model.viewModelFactory
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
+import timber.log.Timber
 
 class LoginViewModel(private val repository: EmployeeRepository) : SubscriptionViewModel() {
 
@@ -43,7 +44,7 @@ class LoginViewModel(private val repository: EmployeeRepository) : SubscriptionV
                         _events.onNext(Event.ReportFailedLogin)
                     }
                 }) { error ->
-                    error.printStackTrace()
+                    Timber.e(error)
                     _events.onNext(Event.ReportApiUnavailable)
                     _isEnabled.value = false
                 }

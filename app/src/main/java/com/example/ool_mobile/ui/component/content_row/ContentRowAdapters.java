@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class ContentRowAdapters {
 
-    @BindingAdapter("app:titleText")
+    @BindingAdapter("titleText")
     public static void contentRowTitleText(@NonNull ContentRow contentRow, @NonNull String text) {
 
         Objects.requireNonNull(contentRow, "contentRow is null");
@@ -19,7 +19,7 @@ public class ContentRowAdapters {
         contentRow.getTitleTextView().setText(text);
     }
 
-    @BindingAdapter("app:statusText")
+    @BindingAdapter("statusText")
     public static void contentRowStatusText(@NonNull ContentRow contentRow, @NonNull String text) {
 
         Objects.requireNonNull(contentRow, "contentRow is null");
@@ -28,7 +28,7 @@ public class ContentRowAdapters {
         contentRow.getStatusTextView().setText(text);
     }
 
-    @BindingAdapter("app:value")
+    @BindingAdapter("value")
     public static void contentRowFieldValue(
             @NonNull ContentRowField view,
             @Nullable String text
@@ -39,7 +39,7 @@ public class ContentRowAdapters {
         view.getValueTextView().setText(text);
     }
 
-    @BindingAdapter("app:events")
+    @BindingAdapter("events")
     public static void bindEvents(
             @NonNull ContentRow contentRow,
             @NonNull ContentRowEvents events
@@ -51,7 +51,7 @@ public class ContentRowAdapters {
         bindOnDelete(contentRow, events.getOnDelete());
     }
 
-    @BindingAdapter("app:on_edit")
+    @BindingAdapter("on_edit")
     public static void bindOnEdit(
             @NonNull ContentRow contentRow,
             @Nullable View.OnClickListener listener
@@ -67,7 +67,7 @@ public class ContentRowAdapters {
 
     }
 
-    @BindingAdapter("app:on_delete")
+    @BindingAdapter("on_delete")
     public static void bindOnDelete(
             @NonNull ContentRow contentRow,
             @Nullable View.OnClickListener listener
