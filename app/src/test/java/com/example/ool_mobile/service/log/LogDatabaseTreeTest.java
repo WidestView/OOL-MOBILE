@@ -32,11 +32,13 @@ public class LogDatabaseTreeTest {
     }
 
     @Test
-    public void addsEntriesWhenLogs() {
+    public void addsEntriesWhenLogs() throws Exception {
 
         Date startDate = new Date();
 
         String debugMessage = "A debug message";
+
+        Thread.sleep(10);
 
         tree.d(debugMessage);
 
