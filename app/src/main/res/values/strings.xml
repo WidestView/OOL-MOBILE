@@ -218,4 +218,6 @@
         para melhorar o funcionamento desta, e podem ser exportados em um arquivo
         .json.
     </string>
+    <string name="error_missing_qr_intent">Missing QR data</string>
+    <string name="error_invalid_qr">Invalid QR Scanned</string>
 </resources>
