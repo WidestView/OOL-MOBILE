@@ -3,6 +3,7 @@ package com.example.ool_mobile.service;
 import androidx.annotation.NonNull;
 
 import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.JsonDataException;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
@@ -45,7 +46,7 @@ public class QrMessageHandler {
 
         try {
             result = adapter.fromJson(qrString);
-        } catch (IOException e) {
+        } catch (IOException | JsonDataException e) {
             Timber.e(e);
 
             return Result.UnknownQr;
