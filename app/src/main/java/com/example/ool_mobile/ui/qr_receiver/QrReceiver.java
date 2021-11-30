@@ -1,7 +1,5 @@
 package com.example.ool_mobile.ui.qr_receiver;
 
-import static com.example.ool_mobile.ui.util.SnackMessage.snack;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,8 +10,12 @@ import com.example.ool_mobile.R;
 import com.example.ool_mobile.service.QrMessageHandler;
 import com.example.ool_mobile.ui.form.equipment.EquipmentFormActivity;
 import com.example.ool_mobile.ui.form.equipment.EquipmentFormActivityArgs;
+import com.example.ool_mobile.ui.util.form.FormMode;
+import com.example.ool_mobile.ui.util.form.FormModeValue;
 
 import timber.log.Timber;
+
+import static com.example.ool_mobile.ui.util.SnackMessage.snack;
 
 public class QrReceiver extends AppCompatActivity implements QrMessageHandler.Result.Visitor{
 
@@ -69,11 +71,13 @@ public class QrReceiver extends AppCompatActivity implements QrMessageHandler.Re
     @Override
     public void visitSuccess(int equipmentId) {
 
-        EquipmentFormActivityArgs args = new EquipmentFormActivityArgs.Builder(equipmentId)
+        EquipmentFormActivityArgs args = new EquipmentFormActivityArgs.Builder(
+                FormModeValue.of(FormMode.Update)
+        ).setResourceId(equipmentId)
                 .build();
 
         Intent intent = new Intent(this, EquipmentFormActivity.class)
-            .putExtras(args.toBundle());
+                .putExtras(args.toBundle());
 
         startActivity(intent);
     }
