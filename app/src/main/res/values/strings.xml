@@ -221,4 +221,6 @@
     <string name="message_write_permission_required">We need this permission to perform this operation</string>
     <string name="error_missing_qr_intent">Missing QR data</string>
     <string name="error_invalid_qr">Invalid QR Scanned</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
