@@ -63,6 +63,10 @@ public class EquipmentWithdrawFormActivity extends AppCompatActivity implements 
         );
 
         binding.setViewModel(viewModel);
+
+        if (args.getStartWithQr()) {
+            startQr();
+        }
     }
 
     @Override
@@ -95,6 +99,7 @@ public class EquipmentWithdrawFormActivity extends AppCompatActivity implements 
         launcher.launch(options);
     }
 
+    @Nullable
     public List<String> formatEquipments(@Nullable List<Equipment> equipments) {
 
         if (equipments == null) {
@@ -112,6 +117,7 @@ public class EquipmentWithdrawFormActivity extends AppCompatActivity implements 
                 ).collect(Collectors.toList());
     }
 
+    @Nullable
     public List<String> formatPhotoshoots(@Nullable List<Photoshoot> photoshoots) {
 
         if (photoshoots == null) {
@@ -128,6 +134,7 @@ public class EquipmentWithdrawFormActivity extends AppCompatActivity implements 
                 ).collect(Collectors.toList());
     }
 
+    @Nullable
     public List<String> formatEmployees(@Nullable List<Employee> employees) {
 
         if (employees == null) {

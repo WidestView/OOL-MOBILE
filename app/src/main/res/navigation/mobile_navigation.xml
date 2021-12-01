@@ -200,6 +200,9 @@
         <argument
             android:name="resource-id"
             android:defaultValue="-1" />
+        <argument
+            android:name="startWithQr"
+            android:defaultValue="false" />
     </activity>
 
 
