@@ -35,7 +35,7 @@
     <style name="Theme.OOLMOBILE.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ThemeOverlay.OOLMOBILE.AppWidgetContainer" parent="">
-        <item name="appWidgetBackgroundColor">@color/light_blue_600</item>
-        <item name="appWidgetTextColor">@color/light_blue_50</item>
+        <item name="appWidgetBackgroundColor">@color/primaryColor</item>
+        <item name="appWidgetTintColor">@color/white</item>
     </style>
 </resources>
