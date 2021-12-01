@@ -86,7 +86,7 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
                 android:enabled="@{viewModel.isEnabled()}"
-                android:onClick="@{() -> viewModel.export()}"
+                android:onClick="@{() -> activity.onExportClick()}"
                 android:text="@string/label_save"
                 android:textColor="@color/primaryLightColor"
                 android:textSize="18sp"

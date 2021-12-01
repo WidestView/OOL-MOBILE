@@ -1,62 +1,82 @@
-package com.example.ool_mobile.ui.log_export;
+package com.example.ool_mobile.ui.log_export
 
-import android.os.Bundle;
+import android.Manifest
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import com.example.ool_mobile.R
+import com.example.ool_mobile.databinding.ActivityExportLogBinding
+import com.example.ool_mobile.service.Dependencies
+import com.example.ool_mobile.ui.log_export.LogExportViewModel.Companion.create
+import com.example.ool_mobile.ui.util.DisposedFromLifecycle
+import com.example.ool_mobile.ui.util.SnackMessage.snack
+import permissions.dispatcher.*
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
+@RuntimePermissions
+class ExportLogActivity : AppCompatActivity(), LogExportViewModel.Event.Visitor {
 
-import com.example.ool_mobile.R;
-import com.example.ool_mobile.databinding.ActivityExportLogBinding;
-import com.example.ool_mobile.service.Dependencies;
-import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
+    private lateinit var viewModel: LogExportViewModel
 
-import org.jetbrains.annotations.Nullable;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-import static com.example.ool_mobile.ui.util.SnackMessage.snack;
-
-public class ExportLogActivity extends AppCompatActivity implements
-        LogExportViewModel.Event.Visitor {
-
-    private LogExportViewModel viewModel;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-        ActivityExportLogBinding binding =
-                DataBindingUtil.setContentView(this, R.layout.activity_export_log);
-
-
-        binding.setActivity(this);
-
-        binding.setLifecycleOwner(this);
-
-        viewModel = new ViewModelProvider(
+        viewModel = ViewModelProvider(
                 this,
-                LogExportViewModel.create(Dependencies.from(this))
-        ).get(LogExportViewModel.class);
+                create(Dependencies.from(this))
+        ).get(LogExportViewModel::class.java)
 
-        binding.setViewModel(viewModel);
+        val binding: ActivityExportLogBinding =
+                DataBindingUtil.setContentView(this, R.layout.activity_export_log)
+        binding.activity = this
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        viewModel.getEvents()
+        // PermissionDispatcher delegate
+        onRequestPermissionsResult(requestCode, grantResults)
+    }
+
+    fun onExportClick() {
+        exportWithPermissionCheck()
+    }
+
+    @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun export() {
+        viewModel.export()
+    }
+
+    @OnShowRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun showRationale() {
+        snack(this, R.string.message_write_permission_required)
+    }
+
+    @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onPermissionDenied() {
+        snack(this, R.string.message_write_permission_required)
+    }
+
+    @OnNeverAskAgain(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onNeverAskAgain() {
+        snack(this, R.string.message_write_permission_required)
+        finish()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.events
                 .to(DisposedFromLifecycle.of(this))
-                .subscribe(event -> event.accept(this));
+                .subscribe { event: LogExportViewModel.Event -> event.accept(this) }
     }
 
-    @Override
-    public void visitError() {
-        snack(this, R.string.error_operation_failed);
+    override fun visitError() {
+        snack(this, R.string.error_operation_failed)
     }
 
-    @Override
-    public void visitSuccess() {
-        finish();
+    override fun visitSuccess() {
+        finish()
     }
 }
