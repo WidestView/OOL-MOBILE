@@ -9,7 +9,10 @@ import android.widget.RemoteViews;
 
 import androidx.annotation.Nullable;
 
-import com.example.ool_mobile.ui.qr_spawn.QrSpawnActivity;
+import com.example.ool_mobile.ui.form.equipment_withdraw.EquipmentWithdrawFormActivity;
+import com.example.ool_mobile.ui.form.equipment_withdraw.EquipmentWithdrawFormActivityArgs;
+import com.example.ool_mobile.ui.util.form.FormMode;
+import com.example.ool_mobile.ui.util.form.FormModeValue;
 
 import java.util.Objects;
 
@@ -21,7 +24,14 @@ public class QrSpawnWidget extends AppWidgetProvider {
     private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                         int appWidgetId) {
 
-        Intent intent = new Intent(context, QrSpawnActivity.class);
+        Intent intent = new Intent(context, EquipmentWithdrawFormActivity.class);
+
+        EquipmentWithdrawFormActivityArgs args =
+                new EquipmentWithdrawFormActivityArgs.Builder(FormModeValue.of(FormMode.Add))
+                        .setStartWithQr(true)
+                        .build();
+
+        intent.putExtras(args.toBundle());
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 0,
