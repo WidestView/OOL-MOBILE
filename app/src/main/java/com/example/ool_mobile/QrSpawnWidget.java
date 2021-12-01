@@ -1,30 +1,51 @@
 package com.example.ool_mobile;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
+import android.widget.RemoteViews;
+
+import androidx.annotation.Nullable;
+
+import com.example.ool_mobile.ui.qr_spawn.QrSpawnActivity;
+
+import java.util.Objects;
 
 /**
  * Implementation of App Widget functionality.
  */
 public class QrSpawnWidget extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                        int appWidgetId) {
 
-        /*
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
-        // Construct the RemoteViews object
+        Intent intent = new Intent(context, QrSpawnActivity.class);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.qr_spawn_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
 
-        // Instruct the widget manager to update the widget
+        views.setOnClickPendingIntent(R.id.qrSpawnWidget_imageView, pendingIntent);
+
         appWidgetManager.updateAppWidget(appWidgetId, views);
-         */
     }
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    public void onUpdate(
+            @Nullable Context context,
+            @Nullable AppWidgetManager appWidgetManager,
+            @Nullable int[] appWidgetIds) {
+
+        Objects.requireNonNull(context);
+        Objects.requireNonNull(appWidgetManager);
+        Objects.requireNonNull(appWidgetIds);
+
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
@@ -32,12 +53,12 @@ public class QrSpawnWidget extends AppWidgetProvider {
     }
 
     @Override
-    public void onEnabled(Context context) {
+    public void onEnabled(@Nullable Context context) {
         // Enter relevant functionality for when the first widget is created
     }
 
     @Override
-    public void onDisabled(Context context) {
+    public void onDisabled(@Nullable Context context) {
         // Enter relevant functionality for when the last widget is disabled
     }
 }

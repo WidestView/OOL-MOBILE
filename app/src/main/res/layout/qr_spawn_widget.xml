@@ -5,17 +5,14 @@
     android:padding="@dimen/widget_margin"
     android:theme="@style/ThemeOverlay.OOLMOBILE.AppWidgetContainer">
 
-    <TextView
-        android:id="@+id/appwidget_text"
+    <ImageView
+        android:contentDescription="@string/description_widget_qr"
+        android:id="@+id/qrSpawnWidget_imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_qr_big"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:background="?attr/appWidgetBackgroundColor"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
-        android:textColor="?attr/appWidgetTextColor"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+        android:layout_margin="8dp" />
+
 </RelativeLayout>

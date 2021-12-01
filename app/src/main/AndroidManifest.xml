@@ -25,6 +25,8 @@
         android:theme="@style/Theme.OOLMOBILE"
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup">
+        <activity android:name=".ui.qr_spawn.QrSpawnActivity" />
+
         <receiver android:name=".QrSpawnWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
