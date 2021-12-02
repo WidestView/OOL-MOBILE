@@ -32,6 +32,8 @@ import com.example.ool_mobile.ui.util.adapter.PendingPhotoshootAdapter;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -104,10 +106,7 @@ public class HomeFragment extends Fragment implements HomeViewModel.Event.Visito
     private void setupOptions() {
         RecyclerView elementRecyclerView = binding.homeFragmentRecyclerView;
 
-        List<OptionItem> items = Arrays.asList(
-                getItem(R.string.label_equipments, R.drawable.ic_camera_roll),
-                getItem(R.string.label_packages, R.drawable.ic_package)
-        );
+        List<OptionItem> items = getOptionItems();
 
         elementRecyclerView.setAdapter(new OptionAdapter(items));
 
@@ -120,7 +119,24 @@ public class HomeFragment extends Fragment implements HomeViewModel.Event.Visito
         );
     }
 
-    private OptionItem getItem(@StringRes int string, @DrawableRes int drawable) {
+    @NotNull
+    private List<OptionItem> getOptionItems() {
+        return Arrays.asList(
+                makeItem(R.string.label_equipments, R.drawable.ic_camera_roll),
+                makeItem(R.string.label_packages, R.drawable.ic_package),
+                makeItem(R.string.label_employee, R.drawable.ic_camera),
+                makeItem(R.string.label_packages, R.drawable.ic_package),
+                makeItem(R.string.label_calendar, R.drawable.ic_calendar),
+
+                // todo: employee icon here
+                makeItem(R.string.label_employee, R.drawable.ic_ool_icon),
+
+                // todo: order icon here
+                makeItem(R.string.label_order, R.drawable.ic_ool_icon)
+        );
+    }
+
+    private OptionItem makeItem(@StringRes int string, @DrawableRes int drawable) {
         return new OptionItem(getString(string), getDrawable(drawable));
     }
 
