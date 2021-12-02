@@ -10,7 +10,7 @@ import com.example.ool_mobile.databinding.ActivityExportLogBinding
 import com.example.ool_mobile.service.Dependencies
 import com.example.ool_mobile.ui.log_export.LogExportViewModel.Companion.create
 import com.example.ool_mobile.ui.util.DisposedFromLifecycle
-import com.example.ool_mobile.ui.util.SnackMessage.snack
+import com.example.ool_mobile.ui.util.snack
 import permissions.dispatcher.*
 
 @RuntimePermissions
