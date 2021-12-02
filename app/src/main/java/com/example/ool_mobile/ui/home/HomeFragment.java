@@ -137,7 +137,11 @@ public class HomeFragment extends Fragment implements HomeViewModel.Event.Visito
     }
 
     private OptionItem makeItem(@StringRes int string, @DrawableRes int drawable) {
-        return new OptionItem(getString(string), getDrawable(drawable));
+
+        return new OptionItemBuilder()
+                .itemName(getString(string))
+                .imageIcon(getDrawable(drawable))
+                .build();
     }
 
     private Drawable getDrawable(int id) {
