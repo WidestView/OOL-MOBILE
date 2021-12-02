@@ -25,7 +25,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="25dp"
             android:contentDescription="@string/description_currentEmployeeImage"
-            android:elevation="10dp"
+            android:elevation="2dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintDimensionRatio="W,1:1"
