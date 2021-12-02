@@ -17,6 +17,7 @@ import com.example.ool_mobile.ui.util.image.ImageSelectionHandler;
 import com.example.ool_mobile.ui.util.image.LegacySelectionHandler;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import timber.log.Timber;
 
 import static com.example.ool_mobile.ui.util.SnackMessage.snack;
 import static com.example.ool_mobile.ui.util.SnackMessage.swalError;
@@ -54,14 +55,14 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity
                 .getBitmapResults()
                 .observeOn(AndroidSchedulers.mainThread())
                 .to(DisposedFromLifecycle.of(this))
-                .subscribe(viewModel::setSelectedBitmap);
+                .subscribe(viewModel::setSelectedBitmap, Timber::e);
 
         viewModel
                 .getEvents()
                 .to(DisposedFromLifecycle.of(this))
                 .subscribe(event -> {
                     event.accept(this);
-                });
+                }, Timber::e);
     }
 
     public void onCameraButtonClick() {
@@ -69,7 +70,8 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity
         imageHandler
                 .requestCamera()
                 .to(DisposedFromLifecycle.of(this))
-                .subscribe();
+                .subscribe(() -> {
+                }, Timber::e);
     }
 
     public void onGalleryButtonClick() {
