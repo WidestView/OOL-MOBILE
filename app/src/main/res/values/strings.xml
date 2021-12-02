@@ -22,13 +22,13 @@
     <string name="description_currentEmployeeImage">Current user logo</string>
     <string name="description_delete_icon">Ícone de apagar</string>
     <string name="description_edit_icon">Ícone de editar</string>
-    <string name="description_equipmentIcon">Ícone de equipamentos</string>
+    <string name="description_equipment_icon">Ícone de equipamentos</string>
     <string name="description_equipmentType">Descrição</string>
     <string name="description_expand_icon">Ícone de expandir</string>
     <string name="description_filter_icon">Ícone de descrição</string>
     <string name="description_go_back">Ícone de voltar</string>
     <string name="description_icon">Ícone de galeria</string>
-    <string name="description_packageIcon">Ícone de pacote</string>
+    <string name="description_package_icon">Ícone de pacote</string>
     <string name="description_report">Ícone de relatório</string>
     <string name="error_api_unavailable">Api indisponível</string>
     <string name="error_details_not_found">Modelo de equipamento não encontrado</string>
@@ -225,4 +225,6 @@
     <string name="add_widget">Add widget</string>
     <string name="description_widget_qr">A QR Code icon</string>
     <string name="error_title">Oops</string>
+    <string name="description_order_icon">Ícone de pedido</string>
+    <string name="description_employee_icon">Ícone de funcionário</string>
 </resources>

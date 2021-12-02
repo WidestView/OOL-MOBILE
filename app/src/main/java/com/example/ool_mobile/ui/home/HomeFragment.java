@@ -122,24 +122,30 @@ public class HomeFragment extends Fragment implements HomeViewModel.Event.Visito
     @NotNull
     private List<OptionItem> getOptionItems() {
         return Arrays.asList(
-                makeItem(R.string.label_equipments, R.drawable.ic_camera_roll),
-                makeItem(R.string.label_packages, R.drawable.ic_package),
-                makeItem(R.string.label_employee, R.drawable.ic_camera),
-                makeItem(R.string.label_packages, R.drawable.ic_package),
-                makeItem(R.string.label_calendar, R.drawable.ic_calendar),
+                makeItem(R.string.label_equipments, R.string.description_equipment_icon, R.drawable.ic_camera_roll),
+                makeItem(R.string.label_packages, R.string.description_package_icon, R.drawable.ic_package),
 
                 // todo: employee icon here
-                makeItem(R.string.label_employee, R.drawable.ic_ool_icon),
+                makeItem(R.string.label_employee, R.string.description_employee_icon, R.drawable.ic_camera),
+
+                makeItem(R.string.label_calendar, R.string.description_calendar_icon, R.drawable.ic_calendar),
 
                 // todo: order icon here
-                makeItem(R.string.label_order, R.drawable.ic_ool_icon)
+                makeItem(
+                        R.string.label_order,
+                        R.string.description_order_icon,
+                        R.drawable.ic_ool_icon)
         );
     }
 
-    private OptionItem makeItem(@StringRes int string, @DrawableRes int drawable) {
+    private OptionItem makeItem(
+            @StringRes int title,
+            @StringRes int contentDescription,
+            @DrawableRes int drawable) {
 
         return new OptionItemBuilder()
-                .itemName(getString(string))
+                .itemName(getString(title))
+                .contentDescription(getString(contentDescription))
                 .imageIcon(getDrawable(drawable))
                 .build();
     }

@@ -25,7 +25,6 @@
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/ellipse_1" />
 
-        <!-- TODO: ContentDescription in option item -->
         <ImageView
             android:id="@+id/imageIcon"
             android:layout_width="wrap_content"
@@ -36,6 +35,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView13"
             tools:srcCompat="@drawable/ic_camera_roll"
             app:tint="#FFFFFF"
+            android:contentDescription="@{item.contentDescription}"
             android:src="@{item.imageIcon}" />
 
         <TextView

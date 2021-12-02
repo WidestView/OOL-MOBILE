@@ -1,8 +1,10 @@
 package com.example.ool_mobile.ui.home;
 
 import android.graphics.drawable.Drawable;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.ool_mobile.misc.BuilderOnly;
 
@@ -17,4 +19,10 @@ public interface OptionItem {
 
     @NonNull
     Drawable getImageIcon();
+
+    @NonNull
+    String getContentDescription();
+
+    @Nullable
+    View.OnClickListener getClickListener();
 }
