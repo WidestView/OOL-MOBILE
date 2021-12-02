@@ -25,7 +25,7 @@ fun snack(
         activity: Activity,
         @StringRes message: Int,
         length: Int = Snackbar.LENGTH_LONG) {
-    snack(activity.findViewById<View>(R.id.content), message, length)
+    snack(activity.findViewById<View>(android.R.id.content), message, length)
 }
 
 fun swalError(activity: Activity) {
