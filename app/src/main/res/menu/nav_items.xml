@@ -47,17 +47,19 @@
         <item
             android:id="@+id/navigation_employees"
             android:iconTint="@color/gray_dark"
+            android:icon="@drawable/ic_person"
             android:title="@string/menu_employees" />
 
         <item
             android:id="@+id/navigation_orders"
             android:iconTint="@color/gray_dark"
-            android:title="@string/menu_orders" />
+            android:title="@string/menu_orders"
+            android:icon="@drawable/ic_order" />
 
         <item
             android:id="@+id/navigation_equipment_type"
             android:iconTint="@color/gray_dark"
-            android:title="@string/label_equipmentType" />
+            android:title="@string/label_equipment_types" />
 
         <item
             android:id="@+id/navigation_occupation"

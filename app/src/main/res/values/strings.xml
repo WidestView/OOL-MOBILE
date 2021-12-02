@@ -89,7 +89,7 @@
     <string name="label_end_time">Horário Final</string>
     <string name="label_enter">Entrar</string>
     <string name="label_equipment">Equipamento</string>
-    <string name="label_equipmentType">Tipo de Equipamento</string>
+    <string name="label_equipment_types">Tipos de Equipamento</string>
     <string name="label_equipment_details">Modelo do Equipamento</string>
     <string name="label_equipment_image">Imagem</string>
     <string name="label_equipment_name">Nome</string>

@@ -152,7 +152,7 @@
     <fragment
         android:id="@+id/navigation_equipment_type"
         android:name="com.example.ool_mobile.ui.list.equipment.EquipmentTypeListFragment"
-        android:label="@string/label_equipmentType"
+        android:label="@string/label_equipment_types"
         tools:layout="@layout/fragment_list_equipment_type" />
 
     <fragment

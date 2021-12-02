@@ -132,9 +132,8 @@ public class HomeFragment extends Fragment implements HomeViewModel.Event.Visito
                         HomeFragmentDirections.actionHomeToPackages()
                 ),
 
-                // todo: employee icon here
                 makeItem(
-                        R.string.label_employee, R.string.description_employee_icon, R.drawable.ic_ool_icon,
+                        R.string.label_employee, R.string.description_employee_icon, R.drawable.ic_person,
                         HomeFragmentDirections.actionHomeToEmployees()
                 ),
 
@@ -148,9 +147,8 @@ public class HomeFragment extends Fragment implements HomeViewModel.Event.Visito
                         HomeFragmentDirections.actionHomeToPhotoshoots()
                 ),
 
-                // todo: order icon here
                 makeItem(
-                        R.string.label_order, R.string.description_order_icon, R.drawable.ic_ool_icon,
+                        R.string.label_order, R.string.description_order_icon, R.drawable.ic_order,
                         HomeFragmentDirections.actionHomeToOrders()
                 )
         );
