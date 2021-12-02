@@ -33,22 +33,18 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
+            style="@style/RoundImage"
             android:id="@+id/imageSelectionComponent_mainImageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
             android:layout_marginStart="64dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="64dp"
             app:fallback="@{@drawable/unset_image_background}"
-            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             imageBitmap="@{imageBitmap}"
-            app:shapeAppearance="@style/CornerofImageView"
             app:url="@{imageUrl}"
-            tools:srcCompat="@drawable/unset_image_background"
-            android:elevation="2dp" />
+            tools:srcCompat="@drawable/unset_image_background" />
 
         <ImageView
             android:id="@+id/imageView3"
