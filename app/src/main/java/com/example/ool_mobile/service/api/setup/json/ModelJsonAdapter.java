@@ -394,12 +394,6 @@ public class ModelJsonAdapter {
         public List<PhotoshootImage> images;
     }
 
-    // TODO: 26-09-2021 00:46 - Continue from here
-    //  decide how to fetch employee images
-    //  add contentActivity viewmodel
-    //  load current employee pic
-    //  look for some visitor pattern generator library at awesome java code generation
-
     @SuppressLint("UnknownNullness")
     private static class PhotoshootImageData {
         public UUID id;

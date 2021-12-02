@@ -28,8 +28,6 @@ import com.squareup.picasso.Picasso;
 import org.immutables.value.Value;
 import org.jetbrains.annotations.NotNull;
 
-// todo: use dagger.
-
 @Value.Immutable
 public abstract class Dependencies {
 

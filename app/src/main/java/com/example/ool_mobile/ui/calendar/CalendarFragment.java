@@ -80,7 +80,6 @@ public class CalendarFragment extends Fragment {
 
         CompactCalendarView calendarView = binding.calendarFragmentCalendarView;
 
-        // todo: select good color lmao
         int color = Color.parseColor("#056162");
 
         photoshoots.stream()
