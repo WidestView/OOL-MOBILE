@@ -13,6 +13,24 @@
         <action
             android:id="@+id/actionHomeToPhotoshootFormActivity"
             app:destination="@id/photoshootFormActivity" />
+        <action
+            android:id="@+id/action_home_to_packages"
+            app:destination="@id/navigation_packages" />
+        <action
+            android:id="@+id/action_home_to_employees"
+            app:destination="@id/navigation_employees" />
+        <action
+            android:id="@+id/action_home_to_orders"
+            app:destination="@id/navigation_orders" />
+        <action
+            android:id="@+id/action_home_to_equipments"
+            app:destination="@id/navigation_equipments" />
+        <action
+            android:id="@+id/action_home_to_calendar"
+            app:destination="@id/navigation_calendar" />
+        <action
+            android:id="@+id/action_home_to_photoshoots"
+            app:destination="@id/navigation_photoshoots" />
     </fragment>
     <fragment
         android:id="@+id/navigation_packages"

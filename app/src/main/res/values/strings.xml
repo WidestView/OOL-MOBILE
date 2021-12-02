@@ -227,4 +227,5 @@
     <string name="error_title">Oops</string>
     <string name="description_order_icon">Ícone de pedido</string>
     <string name="description_employee_icon">Ícone de funcionário</string>
+    <string name="description_photoshoot_icon">Ícone de ensaio</string>
 </resources>

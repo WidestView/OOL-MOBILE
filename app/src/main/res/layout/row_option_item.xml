@@ -13,7 +13,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="120dp">
+        android:layout_height="120dp"
+        android:onClick="@{item.clickListener}">
 
         <View
             android:id="@+id/imageView13"
@@ -39,7 +40,6 @@
             android:src="@{item.imageIcon}" />
 
         <TextView
-            android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

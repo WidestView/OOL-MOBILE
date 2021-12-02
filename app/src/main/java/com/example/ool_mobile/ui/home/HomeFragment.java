@@ -122,31 +122,54 @@ public class HomeFragment extends Fragment implements HomeViewModel.Event.Visito
     @NotNull
     private List<OptionItem> getOptionItems() {
         return Arrays.asList(
-                makeItem(R.string.label_equipments, R.string.description_equipment_icon, R.drawable.ic_camera_roll),
-                makeItem(R.string.label_packages, R.string.description_package_icon, R.drawable.ic_package),
+                makeItem(
+                        R.string.label_equipments, R.string.description_equipment_icon, R.drawable.ic_camera_roll,
+                        HomeFragmentDirections.actionHomeToEquipments()
+                ),
+
+                makeItem(
+                        R.string.label_packages, R.string.description_package_icon, R.drawable.ic_package,
+                        HomeFragmentDirections.actionHomeToPackages()
+                ),
 
                 // todo: employee icon here
-                makeItem(R.string.label_employee, R.string.description_employee_icon, R.drawable.ic_camera),
+                makeItem(
+                        R.string.label_employee, R.string.description_employee_icon, R.drawable.ic_ool_icon,
+                        HomeFragmentDirections.actionHomeToEmployees()
+                ),
 
-                makeItem(R.string.label_calendar, R.string.description_calendar_icon, R.drawable.ic_calendar),
+                makeItem(
+                        R.string.label_calendar, R.string.description_calendar_icon, R.drawable.ic_calendar,
+                        HomeFragmentDirections.actionHomeToCalendar()
+                ),
+
+                makeItem(
+                        R.string.label_photoshoot, R.string.description_photoshoot_icon, R.drawable.ic_camera,
+                        HomeFragmentDirections.actionHomeToPhotoshoots()
+                ),
 
                 // todo: order icon here
                 makeItem(
-                        R.string.label_order,
-                        R.string.description_order_icon,
-                        R.drawable.ic_ool_icon)
+                        R.string.label_order, R.string.description_order_icon, R.drawable.ic_ool_icon,
+                        HomeFragmentDirections.actionHomeToOrders()
+                )
         );
     }
 
     private OptionItem makeItem(
             @StringRes int title,
             @StringRes int contentDescription,
-            @DrawableRes int drawable) {
+            @DrawableRes int drawable,
+            NavDirections navigationTarget) {
 
         return new OptionItemBuilder()
                 .itemName(getString(title))
                 .contentDescription(getString(contentDescription))
                 .imageIcon(getDrawable(drawable))
+                .clickListener(v -> {
+                    NavHostFragment.findNavController(this)
+                            .navigate(navigationTarget);
+                })
                 .build();
     }
 
