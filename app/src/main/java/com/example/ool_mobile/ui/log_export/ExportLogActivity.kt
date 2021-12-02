@@ -11,6 +11,7 @@ import com.example.ool_mobile.service.Dependencies
 import com.example.ool_mobile.ui.log_export.LogExportViewModel.Companion.create
 import com.example.ool_mobile.ui.util.DisposedFromLifecycle
 import com.example.ool_mobile.ui.util.snack
+import com.example.ool_mobile.ui.util.swalError
 import permissions.dispatcher.*
 
 @RuntimePermissions
@@ -73,7 +74,7 @@ class ExportLogActivity : AppCompatActivity(), LogExportViewModel.Event.Visitor 
     }
 
     override fun visitError() {
-        snack(this, R.string.error_operation_failed)
+        swalError(this)
     }
 
     override fun visitSuccess() {

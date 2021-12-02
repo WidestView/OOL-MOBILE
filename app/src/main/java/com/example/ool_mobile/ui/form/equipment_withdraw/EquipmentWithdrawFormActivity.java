@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.example.ool_mobile.ui.util.SnackMessage.snack;
+import static com.example.ool_mobile.ui.util.SnackMessage.swalError;
 
 public class EquipmentWithdrawFormActivity extends AppCompatActivity implements WithdrawViewModel.Event.Visitor {
 
@@ -154,7 +155,7 @@ public class EquipmentWithdrawFormActivity extends AppCompatActivity implements 
 
     @Override
     public void visitError() {
-        snack(this, R.string.error_operation_failed);
+        swalError(this);
     }
 
     @Override

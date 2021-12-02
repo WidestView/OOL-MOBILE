@@ -17,7 +17,7 @@ import com.example.ool_mobile.ui.util.form.FormModeValue;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.ool_mobile.ui.util.SnackMessage.snack;
+import static com.example.ool_mobile.ui.util.SnackMessage.swalError;
 
 public class EquipmentFormActivity extends AppCompatActivity implements
         EquipmentFormViewModel.Event.Visitor {
@@ -86,7 +86,7 @@ public class EquipmentFormActivity extends AppCompatActivity implements
 
     @Override
     public void visitError() {
-        snack(this, R.string.error_operation_failed);
+        swalError(this);
     }
 
     @Override

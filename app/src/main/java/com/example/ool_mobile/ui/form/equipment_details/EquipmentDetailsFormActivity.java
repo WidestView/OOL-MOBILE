@@ -19,6 +19,7 @@ import com.example.ool_mobile.ui.util.image.LegacySelectionHandler;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 import static com.example.ool_mobile.ui.util.SnackMessage.snack;
+import static com.example.ool_mobile.ui.util.SnackMessage.swalError;
 
 public class EquipmentDetailsFormActivity extends AppCompatActivity
         implements DetailsViewModel.Event.Visitor {
@@ -108,7 +109,7 @@ public class EquipmentDetailsFormActivity extends AppCompatActivity
 
     @Override
     public void visitError() {
-        snack(this, R.string.error_operation_failed);
+        swalError(this);
     }
 
     @Override

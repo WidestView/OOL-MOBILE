@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 import static com.example.ool_mobile.ui.util.SnackMessage.snack;
+import static com.example.ool_mobile.ui.util.SnackMessage.swalError;
 
 public class EmployeeFormActivity extends AppCompatActivity
         implements EmployeeViewModel.Event.Visitor {
@@ -128,7 +129,7 @@ public class EmployeeFormActivity extends AppCompatActivity
 
     @Override
     public void visitError() {
-        snack(this, R.string.error_operation_failed);
+        swalError(this);
     }
 
     @Override

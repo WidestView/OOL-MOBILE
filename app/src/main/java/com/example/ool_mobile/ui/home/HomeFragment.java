@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-import static com.example.ool_mobile.ui.util.SnackMessage.snack;
+import static com.example.ool_mobile.ui.util.SnackMessage.swalError;
 
 public class HomeFragment extends Fragment implements HomeViewModel.Event.Visitor {
 
@@ -172,6 +172,6 @@ public class HomeFragment extends Fragment implements HomeViewModel.Event.Visito
 
     @Override
     public void visitError() {
-        snack(this, R.string.error_operation_failed);
+        swalError(this);
     }
 }
