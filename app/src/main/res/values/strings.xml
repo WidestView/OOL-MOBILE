@@ -216,7 +216,7 @@
     <string name="label_log_explain">
         Os logs são registros do comportamento da aplicação, que podem ser utilizados
         para melhorar o funcionamento desta, e podem ser exportados em um arquivo
-        .json.
+        .json. Este será gerado na pasta de documentos do dispositivo.
     </string>
     <string name="message_write_permission_required">We need this permission to perform this operation</string>
     <string name="error_missing_qr_intent">Missing QR data</string>
