@@ -115,7 +115,7 @@
                         android:enabled="@{!viewModel.isLoading()}"
                         android:hint="@string/label_equipment_type"
                         android:inputType="none"
-                        android:text="@={viewModel.input.kindName}" />
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
