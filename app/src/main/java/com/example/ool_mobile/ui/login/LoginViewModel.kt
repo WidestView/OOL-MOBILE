@@ -19,6 +19,8 @@ class LoginViewModel(private val repository: EmployeeRepository) : SubscriptionV
 
     val events: Observable<Event> = _events
 
+    private val validation = LoginValidation(_events)
+
 
     private val _isEnabled = MutableLiveData(true)
 
@@ -35,7 +37,10 @@ class LoginViewModel(private val repository: EmployeeRepository) : SubscriptionV
 
     fun login() {
 
-        repository.login(input.email, input.password)
+        validation.validate(input)
+                .flatMapSingle { input ->
+                    repository.login(input.email, input.password)
+                }
                 .to(disposedWhenCleared())
                 .subscribe({ success ->
                     if (success) {
@@ -65,6 +70,12 @@ class LoginViewModel(private val repository: EmployeeRepository) : SubscriptionV
 
             @JvmField
             val ReportFailedLogin = Event { it.visitReportFailedLogin() }
+
+            @JvmField
+            val MissingLogin = Event { it.visitReportFailedLogin() }
+
+            @JvmField
+            val MissingPassword = Event { it.visitReportFailedLogin() }
 
             @JvmField
             val ReportApiUnavailable = Event { it.visitReportApiUnavailable() }
