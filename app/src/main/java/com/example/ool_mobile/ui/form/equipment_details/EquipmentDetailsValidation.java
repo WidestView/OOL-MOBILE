@@ -94,8 +94,6 @@ class EquipmentDetailsValidation {
 
                 FormCheck.failIf(name::isEmpty, Event.MissingName),
 
-                FormCheck.failIf(kindName::isEmpty, Event.MissingEquipmentKind),
-
                 FormCheck.failIf(() -> kindPosition == -1, Event.InvalidEquipmentKind)
         );
     }

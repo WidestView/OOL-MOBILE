@@ -1,234 +1,194 @@
-package com.example.ool_mobile.ui.form.employee;
+package com.example.ool_mobile.ui.form.employee
 
-import android.content.Intent;
-import android.os.Bundle;
+import android.Manifest
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.example.ool_mobile.R
+import com.example.ool_mobile.databinding.ActivityEmployeeFormBinding
+import com.example.ool_mobile.model.AccessLevel
+import com.example.ool_mobile.model.Occupation
+import com.example.ool_mobile.service.Dependencies
+import com.example.ool_mobile.ui.form.employee.EmployeeViewModelImpl.Companion.create
+import com.example.ool_mobile.ui.util.DisposedFromLifecycle
+import com.example.ool_mobile.ui.util.image.ImageSelectionHandler
+import com.example.ool_mobile.ui.util.image.LegacySelectionHandler
+import com.example.ool_mobile.ui.util.snack
+import com.example.ool_mobile.ui.util.swalError
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import permissions.dispatcher.NeedsPermission
+import permissions.dispatcher.OnPermissionDenied
+import permissions.dispatcher.RuntimePermissions
+import timber.log.Timber
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
+@RuntimePermissions
+class EmployeeFormActivity : AppCompatActivity(), EmployeeViewModel.Event.Visitor {
 
-import com.example.ool_mobile.R;
-import com.example.ool_mobile.databinding.ActivityEmployeeFormBinding;
-import com.example.ool_mobile.model.AccessLevel;
-import com.example.ool_mobile.model.Occupation;
-import com.example.ool_mobile.service.Dependencies;
-import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
-import com.example.ool_mobile.ui.util.image.ImageSelectionHandler;
-import com.example.ool_mobile.ui.util.image.LegacySelectionHandler;
+    private lateinit var binding: ActivityEmployeeFormBinding
 
-import java.util.List;
-import java.util.stream.Collectors;
+    private lateinit var employeeViewModel: EmployeeViewModel
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+    private lateinit var imageSelectionHandler: ImageSelectionHandler
 
-import static com.example.ool_mobile.ui.util.SnackMessage.snack;
-import static com.example.ool_mobile.ui.util.SnackMessage.swalError;
+    public override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-public class EmployeeFormActivity extends AppCompatActivity
-        implements EmployeeViewModel.Event.Visitor {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_employee_form)
 
-    private ActivityEmployeeFormBinding binding;
-
-    private EmployeeViewModel employeeViewModel;
-
-    private ImageSelectionHandler imageSelectionHandler;
-
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_employee_form);
-
-        employeeViewModel = EmployeeViewModelImpl.create(
+        employeeViewModel = create(
                 this,
                 Dependencies.from(this)
-        );
+        )
 
-        binding.setActivity(this);
+        binding.activity = this
+        binding.lifecycleOwner = this
+        binding.errors = EmployeeFormErrors()
+        binding.viewModel = employeeViewModel
 
-        binding.setLifecycleOwner(this);
-
-        binding.setErrors(new EmployeeFormErrors());
-
-        binding.setViewModel(employeeViewModel);
-
-        imageSelectionHandler = new LegacySelectionHandler(this);
+        imageSelectionHandler = LegacySelectionHandler(this)
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    override fun onStart() {
+        super.onStart()
 
-        employeeViewModel.getEvents()
+        employeeViewModel.events
                 .to(DisposedFromLifecycle.of(this))
-                .subscribe(event -> {
-                    event.accept(this);
-                });
+                .subscribe { event -> event.accept(this) }
 
-        imageSelectionHandler.getBitmapResults()
+        imageSelectionHandler.bitmapResults
                 .observeOn(AndroidSchedulers.mainThread())
                 .to(DisposedFromLifecycle.of(this))
-                .subscribe(bitmap -> {
-                    employeeViewModel.getImageBitmap().setValue(bitmap);
-                });
+                .subscribe { bitmap -> employeeViewModel.imageBitmap.setValue(bitmap) }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        imageSelectionHandler.onActivityResult(requestCode, resultCode, data);
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        // shut up android.
+        @Suppress("DEPRECATION")
+        super.onActivityResult(requestCode, resultCode, data)
+
+        imageSelectionHandler.onActivityResult(requestCode, resultCode, data)
     }
 
-    @Override
-    public void onRequestPermissionsResult(
-            int requestCode,
-            @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        imageSelectionHandler.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    override fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<String>,
+            grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        imageSelectionHandler.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        // PermissionDispatcher delegate
+        onRequestPermissionsResult(requestCode, grantResults)
     }
 
-
-    public void onGalleryClick() {
+    fun onGalleryClick() {
         imageSelectionHandler.requestGallery()
-                .to(DisposedFromLifecycle.of(this))
-                .subscribe();
+                .to(DisposedFromLifecycle.of<Any>(this))
+                .subscribe()
     }
 
-    public void onCameraClick() {
+    fun onCameraClick() {
+        openCameraWithPermissionCheck()
+    }
+
+    @NeedsPermission(Manifest.permission.CAMERA)
+    fun openCamera() {
+
         imageSelectionHandler.requestCamera()
-                .to(DisposedFromLifecycle.of(this))
-                .subscribe();
+                .to(DisposedFromLifecycle.of<Any>(this))
+                .subscribe({}) { error ->
+                    Timber.e(error)
+                    visitError()
+                }
     }
 
-    @Nullable
-    public List<String> formatAccessLevels(@Nullable List<AccessLevel> accessLevels) {
+    @OnPermissionDenied(Manifest.permission.CAMERA)
+    fun onPermissionDenied() {
+        snack(this, R.string.message_permission_required)
+    }
 
-        if (accessLevels == null) {
-            return null;
+    fun formatAccessLevels(accessLevels: List<AccessLevel>?): List<String>? {
+        return accessLevels?.map { accessLevel ->
+            String.format(getString(R.string.format_id_name),
+                    accessLevel.id, accessLevel.name)
+
         }
-
-        return accessLevels.stream()
-                .map(accessLevel -> String.format(getString(R.string.format_id_name),
-                        accessLevel.getId(), accessLevel.getName()))
-                .collect(Collectors.toList());
     }
 
-    @Nullable
-    public List<String> formatOccupations(@Nullable List<Occupation> occupations) {
-
-        if (occupations == null) {
-            return null;
+    fun formatOccupations(occupations: List<Occupation>?): List<String>? {
+        return occupations?.map { occupation: Occupation ->
+            String.format(getString(R.string.format_id_name),
+                    occupation.id(), occupation.name())
         }
-
-        return occupations.stream()
-                .map(occupation -> String.format(getString(R.string.format_id_name),
-                        occupation.id(), occupation.name()))
-                .collect(Collectors.toList());
     }
 
-    @Override
-    public void visitError() {
-        swalError(this);
+    override fun visitError() {
+        swalError(this)
     }
 
-    @Override
-    public void visitSuccess() {
-        finish();
+    override fun visitSuccess() {
+        finish()
     }
 
-    @Override
-    public void visitMissingName() {
-        binding.getErrors()
-                .getNameError()
-                .set(getString(R.string.error_missing_employee_name));
+    override fun visitMissingName() {
+        binding.errors!!.nameError
+                .set(getString(R.string.error_missing_employee_name))
     }
 
-    @Override
-    public void visitMissingBirthDate() {
-        binding.getErrors()
-                .getBirthDateError()
-                .set(getString(R.string.error_missing_employee_birth_date));
-
-        snack(this, R.string.error_missing_employee_birth_date);
+    override fun visitMissingBirthDate() {
+        binding.errors!!.birthDateError
+                .set(getString(R.string.error_missing_employee_birth_date))
+        snack(this, R.string.error_missing_employee_birth_date)
     }
 
-    @Override
-    public void visitMissingPhone() {
-        binding.getErrors()
-                .getPhoneError()
-                .set(getString(R.string.error_missing_employee_phone));
-
+    override fun visitMissingPhone() {
+        binding.errors!!.phoneError
+                .set(getString(R.string.error_missing_employee_phone))
     }
 
-    @Override
-    public void visitMissingEmail() {
-
-        binding.getErrors()
-                .getEmailError()
-                .set(getString(R.string.error_missing_employee));
+    override fun visitMissingEmail() {
+        binding.errors!!.emailError
+                .set(getString(R.string.error_missing_employee))
     }
 
-    @Override
-    public void visitMissingPassword() {
-
-        binding.getErrors()
-                .getPasswordError()
-                .set(getString(R.string.error_missing_employee_password));
+    override fun visitMissingPassword() {
+        binding.errors!!.passwordError
+                .set(getString(R.string.error_missing_employee_password))
     }
 
-    @Override
-    public void visitMissingPasswordConfirmation() {
-
-        binding.getErrors()
-                .getPasswordConfirmationError()
-                .set(getString(R.string.error_missing_employee_password_confirmation));
+    override fun visitMissingPasswordConfirmation() {
+        binding.errors!!.passwordConfirmationError
+                .set(getString(R.string.error_missing_employee_password_confirmation))
     }
 
-    @Override
-    public void visitMissingAccessLevel() {
-
-        binding.getErrors()
-                .getAccessLevelError()
-                .set(getString(R.string.error_missing_employee_access_level));
+    override fun visitMissingAccessLevel() {
+        binding.errors!!.accessLevelError
+                .set(getString(R.string.error_missing_employee_access_level))
     }
 
-    @Override
-    public void visitMissingGender() {
-
-        binding.getErrors()
-                .getGenderError()
-                .set(getString(R.string.error_missing_employee_gender));
+    override fun visitMissingGender() {
+        binding.errors!!.genderError
+                .set(getString(R.string.error_missing_employee_gender))
     }
 
-    @Override
-    public void visitMissingOccupation() {
-
-        binding.getErrors()
-                .getOccupationError()
-                .set(getString(R.string.error_missing_employee_occupation));
+    override fun visitMissingOccupation() {
+        binding.errors!!.occupationError
+                .set(getString(R.string.error_missing_employee_occupation))
     }
 
-    @Override
-    public void visitPasswordsDoNotMatch() {
-        binding.getErrors()
-                .getPasswordConfirmationError()
-                .set(getString(R.string.error_passwords_not_match));
+    override fun visitPasswordsDoNotMatch() {
+        binding.errors!!.passwordConfirmationError
+                .set(getString(R.string.error_passwords_not_match))
     }
 
-    @Override
-    public void visitInvalidPhone() {
-
-        binding.getErrors()
-                .getPhoneError()
-                .set(getString(R.string.error_invalid_employeee_phone));
+    override fun visitInvalidPhone() {
+        binding.errors!!.phoneError
+                .set(getString(R.string.error_invalid_employeee_phone))
     }
 
-    @Override
-    public void visitMissingRg() {
-
-        binding.getErrors()
-                .getRgError()
-                .set(getString(R.string.invalid_employee_rg));
+    override fun visitMissingRg() {
+        binding.errors!!.rgError
+                .set(getString(R.string.invalid_employee_rg))
     }
 }
