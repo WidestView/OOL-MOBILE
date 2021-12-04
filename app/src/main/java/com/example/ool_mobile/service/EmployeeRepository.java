@@ -45,31 +45,34 @@ public class EmployeeRepository {
     @CheckReturnValue
     public Single<Boolean> login(@NonNull String username, @NonNull String password) {
 
+        return Single.defer(() -> {
 
-        UserApi.LoginData loginData = new UserApi.LoginData();
-        loginData.login = username;
-        loginData.password = password;
+            UserApi.LoginData loginData = new UserApi.LoginData();
+            loginData.login = username;
+            loginData.password = password;
 
 
-        Single<Response<UserApi.TokenData>> call = api.login(loginData);
+            Single<Response<UserApi.TokenData>> call = api.login(loginData);
 
-        return call.map(response -> {
-            if (response.isSuccessful()) {
-                UserApi.TokenData data = response.body();
+            return call.map(response -> {
+                if (response.isSuccessful()) {
+                    UserApi.TokenData data = response.body();
 
-                Objects.requireNonNull(data);
+                    Objects.requireNonNull(data);
 
-                this.tokenStorage.setToken(data.token);
+                    this.tokenStorage.setToken(data.token);
 
-                return true;
-            } else if (response.code() == 401 || response.code() == 403) {
+                    return true;
+                } else if (response.code() == 401 || response.code() == 403) {
 
-                this.tokenStorage.setToken(null);
+                    this.tokenStorage.setToken(null);
 
-                return false;
-            } else {
-                throw new ResponseException(response);
-            }
+                    return false;
+                } else {
+                    throw new ResponseException(response);
+                }
+            });
+
         });
     }
 
@@ -101,18 +104,22 @@ public class EmployeeRepository {
     @CheckReturnValue
     private Maybe<Employee> fetchEmployee() {
 
-        Single<Response<Employee>> call = employeeApi.getCurrentEmployeeInfo();
+        return Maybe.defer(() -> {
 
-        return call.flatMapMaybe(response -> {
-            if (response.isSuccessful()) {
-                return Maybe.just(response.body());
-            } else if (response.code() == 401 || response.code() == 403) {
+            Single<Response<Employee>> call = employeeApi.getCurrentEmployeeInfo();
 
-                return Maybe.empty();
+            return call.flatMapMaybe(response -> {
+                if (response.isSuccessful()) {
+                    return Maybe.just(response.body());
+                } else if (response.code() == 401 || response.code() == 403) {
 
-            } else {
-                throw new ResponseException(response);
-            }
+                    return Maybe.empty();
+
+                } else {
+                    throw new ResponseException(response);
+                }
+            });
+
         });
     }
 
