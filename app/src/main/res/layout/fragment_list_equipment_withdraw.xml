@@ -22,8 +22,6 @@
 
         <include layout="@layout/part_filter_top" />
 
-        <!-- TODO: delete fixedLinear -->
-
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="0dp"

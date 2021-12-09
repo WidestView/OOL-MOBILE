@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.example.ool_mobile.ui.util.SnackMessage.snack;
+import static com.example.ool_mobile.ui.util.SnackMessage.swalError;
 
 public class EquipmentWithdrawFormActivity extends AppCompatActivity implements WithdrawViewModel.Event.Visitor {
 
@@ -63,6 +64,10 @@ public class EquipmentWithdrawFormActivity extends AppCompatActivity implements 
         );
 
         binding.setViewModel(viewModel);
+
+        if (args.getStartWithQr()) {
+            startQr();
+        }
     }
 
     @Override
@@ -95,6 +100,7 @@ public class EquipmentWithdrawFormActivity extends AppCompatActivity implements 
         launcher.launch(options);
     }
 
+    @Nullable
     public List<String> formatEquipments(@Nullable List<Equipment> equipments) {
 
         if (equipments == null) {
@@ -112,6 +118,7 @@ public class EquipmentWithdrawFormActivity extends AppCompatActivity implements 
                 ).collect(Collectors.toList());
     }
 
+    @Nullable
     public List<String> formatPhotoshoots(@Nullable List<Photoshoot> photoshoots) {
 
         if (photoshoots == null) {
@@ -128,6 +135,7 @@ public class EquipmentWithdrawFormActivity extends AppCompatActivity implements 
                 ).collect(Collectors.toList());
     }
 
+    @Nullable
     public List<String> formatEmployees(@Nullable List<Employee> employees) {
 
         if (employees == null) {
@@ -147,7 +155,7 @@ public class EquipmentWithdrawFormActivity extends AppCompatActivity implements 
 
     @Override
     public void visitError() {
-        snack(this, R.string.error_operation_failed);
+        swalError(this);
     }
 
     @Override

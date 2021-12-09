@@ -129,17 +129,14 @@ public class ContentActivity extends AppCompatActivity implements WithDrawer {
         drawer = findViewById(R.id.drawer_layout);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                // todo: fill this with other root navigation ids
                 R.id.navigation_home,
                 R.id.navigation_calendar,
                 R.id.navigation_packages,
-                R.id.navigation_reports,
                 R.id.navigation_photoshoots,
                 R.id.navigation_equipments,
                 R.id.navigation_equipmentDetails,
                 R.id.navigation_equipmentWithdraws,
                 R.id.navigation_employees,
-                R.id.navigation_customers,
                 R.id.navigation_orders
         ).setOpenableLayout(drawer).build();
     }

@@ -17,4 +17,9 @@
 
     </style>
 
+    <style name="ThemeOverlay.OOLMOBILE.AppWidgetContainer" parent="">
+        <item name="appWidgetBackgroundColor">@color/primaryDarkColor</item>
+        <item name="appWidgetTintColor">@color/white</item>
+    </style>
+
 </resources>

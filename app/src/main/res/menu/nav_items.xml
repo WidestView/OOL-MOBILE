@@ -23,12 +23,6 @@
             android:title="@string/menu_packages" />
 
         <item
-            android:id="@+id/navigation_reports"
-            android:icon="@drawable/ic_file"
-            android:iconTint="@color/gray_dark"
-            android:title="@string/menu_reports" />
-
-        <item
             android:id="@+id/navigation_equipments"
             android:icon="@drawable/ic_camera_roll"
             android:iconTint="@color/gray_dark"
@@ -53,50 +47,23 @@
         <item
             android:id="@+id/navigation_employees"
             android:iconTint="@color/gray_dark"
+            android:icon="@drawable/ic_person"
             android:title="@string/menu_employees" />
-
-        <item
-            android:id="@+id/navigation_customers"
-            android:iconTint="@color/gray_dark"
-            android:title="@string/menu_customers" />
 
         <item
             android:id="@+id/navigation_orders"
             android:iconTint="@color/gray_dark"
-            android:title="@string/menu_orders" />
-
-        <item
-            android:id="@+id/navigation_firings"
-            android:iconTint="@color/gray_dark"
-            android:title="@string/menu_firings" />
+            android:title="@string/menu_orders"
+            android:icon="@drawable/ic_order" />
 
         <item
             android:id="@+id/navigation_equipment_type"
             android:iconTint="@color/gray_dark"
-            android:title="@string/label_equipmentType" />
-        <item
-            android:id="@+id/navigation_shift"
-            android:iconTint="@color/gray_dark"
-            android:title="@string/label_shift" />
+            android:title="@string/label_equipment_types" />
 
         <item
             android:id="@+id/navigation_occupation"
             android:iconTint="@color/gray_dark"
             android:title="@string/label_occupation" />
-
-
-        <item
-            android:id="@+id/navigation_package_types"
-            android:iconTint="@color/gray_dark"
-            android:title="@string/menu_payment_types" />
-
-        <item
-            android:id="@+id/navigation_hirings"
-            android:iconTint="@color/gray_dark"
-            android:title="@string/menu_hirings" />
-        <item
-            android:id="@+id/navigation_payments"
-            android:iconTint="@color/gray_dark"
-            android:title="@string/menu_payments" />
     </group>
 </menu>

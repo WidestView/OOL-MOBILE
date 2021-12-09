@@ -13,6 +13,24 @@
         <action
             android:id="@+id/actionHomeToPhotoshootFormActivity"
             app:destination="@id/photoshootFormActivity" />
+        <action
+            android:id="@+id/action_home_to_packages"
+            app:destination="@id/navigation_packages" />
+        <action
+            android:id="@+id/action_home_to_employees"
+            app:destination="@id/navigation_employees" />
+        <action
+            android:id="@+id/action_home_to_orders"
+            app:destination="@id/navigation_orders" />
+        <action
+            android:id="@+id/action_home_to_equipments"
+            app:destination="@id/navigation_equipments" />
+        <action
+            android:id="@+id/action_home_to_calendar"
+            app:destination="@id/navigation_calendar" />
+        <action
+            android:id="@+id/action_home_to_photoshoots"
+            app:destination="@id/navigation_photoshoots" />
     </fragment>
     <fragment
         android:id="@+id/navigation_packages"
@@ -32,11 +50,6 @@
             app:argType="string"
             app:nullable="true" />
     </activity>
-    <fragment
-        android:id="@id/navigation_reports"
-        android:name="com.example.ool_mobile.ui.list.report_list.ReportListFragment"
-        android:label="@string/label_reports"
-        tools:layout="@layout/fragment_list_report" />
 
     <fragment
         android:id="@+id/navigation_calendar"
@@ -57,11 +70,6 @@
             android:id="@+id/action_navigation_employees_to_addEmployeeActivity"
             app:destination="@id/addEmployeeActivity" />
     </fragment>
-
-    <fragment
-        android:id="@+id/navigation_customers"
-        android:name="com.example.ool_mobile.ui.list.customer_list.CustomerListFragment"
-        android:label="@string/menu_customers" />
 
     <fragment
         android:id="@+id/navigation_orders"
@@ -136,16 +144,6 @@
             app:argType="integer" />
     </activity>
 
-    <fragment
-        android:id="@+id/navigation_firings"
-        android:name="com.example.ool_mobile.ui.list.firing.FiringListFragment"
-        android:label="@string/menu_firings"
-
-        tools:layout="@layout/fragment_list_firing">
-        <action
-            android:id="@+id/action_navigation_firings_to_addFiringActivity"
-            app:destination="@id/addFiringActivity" />
-    </fragment>
     <activity
         android:id="@+id/addFiringActivity"
         android:name="com.example.ool_mobile.ui.form.firing.FiringFormActivity"
@@ -154,24 +152,15 @@
     <fragment
         android:id="@+id/navigation_equipment_type"
         android:name="com.example.ool_mobile.ui.list.equipment.EquipmentTypeListFragment"
-        android:label="@string/label_equipmentType"
+        android:label="@string/label_equipment_types"
         tools:layout="@layout/fragment_list_equipment_type" />
-    <fragment
-        android:id="@+id/navigation_shift"
-        android:name="com.example.ool_mobile.ui.list.shift_list.ShiftListFragment"
-        android:label="Turno"
-        tools:layout="@layout/fragment_list_shift" />
+
     <fragment
         android:id="@+id/navigation_occupation"
         android:name="com.example.ool_mobile.ui.list.occupation_list.OccupationListFragment"
         android:label="Ocupação"
         tools:layout="@layout/fragment_list_occupation" />
 
-    <fragment
-        android:id="@+id/navigation_payments"
-        android:name="com.example.ool_mobile.ui.list.payment.PaymentListFragment"
-        android:label="@string/menu_payments"
-        tools:layout="@layout/fragment_list_payment" />
     <fragment
         android:id="@+id/navigation_package_types"
         android:name="com.example.ool_mobile.ui.list.package_list.PackageTypeListFragment"
@@ -185,11 +174,7 @@
         android:id="@+id/addPackageTypeActivity"
         android:name="com.example.ool_mobile.ui.form.photoshoot_package.PackageTypeFormActivity"
         android:label="AddPackageTypeActivity" />
-    <fragment
-        android:id="@+id/navigation_hirings"
-        android:name="com.example.ool_mobile.ui.list.hiring.HiringListFragment"
-        android:label="@string/menu_hirings"
-        tools:layout="@layout/fragment_list_hiring" />
+
     <activity
         android:id="@+id/equipmentWithdrawFormActivity"
         android:name="com.example.ool_mobile.ui.form.equipment_withdraw.EquipmentWithdrawFormActivity"
@@ -200,6 +185,9 @@
         <argument
             android:name="resource-id"
             android:defaultValue="-1" />
+        <argument
+            android:name="startWithQr"
+            android:defaultValue="false" />
     </activity>
 
 

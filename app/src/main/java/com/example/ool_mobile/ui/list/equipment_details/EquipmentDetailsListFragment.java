@@ -13,7 +13,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
-import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.FragmentListEquipmentDetailsBinding;
 import com.example.ool_mobile.model.EquipmentDetails;
 import com.example.ool_mobile.service.Dependencies;
@@ -24,7 +23,7 @@ import com.example.ool_mobile.ui.util.form.FormModeValue;
 
 import static com.example.ool_mobile.ui.list.equipment_details.EquipmentDetailsListFragmentDirections.ActionEquipmentDetailsToForm;
 import static com.example.ool_mobile.ui.list.equipment_details.EquipmentDetailsListFragmentDirections.actionEquipmentDetailsToForm;
-import static com.example.ool_mobile.ui.util.SnackMessage.snack;
+import static com.example.ool_mobile.ui.util.SnackMessage.swalError;
 
 public class EquipmentDetailsListFragment extends Fragment {
 
@@ -75,7 +74,7 @@ public class EquipmentDetailsListFragment extends Fragment {
         viewModel.getEvents()
                 .to(DisposedFromLifecycle.of(this))
                 .subscribe(error -> {
-                    snack(this, R.string.error_operation_failed);
+                    swalError(this);
                 });
     }
 

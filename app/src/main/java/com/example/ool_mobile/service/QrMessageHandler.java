@@ -3,6 +3,7 @@ package com.example.ool_mobile.service;
 import androidx.annotation.NonNull;
 
 import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.JsonDataException;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
@@ -12,9 +13,11 @@ import timber.log.Timber;
 
 public class QrMessageHandler {
 
+    public static final String PREFIX = "oolMobile://";
+
     static class QrJson {
         String type;
-        int id;
+        Integer id;
     }
 
     @NonNull
@@ -22,13 +25,17 @@ public class QrMessageHandler {
 
         Objects.requireNonNull(qrString, "qrString is null");
 
-        String prefix = "oolMobile://";
-
-        if (!qrString.startsWith(prefix)) {
-            return Result.UnknownQr;
+        if (qrString.startsWith(PREFIX)) {
+            qrString = qrString.substring(PREFIX.length());
         }
 
-        qrString = qrString.substring(prefix.length());
+        return parseQrStringWithoutPrefix(qrString);
+    }
+
+    @NonNull
+    private Result parseQrStringWithoutPrefix(@NonNull String qrString) {
+
+        Objects.requireNonNull(qrString, "qrString is null");
 
         Moshi moshi = new Moshi.Builder()
                 .build();
@@ -39,13 +46,13 @@ public class QrMessageHandler {
 
         try {
             result = adapter.fromJson(qrString);
-        } catch (IOException e) {
+        } catch (IOException | JsonDataException e) {
             Timber.e(e);
 
             return Result.UnknownQr;
         }
 
-        if (result.type == null || result.id < 0) {
+        if (result == null || result.type == null || result.id == null || result.id < 0) {
             return Result.UnknownQr;
         }
 
@@ -57,6 +64,9 @@ public class QrMessageHandler {
     }
 
     public interface Result {
+
+        // todo: make Unknown Qr separate method
+
         Result UnknownQr = Visitor::visitInvalidQr;
         Result UnsupportedQr = Visitor::visitUnsupportedQr;
 

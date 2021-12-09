@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black"> #000000 </color>
-    <color name="gray_dark"> #333333 </color>
+    <color name="black">#000000</color>
+    <color name="gray_dark">#333333</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primaryColor">#023859</color>
     <color name="primaryLightColor">#0790E6</color>
     <color name="primaryDarkColor">#012840</color>
-    <color name="gray_light"> #AAAAAA </color>
+    <color name="gray_light">#AAAAAA</color>
     <color name="secondaryText">#858585</color>
-    <color name="partial_gray_dark"> #CC333333</color>
+    <color name="partial_gray_dark">#CC333333</color>
     <color name="dimStroke">#C2C2C2</color>
     <color name="mainRed">#B73F3F</color>
 </resources>

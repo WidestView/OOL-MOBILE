@@ -33,4 +33,9 @@
     <style name="Theme.OOLMOBILE.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.OOLMOBILE.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ThemeOverlay.OOLMOBILE.AppWidgetContainer" parent="">
+        <item name="appWidgetBackgroundColor">@color/primaryColor</item>
+        <item name="appWidgetTintColor">@color/white</item>
+    </style>
 </resources>

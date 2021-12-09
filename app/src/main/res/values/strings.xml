@@ -22,13 +22,13 @@
     <string name="description_currentEmployeeImage">Current user logo</string>
     <string name="description_delete_icon">Ícone de apagar</string>
     <string name="description_edit_icon">Ícone de editar</string>
-    <string name="description_equipmentIcon">Ícone de equipamentos</string>
+    <string name="description_equipment_icon">Ícone de equipamentos</string>
     <string name="description_equipmentType">Descrição</string>
     <string name="description_expand_icon">Ícone de expandir</string>
     <string name="description_filter_icon">Ícone de descrição</string>
     <string name="description_go_back">Ícone de voltar</string>
     <string name="description_icon">Ícone de galeria</string>
-    <string name="description_packageIcon">Ícone de pacote</string>
+    <string name="description_package_icon">Ícone de pacote</string>
     <string name="description_report">Ícone de relatório</string>
     <string name="error_api_unavailable">Api indisponível</string>
     <string name="error_details_not_found">Modelo de equipamento não encontrado</string>
@@ -89,7 +89,7 @@
     <string name="label_end_time">Horário Final</string>
     <string name="label_enter">Entrar</string>
     <string name="label_equipment">Equipamento</string>
-    <string name="label_equipmentType">Tipo de Equipamento</string>
+    <string name="label_equipment_types">Tipos de Equipamento</string>
     <string name="label_equipment_details">Modelo do Equipamento</string>
     <string name="label_equipment_image">Imagem</string>
     <string name="label_equipment_name">Nome</string>
@@ -216,6 +216,17 @@
     <string name="label_log_explain">
         Os logs são registros do comportamento da aplicação, que podem ser utilizados
         para melhorar o funcionamento desta, e podem ser exportados em um arquivo
-        .json.
+        .json. Este será gerado na pasta de documentos do dispositivo.
     </string>
+    <string name="message_write_permission_required">We need this permission to perform this operation</string>
+    <string name="message_permission_required">We need this permission to perform this operation</string>
+    <string name="error_missing_qr_intent">Missing QR data</string>
+    <string name="error_invalid_qr">Invalid QR Scanned</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="description_widget_qr">A QR Code icon</string>
+    <string name="error_title">Oops</string>
+    <string name="description_order_icon">Ícone de pedido</string>
+    <string name="description_employee_icon">Ícone de funcionário</string>
+    <string name="description_photoshoot_icon">Ícone de ensaio</string>
 </resources>

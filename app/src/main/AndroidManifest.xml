@@ -25,6 +25,31 @@
         android:theme="@style/Theme.OOLMOBILE"
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup">
+
+        <receiver android:name=".QrSpawnWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/qr_spawn_widget_info" />
+        </receiver>
+
+        <activity
+            android:name=".ui.qr_receiver.QrReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="oolMobile"
+                    tools:ignore="AppLinkUrlError" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.log_export.ExportLogActivity" />
         <activity android:name=".ui.form.equipment_withdraw.EquipmentWithdrawFormActivity" />
 

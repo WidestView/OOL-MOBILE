@@ -32,12 +32,14 @@ import com.example.ool_mobile.ui.util.adapter.PendingPhotoshootAdapter;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-import static com.example.ool_mobile.ui.util.SnackMessage.snack;
+import static com.example.ool_mobile.ui.util.SnackMessage.swalError;
 
 public class HomeFragment extends Fragment implements HomeViewModel.Event.Visitor {
 
@@ -104,10 +106,7 @@ public class HomeFragment extends Fragment implements HomeViewModel.Event.Visito
     private void setupOptions() {
         RecyclerView elementRecyclerView = binding.homeFragmentRecyclerView;
 
-        List<OptionItem> items = Arrays.asList(
-                getItem(R.string.label_equipments, R.drawable.ic_camera_roll),
-                getItem(R.string.label_packages, R.drawable.ic_package)
-        );
+        List<OptionItem> items = getOptionItems();
 
         elementRecyclerView.setAdapter(new OptionAdapter(items));
 
@@ -120,8 +119,56 @@ public class HomeFragment extends Fragment implements HomeViewModel.Event.Visito
         );
     }
 
-    private OptionItem getItem(@StringRes int string, @DrawableRes int drawable) {
-        return new OptionItem(getString(string), getDrawable(drawable));
+    @NotNull
+    private List<OptionItem> getOptionItems() {
+        return Arrays.asList(
+                makeItem(
+                        R.string.label_equipments, R.string.description_equipment_icon, R.drawable.ic_camera_roll,
+                        HomeFragmentDirections.actionHomeToEquipments()
+                ),
+
+                makeItem(
+                        R.string.label_packages, R.string.description_package_icon, R.drawable.ic_package,
+                        HomeFragmentDirections.actionHomeToPackages()
+                ),
+
+                makeItem(
+                        R.string.label_employee, R.string.description_employee_icon, R.drawable.ic_person,
+                        HomeFragmentDirections.actionHomeToEmployees()
+                ),
+
+                makeItem(
+                        R.string.label_calendar, R.string.description_calendar_icon, R.drawable.ic_calendar,
+                        HomeFragmentDirections.actionHomeToCalendar()
+                ),
+
+                makeItem(
+                        R.string.label_photoshoot, R.string.description_photoshoot_icon, R.drawable.ic_camera,
+                        HomeFragmentDirections.actionHomeToPhotoshoots()
+                ),
+
+                makeItem(
+                        R.string.label_order, R.string.description_order_icon, R.drawable.ic_order,
+                        HomeFragmentDirections.actionHomeToOrders()
+                )
+        );
+    }
+
+    private OptionItem makeItem(
+            @StringRes int title,
+            @StringRes int contentDescription,
+            @DrawableRes int drawable,
+            NavDirections navigationTarget) {
+
+        return new OptionItemBuilder()
+                .itemName(getString(title))
+                .contentDescription(getString(contentDescription))
+                .imageIcon(getDrawable(drawable))
+                .clickListener(v -> {
+                    NavHostFragment.findNavController(this)
+                            .navigate(navigationTarget);
+                })
+                .build();
     }
 
     private Drawable getDrawable(int id) {
@@ -172,6 +219,6 @@ public class HomeFragment extends Fragment implements HomeViewModel.Event.Visito
 
     @Override
     public void visitError() {
-        snack(this, R.string.error_operation_failed);
+        swalError(this);
     }
 }

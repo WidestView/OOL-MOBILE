@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
-import com.example.ool_mobile.R;
 import com.example.ool_mobile.databinding.FragmentListPhotoshootBinding;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.service.Dependencies;
@@ -23,7 +22,7 @@ import com.example.ool_mobile.ui.util.form.FormModeValue;
 
 import java.util.UUID;
 
-import static com.example.ool_mobile.ui.util.SnackMessage.snack;
+import static com.example.ool_mobile.ui.util.SnackMessage.swalError;
 
 public class PhotoshootListFragment extends Fragment {
 
@@ -101,7 +100,7 @@ public class PhotoshootListFragment extends Fragment {
         viewModel.getEvents()
                 .to(DisposedFromLifecycle.of(this))
                 .subscribe(error -> {
-                    snack(this, R.string.error_operation_failed);
+                    swalError(this);
                 });
     }
 }

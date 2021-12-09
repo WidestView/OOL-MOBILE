@@ -19,7 +19,7 @@ import java.util.UUID;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
-import static com.example.ool_mobile.ui.util.SnackMessage.snack;
+import static com.example.ool_mobile.ui.util.SnackMessage.swalError;
 
 public class PhotoshootFormActivity extends AppCompatActivity implements
         PhotoshootViewModel.Event.Visitor,
@@ -105,7 +105,7 @@ public class PhotoshootFormActivity extends AppCompatActivity implements
 
     @Override
     public void visitError() {
-        snack(this, R.string.error_operation_failed);
+        swalError(this);
     }
 
     @Override

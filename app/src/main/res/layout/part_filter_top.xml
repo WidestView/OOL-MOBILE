@@ -7,7 +7,6 @@
     android:visibility="gone">
 
     <!-- TODO: consider implementing or getting rid of this
-          then make things visible
     -->
 
     <TextView

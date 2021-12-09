@@ -1,29 +1,28 @@
 package com.example.ool_mobile.ui.home;
 
 import android.graphics.drawable.Drawable;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-public class OptionItem {
+import com.example.ool_mobile.misc.BuilderOnly;
 
-    @NonNull
-    private final String itemName;
+import org.immutables.value.Value;
 
-    @NonNull
-    private final Drawable imageIcon;
-
-    public OptionItem(@NonNull String nameOfItem, @NonNull Drawable imageIcon) {
-        this.itemName = nameOfItem;
-        this.imageIcon = imageIcon;
-    }
+@Value.Immutable
+@BuilderOnly
+public interface OptionItem {
 
     @NonNull
-    public String getItemName() {
-        return itemName;
-    }
+    String getItemName();
 
     @NonNull
-    public Drawable getImageIcon() {
-        return imageIcon;
-    }
+    Drawable getImageIcon();
+
+    @NonNull
+    String getContentDescription();
+
+    @Nullable
+    View.OnClickListener getClickListener();
 }

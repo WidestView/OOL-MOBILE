@@ -21,7 +21,7 @@ import com.example.ool_mobile.ui.util.adapter.AdapterParameters;
 import com.example.ool_mobile.ui.util.form.FormMode;
 import com.example.ool_mobile.ui.util.form.FormModeValue;
 
-import static com.example.ool_mobile.ui.util.SnackMessage.snack;
+import static com.example.ool_mobile.ui.util.SnackMessage.swalError;
 
 public class EquipmentWithdrawListFragment extends Fragment {
 
@@ -71,7 +71,7 @@ public class EquipmentWithdrawListFragment extends Fragment {
 
         viewModel.getEvents()
                 .to(DisposedFromLifecycle.of(this))
-                .subscribe(event -> snack(this, R.string.error_operation_failed));
+                .subscribe(event -> swalError(this));
 
         viewModel.fetchWithdraws().observe(getViewLifecycleOwner(), withdraws -> {
 
