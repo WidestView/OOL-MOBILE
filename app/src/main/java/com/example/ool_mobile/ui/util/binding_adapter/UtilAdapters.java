@@ -77,13 +77,18 @@ public class UtilAdapters {
             @Nullable Drawable fallback,
             @Nullable Boolean cacheResult
     ) {
+        if (cacheResult == null) {
+            cacheResult = true;
+        }
 
         Objects.requireNonNull(imageView);
 
         RequestCreator request = Picasso.get()
                 .load(url);
 
-        if (cacheResult != null && cacheResult) {
+        cacheResult = false;
+
+        if (!cacheResult) {
             request.memoryPolicy(MemoryPolicy.NO_CACHE);
         }
 
