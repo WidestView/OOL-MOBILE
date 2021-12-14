@@ -18,9 +18,11 @@ import com.example.ool_mobile.model.ImmutableEquipmentDetails;
 import com.example.ool_mobile.model.ImmutableEquipmentKind;
 import com.example.ool_mobile.model.ImmutableEquipmentWithdraw;
 import com.example.ool_mobile.model.ImmutableOccupation;
+import com.example.ool_mobile.model.ImmutablePackageModel;
 import com.example.ool_mobile.model.ImmutablePhotoshoot;
 import com.example.ool_mobile.model.ImmutablePhotoshootImage;
 import com.example.ool_mobile.model.Occupation;
+import com.example.ool_mobile.model.PackageModel;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.model.PhotoshootImage;
 import com.example.ool_mobile.service.api.setup.ApiDate;
@@ -296,6 +298,59 @@ public class ModelJsonAdapter {
     @NonNull
     public ImmutableEmployeeToJson employeeModelToJson(@NonNull Employee employee) {
         throw new UnsupportedOperationException();
+    }
+
+    @FromJson
+    @NonNull
+    public PackageModel packageFromJson(@NonNull ImmutablePackageJson json) {
+        return ImmutablePackageModel.builder()
+                .id(json.id())
+                .isAvailable(json.available())
+                .baseValue(json.baseValue())
+                .description(json.description())
+                .imageQuantity(json.imageQuantity())
+                .maxIterations(json.maxIterations())
+                .pricePerPhoto(json.pricePerPhoto())
+                .name(json.name())
+                .quantityMultiplier(json.quantityMultiplier())
+                .build();
+    }
+
+    @ToJson
+    @NonNull
+    public ImmutablePackageJson packageToJson(@NonNull PackageModel model) {
+        return ImmutablePackageJson.builder()
+                .id(model.getId())
+                .available(model.isAvailable())
+                .baseValue(model.getBaseValue())
+                .description(model.getDescription())
+                .imageQuantity(model.getImageQuantity())
+                .maxIterations(model.getMaxIterations())
+                .pricePerPhoto(model.getPricePerPhoto())
+                .name(model.getName())
+                .quantityMultiplier(model.getQuantityMultiplier())
+                .build();
+    }
+
+    @Value.Immutable
+    interface PackageJson {
+        int id();
+
+        String name();
+
+        String description();
+
+        double baseValue();
+
+        double pricePerPhoto();
+
+        Integer imageQuantity();
+
+        Integer quantityMultiplier();
+
+        Integer maxIterations();
+
+        boolean available();
     }
 
 

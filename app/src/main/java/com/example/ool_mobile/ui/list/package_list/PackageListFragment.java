@@ -2,29 +2,24 @@ package com.example.ool_mobile.ui.list.package_list;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.ool_mobile.R;
-import com.example.ool_mobile.ui.util.Collapse;
+import com.example.ool_mobile.databinding.FragmentListPackageBinding;
+import com.example.ool_mobile.model.PackageModel;
+import com.example.ool_mobile.service.Dependencies;
+import com.example.ool_mobile.ui.util.adapter.AdapterParameters;
+import com.google.android.material.snackbar.Snackbar;
 
 
 public class PackageListFragment extends Fragment {
 
-    ViewGroup filterButtonView;
-
-    ImageView arrowImageView;
-
-    ViewGroup collapsedView;
-
+    private FragmentListPackageBinding binding;
 
     @Nullable
     @Override
@@ -33,55 +28,35 @@ public class PackageListFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState
     ) {
-        View view = inflater.inflate(R.layout.fragment_list_package, container, false);
+        binding = FragmentListPackageBinding.inflate(inflater, container, false);
 
-        collapsedView = view.findViewById(R.id.packageRow_collapseLayout);
-        arrowImageView = view.findViewById(R.id.packageRow_expandImageView);
-        filterButtonView = view.findViewById(R.id.filterTop_filterButtonView);
-
-        setHasOptionsMenu(true);
-
-        view.findViewById(R.id.packageList_addFab).setOnClickListener(v -> {
-
-
-        });
-
-        return view;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-
-        inflater.inflate(R.menu.search_bar, menu);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Collapse.on(collapsedView)
-                .startCollapsed()
-                .withToggle(arrowImageView);
+        PackageListViewModel viewModel = new ViewModelProvider(this, PackageListViewModel.create(
+                Dependencies.from(this)
+        )).get(PackageListViewModel.class);
 
-        filterButtonView.setOnClickListener(this::showMenu);
+        viewModel.getPackages().observe(getViewLifecycleOwner(), packages -> {
+
+            binding.setAdapter(new PackageRowAdapter(
+                    new AdapterParameters.Builder<PackageModel>()
+                            .items(packages)
+                            .build()
+            ));
+
+        });
     }
 
-    private void showMenu(View view) {
+    public void onAddButtonClick() {
 
-        PopupMenu popup = new PopupMenu(requireContext(), view);
-
-        Menu menu = popup.getMenu();
-        menu.add(R.string.label_type);
-        menu.add(R.string.label_price);
-        menu.add(R.string.label_quantity);
-
-        popup.show();
+        Snackbar.make(
+                requireView().findViewById(android.R.id.content),
+                "Not implemented yet", Snackbar.LENGTH_LONG
+        ).show();
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
 }

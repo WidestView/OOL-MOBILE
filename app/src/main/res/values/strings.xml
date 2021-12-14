@@ -74,6 +74,7 @@
     <string name="label_all">Todos</string>
     <string name="label_app_name">OOL-MOBILE</string>
     <string name="label_available">Disponível</string>
+    <string name="label_unavailable">Indisponível</string>
     <string name="label_base_value">Valor Base</string>
     <string name="label_birth_date">Data de Nascimento</string>
     <string name="label_calendar">Calendário</string>
