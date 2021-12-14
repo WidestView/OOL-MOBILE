@@ -40,13 +40,13 @@ public abstract class PackageModel {
     @Value.Derived
     public List<Integer> getImageQuantities() {
 
-        if (getImageQuantity() != null) {
+        if (coalesce(getImageQuantity()) != 0) {
             return Collections.singletonList(getImageQuantity());
         }
 
-        if (getQuantityMultiplier() != null && getMaxIterations() != null) {
+        if (coalesce(getQuantityMultiplier()) != 0 && coalesce(getMaxIterations()) != 0) {
 
-            List<Integer> result = new ArrayList<>(getMaxIterations());
+            List<Integer> result = new ArrayList<>(coalesce(getMaxIterations()));
 
             for (int i = 1; i <= getMaxIterations(); i++) {
 
@@ -57,6 +57,10 @@ public abstract class PackageModel {
         }
 
         throw new IllegalStateException("Invalid package quantity state");
+    }
+
+    private int coalesce(Integer x) {
+        return x == null ? 0 : x;
     }
 
 }
