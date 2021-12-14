@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_packages"
-        android:name="com.example.ool_mobile.ui.list.package_list.PackageListFragment"
+        android:name="com.example.ool_mobile.ui.list.package_model.PackageListFragment"
         android:label="@string/label_search"
         tools:layout="@layout/fragment_list_package" />
     <activity
@@ -163,7 +163,7 @@
 
     <fragment
         android:id="@+id/navigation_package_types"
-        android:name="com.example.ool_mobile.ui.list.package_list.PackageTypeListFragment"
+        android:name="com.example.ool_mobile.ui.list.package_model.PackageTypeListFragment"
         android:label="fragment_list_package_type"
         tools:layout="@layout/fragment_list_package_type">
         <action

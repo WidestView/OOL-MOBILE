@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.example.ool_mobile.ui.list.package_list.PackageListFragment" />
+            type="com.example.ool_mobile.ui.list.package_model.PackageListFragment" />
 
         <variable
             name="adapter"

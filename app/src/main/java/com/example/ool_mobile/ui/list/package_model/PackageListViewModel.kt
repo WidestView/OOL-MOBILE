@@ -1,4 +1,4 @@
-package com.example.ool_mobile.ui.list.package_list
+package com.example.ool_mobile.ui.list.package_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
