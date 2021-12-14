@@ -73,7 +73,7 @@
 
     <fragment
         android:id="@+id/navigation_orders"
-        android:name="com.example.ool_mobile.ui.list.order_list.OrderListFragment"
+        android:name="com.example.ool_mobile.ui.list.order.OrderListFragment"
         android:label="@string/menu_orders" />
 
     <fragment

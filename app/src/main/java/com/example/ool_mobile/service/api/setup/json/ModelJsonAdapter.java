@@ -18,15 +18,18 @@ import com.example.ool_mobile.model.ImmutableEquipmentDetails;
 import com.example.ool_mobile.model.ImmutableEquipmentKind;
 import com.example.ool_mobile.model.ImmutableEquipmentWithdraw;
 import com.example.ool_mobile.model.ImmutableOccupation;
+import com.example.ool_mobile.model.ImmutableOrder;
 import com.example.ool_mobile.model.ImmutablePackageModel;
 import com.example.ool_mobile.model.ImmutablePhotoshoot;
 import com.example.ool_mobile.model.ImmutablePhotoshootImage;
 import com.example.ool_mobile.model.Occupation;
+import com.example.ool_mobile.model.Order;
 import com.example.ool_mobile.model.PackageModel;
 import com.example.ool_mobile.model.Photoshoot;
 import com.example.ool_mobile.model.PhotoshootImage;
 import com.example.ool_mobile.service.api.setup.ApiDate;
 import com.squareup.moshi.FromJson;
+import com.squareup.moshi.Json;
 import com.squareup.moshi.ToJson;
 
 import org.immutables.value.Value;
@@ -330,6 +333,48 @@ public class ModelJsonAdapter {
                 .name(model.getName())
                 .quantityMultiplier(model.getQuantityMultiplier())
                 .build();
+    }
+
+
+    @ToJson
+    @NonNull
+    public OrderJson orderToJson(@NonNull Order order) {
+        throw new UnsupportedOperationException();
+    }
+
+    @FromJson
+    @NonNull
+    public Order orderFromJson(@NonNull OrderJson json) {
+        return ImmutableOrder.builder()
+                .customerId(json.customerId)
+                .customerName(json.customerName)
+                .id(json.id)
+                .imageQuantity(json.imageQuantity)
+                .packageId(json.packageModel.getId())
+                .packageModel(json.packageModel)
+                .price(json.price)
+                .purchaseDate(json.purchaseDate)
+                .isDelivered(json.delivered)
+                .build();
+    }
+
+    static class OrderJson {
+        int id;
+
+        @Json(name = "package")
+        PackageModel packageModel;
+
+        int imageQuantity;
+
+        double price;
+
+        Date purchaseDate;
+
+        String customerId;
+
+        String customerName;
+
+        boolean delivered;
     }
 
     @Value.Immutable

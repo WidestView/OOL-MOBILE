@@ -1,58 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.example.ool_mobile.ui.component.content_row.ContentRow
+    <data>
+
+        <variable
+            name="order"
+            type="com.example.ool_mobile.model.Order" />
+
+        <variable
+            name="uiDate"
+            type="com.example.ool_mobile.ui.util.UiDate" />
+
+        <variable
+            name="events"
+            type="com.example.ool_mobile.ui.component.content_row.ContentRowEvents" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:statusText="ALGUMSTO CLENTO"
-        app:titleText="Pedido 27">
+        android:layout_height="wrap_content">
 
-        <com.example.ool_mobile.ui.component.content_row.ContentRowField
-            android:layout_width="wrap_content"
+        <com.example.ool_mobile.ui.component.content_row.ContentRow
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:label="ID"
-            app:value="@string/sample_id" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleText="@{order.customerName}"
+            app:statusText="@{@string/format_numeric_id(order.id)}"
+            events="@{events}">
 
-        <com.example.ool_mobile.ui.component.content_row.ContentRowField
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="Pacote"
-            app:value="#32 - Pacote Random" />
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="ID"
+                app:value="@{String.valueOf(order.id)}" />
 
-        <com.example.ool_mobile.ui.component.content_row.ContentRowField
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="Carrinho"
-            app:value="#27" />
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Pacote"
+                app:value="@{@string/format_id_name(order.packageId, order.packageModel.name)}" />
 
-        <com.example.ool_mobile.ui.component.content_row.ContentRowField
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="Entrege"
-            app:value="Sim" />
 
-        <com.example.ool_mobile.ui.component.content_row.ContentRowField
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="Quantidade de Imagens"
-            app:value="32" />
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Quantidade de Imagens"
+                app:value="@{String.valueOf(order.imageQuantity)}" />
 
-        <com.example.ool_mobile.ui.component.content_row.ContentRowField
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="Preço"
-            app:value="R$ 50" />
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Preço"
+                app:value="@{String.valueOf(order.price)}" />
 
-        <com.example.ool_mobile.ui.component.content_row.ContentRowField
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:label="Data de Entrega"
-            app:value="23/08/2022" />
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Data de Entrega"
+                app:value="@{uiDate.formatDate(order.purchaseDate)}" />
 
-    </com.example.ool_mobile.ui.component.content_row.ContentRow>
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Cliente"
+                app:value="@{@string/format_string_id_name(order.customerId, order.customerName)}" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.example.ool_mobile.ui.component.content_row.ContentRowField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label="Entrege"
+                app:value="@{order.delivered ? @string/value_yes : @string/value_no}" />
+
+        </com.example.ool_mobile.ui.component.content_row.ContentRow>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
