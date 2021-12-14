@@ -31,11 +31,14 @@
         <item
             android:id="@+id/navigation_equipmentDetails"
             android:iconTint="@color/gray_dark"
-            android:title="@string/menu_equipment_details" />
+            android:title="@string/menu_equipment_details"
+            android:icon="@drawable/ic_detail_equipments"
+            />
 
         <item
             android:id="@+id/navigation_equipmentWithdraws"
             android:iconTint="@color/gray_dark"
+            android:icon="@drawable/ic_equipments_withdrawal"
             android:title="@string/menu_equipment_withdraw" />
 
         <item
@@ -59,11 +62,13 @@
         <item
             android:id="@+id/navigation_equipment_type"
             android:iconTint="@color/gray_dark"
-            android:title="@string/label_equipment_types" />
+            android:title="@string/label_equipment_types"
+            android:icon="@drawable/ic_type_of_equipment"/>
 
         <item
             android:id="@+id/navigation_occupation"
             android:iconTint="@color/gray_dark"
+            android:icon="@drawable/ic_occupation"
             android:title="@string/label_occupation" />
     </group>
 </menu>

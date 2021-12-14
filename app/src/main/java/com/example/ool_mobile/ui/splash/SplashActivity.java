@@ -2,6 +2,9 @@ package com.example.ool_mobile.ui.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +18,7 @@ import com.example.ool_mobile.ui.login.LoginActivityArgs;
 import com.example.ool_mobile.ui.util.DisposedFromLifecycle;
 
 public class SplashActivity extends AppCompatActivity implements SplashViewModel.Event.Visitor {
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +42,8 @@ public class SplashActivity extends AppCompatActivity implements SplashViewModel
                 .subscribe(event -> {
                     event.accept(this);
                 });
+
+
 
     }
 

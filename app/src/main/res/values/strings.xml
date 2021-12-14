@@ -144,8 +144,8 @@
     <string name="menu_calendar_viewLabel">Calendário</string>
     <string name="menu_customers">Clientes</string>
     <string name="menu_employees">Funcionários</string>
-    <string name="menu_equipment_details">Detalhes Eq.</string>
-    <string name="menu_equipment_withdraw">Retiradas Eq.</string>
+    <string name="menu_equipment_details">Detalhes dos Equipamentos</string>
+    <string name="menu_equipment_withdraw">Retiradas de Equipamentos</string>
     <string name="menu_equipments">Equipamentos</string>
     <string name="menu_firings">Demissões</string>
     <string name="menu_hirings">Contratos</string>

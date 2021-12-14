@@ -1,20 +1,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?attr/appWidgetBackgroundColor"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     android:padding="@dimen/widget_margin"
     android:theme="@style/ThemeOverlay.OOLMOBILE.AppWidgetContainer">
 
     <ImageView
-        app:tint="?attr/appWidgetTintColor"
-        android:contentDescription="@string/description_widget_qr"
+
         android:id="@+id/qrSpawnWidget_imageView"
+        style="@style/CornerOfWidget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_qr_big"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp" />
+        android:layout_centerInParent="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/description_widget_qr"
+        android:src="@drawable/widget_ool" />
 
 </RelativeLayout>
