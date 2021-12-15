@@ -137,7 +137,8 @@ public class ContentActivity extends AppCompatActivity implements WithDrawer {
                 R.id.navigation_equipmentDetails,
                 R.id.navigation_equipmentWithdraws,
                 R.id.navigation_employees,
-                R.id.navigation_orders
+                R.id.navigation_orders,
+                R.id.navigation_occupation
         ).setOpenableLayout(drawer).build();
     }
 
